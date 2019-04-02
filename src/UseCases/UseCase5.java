@@ -1,4 +1,4 @@
-package useCases;
+package UseCases;
 
 import Controller.Board;
 import Controller.Dice;
@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 /***
  * 18. A player lands on a mortgaged property, no rent has to be paid.
  */
-public class apiUseCase5 {
+public class UseCase5 {
     Player player = Mockito.mock(Player.class);
     Board board = Mockito.mock(Board.class);
     Game game = Mockito.mock(Game.class);
