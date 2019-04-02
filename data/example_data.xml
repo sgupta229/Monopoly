@@ -24,7 +24,6 @@
             </GetOutOfJail>
             ...
         </ActionCards>
-        <BoardConfiguration>ExampleBoardConfig.csv</BoardConfiguration>
         <Dice>
             <NumberOfDice>2</NumberOfDice>
             <Sides>6</Sides>
@@ -76,14 +75,31 @@
             </PropertyGroup>
         </Properties>
         <Spaces>
-            <SpaceType>PropertySpace</SpaceType>
-            <SpaceType>Go</SpaceType>
-            <SpaceType>GoToJail</SpaceType>
-            <SpaceType>Jail</SpaceType>
-            <SpaceType>IncomeTax</SpaceType>
-            <SpaceType>FreeParking</SpaceType>
-            <SpaceType>Chance</SpaceType>
-            <SpaceType>CommunityChest</SpaceType>
+            <GoSpace>
+                <SpaceIndex>0</SpaceIndex>
+                <SpaceName>Go</SpaceName>
+            </GoSpace>
+            <PropertySpace>
+                <SpaceIndex>1</SpaceIndex>
+                <SpaceName>Oriental</SpaceName>
+            </PropertySpace>
+            <ChanceSpace>
+                <SpaceIndex>2</SpaceIndex>
+                <SpaceName>Chance</SpaceName>
+            </ChanceSpace>
+            <PropertySpace>
+                <SpaceIndex>3</SpaceIndex>
+                <SpaceName>Vermont</SpaceName>
+            </PropertySpace>
+            <PropertySpace>
+                <SpaceIndex>4</SpaceIndex>
+                <SpaceName>Connecticut</SpaceName>
+            </PropertySpace>
+            ...
+            <JailSpace>
+                <SpaceIndex>10</SpaceIndex>
+                <SpaceName>Jail</SpaceName>
+            </JailSpace>
         </Spaces>
         <Tokens>
             <token>TopHat.png</token>
