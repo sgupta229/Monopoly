@@ -1,13 +1,5 @@
-package usecases
+package UseCases;
 
-import Controller.*;
-import Model.*;
-import org.mockito.Mockito;
-
-/***
- * 2. A player lands on Chance, draws "Advance to Go, collect $200", your token is moved and your funds are updated appropriately,
- * and the card is returned to the bottom of the deck.
- */
 import Controller.Board;
 import Controller.Dice;
 import Controller.Game;
@@ -22,7 +14,7 @@ import org.mockito.Mockito;
  * 2. A player lands on Chance, draws "Advance to Go, collect $200", your token is moved and your funds are updated appropriately,
  * and the card is returned to the bottom of the deck.
  */
-public class apiUseCase4{
+public class UseCase4{
     Player player = Mockito.mock(Player.class);
     Board board = Mockito.mock(Board.class);
     Game game = Mockito.mock(Game.class);
