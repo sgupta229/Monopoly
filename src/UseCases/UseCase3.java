@@ -31,6 +31,6 @@ public class UseCase3 {
     float rent = spaceProp.calculateRent();
     if(playerToPay != null){
         //Player will implement transfer interface and therefore will have method makePayment(amount, payTo)
-        currPlayer.makePayment(rent, playerToPay);
+       currPlayer.makePayment(rent, playerToPay);
     }
 }

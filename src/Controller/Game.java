@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.Bank;
+import Model.Deck;
+import Model.DeckType;
 import Model.Player;
 
 import java.util.List;
@@ -49,4 +51,11 @@ public interface Game {
      * @return
      */
     public Board getBoard();
+
+    /**
+     * Returns the deck of action cards specified by space
+     * @param type
+     * @return
+     */
+    public Deck getActionDeck(DeckType type);
 }

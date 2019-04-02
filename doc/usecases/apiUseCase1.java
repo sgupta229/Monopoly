@@ -1,32 +1,37 @@
-/**
- * A player lands on Chance, draws "Bank pays you a dividend of $50", your funds are updated appropriately, and the card is returned to the bottom of the deck
- */
+package UseCases;
+
 import Controller.*;
 import Model.*;
+import org.mockito.Mockito;
 
-public class useCase1 {
-    //Player holds instance of token
-    Player player = new Player();
-    //Board holds instances of spaces
-    Board board = new Board();
-    //Game holds instances of players, bank, dice, board, deck
-    Game game = new Game();
+/** USE CASE:
+ * A player lands on Chance, draws "Bank pays you a dividend of $50", your funds are updated appropriately, and the card is returned to the bottom of the deck
+ */
 
-    Bank bank = new Bank();
-    Dice die = new Dice();
-    Deck chanceDeck = new Deck();
+public class UseCase1 {
+    private Game gameMock = Mockito.mock(Game.class);
+    private DeckType deckType = DeckType.CHANCE;
 
-    game.startTurn(player);
+    Player currPlayer = gameMock.getCurrentPlayer();
+    Token token = currPlayer.getMyToken();
+    Board board = gameMock.getBoard();
+    Bank bank = gameMock.getBank();
+    Deck chanceDeck = gameMock.getActionDeck(deckType);
+
+    //Starts turn for player
+    gameMock.startTurn(currPlayer);
+
     //In start turn method of game:
-    int roll = game.dice.roll(6);
-    int newLocation = player.token.move(roll);
+    int roll = gameMock.getDiceRoll();
+    int newLocation = token.move(roll);
     Space sp = board.getSpaceAt(newLocation);
-    sp.doAction(game);
+    sp.doAction(gameMock);
 
     //doAction method for chance space will ->
-    ActionCard cd = game.chanceDeck.draw();
-    cd.doAction(game);
+    ActionCard cd = chanceDeck.drawCard();
+    cd.doAction(gameMock);
 
     //cd.doAction method will ->
-    game.bank.makePayment(50, player);
+    //bank will implement transfer interface with makePayment method
+    bank.makePayment(50, currPlayer);
 }
