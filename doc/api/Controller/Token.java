@@ -8,8 +8,9 @@ public interface Token {
     /***
      * moves the player the specifc amount ahead on the board
      * @param amount
+     * @return new location int
      */
-    public void move(int amount);
+    public int move(int amount);
 
     /***
      * gets the players current location in terms of its index on the board

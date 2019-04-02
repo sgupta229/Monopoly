@@ -1,4 +1,5 @@
 package Model;
+import java.util.List;
 
 /***
  * Keeps track of its own funds and also the ownership of properties. Will eventually implement Transfer,
@@ -26,5 +27,5 @@ public interface Bank {
      * @param property
      * @param auctionGoers
      */
-    public void auctionProperty(Property property, List<Players> auctionGoers)
+    public void auctionProperty(Property property, List<Player> auctionGoers);
 }
