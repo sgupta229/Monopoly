@@ -24,7 +24,7 @@
             </GetOutOfJail>
             ...
         </ActionCards>
-        <BoardConfiguration>NormalBoardConfig.csv</BoardConfiguration>
+        <BoardConfiguration>ExampleBoardConfig.csv</BoardConfiguration>
         <Dice>
             <NumberOfDice>2</NumberOfDice>
             <Sides>6</Sides>
