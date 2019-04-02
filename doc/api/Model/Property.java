@@ -33,12 +33,9 @@ public interface Property {
     /***
      * A method that utilizes the member variables to calculate how
      * much it costs when someone lands on this property
-     * @param numHouses the number of houses on the property, numHotels the number of
-     *                  hotels on the property, mortgageExists whether there is a mortgage,
-     *                  monopolyAchieved whether the player has monopoly
      * @return the total rent value to be paid
      */
-    public float calculateRent(int numHouses, int numHotels, boolean mortgageExists, boolean monopolyAcheived);
+    public float calculateRent();
 
 
 }
