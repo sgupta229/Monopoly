@@ -1,0 +1,107 @@
+<AllGames>
+    <NormalGame>
+        <Rules>
+            <BuildRule>Monopoly Needed</BuildRule>
+            <WinGameRule>Reach $1 million</WinGameRule>
+            <InitialPlayerFunds>20,000</InitialPlayerFunds>
+            ...
+        </Rules>
+        <ActionCards>
+            <GoToJail>
+                <Deck>Community Chest</Deck>
+                <Message>You got caught robbing a bank! Go directly to jail!</Message>
+                <Holdable>false</Holdable>
+            </GoToJail>
+            <MoveTo>
+                <Deck>Chance</Deck>
+                <Message>Move to Boardwalk. If owned, pay owner twice the rent. Otherwise you can buy it!</Message>
+                <Holdable>false</Holdable>
+            </MoveTo>
+            <GetOutOfJail>
+                <Deck>Community Chest</Deck>
+                <Message>Get out of jail free!</Message>
+                <Holdable>true</Holdable>
+            </GetOutOfJail>
+            ...
+        </ActionCards>
+        <BoardConfiguration>ExampleBoardConfig.csv</BoardConfiguration>
+        <Dice>
+            <NumberOfDice>2</NumberOfDice>
+            <Sides>6</Sides>
+        </Dice>
+        <Buildings>
+            <Houses>20</Houses>
+            <Hotels>10</Hotels>
+            ...
+        </Buildings>
+        <Bank>
+            <StartingFunds>20,000,000</StartingFunds>
+        </Bank>
+        <Properties>
+            <PropertyGroup>
+                <group>Blue</group>
+                <name>Park Place</name>
+                <price>400</price>
+                <rent>35</rent>
+                <with1house>175</with1house>
+                <with2houses>500</with2houses>
+                <with3houses>1100</with3houses>
+                <with4houses>1300</with4houses>
+                <withHotel>1500</withHotel>
+                <mortgageValue>175</mortgageValue>
+                <houseCost>200</houseCost>
+                <hotelCost>200</hotelCost>
+            </PropertyGroup>
+            <PropertyGroup>
+                <group>Blue</group>
+                <name>Boardwalk</name>
+                ...
+            </PropertyGroup>
+            <PropertyGroup>
+                <group>Railroad</group>
+                <name>Reading Railroad</name>
+                <price>200</price>
+                <rent>25</rent>
+                <rent2owned>50</rent2owned>
+                <rent3owned>100</rent3owned>
+                <rent4owned>200</rent4owned>
+            </PropertyGroup>
+            ...
+            <PropertyGroup>
+                <group>Utility</group>
+                <name>Water Works</name>
+                <price>150</price>
+                <rent>4x</rent>
+                <rent2owned>10x</rent2owned>
+            </PropertyGroup>
+        </Properties>
+        <Spaces>
+            <SpaceType>PropertySpace</SpaceType>
+            <SpaceType>Go</SpaceType>
+            <SpaceType>GoToJail</SpaceType>
+            <SpaceType>Jail</SpaceType>
+            <SpaceType>IncomeTax</SpaceType>
+            <SpaceType>FreeParking</SpaceType>
+            <SpaceType>Chance</SpaceType>
+            <SpaceType>CommunityChest</SpaceType>
+        </Spaces>
+        <Tokens>
+            <token>TopHat.png</token>
+            <token>Dog.png</token>
+            <token>Thimble.png</token>
+            ...
+        </Tokens>
+    </NormalGame>
+    <GameType2>
+        <Rules>...</Rules>
+        <ActionCards>...</ActionCards>
+        <BoardConfiguration>...</BoardConfiguration>
+        <Dice>...</Dice>
+        <Buildings>...</Buildings>
+        <Bank>...</Bank>
+        <Properties>...</Properties>
+        <Spaces>...</Spaces>
+        <Tokens>...</Tokens>
+    </GameType2>
+</AllGames>
+
