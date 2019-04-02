@@ -1,4 +1,5 @@
 package Model;
+import java.util.*;
 
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,
@@ -22,7 +23,7 @@ public interface Property {
      * Allows for users to see the color of a property which is crucial for monopolies
      * @return the color of this property
      */
-    public Color getPropertyColor();
+    public String getPropertyColor();
 
     /***
      * A getter method that returns the price of this property

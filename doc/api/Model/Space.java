@@ -1,4 +1,6 @@
 package Model;
+import Controller.*;
+import java.util.*;
 
 /***
  * This will be the interface that represents all the different kind of spaces
