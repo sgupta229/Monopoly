@@ -1,14 +1,14 @@
-1. A player lands on Chance, draws "Bank pays you a dividend of $50", your funds are updated appropriately, and the card is returned to the bottom of the deck.
+1. A player lands on Chance, draws "Bank pays you a dividend of $50", your funds are updated appropriately, and the card is returned to the bottom of the deck. *******
 2. A player lands on Chance, draws "Advance to Go, collect $200", your token is moved and your funds are updated appropriately, and the card is returned to the bottom of the deck.
 3. A player lands on Chance, draws "Get Out of Jail Free", and it is saved with your inventory, and the card is returned to the bottom of the deck.
 4. A player lands on Chance, draws "Go to Jail, Go directly to Jail", your token is moved (passing Go, but not collecting any money) and placed in jail, and the card is returned to the bottom of the deck.
 5. A new rule is added that lets a player draw a Chance card when landing on Free Parking space.
 6. A new theme for the game is designed, creating cards in a different language.
 7. A player lands on Income Tax, and is forced to pay 10% of the money you have or $200 to the bank.   
-8. A player lands on Go To Jail, token is moved directly to jail without passing go, player can either roll doubles or pay 50 to the bank to get out.
+8. A player lands on Go To Jail, token is moved directly to jail without passing go, player can either roll doubles or pay 50 to the bank to get out. *********
 9. A player collects $200, when they pass the Go space. 
 10. A player lands on an unowned property space, can either pay to own the property or allow it to go up for auction through the bank. 
-11. A player lands on an owned property space, if the player does not own that space the player must pay the rent for that space to the player who owns it.
+11. A player lands on an owned property space, if the player does not own that space the player must pay the rent for that space to the player who owns it. ********
 12. A player lands on an owned property that is a part of a monopoly, the player must pay double the rent shown on the property card.
 13. At the start of the game, each player rolls, the player with the highest number starts first and it goes around the board clockwise.
 14. A player lands on a space occupied by another player.
