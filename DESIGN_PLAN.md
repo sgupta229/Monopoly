@@ -142,6 +142,10 @@ their doAction method will be the same.
     * shuffle()
     * discard()
 
+Here is a UML diagram:
+
+![Alt text](DESIGN_PLAN.md "Title")
+
 ###User interface
 
 * Splash screen 1 will be the first thing that the user sees. They will choose what game type to 
@@ -165,13 +169,15 @@ A button for instructions will also be on the screen. Start the game by clicking
         * Other player clicks accept or decline trade button
     * Property management button brings up a pop up window.
         * Choose action (build or sell) from tabs.
-        * Choose which property you would like to build on and choose number of houses to build with increment buttons. Displays price info. Click confirm button to buy.
+        * Choose which property you would like to build on and choose number of houses to build with 
+        increment buttons. Displays price info. Click confirm button to buy.
         * Choose which property you would like to sell from drop down and click confirm button.
     * Button to end turn
 * UI design goals - make it flexible to create the UI for new game types and create reusable components 
 to minimize repetition.
 * How a game is represented to the designer and what support is provided to make it easy to create a game:
-    * The layout of the GUI is mostly similar between game types, with the left side of the screen displaying the board and the right side displaying the gameplay controls.
+    * The layout of the GUI is mostly similar between game types, with the left side of the screen 
+    displaying the board and the right side displaying the gameplay controls.
     * We will create an abstract board display class which each game type will extend.
     * We will create an abstract space display class extended by:
         * top/bottom space display
@@ -185,7 +191,9 @@ to minimize repetition.
     * Each game type will extend the Layout class and add a board display, gameplay controls, 
     and player info
 * Erroneous situations:
-    * Our design minimizes places for user error because the user interacts with the game only through buttons. The only place where the user could leave the name TextField empty. In this case, we will choose a name for them :).
+    * Our design minimizes places for user error because the user interacts with the game only through 
+    buttons. The only place where the user could leave the name TextField empty. In this case, we will 
+    choose a name for them :).
 
 ###Design details
 
