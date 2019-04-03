@@ -144,7 +144,7 @@ their doAction method will be the same.
 
 Here is a UML diagram:
 
-![Alt text](DESIGN_PLAN.md "Title")
+![Alt UML Diagram](Main.png "Title")
 
 ###User interface
 
