@@ -27,5 +27,5 @@ public interface Bank {
      * @param property
      * @param auctionGoers
      */
-    public void auctionProperty(Property property, List<Player> auctionGoers)
+    public void auctionProperty(Property property, List<Player> auctionGoers);
 }

@@ -1,4 +1,6 @@
 package Model;
+import Controller.*;
+import java.util.*;
 
 /***
  * Represents each participant in the game. Will hold a total amount of funds, an array of assets held,

@@ -1,4 +1,4 @@
-package useCases;
+package UseCases;
 
 import Controller.Board;
 import Controller.Dice;
@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 /***
  9. A player collects $200, when they pass the Go space.
  */
-public class apiUseCase6 {
+public class UseCase6 {
 
     Player player = Mockito.mock(Player.class);
     Board board = Mockito.mock(Board.class);

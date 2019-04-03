@@ -1,4 +1,4 @@
-Introduction:
+###Introduction
 
 * Problem we are solving - allow users to play multiple variations of monopoly with different spaces, 
 different rules, and different board formations.
@@ -26,7 +26,7 @@ Game class will foster the connections between all of the other working classes.
 will be completely separate from the functional gameplay classes that will be found in the back end of our 
 program.  Our goal is to create a modular program that can easily be used to play multiple forms of monopoly.    
 
-Overview:
+###Overview
 
 We plan on having 3 packages: model, view, and controller. 
 
@@ -142,7 +142,8 @@ their doAction method will be the same.
     * shuffle()
     * discard()
 
-User interface:
+###User interface
+
 * Splash screen 1 will be the first thing that the user sees. They will choose what game type to 
 play by clicking one of the buttons listed.
 * Splash screen 2 will allow users to add player by choosing a token from a drop down, 
@@ -186,7 +187,10 @@ to minimize repetition.
 * Erroneous situations:
     * Our design minimizes places for user error because the user interacts with the game only through buttons. The only place where the user could leave the name TextField empty. In this case, we will choose a name for them :).
 
-Design details: The overall program will be divided into 3 modules: Model, View, and Controller.
+###Design details
+
+The overall program will be divided into 3 modules: Model, View, and Controller.
+
 * Space Class/Interface
     * Space can either be a class or an interface. As of now, there is only one abstract method 
     doAction(). When a player lands on a specific type of space (ResidentialSpace implements/extends 
@@ -375,7 +379,7 @@ Design details: The overall program will be divided into 3 modules: Model, View,
     variable to which users discard their used action cards.  
     * Furthermore, the Deck class will have three methods.  First, the draw() method removes and returns the action card at the top of the “liveCards” list.  It also checks to see if the “liveCards” list is empty, and if so, calls its other method, shuffle().  Shuffle simply re-orders the “deadCards” list and sets “liveCards” equal to this newly reordered list of action cards.  Then, it resets “deadCards” to an empty list, thereby reshuffling and refilling the action cards that can be drawn by players.  Finally, the discardCard() method takes an action card as a parameter and adds it to the “deadCards” list.  This method is called after an action card has been used and its doAction() method has been completed.   
 
-Example games: 
+###Example games
 
 * Monopoly City is a variation that is quite different because the game includes a variety of building 
 types such as parks, water towers, wind farms, schools, prisons, sewage plants, trash dumps, and power plants. 
@@ -383,42 +387,72 @@ types such as parks, water towers, wind farms, schools, prisons, sewage plants, 
         * We will specify in the XML file all the type of buildings a user can build (as well as details 
         such as cost of building and effects of building).
         * Our design then incorporates this through our Property hierarchy. Each property will keep 
-        track of the variety of objects that are on it. The specific property type will have a rent value that is calculated based on the rules determining how these objects affect the rent of the property.
-Having new tokens and different types of properties will be handled by the property since it will know its current rent.
-Another difference is that you do not need 3 of a kind to start building.
-This is incorporated in our XML file under the rules section. If a player will be able to build under certain conditions. If those conditions are met, in this case the condition to have 3 colors in a color group is not needed, then the player will be able to build.
-Another game that is different is Solarquest. This game is significantly different than the original for a few reasons. The first difference is the shape of the board. The board is not a square (or circle) but an interesting twisted shape in which the player moves from planet to planet. Another difference is that players can run out of fuel, and if they do, they become stranded. Some moves do not require fuel while some do. The third difference is that there is a laser battle that can blow an opponent up.
-To handle the shape of the board:
-This is why we have a board class. The specific function of the board class is to index the board and specify which spots are next to each other. This class will have methods that convert an index to an actual space and vis-versa. 
-For fuel:
-In our XML, we will have rules about movement. In the rules about movement, we will specify specific rules about how much a player can move.
-For laser battles:
-In this game, a player can initiate a laser battle with another player if they are close enough to each other. If the players are close enough, then they can have a laser battle by rolling. If the player rolls doubles they damage the opponent, and if they roll double sixes they destroy the opponent. This feature can be added to the players, and they will be given an option to initiate a laser battle if they are close enough to someone else.
-We could specify actions that a player can take in our XML file and parse the rules and results.
-House rules monopoly is simply modifying a lot of the rules in the original monopoly game. Some of these differences include a different amount of money given when passing Go, more start money, free parking cash, etc. There are a variety of different and small rules to implement to be able to play this game.
-I think our design handles this by using the an XML file. We can specify as many tags as we want that specify information, that we will have to parse accordingly. A lot of these changes, such as the amount of money given when passing Go or how much money each player starts with is simply specifying a value in our rules tag that indicates those values. Thus, when creating a new game, we would create a new XML that includes specific tags for different rules.
+        track of the variety of objects that are on it. The specific property type will have a rent value that 
+        is calculated based on the rules determining how these objects affect the rent of the property.
+        * Having new tokens and different types of properties will be handled by the property since it will
+         know its current rent.
+    * Another difference is that you do not need 3 of a kind to start building.
+        * This is incorporated in our XML file under the rules section. If a player will be able to 
+        build under certain conditions. If those conditions are met, in this case the condition to 
+        have 3 colors in a color group is not needed, then the player will be able to build.
+* Another game that is different is Solarquest. This game is significantly different than the original 
+for a few reasons. The first difference is the shape of the board. The board is not a square (or circle) 
+but an interesting twisted shape in which the player moves from planet to planet. Another difference is 
+that players can run out of fuel, and if they do, they become stranded. Some moves do not require fuel while 
+some do. The third difference is that there is a laser battle that can blow an opponent up.
+    * To handle the shape of the board:
+        * This is why we have a board class. The specific function of the board class is to index the 
+        board and specify which spots are next to each other. This class will have methods that convert 
+        an index to an actual space and vis-versa. 
+        * For fuel:
+            * In our XML, we will have rules about movement. In the rules about movement, we will specify 
+            specific rules about how much a player can move.
+    * For laser battles:
+        * In this game, a player can initiate a laser battle with another player if they are close enough 
+        to each other. If the players are close enough, then they can have a laser battle by rolling. 
+        If the player rolls doubles they damage the opponent, and if they roll double sixes they destroy 
+        the opponent. This feature can be added to the players, and they will be given an option to 
+        initiate a laser battle if they are close enough to someone else.
+    * We could specify actions that a player can take in our XML file and parse the rules and results.
+* House rules monopoly is simply modifying a lot of the rules in the original monopoly game. 
+Some of these differences include a different amount of money given when passing Go, more start money, 
+free parking cash, etc. There are a variety of different and small rules to implement to be able to 
+play this game.
+    * I think our design handles this by using the an XML file. We can specify as many tags as we want 
+    that specify information, that we will have to parse accordingly. A lot of these changes, such as the 
+    amount of money given when passing Go or how much money each player starts with is simply specifying 
+    a value in our rules tag that indicates those values. Thus, when creating a new game, we would create 
+    a new XML that includes specific tags for different rules.
 
-Design considerations:
-Assets in Player Class:
-Pros 
-Players are aware of all properties they own and any holadble action cards they may own
-Easily accessible to player, thus allows for trading between players and mortgaging/selling to the bank to be easier
-Cons
-The bank already knows what properties are owned, it would be easy code to also make it the responsibility of the bank to know what property is owned by what player
-Houses in Property Class:
-Pros
-Properties are responsible for knowing any and everything that could affect rent
-Easy to implement code that checks number of houses for a given property and increases rent accordingly because all in same class
-Cons
-Houses should be a part of assets in the player class, because they can be individually sold to the bank or a player 
-CheckMonopoly(Property) in Player Class:
-Pros
-Player contains the properties a player owns thus it is simpler to create this method inside that class because the information to answer is located there
-Cons
-A property could be responsible for knowing how many properties are in its color group thus when it is owned with the rest of the properties that complete it this method could be set to true if it were a part of the property class
-Token Class
-Pros
-Simplifies code, because now the Player class can be responsible for one less action
-Cons
-Adds a class that could be two methods in the play 
-Applies to the player class, because a token is a representation of a player, therefore it should be controlled by the player
+###Design considerations
+* Assets in Player Class:
+        * Pros 
+            * Players are aware of all properties they own and any holadble action cards they may own
+            * Easily accessible to player, thus allows for trading between players and mortgaging/selling 
+            to the bank to be easier
+        * Cons
+            * The bank already knows what properties are owned, it would be easy code to also make it the 
+            responsibility of the bank to know what property is owned by what player
+* Houses in Property Class:
+    * Pros
+        * Properties are responsible for knowing any and everything that could affect rent
+        * Easy to implement code that checks number of houses for a given property and increases rent 
+        accordingly because all in same class
+    * Cons
+        * Houses should be a part of assets in the player class, because they can be individually sold 
+        to the bank or a player 
+* CheckMonopoly(Property) in Player Class:
+    * Pros
+        * Player contains the properties a player owns thus it is simpler to create this method 
+            inside that class because the information to answer is located there
+    * Cons
+        * A property could be responsible for knowing how many properties are in its color group 
+            thus when it is owned with the rest of the properties that complete it this method could be 
+            set to true if it were a part of the property class
+* Token Class
+    * Pros
+        * Simplifies code, because now the Player class can be responsible for one less action
+    * Cons
+        * Adds a class that could be two methods in the play 
+        * Applies to the player class, because a token is a representation of a player, 
+        therefore it should be controlled by the player
