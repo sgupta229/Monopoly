@@ -12,6 +12,7 @@ public class UseCase1 {
     private Game gameMock = Mockito.mock(Game.class);
     private DeckType deckType = DeckType.CHANCE;
 
+    //Game holds instances of all of these classes and therefore retreive them from getters in game
     Player currPlayer = gameMock.getCurrentPlayer();
     Token token = currPlayer.getMyToken();
     Board board = gameMock.getBoard();

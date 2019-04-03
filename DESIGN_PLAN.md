@@ -1,4 +1,4 @@
-###Introduction
+### Introduction
 
 * Problem we are solving - allow users to play multiple variations of monopoly with different spaces, 
 different rules, and different board formations.
@@ -26,7 +26,7 @@ Game class will foster the connections between all of the other working classes.
 will be completely separate from the functional gameplay classes that will be found in the back end of our 
 program.  Our goal is to create a modular program that can easily be used to play multiple forms of monopoly.    
 
-###Overview
+### Overview
 
 We plan on having 3 packages: model, view, and controller. 
 
@@ -146,7 +146,7 @@ Here is a UML diagram:
 
 ![Alt UML Diagram](Main.png "Title")
 
-###User interface
+### User interface
 
 * Splash screen 1 will be the first thing that the user sees. They will choose what game type to 
 play by clicking one of the buttons listed.
@@ -195,7 +195,7 @@ to minimize repetition.
     buttons. The only place where the user could leave the name TextField empty. In this case, we will 
     choose a name for them :).
 
-###Design details
+### Design details
 
 The overall program will be divided into 3 modules: Model, View, and Controller.
 
@@ -387,7 +387,7 @@ The overall program will be divided into 3 modules: Model, View, and Controller.
     variable to which users discard their used action cards.  
     * Furthermore, the Deck class will have three methods.  First, the draw() method removes and returns the action card at the top of the “liveCards” list.  It also checks to see if the “liveCards” list is empty, and if so, calls its other method, shuffle().  Shuffle simply re-orders the “deadCards” list and sets “liveCards” equal to this newly reordered list of action cards.  Then, it resets “deadCards” to an empty list, thereby reshuffling and refilling the action cards that can be drawn by players.  Finally, the discardCard() method takes an action card as a parameter and adds it to the “deadCards” list.  This method is called after an action card has been used and its doAction() method has been completed.   
 
-###Example games
+### Example games
 
 * Monopoly City is a variation that is quite different because the game includes a variety of building 
 types such as parks, water towers, wind farms, schools, prisons, sewage plants, trash dumps, and power plants. 
@@ -432,7 +432,7 @@ play this game.
     a value in our rules tag that indicates those values. Thus, when creating a new game, we would create 
     a new XML that includes specific tags for different rules.
 
-###Design considerations
+### Design considerations
 * Assets in Player Class:
         * Pros 
             * Players are aware of all properties they own and any holadble action cards they may own

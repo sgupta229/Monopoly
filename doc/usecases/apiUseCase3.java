@@ -12,6 +12,7 @@ public class UseCase3 {
     private Game gameMock = Mockito.mock(Game.class);
     private Property spaceProp = Mockito.mock(Property.class);
 
+    //Game holds instances of all of these classes and therefore retreive them from getters in game
     Player currPlayer = gameMock.getCurrentPlayer();
     Token token = currPlayer.getMyToken();
     Board board = gameMock.getBoard();
