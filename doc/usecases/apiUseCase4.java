@@ -1,22 +1,18 @@
 package usecases
 
-import Controller.*;
-import Model.*;
-import org.mockito.Mockito;
+import monopoly_team04.Model.*;
 
 /***
  * 2. A player lands on Chance, draws "Advance to Go, collect $200", your token is moved and your funds are updated appropriately,
  * and the card is returned to the bottom of the deck.
  */
-import Controller.Board;
-import Controller.Dice;
-import Controller.Game;
-import Model.*;
+import monopoly_team04.Model.Controller.Board;
+import monopoly_team04.Model.Controller.Dice;
+import monopoly_team04.Model.Controller.Game;
+import monopoly_team04.Model.*;
 import org.mockito.Mockito;
 
-import Controller.*;
-import Model.*;
-import org.mockito.Mockito;
+import monopoly_team04.Model.*;
 
 /***
  * 2. A player lands on Chance, draws "Advance to Go, collect $200", your token is moved and your funds are updated appropriately,

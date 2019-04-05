@@ -2,11 +2,11 @@ Monopoly Team 4 Project Plan
 ===
 
 ### First Week Goals
-Throughout this first week, we attempted to determine all of the different classes that we might need to implement in order to build our program.  We also discussed and mapped out the methods that will fall under each class and how the classes will  interact with one another.  We decided that our project will follow the MVC programming design pattern as well as the Command design pattern, where one class (Game.java) holds all of the necessary information for other classes to operate, such as players, the bank, the dice, etc..  In addition to determining our classes and methods, we came up with an initial plan as to how to organize these classes and responsibilities into their respective packages (Model, View, Controller).  Our plan is as follows:
+Throughout this first week, we attempted to determine all of the different classes that we might need to implement in order to build our program.  We also discussed and mapped out the methods that will fall under each class and how the classes will  interact with one another.  We decided that our project will follow the MVC programming design pattern as well as the Command design pattern, where one class (Game.java) holds all of the necessary information for other classes to operate, such as players, the bank, the dice, etc..  In addition to determining our classes and methods, we came up with an initial plan as to how to organize these classes and responsibilities into their respective packages (monopoly_team04.Model, monopoly_team04.View, monopoly_team04.Model.Controller).  Our plan is as follows:
 
-View:
+monopoly_team04.View:
 * SceneSetUp.java
-* Main.java → start
+* View.Main.java → start
 * SplashScreens/User greeting/player Setup
 * Button handling 
 * Error handling
@@ -17,7 +17,7 @@ View:
 * CSS Files
 * Properties files for all GUI text
 
-Controller:
+monopoly_team04.Model.Controller:
 * DataReader.java
 * SetUp.java (based on data reader, initializes game components -- passes to game)
 * Game.java (holds stuff from setUP; communicates b/w front and back ends)
@@ -25,7 +25,7 @@ Controller:
 * Token.java (link between player back end and front end player display)
 * Dice.java
 
-Model (Game Logic):
+monopoly_team04.Model (Game Logic):
 * ActionCard.java
 * Deck.java
 * Bank.java
@@ -42,8 +42,8 @@ Abby Zhang:
 2. Secondary: Data/config files, Game
 
 Caroline Breaux:
-1. Primary: SceneSetUp.java, Main.java → start, SplashScreens/User greeting/player Setup, Button handling, Error handling, Layout.java
-2. Secondary: data/config files, interaction between Controller and View (Game.java)
+1. Primary: SceneSetUp.java, View.Main.java → start, SplashScreens/User greeting/player Setup, Button handling, Error handling, Layout.java
+2. Secondary: data/config files, interaction between monopoly_team04.Model.Controller and monopoly_team04.View (Game.java)
 
 Dez Martin: 
 1. Primary: data reading/parsing; data/config file creation

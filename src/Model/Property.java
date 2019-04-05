@@ -1,5 +1,4 @@
 package Model;
-import java.util.*;
 
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,

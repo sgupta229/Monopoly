@@ -37,7 +37,7 @@ In our controller package we will have the following classes:
 
 In our view package we will have the following classes:
 * SceneSetup.java
-* Main.java
+* View.Main.java
 * PlayerActionPanel.java
 * BoardDisplay.java
 * PropertyDisplay.java
@@ -199,7 +199,7 @@ to minimize repetition.
 
 ### Design details
 
-The overall program will be divided into 3 modules: Model, View, and Controller.
+The overall program will be divided into 3 modules: monopoly_team04.Model, monopoly_team04.View, and monopoly_team04.Model.Controller.
 
 * Space Class/Interface
     * Space can either be a class or an interface. As of now, there is only one abstract method 
@@ -341,7 +341,7 @@ The overall program will be divided into 3 modules: Model, View, and Controller.
     will be able to find the Space on the board and then call this space’s Space.doAction() method.  
     Overall, the Game class essentially oversees the actions and progression of the game, keeping 
     track of who’s turn it is as well.
-    * We believe that Game will live in our Controller package and manage the connection between 
+    * We believe that Game will live in our monopoly_team04.Model.Controller package and manage the connection between 
     the front end and back end, as well as the connection between various back end classes with 
     one another.
     * Finally, Game call the SetUp class which will initialize all starting values and setup the overall game.

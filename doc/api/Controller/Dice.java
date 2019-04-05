@@ -1,4 +1,4 @@
-package Controller;
+package monopoly_team04.Model.Controller;
 
 /**
  * Dice interface simply rolls the dice

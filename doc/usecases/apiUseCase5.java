@@ -1,9 +1,9 @@
 package useCases;
 
-import Controller.Board;
-import Controller.Dice;
-import Controller.Game;
-import Model.*;
+import monopoly_team04.Model.Controller.Board;
+import monopoly_team04.Model.Controller.Dice;
+import monopoly_team04.Model.Controller.Game;
+import monopoly_team04.Model.*;
 import org.mockito.Mockito;
 
 /***

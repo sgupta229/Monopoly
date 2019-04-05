@@ -1,4 +1,4 @@
-package Model;
+package monopoly_team04.Model;
 
 /**
  * Will hold action cards and handles their drawing and returning to piles
