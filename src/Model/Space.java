@@ -29,4 +29,6 @@ public interface Space {
      * @param newOccupant the player that is now on the spot
      */
     public void addOccupant(Player newOccupant);
+
+    public void removeOccupant(Player occupantToRemove);
 }
