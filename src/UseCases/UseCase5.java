@@ -3,7 +3,7 @@
 //import Board;
 //import Dice;
 //import Game;
-//import monopoly_team04.Model.*;
+//import Model.*;
 //import org.mockito.Mockito;
 //
 ///***

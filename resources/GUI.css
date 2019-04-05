@@ -1,22 +1,8 @@
 .root {
     -fx-font-size: 16pt;
     -fx-font-family: "Trebuchet MS";
-
-
 }
 
-#dcsd {
-    /*position: absolute;*/
-    /*width: 165px;*/
-    /*height: 55px;*/
-    /*left: calc(50% - 165px/2 + 300.5px);*/
-    /*top: 400px;*/
-    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
-    -fx-pref-width: 165px;
-    -fx-pref-height: 55px;
-    -fx-hbar-policy: "relative";
-
-}
 
 #button1 {
     -fx-text-fill: black;
@@ -31,7 +17,6 @@
 #button1:hover {
     -fx-background-color: linear-gradient(#a52121, #e02323);
     -fx-text-fill: white;
-
 }
 
 #flowPane {

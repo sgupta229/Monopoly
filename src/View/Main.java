@@ -2,15 +2,12 @@ package View;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import java.awt.*;
-
+import java.awt.Toolkit;
 
 public class Main extends Application {
     public static final String TITLE = "Monopoly";
-    public static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
-    public static final double HEIGHT = SCREEN_SIZE.getHeight();
-    public static final double WIDTH = SCREEN_SIZE.getWidth();
+    public static final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    public static final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 
     /**
      * Initialize what will be displayed and how it will be updated.
