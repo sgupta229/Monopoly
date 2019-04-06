@@ -23,7 +23,7 @@ public class PropSpace implements Space{
      * @param game the active Game driver class for this game
      */
     public void doAction(Game game){
-        if(game.getBank().propertyOwned(myProperty)==null){
+        if(game.getBank().propertyOwnedBy(myProperty)==null){
             //prompt front end button to purchase property, handler does the rest
         }
     }
