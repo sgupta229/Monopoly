@@ -51,6 +51,7 @@ public class ChooseGameScreen {
         public void handle(ActionEvent event) {
             System.out.print(gameType);
             removeSplashScreen(myRoot);
+            new AddPlayersScreen(myRoot,myWidth,myHeight);
         }
     }
 

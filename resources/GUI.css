@@ -3,6 +3,13 @@
     -fx-font-family: "Trebuchet MS";
 }
 
+#header2 {
+    -fx-text-alignment: center;
+    -fx-font-size: 48pt;
+    /*-fx-font: Roboto;*/
+    /*-fx-font-style: normal;*/
+    /*-fx-font-weight: 500;*/
+}
 
 #button1 {
     -fx-text-fill: black;
