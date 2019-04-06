@@ -1,6 +1,6 @@
-package Model;
+package monopoly_team04.Model;
 
-import Controller.Game;
+import monopoly_team04.Model.Controller.Game;
 
 /**
  * Concrete subclasses will extend this eventual abstract class

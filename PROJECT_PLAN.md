@@ -6,7 +6,7 @@ Throughout this first week, we attempted to determine all of the different class
 
 View:
 * SceneSetUp.java
-* Main.java → start
+* View.Main.java → start
 * SplashScreens/User greeting/player Setup
 * Button handling 
 * Error handling
@@ -42,7 +42,7 @@ Abby Zhang:
 2. Secondary: Data/config files, Game
 
 Caroline Breaux:
-1. Primary: SceneSetUp.java, Main.java → start, SplashScreens/User greeting/player Setup, Button handling, Error handling, Layout.java
+1. Primary: SceneSetUp.java, View.Main.java → start, SplashScreens/User greeting/player Setup, Button handling, Error handling, Layout.java
 2. Secondary: data/config files, interaction between Controller and View (Game.java)
 
 Dez Martin: 

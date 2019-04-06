@@ -1,4 +1,4 @@
-package Model;
+package monopoly_team04.Model;
 
 /***
  * This is an interface that will be implemented by Player, Bank, and any new classes we decide to add

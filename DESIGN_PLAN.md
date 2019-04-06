@@ -37,7 +37,7 @@ In our controller package we will have the following classes:
 
 In our view package we will have the following classes:
 * SceneSetup.java
-* Main.java
+* View.Main.java
 * PlayerActionPanel.java
 * BoardDisplay.java
 * PropertyDisplay.java
@@ -147,6 +147,8 @@ Here is a UML diagram:
 ![Alt UML Diagram](Main.png "Title")
 
 ### User interface
+
+![link to prototype](https://www.figma.com/proto/NssJ5cIH2Cy4KTZRNenwMlIh/Monopoly?node-id=0%3A1&scaling=min-zoom)
 
 * Splash screen 1 will be the first thing that the user sees. They will choose what game type to 
 play by clicking one of the buttons listed.
@@ -339,7 +341,7 @@ The overall program will be divided into 3 modules: Model, View, and Controller.
     will be able to find the Space on the board and then call this space’s Space.doAction() method.  
     Overall, the Game class essentially oversees the actions and progression of the game, keeping 
     track of who’s turn it is as well.
-    * We believe that Game will live in our Controller package and manage the connection between 
+    * We believe that Game will live in our Model package and manage the connection between 
     the front end and back end, as well as the connection between various back end classes with 
     one another.
     * Finally, Game call the SetUp class which will initialize all starting values and setup the overall game.

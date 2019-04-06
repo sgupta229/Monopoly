@@ -1,7 +1,6 @@
 package UseCases;
 
-import Controller.*;
-import Model.*;
+import monopoly_team04.Model.*;
 import org.mockito.Mockito;
 
 /** USE CASE:
