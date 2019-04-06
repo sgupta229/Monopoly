@@ -13,7 +13,7 @@ public interface Bank {
      * @param property
      * @return
      */
-    public Player propertyOwned(Property property);
+    public Player propertyOwnedBy(Property property);
 
     /***
      * Sells a specific property to a player

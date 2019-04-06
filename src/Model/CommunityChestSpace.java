@@ -5,13 +5,11 @@ import Controller.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PropSpace implements Space{
+public class CommunityChestSpace implements Space{
 
     List<Player> myOccupants = new ArrayList<>();
-    Property myProperty;
 
-    public PropSpace(Property thisProperty){
-        myProperty = thisProperty;
+    public CommunityChestSpace(){
     }
 
 
@@ -23,9 +21,7 @@ public class PropSpace implements Space{
      * @param game the active Game driver class for this game
      */
     public void doAction(Game game){
-        if(game.getBank().propertyOwnedBy(myProperty)==null){
-            //prompt front end button to purchase property, handler does the rest
-        }
+
     }
 
     /***

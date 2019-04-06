@@ -3,9 +3,14 @@ package Model;
 public class ClassicProperty implements Property {
 
     float price;
+    String name;
+    String color;
 
-    public ClassicProperty(float myPrice){
+
+    public ClassicProperty(String myName, float myPrice, String myColor){
+        name = myName;
         price = myPrice;
+        color = myColor;
     }
 
     /***
