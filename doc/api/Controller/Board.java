@@ -1,6 +1,6 @@
-package Controller;
+package monopoly_team04.Model.Controller;
 
-import Model.Space;
+import monopoly_team04.Model.Space;
 
 import java.security.InvalidParameterException;
 

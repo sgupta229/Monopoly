@@ -1,4 +1,4 @@
-package Model;
+package monopoly_team04.Model;
 import java.util.List;
 
 /***

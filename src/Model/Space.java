@@ -1,5 +1,6 @@
 package Model;
-import Controller.*;
+import Controller.Game;
+
 import java.util.*;
 
 /***
