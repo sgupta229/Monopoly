@@ -7,8 +7,10 @@ import java.util.*;
  * that can be on the board (a property space, jail space, free parking, chance space, etc)
  * It will hold a list of which players (if any) are on itself
  */
-public abstract class Space {
 
+public abstract class Space {
+    //private int myLocation;
+    //private int myName;
     List<Player> myOccupants = new ArrayList<>();
 
     /***
@@ -38,6 +40,12 @@ public abstract class Space {
         }
     }
 
+    public int getMyLocation();
+
+    public String getMyName();
+
+    public boolean equals(Space o);
+    
     /***
      * removes a player to the list of players on the space
      * @param occupantToRemove the player that has left the spot
