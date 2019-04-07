@@ -33,6 +33,8 @@ public interface Player {
      */
     public List<Property> getAssets();
 
+    public float getFunds();
+
     /***
      * checks if the player has a monopoly of the property given
      * @param property

@@ -3,11 +3,18 @@ package Controller;
 import Model.Space;
 
 import java.security.InvalidParameterException;
+import java.util.List;
 
 /**
- * This interface holds the game board, which is made up of spaces
+ * This class holds the game board, which is made up of spaces
  */
-public interface Board {
+public class Board {
+    private List<Space> mySpaces;
+
+    public Board(List<Space> boardSpaces){
+        mySpaces = boardSpaces;
+    }
+
     /**
      * Returns the specific space at the location specified
      * Used when a player rolls the dice and determins his/her new location on the board
@@ -15,7 +22,18 @@ public interface Board {
      * @return Space
      * @throws IndexOutOfBoundsException
      */
-    public Space getSpaceAt(int location) throws IndexOutOfBoundsException;
+    public Space getSpaceAt(int location) throws IndexOutOfBoundsException{
+        try {
+            for(Space sp : mySpaces){
+                if(sp.getMyLocation() == location){
+                    return sp;
+                }
+            }
+        }
+        finally {
+            throw new IndexOutOfBoundsException();
+        }
+    };
 
     /**
      * Given a Space (such as Boarwalk), this returns the location of that space on the board
@@ -24,5 +42,20 @@ public interface Board {
      * @return integer (or index) of location of the Space parameter
      * @throws InvalidParameterException
      */
-    public int getLocationOfSpace(Space space) throws InvalidParameterException;
+    public int getLocationOfSpace(Space space) throws InvalidParameterException{
+        try{
+            for(Space sp : mySpaces){
+                if (sp.equals(space)){
+                    return sp.getMyLocation();
+                }
+                //Check for names being same? or check above for overall equals method.
+                if(sp.getMyName().equalsIgnoreCase(space.getMyName())){
+                    return sp.getMyLocation();
+                }
+            }
+        }
+        finally{
+            throw new InvalidParameterException();
+        }
+    }
 }
