@@ -26,7 +26,7 @@ public class UseCase2 {
     Space sp = board.getSpaceAt(newLocation);
     sp.doAction(gameMock);
 
-    //Space's doAction will be the go to jail action since player landed on go to jail space
+    //AbstractSpace's doAction will be the go to jail action since player landed on go to jail space
     //doAction method does:
     int jailLocation = board.getLocationOfSpace(jailSpace);
     token.moveTo(jailLocation);

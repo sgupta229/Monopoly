@@ -39,7 +39,7 @@ public class apiUseCase4{
 
     //cd.doAction method will ->
     game.bank.makePayment(200, player);
-    //the Go space, which is a concrete Space class, will have a method that gets its index on the board
+    //the Go space, which is a concrete AbstractSpace class, will have a method that gets its index on the board
     int Goindex = 29;
     player.getMyToken.moveTo(Goindex);
 }

@@ -28,7 +28,7 @@ public class SceneSetUp {
         Paint background = Color.WHITE;
         myScene = new Scene(myRoot, width, height, background);
         myScene.getStylesheets().add(fileToStylesheetString( new File("resources/GUI.css") ));
-        myWelcomeScreen = new ChooseGameScreen(myRoot, width, height);
+        myWelcomeScreen = new ChooseGameScreen(myRoot);
     }
 
     private void setupAnimation(){
