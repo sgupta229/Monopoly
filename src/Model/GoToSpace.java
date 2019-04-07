@@ -3,12 +3,12 @@ package Model;
 import Controller.AbstractGame;
 
 
-public class GoToSpace extends Space{
+public class GoToSpace extends AbstractSpace {
 
-    Space spaceToMoveTo;
+    AbstractSpace spaceToMoveTo;
     int spacesLocation;
 
-    public GoToSpace(int locationIndex, String spaceName, Space jumpToSpace){
+    public GoToSpace(int locationIndex, String spaceName, AbstractSpace jumpToSpace){
         super(locationIndex, spaceName);
         spaceToMoveTo = jumpToSpace;
         spacesLocation = spaceToMoveTo.getMyLocation();
@@ -22,7 +22,11 @@ public class GoToSpace extends Space{
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
+
     public void doAction(AbstractGame game){
         game.getCurrPlayer().getToken().moveTo(spacesLocation);
+        if(spaceToMoveTo.getMyName().equals("Jail")){
+            game.getCurrPlayer().setJail(true);
+        }
     }
 }

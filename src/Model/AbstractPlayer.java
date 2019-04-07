@@ -10,6 +10,10 @@ public abstract class AbstractPlayer implements Transfer {
     private ArrayList<ActionCard> actionCards;
     private Token token;
 
+    public AbstractPlayer(double funds, Token token) {
+        this.funds = funds;
+        this.token = token;
+    }
 
     @Override
     public void makePayment(double amount, Transfer receiver) {
@@ -32,6 +36,18 @@ public abstract class AbstractPlayer implements Transfer {
 
     public Token getToken() {
         return token;
+    }
+
+    public void move(int moveSpaces) {
+        token.move(moveSpaces);
+    }
+
+    public void proposeTrade(AbstractPlayer other) {
+
+    }
+
+    public void setJail(boolean set) {
+
     }
 
 }

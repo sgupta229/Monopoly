@@ -2,10 +2,7 @@ package Model;
 
 import Controller.AbstractGame;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PropSpace extends Space{
+public class PropSpace extends AbstractSpace {
 
 
     Property myProperty;
