@@ -10,13 +10,10 @@ import org.mockito.Mockito;
  */
 import Controller.Board;
 import Controller.Dice;
-import Controller.Game;
 import Model.*;
-import org.mockito.Mockito;
 
 import Controller.*;
 import Model.*;
-import org.mockito.Mockito;
 
 /***
  * 2. A player lands on Chance, draws "Advance to Go, collect $200", your token is moved and your funds are updated appropriately,
@@ -43,7 +40,7 @@ public class apiUseCase4{
 
     //cd.doAction method will ->
     game.bank.makePayment(200, player);
-    //the Go space, which is a concrete Space class, will have a method that gets its index on the board
+    //the Go space, which is a concrete AbstractSpace class, will have a method that gets its index on the board
     int Goindex = 29;
     player.getMyToken.moveTo(Goindex);
 }
