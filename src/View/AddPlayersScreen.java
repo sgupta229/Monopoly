@@ -26,6 +26,9 @@ public class AddPlayersScreen {
         this.myHeight = screenHeight;
         this.myRoot = root;
 
+        anchorPane.setPrefSize(myWidth,myHeight);
+        anchorPane.setStyle("-fx-background-color: #3fffff;");
+
         Text title = new Text("Add Players");
         title.setWrappingWidth(myWidth);
         title.setId("header2");
@@ -38,40 +41,59 @@ public class AddPlayersScreen {
         screenContent.setSpacing(20);
         screenContent.setStyle("-fx-background-color: #937999;");
 
-
-        VBox newPlayer = new VBox();
-        newPlayer.setStyle("-fx-background-color: #aaaaaa;");
-        Text newPlayerTitle = new Text("New Player");
-
-        TextField playerName = new TextField();
-        ComboBox playerTypes = new ComboBox();
-        Button add = new Button("ADD");
-        newPlayer.getChildren().addAll(newPlayerTitle,playerTypes,playerName,add);
-
-
-
-        Text editPlayerListTitle = new Text("Edit Player List");
-        VBox editPlayerList = new VBox();
-        editPlayerList.setStyle("-fx-background-color: #a1aa5e;");
-        ListView playerList = new ListView();
-        editPlayerList.getChildren().addAll(editPlayerListTitle,playerList);
-
-
+        VBox newPlayer = createNewPlayerBox();
+        VBox editPlayerList = createEditPlayerListBox();
         screenContent.getChildren().addAll(newPlayer,editPlayerList);
-
-
 
         Button startGame = new Button("START GAME");
 
         anchorPane.getChildren().addAll(title,screenContent,startGame);
-        anchorPane.setPrefSize(myWidth,myHeight);
-        anchorPane.setStyle("-fx-background-color: #3fffff;");
         AnchorPane.setTopAnchor(title,76.0);
         AnchorPane.setTopAnchor(screenContent,163.0);
         AnchorPane.setBottomAnchor(startGame,60.0);
         AnchorPane.setRightAnchor(startGame,60.0);
 
         myRoot.getChildren().addAll(anchorPane);
+    }
+
+    private VBox createNewPlayerBox(){
+        VBox newPlayer = new VBox();
+        newPlayer.setStyle("-fx-background-color: #aaaaaa;");
+        newPlayer.setPadding(new Insets(15, 15, 15, 15));
+        newPlayer.setSpacing(20);
+
+        Text newPlayerTitle = new Text("New Player");
+
+        ComboBox icon = new ComboBox();
+        icon.setPrefSize(100,60);
+        TextField playerName = new TextField();
+        playerName.setPrefWidth(300);
+        playerName.setPromptText("Name of Player");
+        HBox nameAndIcon = new HBox(icon,playerName);
+        nameAndIcon.setSpacing(20);
+
+        ComboBox playerTypes = new ComboBox();
+        playerTypes.setPromptText("Choose Player Type");
+        playerTypes.setPrefWidth(300);
+        Button add = new Button("ADD");
+        add.setAlignment(Pos.BOTTOM_RIGHT);
+
+        newPlayer.getChildren().addAll(newPlayerTitle,playerTypes,nameAndIcon,add);
+        return newPlayer;
+    }
+
+    private VBox createEditPlayerListBox(){
+        VBox editPlayerList = new VBox();
+        editPlayerList.setStyle("-fx-background-color: #a1aa5e;");
+        editPlayerList.setPadding(new Insets(15, 15, 15, 15));
+        editPlayerList.setSpacing(20);
+
+        Text editPlayerListTitle = new Text("Edit Player List");
+        ListView playerList = new ListView();
+        playerList.setMaxHeight(180.0);
+
+        editPlayerList.getChildren().addAll(editPlayerListTitle,playerList);
+        return editPlayerList;
     }
 
 }
