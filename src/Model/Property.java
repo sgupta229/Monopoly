@@ -11,13 +11,13 @@ public interface Property {
      * A getter method that returns the cost to place a house on this property
      * @return the cost to place a house on this property
      */
-    public float getCostofHouse();
+    public double getCostofHouse();
 
     /***
      * A getter method that returns the cost to place a hotel on this property
      * @return the cost to place a hotel on this property
      */
-    public float getCostofHotel();
+    public double getCostofHotel();
 
     /***
      * Allows for users to see the color of a property which is crucial for monopolies
@@ -29,14 +29,14 @@ public interface Property {
      * A getter method that returns the price of this property
      * @return the cost to purchase this property
      */
-    public float getPrice();
+    public double getPrice();
 
     /***
      * A method that utilizes the member variables to calculate how
      * much it costs when someone lands on this property
      * @return the total rent value to be paid
      */
-    public float calculateRent();
+    public double calculateRent();
 
 
 }
