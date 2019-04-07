@@ -1,187 +1,190 @@
 <?xml version = "1.0"?>
 <Game>
     <GameType>
+        <Dice>
+            <Number> 2 </Number>
+            <Sides> 6 </Sides>
+        </Dice>
         <Board>
             <BoardSize> 40 </BoardSize>
         </Board>
         <Spaces>
-            <space type="Go">
+            <Space type="Go">
                 <Index> 0 </Index>
                 <SpaceName> GO </SpaceName>
-            </space>
-            <space type="C0LOR_PROPERTY">
+            </Space>
+            <Space type="C0LOR_PROPERTY">
                 <Index> 1 </Index>
                 <SpaceName> MEDITERRANEAN_AVE </SpaceName>
-            </space>
-            <space type="Action">
+            </Space>
+            <Space type="Action">
                 <Index> 2 </Index>
                 <SpaceName> COMMUNITY_CHEST </SpaceName>
-
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 3 </Index>
                 <SpaceName> BALTIC_AVE </SpaceName>
-            </space>
-            <space type="Tax">
+            </Space>
+            <Space type="Tax">
                 <Index> 4 </Index>
                 <SpaceName> INCOME_TAX </SpaceName>
                 <FlateRate> 200 </FlateRate>
                 <Percentage> 10 </Percentage>
-            </space>
-            <space type="RAILROAD_Property">
+            </Space>
+            <Space type="RAILROAD_Property">
                 <Index> 5 </Index>
                 <SpaceName> READING_RAILROAD </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 6 </Index>
                 <SpaceName> ORIENTAL_AVE</SpaceName>
-            </space>
-            <space type="Action">
+            </Space>
+            <Space type="Action">
                 <Index> 7 </Index>
                 <SpaceName> CHANCE </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 8 </Index>
                 <SpaceName> VERMONT_AVE</SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 9 </Index>
                 <SpaceName> CONNECTICUT_AVE</SpaceName>
-            </space>
-            <space type="Jail">
+            </Space>
+            <Space type="Jail">
                 <Index> 10 </Index>
                 <SpaceName> JAIL </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 11 </Index>
                 <SpaceName> ST._CHARLES_AVE </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 12 </Index>
                 <SpaceName> ELECTRIC_COMPANY </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 13 </Index>
                 <SpaceName> STATES_AVE </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 14 </Index>
                 <SpaceName> VIRGINIA_AVE </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 15 </Index>
                 <SpaceName> PENNSYLVANIA_RAILROAD </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 16 </Index>
                 <SpaceName> ST._JAMES_PLACE </SpaceName>
-            </space>
-            <space type="Action">
+            </Space>
+            <Space type="Action">
                 <Index> 17 </Index>
                 <SpaceName> COMMUNITY_CHEST </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 18 </Index>
                 <SpaceName> TENNESSEE_AVE </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 19 </Index>
                 <SpaceName> NEW_YORK_AVE </SpaceName>
                 <ColorGroup> ORANGE </ColorGroup>
-            </space>
-            <space type="FreeParking">
+            </Space>
+            <Space type="FreeParking">
                 <Index> 20 </Index>
                 <SpaceName> FREE_PARKING </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 21 </Index>
                 <SpaceName> KENTUCKY_AVE </SpaceName>
                 <ColorGroup> RED </ColorGroup>
-            </space>
-            <space type="Action">
+            </Space>
+            <Space type="Action">
                 <Index> 22 </Index>
                 <SpaceName> CHANCE </SpaceName>
 
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 23 </Index>
                 <SpaceName> INDIANA_AVE </SpaceName>
                 <ColorGroup> RED </ColorGroup>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 24 </Index>
                 <SpaceName> ILLINOIS_AVE </SpaceName>
                 <ColorGroup> RED </ColorGroup>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 25 </Index>
                 <SpaceName> B._&_O._RAILROAD </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 27 </Index>
                 <SpaceName> ATLANTIC_AVE </SpaceName>
                 <ColorGroup> YELLOW </ColorGroup>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 28 </Index>
                 <SpaceName> VENTNOR_AVE </SpaceName>
                 <ColorGroup> YELLOW </ColorGroup>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 29 </Index>
                 <SpaceName> WATER_WORKS </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 30 </Index>
                 <SpaceName> MARVIN_GARDENS </SpaceName>
                 <ColorGroup> YELLOW </ColorGroup>
-            </space>
-            <space type="GoToJail">
+            </Space>
+            <Space type="GoToJail">
                 <Index> 31 </Index>
                 <SpaceName> GO_TO_JAIL </SpaceName>
                 <TargetSpace> JAIL </TargetSpace>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 32 </Index>
                 <SpaceName> PACIFIC_AVE </SpaceName>
                 <ColorGroup> GREEN </ColorGroup>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 33 </Index>
                 <SpaceName> CAROLINA_AVE </SpaceName>
                 <ColorGroup> GREEN </ColorGroup>
-            </space>
-            <space type="Action">
+            </Space>
+            <Space type="Action">
                 <Index> 34 </Index>
                 <SpaceName> COMMUNITY_CHEST </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 35 </Index>
                 <SpaceName> PENNSYLVANIA_AVE </SpaceName>
                 <ColorGroup> GREEN </ColorGroup>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 36 </Index>
                 <SpaceName> SHORT_LINE_RAILROAD </SpaceName>
-            </space>
-            <space type="Action">
+            </Space>
+            <Space type="Action">
                 <Index> 37 </Index>
                 <SpaceName> CHANCE </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 38 </Index>
                 <SpaceName> PARK_PLACE </SpaceName>
                 <ColorGroup> DARK_BLUE </ColorGroup>
-            </space>
-            <space type="Tax">
+            </Space>
+            <Space type="Tax">
                 <Index> 39 </Index>
                 <SpaceName> LUXURY_TAX </SpaceName>
-            </space>
-            <space type="Property">
+            </Space>
+            <Space type="Property">
                 <Index> 40 </Index>
                 <SpaceName> BOARDWALK </SpaceName>
                 <ColorGroup> DARK_BLUE </ColorGroup>
-            </space>
+            </Space>
         </Spaces>
         <ActionDecks>
             <DeckType> CHANCE </DeckType>
@@ -210,18 +213,25 @@
                 <Holdable> False </Holdable>
                 <Amount> </Amount>
                 <From>bank,prev,next,all, </From>
-
             </ActionCardType>
             <ActionCardType type="LOSE_MONEY">
                 <DeckType> </DeckType>
                 <Message> </Message>
                 <Holdable> False </Holdable>
                 <Amount> </Amount>
-                <To>bank,prev,next,all, </To>
+                <To> bank,prev,next,all, </To>
             </ActionCardType>
         </ActionCards>
         <Bank>
-            <BankFunds> </BankFunds>
+            <BankFunds>10000000 </BankFunds>
         </Bank>
+        <Tokens>
+            <Token> </Token>
+        </Tokens>
+        <Rules>
+            <StartFunds> 2500 </StartFunds>
+            <JailBail> 50 </JailBail>
+            <PassGo> 200 </PassGo>
+        </Rules>
     </GameType>
 </Game>
