@@ -5,14 +5,14 @@ import Controller.AbstractGame;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IncomeTaxSpace extends AbstractSpace {
+public class TaxSpace extends AbstractSpace {
 
     List<AbstractPlayer> myOccupants = new ArrayList<>();
     double flatRate;
     double percentageTaken;
     Transfer taxReceiver;
 
-    public IncomeTaxSpace(int locationIndex, String spaceName,double myRate, double myPercentage, Transfer myTaxReceiver){
+    public TaxSpace(int locationIndex, String spaceName, double myRate, double myPercentage, Transfer myTaxReceiver){
         super(locationIndex, spaceName);
         flatRate = myRate;
         percentageTaken = myPercentage;
