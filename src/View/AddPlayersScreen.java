@@ -1,5 +1,7 @@
 package View;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -48,6 +50,7 @@ public class AddPlayersScreen {
         screenContent.getChildren().addAll(newPlayer,editPlayerList);
 
         Button startGame = new Button(messages.getString("start-game"));
+        startGame.setOnAction(new ButtonHandler());
 
         anchorPane.getChildren().addAll(title,screenContent,startGame);
         AnchorPane.setTopAnchor(title,76.0);
@@ -96,6 +99,13 @@ public class AddPlayersScreen {
 
         editPlayerList.getChildren().addAll(editPlayerListTitle,playerList);
         return editPlayerList;
+    }
+
+    class ButtonHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            new Layout(myRoot);
+        }
     }
 
 }

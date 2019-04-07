@@ -16,18 +16,15 @@ import java.util.ResourceBundle;
 public class ChooseGameScreen {
 
     private static final String LOGO_PATH = "logo.png";
-    private double myWidth;
-    private double myHeight;
     private BorderPane myLogoPane;
     private ResourceBundle myResourceBundle;
     private List<String> gameTypeButtons;
     private Group myRoot;
     private FlowPane myFlowPane;
 
-    public ChooseGameScreen(Group root, double screenWidth, double screenHeight) {
+
+    public ChooseGameScreen(Group root) {
         myResourceBundle = ResourceBundle.getBundle("GameTypes");
-        this.myWidth = screenWidth;
-        this.myHeight = screenHeight;
         this.myRoot = root;
         createMonopolyLogo();
         addFlowPane();
@@ -51,7 +48,8 @@ public class ChooseGameScreen {
         public void handle(ActionEvent event) {
             System.out.print(gameType);
             removeSplashScreen(myRoot);
-            new AddPlayersScreen(myRoot,myWidth,myHeight);
+            new AddPlayersScreen(myRoot,Main.WIDTH,Main.HEIGHT);
+//            Layout l = new Layout(myRoot);
         }
     }
 
@@ -59,9 +57,9 @@ public class ChooseGameScreen {
         myFlowPane = new FlowPane();
         myFlowPane.setVgap(50);
         myFlowPane.setHgap(50);
-        myFlowPane.setLayoutX(myWidth/6);
-        myFlowPane.setLayoutY(myHeight/2);
-        myFlowPane.setPrefWrapLength(myWidth/1.5);
+        myFlowPane.setLayoutX(Main.WIDTH/7.5);
+        myFlowPane.setLayoutY(Main.HEIGHT/2);
+        myFlowPane.setPrefWrapLength(Main.WIDTH/1.2);
         myFlowPane.setId("flowPane");
 
         gameTypeButtons  = new ArrayList<>(Arrays.asList("classic", "mega", "junior", "starWars"));
@@ -74,7 +72,7 @@ public class ChooseGameScreen {
 
     private BorderPane createMonopolyLogo(){
         myLogoPane = new BorderPane();
-        myLogoPane.setPrefSize(myWidth,myHeight/1.5);
+        myLogoPane.setPrefSize(Main.WIDTH,Main.HEIGHT/1.5);
         var logo = new Image(this.getClass().getClassLoader().getResourceAsStream(LOGO_PATH));
         myLogoPane.setCenter(new ImageView(logo));
         return myLogoPane;

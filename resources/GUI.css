@@ -26,6 +26,51 @@
     -fx-text-fill: white;
 }
 
+#button2 {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size: 20pt;
+    -fx-background-color: linear-gradient(#C4C4C4, #7D7D7D);
+    -fx-pref-width: 135px;
+    -fx-pref-height: 55px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#button2:hover {
+    -fx-background-color: linear-gradient(#a52121, #e02323);
+    -fx-text-fill: white;
+}
+
 #flowPane {
     "-fx-alignment: center;"
+}
+
+#popupTitle {
+    -fx-font-size: 25pt;
+    -fx-font-family: "Trebuchet MS";
+}
+
+#popupMessage {
+    -fx-font-size: 20pt;
+
+}
+
+
+#boardPane {
+    -fx-background-color: white;
+
+
+}
+
+
+#playerControlPane {
+    -fx-background-color: pink;
+
+
+}
+
+#innerBoard {
+    -fx-background-color: green;
+
+
 }
