@@ -10,8 +10,10 @@ public class PropSpace extends Space{
 
     Property myProperty;
 
-    public PropSpace(Property thisProperty){
+    public PropSpace(int locationIndex, String spaceName, Property thisProperty){
+        super(locationIndex, spaceName);
         myProperty = thisProperty;
+
     }
 
 

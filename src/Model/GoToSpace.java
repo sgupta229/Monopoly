@@ -8,7 +8,8 @@ public class GoToSpace extends Space{
     Space spaceToMoveTo;
     int spacesLocation;
 
-    public GoToSpace(Space jumpToSpace){
+    public GoToSpace(int locationIndex, String spaceName, Space jumpToSpace){
+        super(locationIndex, spaceName);
         spaceToMoveTo = jumpToSpace;
         spacesLocation = spaceToMoveTo.getMyLocation();
     }

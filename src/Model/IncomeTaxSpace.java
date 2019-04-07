@@ -12,7 +12,8 @@ public class IncomeTaxSpace extends Space{
     float percentageTaken;
     Transfer taxReceiver;
 
-    public IncomeTaxSpace(float myRate, float myPercentage, Transfer myTaxReceiver){
+    public IncomeTaxSpace(int locationIndex, String spaceName,float myRate, float myPercentage, Transfer myTaxReceiver){
+        super(locationIndex, spaceName);
         flatRate = myRate;
         percentageTaken = myPercentage;
         taxReceiver = myTaxReceiver;
