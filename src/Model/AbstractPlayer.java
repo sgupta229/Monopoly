@@ -6,6 +6,12 @@ public class AbstractPlayer implements Transfer {
     private double funds;
     private ArrayList<Property> properties;
     private ArrayList<ActionCard> actionCards;
+    private Token token;
+
+    public AbstractPlayer(double funds, Token token) {
+        this.funds = funds;
+        this.token = token;
+    }
 
 
     @Override
@@ -21,6 +27,14 @@ public class AbstractPlayer implements Transfer {
 
     public boolean checkMonopoly() {
         return false;
+    }
+
+    public void move(int moveSpaces) {
+        token.move(moveSpaces);
+    }
+
+    public void proposeTrade(Player other) {
+
     }
 
 }
