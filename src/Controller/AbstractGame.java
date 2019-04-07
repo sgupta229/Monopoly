@@ -6,6 +6,8 @@ import Model.Deck;
 import Model.Die;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class AbstractGame {
     private ArrayList<AbstractPlayer> players;
@@ -14,6 +16,7 @@ public abstract class AbstractGame {
     private AbstractPlayer currPlayer;
     private Die[] dice;
     private ArrayList<Deck> decks;
+    private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
 
     public AbstractGame(ArrayList<AbstractPlayer> players, Bank bank, Board board, Die[] dice, ArrayList<Deck> decks) {
         this.players = players;
@@ -22,6 +25,9 @@ public abstract class AbstractGame {
         this.currPlayer = players.get(0);
         this.dice = dice;
         this.decks = decks;
+        for(int i = 0; i < dice.length; i++) {
+            diceHistory.put(i, new ArrayList<Integer>());
+        }
     }
 
     public AbstractPlayer getCurrPlayer() {
@@ -31,7 +37,9 @@ public abstract class AbstractGame {
     public int rollDice() {
         int value = 0;
         for(int i = 0; i < dice.length; i++) {
-            value += dice[i].rollDie();
+            int roll = dice[i].rollDie();
+            value += roll;
+            diceHistory.get(i).add(roll);
         }
         return value;
     }
@@ -51,4 +59,19 @@ public abstract class AbstractGame {
         }
         currPlayer = players.get(index);
     }
+
+    //checks 3 matching all dice in a row
+    public boolean checkDoubles() {
+        ArrayList<Integer> firstDie = diceHistory.get(0);
+        List<Integer> check = firstDie.subList(firstDie.size() - 3, firstDie.size());
+        for(Integer key : diceHistory.keySet()) {
+            ArrayList<Integer> otherDie = diceHistory.get(key);
+            List<Integer> other = otherDie.subList(otherDie.size() - 3, otherDie.size());
+            if(!check.equals(other)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
