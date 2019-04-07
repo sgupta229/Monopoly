@@ -7,7 +7,16 @@ import java.util.*;
  * that can be on the board (a property space, jail space, free parking, chance space, etc)
  * It will hold a list of which players (if any) are on itself
  */
-public interface Space {
+
+public abstract class Space {
+    private int myLocation;
+    private String myName;
+    List<Player> myOccupants = new ArrayList<>();
+
+    public Space(int locationIndex, String spaceName){
+        myLocation = locationIndex;
+        myName = spaceName;
+    }
 
     /***
      * This method performs the specific action that a type of space requires.
@@ -16,19 +25,59 @@ public interface Space {
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-    public void doAction(Game game);
+    public abstract void doAction(Game game);
 
     /***
      * Getter method that gets all the players on the given space
      * @return the list of Occupants
      */
-    public List<Player> getOccupants();
+    public List<Player> getOccupants(){
+        return myOccupants;
+    }
 
     /***
      * adds a player to the list of players on the space
      * @param newOccupant the player that is now on the spot
      */
-    public void addOccupant(Player newOccupant);
+    public void addOccupant(Player newOccupant){
+        if(!myOccupants.contains(newOccupant)){
+            myOccupants.add(newOccupant);
+        }
+    }
 
-    public void removeOccupant(Player occupantToRemove);
+    public int getMyLocation(){
+        return myLocation;
+    }
+
+    public String getMyName(){
+        return myName;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this==o){
+            return true;
+        }
+        if(o==null || o.getClass()!=this.getClass()){
+            return false;
+        }
+
+        Space space = (Space) o;
+        return (space.getMyName().equals(this.getMyName()) && space.getMyLocation() == this.getMyLocation());
+    }
+
+    @Override
+    public int hashCode(){
+        return this.getMyLocation();
+    }
+    
+    /***
+     * removes a player to the list of players on the space
+     * @param occupantToRemove the player that has left the spot
+     */
+    public void removeOccupant(Player occupantToRemove){
+        if(myOccupants.contains(occupantToRemove)){
+            myOccupants.remove(occupantToRemove);
+        }
+    }
 }

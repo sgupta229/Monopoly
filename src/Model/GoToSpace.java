@@ -2,17 +2,16 @@ package Model;
 
 import Controller.Game;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class CommunityChestSpace extends Space{
+public class GoToSpace extends Space{
 
-    List<Player> myOccupants = new ArrayList<>();
-    Deck myDeck;
+    Space spaceToMoveTo;
+    int spacesLocation;
 
-    public CommunityChestSpace(int locationIndex, String spaceName, Deck deckType){
+    public GoToSpace(int locationIndex, String spaceName, Space jumpToSpace){
         super(locationIndex, spaceName);
-        myDeck = deckType;
+        spaceToMoveTo = jumpToSpace;
+        spacesLocation = spaceToMoveTo.getMyLocation();
     }
 
 
@@ -24,10 +23,6 @@ public class CommunityChestSpace extends Space{
      * @param game the active Game driver class for this game
      */
     public void doAction(Game game){
-        ActionCard cardDrawn = myDeck.drawCard();
-        cardDrawn.doAction(game);
-        myDeck.discardCard(cardDrawn);
+        game.getCurrentPlayer().getMyToken().moveTo(spacesLocation);
     }
-
-
 }
