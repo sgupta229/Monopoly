@@ -8,6 +8,8 @@ import java.util.*;
  * It will hold a list of which players (if any) are on itself
  */
 public interface Space {
+    //private int myLocation;
+    //private int myName;
 
     /***
      * This method performs the specific action that a type of space requires.
@@ -31,4 +33,10 @@ public interface Space {
     public void addOccupant(Player newOccupant);
 
     public void removeOccupant(Player occupantToRemove);
+
+    public int getMyLocation();
+
+    public String getMyName();
+
+    public boolean equals(Space o);
 }
