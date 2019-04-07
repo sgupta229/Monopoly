@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Bank;
-import Model.Deck;
 import Model.DeckType;
 import Model.Player;
 
