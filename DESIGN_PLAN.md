@@ -148,6 +148,8 @@ Here is a UML diagram:
 
 ### User interface
 
+![link to prototype](https://www.figma.com/proto/NssJ5cIH2Cy4KTZRNenwMlIh/Monopoly?node-id=0%3A1&scaling=min-zoom)
+
 * Splash screen 1 will be the first thing that the user sees. They will choose what game type to 
 play by clicking one of the buttons listed.
 * Splash screen 2 will allow users to add player by choosing a token from a drop down, 
