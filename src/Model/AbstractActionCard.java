@@ -1,6 +1,6 @@
 package Model;
 
-import Controller.Game;
+import Controller.AbstractGame;
 
 public abstract class AbstractActionCard {
     private DeckType myDeckType;
