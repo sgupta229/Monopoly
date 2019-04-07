@@ -36,7 +36,7 @@ public class Bank implements Transfer{
      * @param amount
      * @param receiver
      */
-    public void makePayment(float amount, Transfer receiver){
+    public void makePayment(double amount, Transfer receiver){
         if(myBalance-amount>0){
             myBalance -= amount;
         }
@@ -50,7 +50,7 @@ public class Bank implements Transfer{
      * Allows anyone that implements Transfer to receive a payment from another
      * @param amount
      */
-    public void receivePayment(float amount){
+    public void receivePayment(double amount){
         myBalance+=amount;
     }
 

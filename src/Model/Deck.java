@@ -11,14 +11,14 @@ public interface Deck {
      * Returns top card from community chest deck which will then perform that card's action
      * @return
      */
-    public ActionCard drawCard();
+    public AbstractActionCard drawCard();
 
     /**
      * Every time an action card is used, it will end its use by calling actionCard.myDeck.discardCard(this)
      * Thereby returning said action card to the correct Deck's discard pile
      * @param card
      */
-    public void discardCard(ActionCard card);
+    public void discardCard(AbstractActionCard card);
 
     /**
      * Called by drawCard() whenever the liveDeck becomes empty
