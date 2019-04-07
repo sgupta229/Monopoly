@@ -6,13 +6,12 @@ import monopoly_team04.Model.*;
  * 2. A player lands on Chance, draws "Advance to Go, collect $200", your token is moved and your funds are updated appropriately,
  * and the card is returned to the bottom of the deck.
  */
-import monopoly_team04.Model.Controller.Board;
-import monopoly_team04.Model.Controller.Dice;
-import monopoly_team04.Model.Controller.Game;
-import monopoly_team04.Model.*;
-import org.mockito.Mockito;
+import Controller.Board;
+import Controller.Dice;
+import Model.*;
 
-import monopoly_team04.Model.*;
+import Controller.*;
+import Model.*;
 
 /***
  * 2. A player lands on Chance, draws "Advance to Go, collect $200", your token is moved and your funds are updated appropriately,

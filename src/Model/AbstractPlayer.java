@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public abstract class AbstractPlayer implements Transfer {
     private double funds;
     private ArrayList<Property> properties;
-    private ArrayList<ActionCard> actionCards;
+    private ArrayList<AbstractActionCard> actionCards;
     private Token token;
 
     public AbstractPlayer(double funds, Token token) {
