@@ -12,4 +12,5 @@ public class ClassicGame extends AbstractGame {
     public ClassicGame(ArrayList<AbstractPlayer> players, Bank bank, Board board, Die[] dice, ArrayList<Deck> decks) {
         super(players, bank, board, dice, decks);
     }
+
 }
