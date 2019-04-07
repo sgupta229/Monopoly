@@ -1,6 +1,7 @@
 package Model;
 
-import Controller.Game;
+import Controller.AbstractGame;
+import Controller.AbstractGame;
 
 import java.util.ArrayList;
 import java.util.List;

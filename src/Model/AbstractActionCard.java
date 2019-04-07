@@ -18,7 +18,7 @@ public abstract class AbstractActionCard {
         isHoldable = holdable;
     }
 
-    public abstract void doCardAction(Game game);
+    public abstract void doCardAction(AbstractGame game);
 
     public DeckType getMyDeckType(){
         return myDeckType;

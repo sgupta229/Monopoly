@@ -22,10 +22,11 @@ public class GoToSpace extends AbstractSpace {
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
+
     public void doAction(AbstractGame game){
-        game.getCurrPlayer().getMyToken().moveTo(spacesLocation);
+        game.getCurrPlayer().getToken().moveTo(spacesLocation);
         if(spaceToMoveTo.getMyName().equals("Jail")){
-            game.getCurrentPlayer().setJail(true);
+            game.getCurrPlayer().setJail(true);
         }
     }
 }
