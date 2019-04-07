@@ -1,13 +1,14 @@
 package Model;
 
-import Controller.Game;
+import Controller.AbstractGame;
+import Controller.AbstractGame;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommunityChestSpace extends Space{
 
-    List<Player> myOccupants = new ArrayList<>();
+    List<AbstractPlayer> myOccupants = new ArrayList<>();
     Deck myDeck;
 
     public CommunityChestSpace(int locationIndex, String spaceName, Deck deckType){
@@ -23,7 +24,7 @@ public class CommunityChestSpace extends Space{
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-    public void doAction(Game game){
+    public void doAction(AbstractGame game){
         ActionCard cardDrawn = myDeck.drawCard();
         cardDrawn.doAction(game);
         myDeck.discardCard(cardDrawn);

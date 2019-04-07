@@ -11,11 +11,11 @@ public interface Transfer {
      * @param amount
      * @param receiver
      */
-    public void makePayment(float amount, Transfer receiver);
+    public void makePayment(double amount, Transfer receiver);
 
     /***
      * Allows anyone that implements Transfer to receive a payment from another
      * @param amount
      */
-    public void receivePayment(float amount);
+    public void receivePayment(double amount);
 }

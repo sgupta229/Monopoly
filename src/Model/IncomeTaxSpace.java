@@ -1,18 +1,18 @@
 package Model;
 
-import Controller.Game;
+import Controller.AbstractGame;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class IncomeTaxSpace extends Space{
 
-    List<Player> myOccupants = new ArrayList<>();
-    float flatRate;
-    float percentageTaken;
+    List<AbstractPlayer> myOccupants = new ArrayList<>();
+    double flatRate;
+    double percentageTaken;
     Transfer taxReceiver;
 
-    public IncomeTaxSpace(int locationIndex, String spaceName,float myRate, float myPercentage, Transfer myTaxReceiver){
+    public IncomeTaxSpace(int locationIndex, String spaceName,double myRate, double myPercentage, Transfer myTaxReceiver){
         super(locationIndex, spaceName);
         flatRate = myRate;
         percentageTaken = myPercentage;
@@ -27,10 +27,10 @@ public class IncomeTaxSpace extends Space{
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-    public void doAction(Game game){
-        Player currentPlayer = game.getCurrentPlayer();
-        float playersWealth = currentPlayer.getFunds();
-        float amountTaxed = playersWealth-flatRate-(playersWealth*percentageTaken);
+    public void doAction(AbstractGame game){
+        AbstractPlayer currentPlayer = game.getCurrPlayer();
+        double playersWealth = currentPlayer.getFunds();
+        double amountTaxed = playersWealth-flatRate-(playersWealth*percentageTaken);
         currentPlayer.makePayment(amountTaxed, taxReceiver);
         taxReceiver.receivePayment(amountTaxed);
     }

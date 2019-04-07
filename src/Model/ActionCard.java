@@ -1,6 +1,6 @@
 package Model;
 
-import Controller.Game;
+import Controller.AbstractGame;
 
 /**
  * Concrete subclasses will extend this eventual abstract class
@@ -16,5 +16,5 @@ public interface ActionCard {
      * Need game to access bank if action is win money from bank and players if player to your right pays you...
      * @param game
      */
-    public void doAction(Game game);
+    public void doAction(AbstractGame game);
 }
