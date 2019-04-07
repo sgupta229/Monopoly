@@ -2,15 +2,16 @@ package Model;
 
 import Controller.AbstractGame;
 
-public class PropSpace extends AbstractSpace {
 
+public class GoToSpace extends AbstractSpace {
 
-    Property myProperty;
+    AbstractSpace spaceToMoveTo;
+    int spacesLocation;
 
-    public PropSpace(int locationIndex, String spaceName, Property thisProperty){
+    public GoToSpace(int locationIndex, String spaceName, AbstractSpace jumpToSpace){
         super(locationIndex, spaceName);
-        myProperty = thisProperty;
-
+        spaceToMoveTo = jumpToSpace;
+        spacesLocation = spaceToMoveTo.getMyLocation();
     }
 
 
@@ -21,11 +22,11 @@ public class PropSpace extends AbstractSpace {
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
+
     public void doAction(AbstractGame game){
-        if(game.getBank().propertyOwnedBy(myProperty)==null){
-            //prompt front end button to purchase property, handler does the rest
+        game.getCurrPlayer().getToken().moveTo(spacesLocation);
+        if(spaceToMoveTo.getMyName().equals("Jail")){
+            game.getCurrPlayer().setJail(true);
         }
     }
-
-
 }

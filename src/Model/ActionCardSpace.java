@@ -1,16 +1,19 @@
 package Model;
 
 import Controller.AbstractGame;
+import Controller.AbstractGame;
 
-public class PropSpace extends AbstractSpace {
+import java.util.ArrayList;
+import java.util.List;
 
+public class ActionCardSpace extends AbstractSpace {
 
-    Property myProperty;
+    List<AbstractPlayer> myOccupants = new ArrayList<>();
+    Deck myDeck;
 
-    public PropSpace(int locationIndex, String spaceName, Property thisProperty){
+    public ActionCardSpace(int locationIndex, String spaceName, Deck deckType){
         super(locationIndex, spaceName);
-        myProperty = thisProperty;
-
+        myDeck = deckType;
     }
 
 
@@ -22,9 +25,8 @@ public class PropSpace extends AbstractSpace {
      * @param game the active Game driver class for this game
      */
     public void doAction(AbstractGame game){
-        if(game.getBank().propertyOwnedBy(myProperty)==null){
-            //prompt front end button to purchase property, handler does the rest
-        }
+        ActionCard cardDrawn = myDeck.drawCard();
+        cardDrawn.doAction(game);
     }
 
 
