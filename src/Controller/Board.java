@@ -45,7 +45,7 @@ public class Board {
     public int getLocationOfSpace(String spaceName) throws InvalidParameterException{
         try{
             for(AbstractSpace sp : mySpaces){
-                if(sp.getMyName().equalsIgnoreCase(spaceName){
+                if(sp.getMyName().equalsIgnoreCase(spaceName)){
                     return sp.getMyLocation();
                 }
             }

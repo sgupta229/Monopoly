@@ -7,9 +7,8 @@ public class PropSpace extends AbstractSpace {
 
     Property myProperty;
 
-    public PropSpace(int locationIndex, String spaceName, Property thisProperty){
+    public PropSpace(int locationIndex, String spaceName){
         super(locationIndex, spaceName);
-        myProperty = thisProperty;
 
     }
 
@@ -25,6 +24,10 @@ public class PropSpace extends AbstractSpace {
         if(game.getBank().propertyOwnedBy(myProperty)==null){
             //prompt front end button to purchase property, handler does the rest
         }
+    }
+
+    public void linkSpaceToProperty(Property property){
+        myProperty = property;
     }
 
 
