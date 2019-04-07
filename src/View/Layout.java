@@ -1,11 +1,8 @@
 package View;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -35,10 +32,9 @@ public class Layout {
         myBoardPane.setId("boardPane");
 
 
-
         Board board = new Board(myBoardPane);
         Pane gameBoard = board.getGridPane();
-        
+
         StackPane myGameBoard = new StackPane();
         ImageView logo = board.getLogo();
         myGameBoard.getChildren().addAll(gameBoard, logo);
@@ -46,17 +42,6 @@ public class Layout {
 
         gameBoard.setPadding(new Insets(10,20,10,20));
         myBoardPane.getChildren().addAll(myGameBoard);
-
-
-//        myBoardPane.setTop(top);
-//        myBoardPane.setLeft(board.getMyLeftPane());
-//        myBoardPane.setRight(board.getMyRightPane());
-//        myBoardPane.setBottom(board.getMyBottomPane());
-//        myBoardPane.setCenter(logo);
-//        logo.setFitHeight((myBoardPane.getPrefHeight()/12)*12);
-//        logo.setFitWidth((myBoardPane.getPrefWidth()/12)*10);
-
-
 
         myLayout.getChildren().add(myBoardPane);
     }
