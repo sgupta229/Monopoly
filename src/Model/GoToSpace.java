@@ -3,12 +3,12 @@ package Model;
 import Controller.Game;
 
 
-public class GoToSpace extends Space{
+public class GoToSpace extends AbstractSpace {
 
-    Space spaceToMoveTo;
+    AbstractSpace spaceToMoveTo;
     int spacesLocation;
 
-    public GoToSpace(int locationIndex, String spaceName, Space jumpToSpace){
+    public GoToSpace(int locationIndex, String spaceName, AbstractSpace jumpToSpace){
         super(locationIndex, spaceName);
         spaceToMoveTo = jumpToSpace;
         spacesLocation = spaceToMoveTo.getMyLocation();
@@ -24,5 +24,8 @@ public class GoToSpace extends Space{
      */
     public void doAction(Game game){
         game.getCurrentPlayer().getMyToken().moveTo(spacesLocation);
+        if(spaceToMoveTo.getMyName().equals("Jail")){
+            game.getCurrentPlayer().setJail(true);
+        }
     }
 }

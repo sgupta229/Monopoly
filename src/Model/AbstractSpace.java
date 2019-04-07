@@ -8,12 +8,12 @@ import java.util.*;
  * It will hold a list of which players (if any) are on itself
  */
 
-public abstract class Space {
+public abstract class AbstractSpace {
     private int myLocation;
     private String myName;
     List<Player> myOccupants = new ArrayList<>();
 
-    public Space(int locationIndex, String spaceName){
+    public AbstractSpace(int locationIndex, String spaceName){
         myLocation = locationIndex;
         myName = spaceName;
     }
@@ -62,7 +62,7 @@ public abstract class Space {
             return false;
         }
 
-        Space space = (Space) o;
+        AbstractSpace space = (AbstractSpace) o;
         return (space.getMyName().equals(this.getMyName()) && space.getMyLocation() == this.getMyLocation());
     }
 

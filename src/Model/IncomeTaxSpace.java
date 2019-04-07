@@ -5,7 +5,7 @@ import Controller.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IncomeTaxSpace extends Space{
+public class IncomeTaxSpace extends AbstractSpace {
 
     List<Player> myOccupants = new ArrayList<>();
     float flatRate;

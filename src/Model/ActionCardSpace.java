@@ -5,12 +5,12 @@ import Controller.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommunityChestSpace extends Space{
+public class ActionCardSpace extends AbstractSpace {
 
     List<Player> myOccupants = new ArrayList<>();
     Deck myDeck;
 
-    public CommunityChestSpace(int locationIndex, String spaceName, Deck deckType){
+    public ActionCardSpace(int locationIndex, String spaceName, Deck deckType){
         super(locationIndex, spaceName);
         myDeck = deckType;
     }
@@ -26,7 +26,6 @@ public class CommunityChestSpace extends Space{
     public void doAction(Game game){
         ActionCard cardDrawn = myDeck.drawCard();
         cardDrawn.doAction(game);
-        myDeck.discardCard(cardDrawn);
     }
 
 
