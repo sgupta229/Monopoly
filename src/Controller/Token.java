@@ -1,26 +1,27 @@
 package Controller;
 
-/***
- * This class handles all movements for a player. Holds the players current location on the board
- */
-public interface Token {
+public class Token {
+    int location;
+    String name;
 
-    /***
-     * moves the player the specifc amount ahead on the board
-     * @param amount
-     * @return new location int
-     */
-    public int move(int amount);
+    public Token(int location, String name) {
+        this.location = location;
+        this.name = name;
+    }
 
-    /***
-     * gets the players current location in terms of its index on the board
-     * @return
-     */
-    public int getCurrentLocation();
+    //ADD FUNCTIONALITY OF WRAPPING AROUND BOARD ONCE BOARD CLASS IS MADE
+    public int move(int numSpaces) {
+        location += numSpaces;
+        return location;
+    }
 
-    /***
-     * moves the player directly to a specific index on the board
-     * @param index the location being moved to
-     */
-    public void moveTo(int index);
+    public int moveTo(int newSpace) {
+        location = newSpace;
+        return newSpace;
+    }
+
+    public int getCurrentLocation() {
+        return location;
+    }
+
 }

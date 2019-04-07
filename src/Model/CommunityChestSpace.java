@@ -10,7 +10,8 @@ public class CommunityChestSpace extends Space{
     List<Player> myOccupants = new ArrayList<>();
     Deck myDeck;
 
-    public CommunityChestSpace(Deck deckType){
+    public CommunityChestSpace(int locationIndex, String spaceName, Deck deckType){
+        super(locationIndex, spaceName);
         myDeck = deckType;
     }
 

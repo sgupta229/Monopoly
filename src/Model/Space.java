@@ -9,9 +9,14 @@ import java.util.*;
  */
 
 public abstract class Space {
-    //private int myLocation;
-    //private int myName;
+    private int myLocation;
+    private String myName;
     List<Player> myOccupants = new ArrayList<>();
+
+    public Space(int locationIndex, String spaceName){
+        myLocation = locationIndex;
+        myName = spaceName;
+    }
 
     /***
      * This method performs the specific action that a type of space requires.
@@ -40,11 +45,31 @@ public abstract class Space {
         }
     }
 
-    public int getMyLocation();
+    public int getMyLocation(){
+        return myLocation;
+    }
 
-    public String getMyName();
+    public String getMyName(){
+        return myName;
+    }
 
-    public boolean equals(Space o);
+    @Override
+    public boolean equals(Object o){
+        if(this==o){
+            return true;
+        }
+        if(o==null || o.getClass()!=this.getClass()){
+            return false;
+        }
+
+        Space space = (Space) o;
+        return (space.getMyName().equals(this.getMyName()) && space.getMyLocation() == this.getMyLocation());
+    }
+
+    @Override
+    public int hashCode(){
+        return this.getMyLocation();
+    }
     
     /***
      * removes a player to the list of players on the space
