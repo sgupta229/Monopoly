@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ActionCardSpace extends AbstractSpace {
 
-    List<Player> myOccupants = new ArrayList<>();
+    List<AbstractPlayer> myOccupants = new ArrayList<>();
     DeckType myDeckType;
 
     public ActionCardSpace(int locationIndex, String spaceName, String deckType){
@@ -24,7 +24,8 @@ public class ActionCardSpace extends AbstractSpace {
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-    public void doAction(Game game){
+
+    public void doAction(AbstractGame game){
         AbstractActionCard cardDrawn;
         List<ActionDeck> tempDecks = game.getMyActionDecks();
         for(ActionDeck d : tempDecks) {

@@ -2,7 +2,8 @@ package Controller;
 
 import Model.AbstractPlayer;
 import Model.Bank;
-import Model.Deck;
+import Controller.Die;
+import Model.ActionDeck;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,10 +15,10 @@ public abstract class AbstractGame {
     private Board board;
     private AbstractPlayer currPlayer;
     private Die[] dice;
-    private ArrayList<Deck> decks;
+    private ArrayList<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
 
-    public AbstractGame(ArrayList<AbstractPlayer> players, Bank bank, Board board, Die[] dice, ArrayList<Deck> decks) {
+    public AbstractGame(ArrayList<AbstractPlayer> players, Bank bank, Board board, Die[] dice, ArrayList<ActionDeck> decks) {
         this.players = players;
         this.bank = bank;
         this.board = board;
@@ -72,5 +73,7 @@ public abstract class AbstractGame {
         }
         return true;
     }
+
+    public List<ActionDeck> getMyActionDecks(){return decks;}
 
 }

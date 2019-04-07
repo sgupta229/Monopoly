@@ -2,14 +2,14 @@ package Model;
 
 import java.util.*;
 
-public abstract class AbstractDeck {
+public class ActionDeck {
     private DeckType myDeckType;
     private Stack<AbstractActionCard> myLiveCards;
     private List<AbstractActionCard> myDeadCards;
 
     //Live will be empty until call deck.fillLiveDeck(all action cards list);
-    public AbstractDeck(DeckType deckType){
-        myDeckType = deckType;
+    public ActionDeck(String deckType){
+        myDeckType = DeckType.valueOf(deckType);
         myLiveCards = new Stack<>();
         myDeadCards = new ArrayList<>();
     }
@@ -22,6 +22,7 @@ public abstract class AbstractDeck {
         for(AbstractActionCard cd : cards){
             if(cd.getMyDeckType() == this.myDeckType) {
                 myLiveCards.push(cd);
+                cd.setDeck(this);
             }
         }
     }

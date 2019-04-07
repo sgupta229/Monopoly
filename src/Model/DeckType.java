@@ -1,6 +1,6 @@
 package Model;
 
 public enum DeckType {
-    COMUNITY_CHEST,
+    COMMUNITY_CHEST,
     CHANCE;
 }
