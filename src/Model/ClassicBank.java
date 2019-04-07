@@ -37,9 +37,13 @@ public class ClassicBank implements Bank, Transfer{
      * @param receiver
      */
     public void makePayment(float amount, Transfer receiver){
-        myBalance -= amount;
-        receiver.receivePayment(amount);
-        //what happens if bank doesn't have enough
+        if(myBalance-amount>0){
+            myBalance -= amount;
+        }
+        else{
+            receiver.receivePayment(myBalance);
+            myBalance = 0;
+        }
     }
 
     /***
