@@ -1,7 +1,5 @@
 package Model;
 
-import Controller.Game;
-
 /**
  * Concrete subclasses will extend this eventual abstract class
  * Subclasses based on their doAction methods
