@@ -74,4 +74,6 @@ public abstract class AbstractGame {
         return true;
     }
 
+    public List<ActionDeck> getMyActionDecks(){return decks;}
+
 }
