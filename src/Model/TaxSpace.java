@@ -12,11 +12,12 @@ public class TaxSpace extends AbstractSpace {
     double percentageTaken;
     Transfer taxReceiver;
 
-    public TaxSpace(int locationIndex, String spaceName, double myRate, double myPercentage, Transfer myTaxReceiver){
+    public TaxSpace(int locationIndex, String spaceName, double myRate, double myPercentage){
         super(locationIndex, spaceName);
         flatRate = myRate;
         percentageTaken = myPercentage;
-        taxReceiver = myTaxReceiver;
+        //taxReceiver = myTaxReceiver;
+        //assuming that tax goes to the bank
     }
 
 
@@ -28,9 +29,23 @@ public class TaxSpace extends AbstractSpace {
      * @param game the active Game driver class for this game
      */
     public void doAction(AbstractGame game){
+        double amountTaxed;
+        taxReceiver = game.getBank();
         AbstractPlayer currentPlayer = game.getCurrPlayer();
         double playersWealth = currentPlayer.getFunds();
-        double amountTaxed = playersWealth-flatRate-(playersWealth*percentageTaken);
+        double tempFlat = playersWealth-flatRate;
+        double tempPercent =  playersWealth - (playersWealth*percentageTaken);
+        if(percentageTaken>0){
+            if(tempFlat>tempPercent){
+                amountTaxed = flatRate;
+            }
+            else{
+                amountTaxed = playersWealth*percentageTaken;
+            }
+        }
+        else{
+            amountTaxed = flatRate;
+        }
         currentPlayer.makePayment(amountTaxed, taxReceiver);
         taxReceiver.receivePayment(amountTaxed);
     }

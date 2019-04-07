@@ -38,18 +38,14 @@ public class Board {
     /**
      * Given a AbstractSpace (such as Boarwalk), this returns the location of that space on the board
      * Used when a user draws a card that says "Move to this space"
-     * @param space
+     * @param spaceName
      * @return integer (or index) of location of the AbstractSpace parameter
      * @throws InvalidParameterException
      */
-    public int getLocationOfSpace(AbstractSpace space) throws InvalidParameterException{
+    public int getLocationOfSpace(String spaceName) throws InvalidParameterException{
         try{
             for(AbstractSpace sp : mySpaces){
-                if (sp.equals(space)){
-                    return sp.getMyLocation();
-                }
-                //Check for names being same? or check above for overall equals method.
-                if(sp.getMyName().equalsIgnoreCase(space.getMyName())){
+                if(sp.getMyName().equalsIgnoreCase(spaceName){
                     return sp.getMyLocation();
                 }
             }
