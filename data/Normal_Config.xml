@@ -116,10 +116,10 @@
                 <SpaceName>ILLINOIS_AVE</SpaceName>
                 <ColorGroup>RED</ColorGroup>
             </Space>
-            <Space type="Property">
-                <Index>25</Index>
-                <SpaceName>B._&_O._RAILROAD</SpaceName>
-            </Space>
+            <!--<Space type="Property">-->
+                <!--<Index>25</Index>-->
+                <!--<SpaceName>B._&_O._RAILROAD</SpaceName>-->
+            <!--</Space>-->
             <Space type="Property">
                 <Index>27</Index>
                 <SpaceName>ATLANTIC_AVE</SpaceName>
