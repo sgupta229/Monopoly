@@ -36,6 +36,7 @@ public class ActionDeck {
     }
 
     //ASSUMPTION/SIMPLIFICATION -- discard to discard pile -- not to bottom of deck; then shuffle when live deck is empty
+    //Call this in the AbstractActionCard doCardAction() method == myDeck.discardCard(this);
     public void discardCard(AbstractActionCard card){
         myDeadCards.add(card);
     }
