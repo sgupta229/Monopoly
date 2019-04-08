@@ -11,6 +11,12 @@
     /*-fx-font-weight: 500;*/
 }
 
+#box {
+    -fx-background-color: #bbbbbb;
+    -fx-padding: 15;
+    -fx-spacing: 20;
+}
+
 #button1 {
     -fx-text-fill: black;
     -fx-font-weight: bold;

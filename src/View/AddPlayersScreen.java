@@ -31,7 +31,6 @@ public class AddPlayersScreen {
         this.myRoot = root;
 
         anchorPane.setPrefSize(myWidth,myHeight);
-        anchorPane.setStyle("-fx-background-color: #3fffff;");
 
         Text title = new Text(messages.getString("add-players"));
         title.setWrappingWidth(myWidth);
@@ -41,9 +40,7 @@ public class AddPlayersScreen {
         HBox screenContent = new HBox();
         screenContent.setPrefWidth(myWidth);
         screenContent.setAlignment(Pos.CENTER);
-        screenContent.setPadding(new Insets(15, 15, 15, 15));
-        screenContent.setSpacing(20);
-        screenContent.setStyle("-fx-background-color: #937999;");
+        screenContent.setId("box");
 
         VBox newPlayer = createNewPlayerBox();
         VBox editPlayerList = createEditPlayerListBox();
@@ -63,9 +60,7 @@ public class AddPlayersScreen {
 
     private VBox createNewPlayerBox(){
         VBox newPlayer = new VBox();
-        newPlayer.setStyle("-fx-background-color: #aaaaaa;");
-        newPlayer.setPadding(new Insets(15, 15, 15, 15));
-        newPlayer.setSpacing(20);
+        newPlayer.setId("box");
 
         Text newPlayerTitle = new Text(messages.getString("new-player"));
 
@@ -89,9 +84,7 @@ public class AddPlayersScreen {
 
     private VBox createEditPlayerListBox(){
         VBox editPlayerList = new VBox();
-        editPlayerList.setStyle("-fx-background-color: #a1aa5e;");
-        editPlayerList.setPadding(new Insets(15, 15, 15, 15));
-        editPlayerList.setSpacing(20);
+        editPlayerList.setId("box");
 
         Text editPlayerListTitle = new Text(messages.getString("edit-player-list"));
         ListView playerList = new ListView();
