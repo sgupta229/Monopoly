@@ -1,6 +1,6 @@
 package Model;
 
-public class ClassicProperty implements Property {
+public class ClassicProperty{// implements Property {
 
     double price;
     String name;

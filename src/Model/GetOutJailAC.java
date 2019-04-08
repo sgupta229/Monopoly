@@ -3,7 +3,7 @@ package Model;
 import Controller.AbstractGame;
 
 public class GetOutJailAC extends AbstractActionCard {
-    public GetOutJailAC(String deckType, String message, Boolean holdable) {
+    public GetOutJailAC(DeckType deckType, String message, Boolean holdable) {
         super(deckType, message, holdable);
     }
 
