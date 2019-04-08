@@ -238,7 +238,6 @@
             <Space type="ACTION">
                 <Index>22</Index>
                 <SpaceName>CHANCE</SpaceName>
-
             </Space>
             <Space type="COLOR_PROPERTY">
                 <Index>23</Index>
@@ -258,7 +257,6 @@
                 <Index>24</Index>
                 <SpaceName>ILLINOIS_AVE</SpaceName>
                 <ColorGroup>RED</ColorGroup>
-<<<<<<< HEAD
                 <BuyPrice>240</BuyPrice>
                 <Rent>20</Rent>
                 <Rent1House>100</Rent1House>
