@@ -50,9 +50,8 @@ public class ChooseGameScreen {
         public void handle(ActionEvent event) {
             System.out.print(gameType);
             removeSplashScreen(myRoot);
-            Layout l = new Layout(myRoot);
-
-
+            new AddPlayersScreen(myRoot,Main.WIDTH,Main.HEIGHT);
+//            Layout l = new Layout(myRoot);
         }
     }
 

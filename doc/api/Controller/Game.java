@@ -1,6 +1,7 @@
 package monopoly_team04.Model.Controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import monopoly_team04.Model.Bank;
 import monopoly_team04.Model.Deck;
 import monopoly_team04.Model.DeckType;
@@ -10,6 +11,11 @@ import Model.Bank;
 import Model.DeckType;
 import Model.Player;
 >>>>>>> 82633877f6cc8985eab3c12b8c74116b0fd35b65
+=======
+import Model.Bank;
+import Model.DeckType;
+import Model.Player;
+>>>>>>> 01cbc3aa8adc2d94a0e2c353efe82add9cc6e4ee
 
 import java.util.List;
 

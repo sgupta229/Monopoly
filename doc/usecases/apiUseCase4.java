@@ -7,6 +7,7 @@ import monopoly_team04.Model.*;
  * and the card is returned to the bottom of the deck.
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 import monopoly_team04.Model.Controller.Board;
 import monopoly_team04.Model.Controller.Dice;
 import monopoly_team04.Model.Controller.Game;
@@ -15,13 +16,18 @@ import org.mockito.Mockito;
 
 import monopoly_team04.Model.*;
 =======
+=======
+>>>>>>> 01cbc3aa8adc2d94a0e2c353efe82add9cc6e4ee
 import Controller.Board;
 import Controller.Dice;
 import Model.*;
 
 import Controller.*;
 import Model.*;
+<<<<<<< HEAD
 >>>>>>> 82633877f6cc8985eab3c12b8c74116b0fd35b65
+=======
+>>>>>>> 01cbc3aa8adc2d94a0e2c353efe82add9cc6e4ee
 
 /***
  * 2. A player lands on Chance, draws "Advance to Go, collect $200", your token is moved and your funds are updated appropriately,
