@@ -67,3 +67,14 @@
 
 
 }
+
+#boardLogo{
+    -fx-border-color: black;
+    -fx-border-width: 5;
+}
+
+
+#propColor{
+    -fx-border-color: black;
+    -fx-border-radius: 1;
+}

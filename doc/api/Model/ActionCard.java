@@ -1,7 +1,10 @@
 package monopoly_team04.Model;
 
+<<<<<<< HEAD
 import monopoly_team04.Model.Controller.Game;
 
+=======
+>>>>>>> 82633877f6cc8985eab3c12b8c74116b0fd35b65
 /**
  * Concrete subclasses will extend this eventual abstract class
  * Subclasses based on their doAction methods

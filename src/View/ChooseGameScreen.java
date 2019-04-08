@@ -1,6 +1,8 @@
 package View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -60,7 +62,7 @@ public class ChooseGameScreen {
         myFlowPane.setHgap(50);
         myFlowPane.setLayoutX(Main.WIDTH/7.5);
         myFlowPane.setLayoutY(Main.HEIGHT/2);
-        myFlowPane.setPrefWrapLength(Main.WIDTH/1.2);
+        myFlowPane.setPrefWrapLength(Main.WIDTH);
         myFlowPane.setId("flowPane");
 
         gameTypeButtons  = new ArrayList<>(Arrays.asList("classic", "mega", "junior", "starWars"));

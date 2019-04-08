@@ -1,6 +1,9 @@
 package Model;
 
 
+import Controller.AbstractGame;
+
+
 public class GoToSpace extends AbstractSpace {
 
     AbstractSpace spaceToMoveTo;
@@ -20,10 +23,11 @@ public class GoToSpace extends AbstractSpace {
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-    public void doAction(Game game){
-        game.getCurrentPlayer().getMyToken().moveTo(spacesLocation);
+
+    public void doAction(AbstractGame game){
+        game.getCurrPlayer().getToken().moveTo(spacesLocation);
         if(spaceToMoveTo.getMyName().equals("Jail")){
-            game.getCurrentPlayer().setJail(true);
+            game.getCurrPlayer().setJail(true);
         }
     }
 }

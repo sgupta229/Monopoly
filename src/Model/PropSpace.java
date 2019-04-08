@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.AbstractGame;
+
 public class PropSpace extends AbstractSpace {
 
 
@@ -19,7 +21,7 @@ public class PropSpace extends AbstractSpace {
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-    public void doAction(Game game){
+    public void doAction(AbstractGame game){
         if(game.getBank().propertyOwnedBy(myProperty)==null){
             //prompt front end button to purchase property, handler does the rest
         }

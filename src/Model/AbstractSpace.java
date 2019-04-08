@@ -25,13 +25,13 @@ public abstract class AbstractSpace {
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-    public abstract void doAction(Game game);
+    public abstract void doAction(AbstractGame game);
 
     /***
      * Getter method that gets all the players on the given space
      * @return the list of Occupants
      */
-    public List<Player> getOccupants(){
+    public List<AbstractPlayer> getOccupants(){
         return myOccupants;
     }
 
@@ -39,7 +39,7 @@ public abstract class AbstractSpace {
      * adds a player to the list of players on the space
      * @param newOccupant the player that is now on the spot
      */
-    public void addOccupant(Player newOccupant){
+    public void addOccupant(AbstractPlayer newOccupant){
         if(!myOccupants.contains(newOccupant)){
             myOccupants.add(newOccupant);
         }
@@ -75,7 +75,7 @@ public abstract class AbstractSpace {
      * removes a player to the list of players on the space
      * @param occupantToRemove the player that has left the spot
      */
-    public void removeOccupant(Player occupantToRemove){
+    public void removeOccupant(AbstractPlayer occupantToRemove){
         if(myOccupants.contains(occupantToRemove)){
             myOccupants.remove(occupantToRemove);
         }

@@ -1,9 +1,15 @@
 package useCases;
 
+<<<<<<< HEAD
 import monopoly_team04.Model.Controller.Board;
 import monopoly_team04.Model.Controller.Dice;
 import monopoly_team04.Model.Controller.Game;
 import monopoly_team04.Model.*;
+=======
+import Controller.Board;
+import Controller.Dice;
+import Model.*;
+>>>>>>> 82633877f6cc8985eab3c12b8c74116b0fd35b65
 import org.mockito.Mockito;
 
 /***
