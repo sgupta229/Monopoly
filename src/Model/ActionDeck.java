@@ -8,8 +8,8 @@ public class ActionDeck {
     private List<AbstractActionCard> myDeadCards;
 
     //Live will be empty until call deck.fillLiveDeck(all action cards list);
-    public ActionDeck(String deckType){
-        myDeckType = DeckType.valueOf(deckType);
+    public ActionDeck(DeckType deckType){
+        myDeckType = deckType;
         myLiveCards = new Stack<>();
         myDeadCards = new ArrayList<>();
     }

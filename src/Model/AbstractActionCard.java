@@ -15,8 +15,8 @@ public abstract class AbstractActionCard {
     //deckType must be all upper case and match the enums in DeckType.java exactly
     //https://www.baeldung.com/java-string-to-enum
     //Parsing data should create List<AbstractActionCard> allActionCards with all types of action cards from xml
-    public AbstractActionCard(String deckType, String message, Boolean holdable){
-        myDeckType = DeckType.valueOf(deckType);
+    public AbstractActionCard(DeckType deckType, String message, Boolean holdable){
+        myDeckType = deckType;
         myMessage = message;
         isHoldable = holdable;
     }

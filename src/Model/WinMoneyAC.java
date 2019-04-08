@@ -5,10 +5,11 @@ import Controller.AbstractGame;
 import java.util.List;
 
 public class WinMoneyAC extends AbstractActionCard {
-    private List<Transfer> winMoneyFrom;
+    //private List<Transfer> winMoneyFrom;
+    private String winMoneyFrom;
     private double amountWin;
 
-    public WinMoneyAC(String deckType, String message, Boolean holdable, List<Transfer> winFrom, double amount) {
+    public WinMoneyAC(DeckType deckType, String message, Boolean holdable, String winFrom, double amount) {
         super(deckType, message, holdable);
         winMoneyFrom = winFrom;
         amountWin = amount;
