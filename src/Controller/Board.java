@@ -10,9 +10,11 @@ import java.util.List;
  */
 public class Board {
     private List<AbstractSpace> mySpaces;
+    private int myBoardSize;
 
-    public Board(List<AbstractSpace> boardSpaces){
+    public Board(List<AbstractSpace> boardSpaces, int numSpaces){
         mySpaces = boardSpaces;
+        myBoardSize = numSpaces;
     }
 
     /**
@@ -33,7 +35,7 @@ public class Board {
         finally {
             throw new IndexOutOfBoundsException();
         }
-    };
+    }
 
     /**
      * Given a AbstractSpace (such as Boarwalk), this returns the location of that space on the board
@@ -46,6 +48,7 @@ public class Board {
         try{
             for(AbstractSpace sp : mySpaces){
                 if(sp.getMyName().equalsIgnoreCase(spaceName)){
+
                     return sp.getMyLocation();
                 }
             }
