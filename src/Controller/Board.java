@@ -12,7 +12,7 @@ public class Board {
     private List<AbstractSpace> mySpaces;
     private int myBoardSize;
 
-    public Board(List<AbstractSpace> boardSpaces, int numSpaces){
+    public Board(int numSpaces, List<AbstractSpace> boardSpaces){
         mySpaces = boardSpaces;
         myBoardSize = numSpaces;
     }
@@ -22,18 +22,19 @@ public class Board {
      * Used when a player rolls the dice and determins his/her new location on the board
      * @param location
      * @return AbstractSpace
-     * @throws IndexOutOfBoundsException
+     * @throws GameBoardException
      */
-    public AbstractSpace getSpaceAt(int location) throws IndexOutOfBoundsException{
-        try {
-            for(AbstractSpace sp : mySpaces){
-                if(sp.getMyLocation() == location){
+    public AbstractSpace getSpaceAt(int location) throws GameBoardException{
+        if(location > mySpaces.size()){
+            throw new GameBoardException(location);
+        }
+        else{
+            for(AbstractSpace sp : mySpaces) {
+                if (sp.getMyLocation() == location) {
                     return sp;
                 }
             }
-        }
-        finally {
-            throw new IndexOutOfBoundsException();
+            throw new GameBoardException(location);
         }
     }
 
@@ -42,19 +43,14 @@ public class Board {
      * Used when a user draws a card that says "Move to this space"
      * @param spaceName
      * @return integer (or index) of location of the AbstractSpace parameter
-     * @throws InvalidParameterException
+     * @throws GameBoardException
      */
-    public int getLocationOfSpace(String spaceName) throws InvalidParameterException{
-        try{
-            for(AbstractSpace sp : mySpaces){
-                if(sp.getMyName().equalsIgnoreCase(spaceName)){
-
-                    return sp.getMyLocation();
-                }
+    public int getLocationOfSpace(String spaceName) throws GameBoardException{
+        for(AbstractSpace sp : mySpaces){
+            if (sp.getMyName().equalsIgnoreCase(spaceName)){
+                return sp.getMyLocation();
             }
         }
-        finally{
-            throw new InvalidParameterException();
-        }
+        throw new GameBoardException(spaceName);
     }
 }

@@ -30,4 +30,16 @@ public abstract class AbstractActionCard {
     public DeckType getMyDeckType(){
         return myDeckType;
     }
+
+    public boolean getIsHoldable(){
+        return isHoldable;
+    }
+
+    public String getMyMessage(){
+        return myMessage;
+    }
+
+    public ActionDeck getMyDeck(){
+        return myDeck;
+    }
 }
