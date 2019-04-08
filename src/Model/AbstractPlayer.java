@@ -9,6 +9,7 @@ public abstract class AbstractPlayer implements Transfer {
     private ArrayList<Property> properties;
     private ArrayList<AbstractActionCard> actionCards;
     private Token token;
+    private boolean inJail;
 
     public AbstractPlayer(double funds, Token token) {
         this.funds = funds;
@@ -47,7 +48,7 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public void setJail(boolean set) {
-
+        inJail = set;
     }
 
 }
