@@ -1,7 +1,5 @@
 package monopoly_team04.Model;
 
-import monopoly_team04.Model.Controller.Game;
-
 /**
  * Concrete subclasses will extend this eventual abstract class
  * Subclasses based on their doAction methods
