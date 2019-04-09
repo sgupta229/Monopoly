@@ -22,4 +22,8 @@ public class Token {
         return location;
     }
 
+    public void setLocation(int newLocation) {
+        location = newLocation;
+    }
+
 }

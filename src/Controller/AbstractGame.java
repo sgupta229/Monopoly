@@ -7,6 +7,8 @@ import java.util.List;
 
 public abstract class AbstractGame {
 
+    private int boardSize = 0;
+
     //RULES
     private double startFunds;
     private double jailBail;
@@ -41,7 +43,7 @@ public abstract class AbstractGame {
             dice = configReader.parseDice();
             double funds = configReader.parseBank();
             bank = new Bank(funds);
-            int boardSize = configReader.parseBoard();
+            boardSize = configReader.parseBoard();
             List<List> spaceProps= configReader.parseSpaces();
             spaces = spaceProps.get(0);
             properties = spaceProps.get(1);
@@ -128,6 +130,14 @@ public abstract class AbstractGame {
 
     public List<String> getPossibleTokens() {
         return possibleTokens;
+    }
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    public void endTurn() {
+
     }
 
 }
