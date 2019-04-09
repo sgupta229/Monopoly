@@ -243,23 +243,36 @@ public class ConfigReader {
         return allSpacesAndProps;
     }
 
-    public static void main(String[] args){
-        ConfigReader c = new ConfigReader("Normal_Config.xml");
-        try{
-            c.parseSpaces();
+    public List<String> parseTokens() throws XmlTagException{
+        List<String> allTokens = new ArrayList<>();
+
+        NodeList tokenList = doc.getElementsByTagName("Token");
+        for(int i = 0; i<tokenList.getLength(); i++) {
+            Node tk = tokenList.item(i);
+            if (tk.getNodeType() == Node.ELEMENT_NODE) {
+                Element tok = (Element) tk;
+                String tokName = tok.getTextContent();
+                allTokens.add(tokName);
+            }
         }
-        catch (XmlTagException e){};
+        if(!allTokens.isEmpty()){
+            return allTokens;
+        }
+        else{
+            throw new XmlTagException("BadTag");
+        }
     }
 
 /*    public static void main(String[] args) {
         ConfigReader c = new ConfigReader("Normal_Config.xml");
-        c.parseSpaces();
         try{
+            c.parseSpaces();
             c.parseActionCards();
             c.parseActionDecks();
             c.parseBank();
             c.parseBoard();
             c.parseDice();
+            c.parseTokens();
         }
         catch(XmlTagException e){
 

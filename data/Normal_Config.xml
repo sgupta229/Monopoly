@@ -655,14 +655,13 @@
     </Bank>
     <Tokens>
         <Token>battleship.png</Token>
-        <Token>boot.jpg</Token>
+        <Token>boot.png</Token>
         <Token>iron.png</Token>
-        <Token>racecar.jpg</Token>
+        <Token>racecar.png</Token>
         <Token>sheep_dog.png</Token>
         <Token>thimble.png</Token>
-        <Token>top_hat.jpeg</Token>
+        <Token>top_hat.png</Token>
         <Token>wheelbarrow.png</Token>
-
     </Tokens>
     <Rules>
         <StartFunds>2500</StartFunds>
