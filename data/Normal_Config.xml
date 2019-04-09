@@ -279,7 +279,7 @@
             <Mortgage>100</Mortgage>
         </Space>
         <Space type="COLOR_PROPERTY">
-            <Index>27</Index>
+            <Index>26</Index>
             <SpaceName>ATLANTIC_AVE</SpaceName>
             <ColorGroup>YELLOW</ColorGroup>
             <BuyPrice>260</BuyPrice>
@@ -293,7 +293,7 @@
             <Mortgage>130</Mortgage>
         </Space>
         <Space type="COLOR_PROPERTY">
-            <Index>28</Index>
+            <Index>27</Index>
             <SpaceName>VENTNOR_AVE</SpaceName>
             <ColorGroup>YELLOW</ColorGroup>
             <BuyPrice>260</BuyPrice>
@@ -307,7 +307,7 @@
             <Mortgage>130</Mortgage>
         </Space>
         <Space type="UTILITY_PROPERTY">
-            <Index>29</Index>
+            <Index>28</Index>
             <SpaceName>WATER_WORKS</SpaceName>
             <BuyPrice>150</BuyPrice>
             <RentMultiplier>4</RentMultiplier>
@@ -315,7 +315,7 @@
             <Mortgage>75</Mortgage>
         </Space>
         <Space type="COLOR_PROPERTY">
-            <Index>30</Index>
+            <Index>29</Index>
             <SpaceName>MARVIN_GARDENS</SpaceName>
             <ColorGroup>YELLOW</ColorGroup>
             <BuyPrice>280</BuyPrice>
@@ -329,12 +329,12 @@
             <Mortgage>140</Mortgage>
         </Space>
         <Space type="GO_TO_JAIL">
-            <Index>31</Index>
+            <Index>30</Index>
             <SpaceName>GO_TO_JAIL</SpaceName>
             <TargetSpace>JAIL</TargetSpace>
         </Space>
         <Space type="COLOR_PROPERTY">
-            <Index>32</Index>
+            <Index>31</Index>
             <SpaceName>PACIFIC_AVE</SpaceName>
             <ColorGroup>GREEN</ColorGroup>
             <BuyPrice>300</BuyPrice>
@@ -348,7 +348,7 @@
             <Mortgage>150</Mortgage>
         </Space>
         <Space type="COLOR_PROPERTY">
-            <Index>33</Index>
+            <Index>32</Index>
             <SpaceName>CAROLINA_AVE</SpaceName>
             <ColorGroup>GREEN</ColorGroup>
             <BuyPrice>300</BuyPrice>
@@ -362,11 +362,11 @@
             <Mortgage>150</Mortgage>
         </Space>
         <Space type="ACTION">
-            <Index>34</Index>
+            <Index>33</Index>
             <SpaceName>COMMUNITY_CHEST</SpaceName>
         </Space>
         <Space type="COLOR_PROPERTY">
-            <Index>35</Index>
+            <Index>34</Index>
             <SpaceName>PENNSYLVANIA_AVE</SpaceName>
             <ColorGroup>GREEN</ColorGroup>
             <BuyPrice>320</BuyPrice>
@@ -380,7 +380,7 @@
             <Mortgage>160</Mortgage>
         </Space>
         <Space type="RAILROAD_PROPERTY">
-            <Index>36</Index>
+            <Index>35</Index>
             <SpaceName>SHORT_LINE_RAILROAD</SpaceName>
             <BuyPrice>200</BuyPrice>
             <Rent>25</Rent>
@@ -390,11 +390,11 @@
             <Mortgage>100</Mortgage>
         </Space>
         <Space type="ACTION">
-            <Index>37</Index>
+            <Index>36</Index>
             <SpaceName>CHANCE</SpaceName>
         </Space>
         <Space type="COLOR_PROPERTY">
-            <Index>38</Index>
+            <Index>37</Index>
             <SpaceName>PARK_PLACE</SpaceName>
             <ColorGroup>DARK_BLUE</ColorGroup>
             <BuyPrice>350</BuyPrice>
@@ -408,13 +408,13 @@
             <Mortgage>175</Mortgage>
         </Space>
         <Space type="TAX">
-            <Index>39</Index>
+            <Index>38</Index>
             <SpaceName>LUXURY_TAX</SpaceName>
             <FlatRate>200</FlatRate>
             <Percentage>10</Percentage>
         </Space>
         <Space type="COLOR_PROPERTY">
-            <Index>40</Index>
+            <Index>39</Index>
             <SpaceName>BOARDWALK</SpaceName>
             <ColorGroup>DARK_BLUE</ColorGroup>
             <BuyPrice>400</BuyPrice>

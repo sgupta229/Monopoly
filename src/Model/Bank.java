@@ -31,6 +31,12 @@ public class Bank implements Transfer{
         return null;
     }
 
+    public void setPropertyOwner(Property property, AbstractPlayer newOwner){
+        if(ownedPropsMap.containsKey(property)){
+            ownedPropsMap.put(property, newOwner);
+        }
+    }
+
     /***
      * Allows a player/bank (or anyone that implements Transfer) to pay others
      * @param amount
