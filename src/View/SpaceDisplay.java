@@ -1,6 +1,7 @@
 package View;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -10,6 +11,7 @@ public abstract class SpaceDisplay {
     protected String myPropName;
     protected String myPropPrice;
     protected String myPropColor;
+    protected Rectangle myRectangle;
 
     public SpaceDisplay(String propName, String propPrice, String propColor){
         this.myPropName = propName;
@@ -18,9 +20,21 @@ public abstract class SpaceDisplay {
         myPropertyPane = new Pane();
     }
 
-    public abstract Rectangle createImage(int w, int h);
+    public SpaceDisplay(String propName, String propColor) {
+        this.myPropName = propName;
+        this.myPropColor = propColor;
+        myPropertyPane = new Pane();
+    }
 
-    public abstract Text createText(Text propName, Text price);
+    public Rectangle createBaseRectangle(int w, int h){
+        myRectangle = new Rectangle(w,h);
+        myRectangle.setFill(Color.web(this.myPropColor));
+        myRectangle.setStroke(Color.BLACK);
+
+        return myRectangle;
+    };
+
+    public abstract Text createText(String propName, String price);
 
     public Pane getMyPropertyPane(){
         return myPropertyPane;

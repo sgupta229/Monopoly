@@ -16,17 +16,16 @@ public class Board {
 
     public Board(Pane board){
         this.myBoardPane = board;
-
         myGridPane = new GridPane();
         myGridPane.setGridLinesVisible(true);
+
+        
 
 
         final int numCols = 11 ;
         final int numRows = 11 ;
         for (int i = 0; i < numCols; i++) {
             ColumnConstraints colConst = new ColumnConstraints();
-
-
             colConst.setPercentWidth(myBoardPane.getPrefHeight() / numCols);
             myGridPane.getColumnConstraints().add(colConst);
         }
@@ -40,7 +39,13 @@ public class Board {
         for (int i=1; i<10; i++){
             PropertySpaceDisplay propSpaces = new PropertySpaceDisplay("Conn", "3", "#c7edc9");
             Pane prop = propSpaces.createRightPropColor((int)myBoardPane.getPrefWidth()/13,(int)myBoardPane.getPrefWidth()/13);
+            Button popUpExample = new Button("1 ");
+
+            Popup myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?");
+            popUpExample.setOnAction(e -> myPopup.display());
+            prop.getChildren().add(popUpExample);
             myGridPane.add(prop, 10,i);
+
         }
         for (int i=1; i<10; i++){
             PropertySpaceDisplay propSpaces = new PropertySpaceDisplay("Conn", "3", "#c7edc9");
@@ -59,10 +64,35 @@ public class Board {
             myGridPane.add(prop, i,0);
         }
 
-        //myGridPane.add(prop, 0,0);
+        for (int i=0; i<11; i+=10){
+            CornerSpaceDisplay propSpaces = new CornerSpaceDisplay("GO","#c7edc9");
+            Pane prop;
+            if (i==10){
+                prop = propSpaces.createGoSpaces((int)myBoardPane.getPrefWidth()/13,(int)myBoardPane.getPrefWidth()/13);
+
+                myGridPane.add(prop, i,i);
+
+            }
+            else{
+                prop = propSpaces.createFreeParkingSpaces((int)myBoardPane.getPrefWidth()/13,(int)myBoardPane.getPrefWidth()/13);
+
+                myGridPane.add(prop, i,i);
+
+            }
+        }
 
 
-        Button popUpExample = new Button("Click ");
+
+        CornerSpaceDisplay propSpaces = new CornerSpaceDisplay("GO","#c7edc9");
+        Pane prop = propSpaces.createGoToJailSpaces((int)myBoardPane.getPrefWidth()/13,(int)myBoardPane.getPrefWidth()/13);
+        myGridPane.add(prop, 10,0);
+        CornerSpaceDisplay propSpaces2 = new CornerSpaceDisplay("GO","#c7edc9");
+        Pane prop2 = propSpaces2.createInJailSpaces((int)myBoardPane.getPrefWidth()/13,(int)myBoardPane.getPrefWidth()/13);
+        myGridPane.add(prop2, 0,10);
+
+
+
+
 
 
 
@@ -73,8 +103,7 @@ public class Board {
         boardLogo.setId("boardLogo");
 
 
-        Popup myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?");
-        popUpExample.setOnAction(e -> myPopup.display());
+
 
     }
 

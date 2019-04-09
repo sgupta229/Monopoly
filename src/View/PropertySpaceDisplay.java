@@ -1,6 +1,5 @@
 package View;
 
-import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -16,7 +15,7 @@ public class PropertySpaceDisplay extends SpaceDisplay {
     }
 
     @Override
-    public Rectangle createImage(int width, int height) {
+    public Rectangle createBaseRectangle(int width, int height) {
         myRectangle = new Rectangle(width,height);
         myRectangle.setFill(Color.web(this.myPropColor));
         myRectangle.setStroke(Color.BLACK);
@@ -26,7 +25,7 @@ public class PropertySpaceDisplay extends SpaceDisplay {
 
 
     public Pane createBottomPropColor(int width, int height){
-        createImage(width, height);
+        createBaseRectangle(width, height);
         HBox propColor = new HBox();
         propColor.setPrefWidth(myRectangle.getWidth());
         propColor.setPrefHeight(myRectangle.getHeight()/4);
@@ -40,7 +39,7 @@ public class PropertySpaceDisplay extends SpaceDisplay {
 
 
     public Pane createTopPropColor(int width, int height){
-        createImage(width, height);
+        createBaseRectangle(width, height);
         HBox propColor = new HBox();
         propColor.setPrefWidth(myRectangle.getWidth());
         propColor.setPrefHeight(myRectangle.getHeight()/4);
@@ -55,7 +54,7 @@ public class PropertySpaceDisplay extends SpaceDisplay {
 
 
     public Pane createLeftPropColor(int width, int height){
-        createImage(width, height);
+        createBaseRectangle(width, height);
         HBox propColor = new HBox();
         propColor.setPrefHeight(myRectangle.getWidth());
         propColor.setPrefWidth(myRectangle.getHeight()/4);
@@ -65,12 +64,14 @@ public class PropertySpaceDisplay extends SpaceDisplay {
         Pane imagePane = super.getMyPropertyPane();
         imagePane.getChildren().addAll(myRectangle,propColor);
 
+
+
         return imagePane;
     }
 
 
     public Pane createRightPropColor(int width, int height){
-        createImage(width, height);
+        createBaseRectangle(width, height);
         HBox propColor = new HBox();
         propColor.setPrefHeight(myRectangle.getWidth());
         propColor.setPrefWidth(myRectangle.getHeight()/4);
@@ -82,9 +83,12 @@ public class PropertySpaceDisplay extends SpaceDisplay {
         return imagePane;
     }
 
+
+
     @Override
-    public Text createText(Text propName, Text price) {
-        return null;
+    public Text createText(String propName, String price) {
+        Text name = new Text(propName);
+        return name;
     }
 
 }
