@@ -34,5 +34,6 @@ public class ActionCardSpace extends AbstractSpace {
                 cardDrawn.doCardAction(game);
             }
         }
+        game.endTurn();
     }
 }
