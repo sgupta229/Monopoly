@@ -263,6 +263,17 @@ public class ConfigReader {
         }
     }
 
+    public double getRuleDouble(String attribute) {
+        NodeList list = doc.getElementsByTagName(attribute);
+        Node node = list.item(0);
+        if(node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+            String stringValue = element.getTextContent();
+            return Double.parseDouble(stringValue);
+        }
+        return -1;
+    }
+
 /*    public static void main(String[] args) {
         ConfigReader c = new ConfigReader("Normal_Config.xml");
         try{

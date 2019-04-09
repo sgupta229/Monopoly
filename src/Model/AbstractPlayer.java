@@ -16,6 +16,10 @@ public abstract class AbstractPlayer implements Transfer {
         this.token = token;
     }
 
+    public AbstractPlayer() {
+
+    }
+
     @Override
     public void makePayment(double amount, Transfer receiver) {
         this.funds = this.funds - amount;
@@ -49,6 +53,14 @@ public abstract class AbstractPlayer implements Transfer {
 
     public void setJail(boolean set) {
         inJail = set;
+    }
+
+    public void setFunds(double funds) {
+        this.funds = funds;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
     }
 
 }

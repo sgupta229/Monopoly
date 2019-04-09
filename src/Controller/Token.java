@@ -2,11 +2,9 @@ package Controller;
 
 public class Token {
     int location;
-    String name;
 
-    public Token(int location, String name) {
+    public Token(int location) {
         this.location = location;
-        this.name = name;
     }
 
     //ADD FUNCTIONALITY OF WRAPPING AROUND BOARD ONCE BOARD CLASS IS MADE
