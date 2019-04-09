@@ -652,7 +652,15 @@
         <BankFunds>10000000</BankFunds>
     </Bank>
     <Tokens>
-        <Token></Token>
+        <Token>battleship.png</Token>
+        <Token>boot.jpg</Token>
+        <Token>iron.png</Token>
+        <Token>racecar.jpg</Token>
+        <Token>sheep_dog.png</Token>
+        <Token>thimble.png</Token>
+        <Token>top_hat.jpeg</Token>
+        <Token>wheelbarrow.png</Token>
+
     </Tokens>
     <Rules>
         <StartFunds>2500</StartFunds>
