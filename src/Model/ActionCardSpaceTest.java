@@ -75,6 +75,7 @@ public class ActionCardSpaceTest {
         spaceAt7.addOccupant(player1);
         var occList = spaceAt7.getOccupants();
         assertEquals(correctNumOfOccupants, occList.size());
+        assertEquals(player1, occList.get(0));
     }
 
     @Test
