@@ -8,7 +8,6 @@ public abstract class AbstractActionCard {
     private String myMessage;
     private Boolean isHoldable;
 
-
     //Initialize empty decks
     //Parse action card data checking for deck type then using that deck in this constructor
     //enum.valueOf(string "CHANCE") will create the enum -- IllegalArgumentException
