@@ -48,6 +48,7 @@ public class TaxSpace extends AbstractSpace {
         }
         currentPlayer.makePayment(amountTaxed, taxReceiver);
         taxReceiver.receivePayment(amountTaxed);
+        game.endTurn();
     }
 
 

@@ -18,5 +18,6 @@ public class GoSpace extends AbstractSpace{
      */
 
     public void doAction(AbstractGame game){
+        game.endTurn();
     }
 }

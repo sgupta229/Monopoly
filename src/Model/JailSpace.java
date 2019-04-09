@@ -18,6 +18,6 @@ public class JailSpace extends AbstractSpace{
      */
 
     public void doAction(AbstractGame game){
-        int placeholder = 0;
+        game.endTurn();
     }
 }
