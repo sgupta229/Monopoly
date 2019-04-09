@@ -31,6 +31,56 @@ public class ConfigReader {
         }
     }
 
+    public int parseBoard() throws XmlTagException{
+        int boardSize = Integer.parseInt(doc.getElementsByTagName("BoardSize").item(0).getTextContent());
+        return boardSize;
+    }
+
+    public double parseBank() throws XmlTagException{
+        double bankFunds = Double.parseDouble(doc.getElementsByTagName("BankFunds").item(0).getTextContent());
+        return bankFunds;
+    }
+
+    public List<Die> parseDice() throws XmlTagException{
+        List<Die> dice = new ArrayList<>();
+
+        int numberOfDice = Integer.parseInt(doc.getElementsByTagName("Number").item(0).getTextContent());
+        int numberOfSides = Integer.parseInt(doc.getElementsByTagName("Sides").item(0).getTextContent());
+
+        for(int i=0; i<numberOfDice; i++){
+            int[] sideValues = new int[numberOfSides];
+            for(int j=0; j<numberOfSides; j++){
+                sideValues[j] = j+1;
+                if(j == numberOfSides-1){
+                    Die newDice = new Die(numberOfSides, sideValues);
+                    dice.add(newDice);
+                }
+            }
+        }
+        return dice;
+/*MIGHT NEED THIS IF DIFFERENT TYPES OF DICE BUT NOT RIGHT NOW
+        NodeList diceList = doc.getElementsByTagName("Dice");
+
+        for(int i=0; i<diceList.getLength(); i++){
+            Node d = diceList.item(i);
+            if(d.getNodeType() == Node.ELEMENT_NODE){
+                Element die = (Element) d;
+                int numberOfDice = Integer.parseInt(die.getElementsByTagName("Number").item(0).getTextContent());
+                for(int j=0; j<numberOfDice; j++){
+                    int numSides = Integer.parseInt(die.getElementsByTagName("Sides").item(0).getTextContent());
+                    int[] sideValues = new int[numSides]
+                    for(int k=0; k<numSides; k++){
+                        sideValues[k] = k+1;
+                        if(k == numSides-1){
+                            Die newDie = new Die(numSides, sideValues);
+                            dice.add(newDie);
+                        }
+                    }
+                }
+            }
+        }*/
+    }
+
     public List<ActionDeck> parseActionDecks() throws XmlTagException{
         List<ActionDeck> decks = new ArrayList<>();
 
@@ -64,7 +114,6 @@ public class ConfigReader {
                 String msg = card.getElementsByTagName("Message").item(0).getTextContent();
                 //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
                 Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName("Holdable").item(0).getTextContent());
-
                 //Specialized fields below
                 if(card.getAttribute("type").equalsIgnoreCase("MOVE_TO")){
                     String targetSpace = card.getElementsByTagName("TargetSpace").item(0).getTextContent();
@@ -97,10 +146,10 @@ public class ConfigReader {
             }
         }
         return allActionCards;
-
     }
 
     public void parseSpaces() {
+        System.out.println("HERE");
         NodeList spaceList = doc.getElementsByTagName("Space");
         for(int i = 0; i < spaceList.getLength(); i++) {
             Node s = spaceList.item(i);
@@ -115,9 +164,24 @@ public class ConfigReader {
                     System.out.println(index);
                 }
                 else if(space.getAttribute("type").equals("parking")) {
-
                 }
             }
         }
     }
+
+/*    public static void main(String[] args) {
+        ConfigReader c = new ConfigReader("Normal_Config.xml");
+        c.parseSpaces();
+        try{
+            c.parseActionCards();
+            c.parseActionDecks();
+            c.parseBank();
+            c.parseBoard();
+            c.parseDice();
+        }
+        catch(XmlTagException e){
+
+        }
+    }*/
+
 }
