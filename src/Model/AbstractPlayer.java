@@ -43,8 +43,18 @@ public abstract class AbstractPlayer implements Transfer {
         return token;
     }
 
-    public void move(int moveSpaces) {
+    //finish this method
+
+    public int move(int moveSpaces, int boardSize) {
         token.move(moveSpaces);
+        if(token.getCurrentLocation() > boardSize) {
+            token.setLocation(token.getCurrentLocation() - boardSize - 1);
+        }
+        return token.getCurrentLocation();
+    }
+
+    public int moveTo(int newLocation) {
+        return token.moveTo(newLocation);
     }
 
     public void proposeTrade(AbstractPlayer other) {
@@ -63,4 +73,11 @@ public abstract class AbstractPlayer implements Transfer {
         this.token = token;
     }
 
+    public boolean isInJail() {
+        return inJail;
+    }
+
+    public int getCurrentLocation() {
+        return token.getCurrentLocation();
+    }
 }
