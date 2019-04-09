@@ -31,6 +31,8 @@ public class Bank implements Transfer{
         return null;
     }
 
+    public void setPropertyOwner(Property property, AbstractPlayer newOwner){}
+
     /***
      * Allows a player/bank (or anyone that implements Transfer) to pay others
      * @param amount

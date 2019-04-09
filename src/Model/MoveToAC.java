@@ -15,5 +15,6 @@ public class MoveToAC extends AbstractActionCard {
     public void doCardAction(AbstractGame game) {
         ActionDeck d = this.getMyDeck();
         d.discardCard(this);
+        System.out.println("hello?");
     }
 }
