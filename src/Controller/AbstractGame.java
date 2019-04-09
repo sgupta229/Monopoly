@@ -136,4 +136,8 @@ public abstract class AbstractGame {
         return boardSize;
     }
 
+    public void endTurn() {
+
+    }
+
 }
