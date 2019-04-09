@@ -3,8 +3,8 @@ package Model;
 public class RailRoadProperty extends Property{
 
 
-    public RailRoadProperty(double price){
-        super(price);
+    public RailRoadProperty(double price, String propName){
+        super(price, propName);
     }
 
 

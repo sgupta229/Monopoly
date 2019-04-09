@@ -100,24 +100,106 @@ public class ConfigReader {
 
     }
 
-    public void parseSpaces() {
+    public List<List> parseSpaces() throws XmlTagException{
+        List<List> allSpacesAndProps = new ArrayList<>();
+        List<AbstractSpace> allSpaces = new ArrayList<>();
+        List<Property> allProps = new ArrayList<>();
         NodeList spaceList = doc.getElementsByTagName("Space");
         for(int i = 0; i < spaceList.getLength(); i++) {
             Node s = spaceList.item(i);
             if(s.getNodeType() == Node.ELEMENT_NODE) {
                 Element space = (Element) s;
+                int index = Integer.parseInt(space.getElementsByTagName("Index").item(0).getTextContent());
+                String spaceName = space.getElementsByTagName("SpaceName").item(0).getTextContent().strip();
+                //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
+
                 //CHANGE - type = color_property; utility_property; railroad_property
                 //if(space.getAttribute("type").split("_")[1].equalsIgnoreCase("property")){}
-                if(space.getAttribute("type").equalsIgnoreCase("Property")) {
-                    String name = space.getElementsByTagName("SpaceName").item(0).getTextContent();
-                    int index = Integer.parseInt(space.getElementsByTagName("Index").item(0).getTextContent());
-                    System.out.println(name);
-                    System.out.println(index);
-                }
-                else if(space.getAttribute("type").equals("parking")) {
+                if(space.getAttribute("type").equalsIgnoreCase("ACTION")) {
+                    AbstractSpace newSpace = new ActionCardSpace(index, spaceName);
+                    allSpaces.add(newSpace);
 
+                }
+                else if(space.getAttribute("type").equalsIgnoreCase("FREE_PARKING")) {
+                    AbstractSpace newSpace = new FreeParkingSpace(index, spaceName);
+                    allSpaces.add(newSpace);
+                }
+                else if(space.getAttribute("type").equalsIgnoreCase("GO")) {
+                    AbstractSpace newSpace = new GoSpace(index, spaceName);
+                    allSpaces.add(newSpace);
+                }
+                else if(space.getAttribute("type").equalsIgnoreCase("GO_TO_JAIL")) {
+                    String spaceToMoveTo = space.getElementsByTagName("TargetSpace").item(0).getTextContent();
+                    AbstractSpace newSpace = new GoToSpace(index, spaceName, spaceToMoveTo);
+                    allSpaces.add(newSpace);
+                }
+                else if(space.getAttribute("type").equalsIgnoreCase("JAIL")) {
+                    AbstractSpace newSpace = new JailSpace(index, spaceName);
+                    allSpaces.add(newSpace);
+                }
+                else if(space.getAttribute("type").equalsIgnoreCase("TAX")) {
+                    double flatRate = Double.parseDouble(space.getElementsByTagName("FlatRate").item(0).getTextContent());
+                    double percentage = Double.parseDouble(space.getElementsByTagName("Percentage").item(0).getTextContent());
+                    double newPercent = percentage/100;
+                    AbstractSpace newSpace = new TaxSpace(index, spaceName, flatRate, newPercent);
+                    allSpaces.add(newSpace);
+
+                }
+                else if(space.getAttribute("type").equalsIgnoreCase("COLOR_PROPERTY")) {
+                    AbstractSpace newSpace = new PropSpace(index, spaceName);
+                    allSpaces.add(newSpace);
+                    String colorGroup = space.getElementsByTagName("ColorGroup").item(0).getTextContent();
+                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
+                    double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
+                    double rentOneHouse = Double.parseDouble(space.getElementsByTagName("Rent1House").item(0).getTextContent());
+                    double rentTwoHouse = Double.parseDouble(space.getElementsByTagName("Rent2House").item(0).getTextContent());
+                    double rentThreeHouse = Double.parseDouble(space.getElementsByTagName("Rent3House").item(0).getTextContent());
+                    double rentFourHouse = Double.parseDouble(space.getElementsByTagName("Rent4House").item(0).getTextContent());
+                    double rentHotel = Double.parseDouble(space.getElementsByTagName("RentHotel").item(0).getTextContent());
+                    double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
+                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
+                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup);
+                    allProps.add(newProp);
+
+                }
+                else if(space.getAttribute("type").equalsIgnoreCase("RAILROAD_PROPERTY")) {
+                    AbstractSpace newSpace = new PropSpace(index, spaceName);
+                    allSpaces.add(newSpace);
+                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
+                    double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
+                    double rent2 = Double.parseDouble(space.getElementsByTagName("Rent2").item(0).getTextContent());
+                    double rent3 = Double.parseDouble(space.getElementsByTagName("Rent3").item(0).getTextContent());
+                    double rent4 = Double.parseDouble(space.getElementsByTagName("Rent4").item(0).getTextContent());
+                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
+                    Property newProp = new RailRoadProperty(buyPrice, spaceName);
+                    allProps.add(newProp);
+
+                }
+                else if(space.getAttribute("type").equalsIgnoreCase("UTILITY_PROPERTY")) {
+                    AbstractSpace newSpace = new PropSpace(index, spaceName);
+                    allSpaces.add(newSpace);
+                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
+                    double rentMult = Double.parseDouble(space.getElementsByTagName("RentMultiplier").item(0).getTextContent());
+                    double rentMult2 = Double.parseDouble(space.getElementsByTagName("Rent2Multiplier").item(0).getTextContent());
+                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
+                    Property newProp = new UtilityProperty(buyPrice, spaceName);
+                    allProps.add(newProp);
+                }
+                else{
+                    throw new XmlTagException(space.getAttribute("type"));
                 }
             }
         }
+        allSpacesAndProps.add(allSpaces);
+        allSpacesAndProps.add(allProps);
+        return allSpacesAndProps;
+    }
+
+    public static void main(String[] args){
+        ConfigReader c = new ConfigReader("Normal_Config.xml");
+        try{
+            c.parseSpaces();
+        }
+        catch (XmlTagException e){};
     }
 }
