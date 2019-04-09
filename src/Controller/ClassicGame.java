@@ -29,6 +29,4 @@ public class ClassicGame extends AbstractGame {
         return roll;
     }
 
-    public int
-
 }
