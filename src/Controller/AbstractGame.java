@@ -77,6 +77,10 @@ public abstract class AbstractGame {
         return players.get(rightIndex);
     }
 
+    public List<AbstractPlayer> getPlayers() {
+        return players;
+    }
+
     public int rollDice() {
         int value = 0;
         for(int i = 0; i < dice.size(); i++) {
