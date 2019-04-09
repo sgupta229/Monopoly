@@ -1,32 +1,57 @@
 package Controller;
 
-import Model.AbstractPlayer;
-import Model.Bank;
-import Controller.Die;
-import Model.ActionDeck;
-
+import Model.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public abstract class AbstractGame {
+
+    //RULES
+    private double startFunds;
+    private double jailBail;
+    private double passGo;
+
     private ArrayList<AbstractPlayer> players;
     private Bank bank;
     private Board board;
+    private List<AbstractSpace> spaces;
+    private List<Property> properties;
     private AbstractPlayer currPlayer;
-    private Die[] dice;
-    private ArrayList<ActionDeck> decks;
+    private List<Die> dice;
+    private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
+    private List<String> possibleTokens = new ArrayList<>();
 
-    public AbstractGame(ArrayList<AbstractPlayer> players, Bank bank, Board board, Die[] dice, ArrayList<ActionDeck> decks) {
-        this.players = players;
-        this.bank = bank;
-        this.board = board;
-        this.currPlayer = players.get(0);
-        this.dice = dice;
-        this.decks = decks;
-        for(int i = 0; i < dice.length; i++) {
-            diceHistory.put(i, new ArrayList<Integer>());
+    public AbstractGame(String filename) {
+        parseXMLFile(filename);
+        for(int i = 0; i < dice.size(); i++) {
+            diceHistory.put(i, new ArrayList<>());
+        }
+    }
+
+    private void parseXMLFile(String filename) {
+        ConfigReader configReader = new ConfigReader(filename);
+        try {
+            decks = configReader.parseActionDecks();
+            List<AbstractActionCard>  allCards = configReader.parseActionCards();
+            for(ActionDeck d : decks) {
+                d.fillLiveDeck(allCards);
+            }
+            dice = configReader.parseDice();
+            double funds = configReader.parseBank();
+            bank = new Bank(funds);
+            int boardSize = configReader.parseBoard();
+            List<List> spaceProps= configReader.parseSpaces();
+            spaces = spaceProps.get(0);
+            properties = spaceProps.get(1);
+            board = new Board(boardSize, spaceProps.get(0));
+            startFunds = configReader.getRuleDouble("StartFunds");
+            jailBail = configReader.getRuleDouble("JailBail");
+            passGo = configReader.getRuleDouble("passGo");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -34,10 +59,28 @@ public abstract class AbstractGame {
         return currPlayer;
     }
 
+    public AbstractPlayer getLeftPlayer() {
+        int playerIndex = players.indexOf(currPlayer);
+        int leftIndex = playerIndex + 1;
+        if(leftIndex > players.size() - 1) {
+            leftIndex = 0;
+        }
+        return players.get(leftIndex);
+    }
+
+    public AbstractPlayer getRightPlayer() {
+        int playerIndex = players.indexOf(currPlayer);
+        int rightIndex = playerIndex - 1;
+        if(rightIndex < 0) {
+            rightIndex = players.size() - 1;
+        }
+        return players.get(rightIndex);
+    }
+
     public int rollDice() {
         int value = 0;
-        for(int i = 0; i < dice.length; i++) {
-            int roll = dice[i].rollDie();
+        for(int i = 0; i < dice.size(); i++) {
+            int roll = dice.get(i).rollDie();
             value += roll;
             diceHistory.get(i).add(roll);
         }
@@ -75,5 +118,16 @@ public abstract class AbstractGame {
     }
 
     public List<ActionDeck> getMyActionDecks(){return decks;}
+
+    //instantiate a player and add it to the list
+    public void addPlayer(AbstractPlayer player) {
+        player.setFunds(startFunds);
+        Token token = new Token(0);
+        player.setToken(token);
+    }
+
+    public List<String> getPossibleTokens() {
+        return possibleTokens;
+    }
 
 }
