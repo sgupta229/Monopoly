@@ -10,7 +10,7 @@ public abstract class Property {
 
     double myPrice;
 
-    public Property(double price){
+    public Property(double price, String propName){
         myPrice=price;
     }
 

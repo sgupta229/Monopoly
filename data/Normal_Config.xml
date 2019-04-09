@@ -410,6 +410,8 @@
         <Space type="TAX">
             <Index>39</Index>
             <SpaceName>LUXURY_TAX</SpaceName>
+            <FlatRate>200</FlatRate>
+            <Percentage>10</Percentage>
         </Space>
         <Space type="COLOR_PROPERTY">
             <Index>40</Index>
