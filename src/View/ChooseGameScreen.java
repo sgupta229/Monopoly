@@ -50,7 +50,7 @@ public class ChooseGameScreen {
         public void handle(ActionEvent event) {
             System.out.print(gameType);
             removeSplashScreen(myRoot);
-            new AddPlayersScreen(myRoot,Main.WIDTH,Main.HEIGHT);
+            new AddPlayersScreen(myRoot,GameView.WIDTH,GameView.HEIGHT);
 //            Layout l = new Layout(myRoot);
         }
     }
@@ -59,9 +59,9 @@ public class ChooseGameScreen {
         myFlowPane = new FlowPane();
         myFlowPane.setVgap(50);
         myFlowPane.setHgap(50);
-        myFlowPane.setLayoutX(Main.WIDTH/7.5);
-        myFlowPane.setLayoutY(Main.HEIGHT/2);
-        myFlowPane.setPrefWrapLength(Main.WIDTH);
+        myFlowPane.setLayoutX(GameView.WIDTH/7.5);
+        myFlowPane.setLayoutY(GameView.HEIGHT/2);
+        myFlowPane.setPrefWrapLength(GameView.WIDTH);
         myFlowPane.setId("flowPane");
 
         gameTypeButtons  = new ArrayList<>(Arrays.asList("classic", "mega", "junior", "starWars"));
@@ -74,7 +74,7 @@ public class ChooseGameScreen {
 
     private BorderPane createMonopolyLogo(){
         myLogoPane = new BorderPane();
-        myLogoPane.setPrefSize(Main.WIDTH,Main.HEIGHT/1.5);
+        myLogoPane.setPrefSize(GameView.WIDTH,GameView.HEIGHT/1.5);
         var logo = new Image(this.getClass().getClassLoader().getResourceAsStream(LOGO_PATH));
         myLogoPane.setCenter(new ImageView(logo));
         return myLogoPane;

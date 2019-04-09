@@ -3,7 +3,6 @@ package View;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -15,7 +14,7 @@ public class Layout {
     private Group myRoot;
     private HBox myLayout;
     private Pane myBoardPane;
-    private PlayersTabs myPlayersTabs;
+    private PlayerTabs myPlayersTabs;
 
 
     public Layout(Group root){ //this will have the board/control type based on gametype selected
@@ -53,9 +52,9 @@ public class Layout {
 //        myPlayerControlPane = new Pane();
 //        myPlayerControlPane.setPrefSize(Main.WIDTH/2.2, Main.HEIGHT);
 //        myPlayerControlPane.setId("playerControlPane");
-//        myPlayerControlPane.getChildren().addAll(new PlayersTabs().getTabPane());
+//        myPlayerControlPane.getChildren().addAll(new PlayerTabs().getTabPane());
 //        myLayout.getChildren().add(myPlayerControlPane);
-        myPlayersTabs = new PlayersTabs();
+        myPlayersTabs = new PlayerTabs();
         return myPlayersTabs.getTabPane();
     }
 

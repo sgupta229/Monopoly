@@ -1,22 +1,24 @@
 package View;
 
+import Controller.Token;
+import Model.ClassicPlayer;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-public class PlayersTabs {
+public class PlayerTabs {
     private TabPane tabPane;
 
-    public PlayersTabs(){
+    public PlayerTabs(){
         tabPane = new TabPane();
-        tabPane.setPrefWidth(Main.WIDTH * .4);
+        tabPane.setPrefWidth(GameView.WIDTH * .4);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         // create Play Tab
         Tab playTab = new Tab("Play"); //label "P1"
-//        playTab.setContent(new ClassicPlayerControl().getPlayerControlView());
+        playTab.setContent(new ClassicPlayerControl().getPlayerControlView());
 
         Tab statsTab = new Tab("Stats");
         statsTab.setContent(createStats());

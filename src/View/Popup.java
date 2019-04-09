@@ -44,13 +44,13 @@ public abstract class Popup {
         VBox image= new VBox(10);
 
 
-        Scene scene1= new Scene(layout, Main.WIDTH/2, Main.HEIGHT/1.5);
+        Scene scene1= new Scene(layout, GameView.WIDTH/2, GameView.HEIGHT/1.5);
         scene1.getStylesheets().add(( new File("resources/GUI.css") ).toURI().toString());
         button1.setId("button2");
         button2.setId("button2");
         label1.setWrapText(true);
         label1.setId("popupMessage");
-        label1.setPrefSize(Main.WIDTH/4,Main.HEIGHT/2.25 );
+        label1.setPrefSize(GameView.WIDTH/4,GameView.HEIGHT/2.25 );
         buttons.getChildren().addAll(button1,button2);
         text.getChildren().addAll(label1, buttons);
         image.setAlignment(Pos.CENTER_LEFT);
