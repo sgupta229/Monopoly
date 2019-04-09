@@ -3,8 +3,8 @@ package Model;
 public class UtilityProperty extends Property{
 
 
-    public UtilityProperty(double price){
-        super(price);
+    public UtilityProperty(double price, String propName){
+        super(price, propName);
     }
 
 
