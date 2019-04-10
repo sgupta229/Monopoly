@@ -143,6 +143,7 @@ public abstract class AbstractGame {
         player.setFunds(startFunds);
         Token token = new Token(0);
         player.setToken(token);
+        players.add(player);
     }
 
     public List<String> getPossibleTokens() {
