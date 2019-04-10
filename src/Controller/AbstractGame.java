@@ -22,7 +22,7 @@ public abstract class AbstractGame {
     private List<Die> dice;
     private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
-    private List<String> possibleTokens = new ArrayList<>();
+    private List<String> possibleTokens;
 
     public AbstractGame(String filename) {
         parseXMLFile(filename);
@@ -39,6 +39,7 @@ public abstract class AbstractGame {
             for(ActionDeck d : decks) {
                 d.fillLiveDeck(allCards);
             }
+            possibleTokens = configReader.parseTokens();
             dice = configReader.parseDice();
             double funds = configReader.parseBank();
             bank = new Bank(funds);
@@ -49,7 +50,7 @@ public abstract class AbstractGame {
             board = new Board(boardSize, spaceProps.get(0));
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
-            passGo = configReader.getRuleDouble("passGo");
+            passGo = configReader.getRuleDouble("PassGo");
         }
         catch (Exception e) {
             e.printStackTrace();

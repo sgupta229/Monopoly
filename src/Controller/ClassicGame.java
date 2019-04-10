@@ -28,4 +28,9 @@ public class ClassicGame extends AbstractGame {
         return roll;
     }
 
+    public static void main(String[] args) {
+        ClassicGame c = new ClassicGame("Normal_Config.xml");
+        System.out.println(c.getPossibleTokens());
+    }
+
 }
