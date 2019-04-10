@@ -9,4 +9,5 @@ public class ClassicPlayer extends AbstractPlayer {
     public ClassicPlayer() {
         super();
     }
+
 }

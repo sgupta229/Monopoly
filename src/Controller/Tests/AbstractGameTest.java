@@ -1,6 +1,7 @@
 package Controller.Tests;
 
 import Controller.*;
+import Model.AbstractPlayer;
 import Model.ClassicPlayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,5 +25,16 @@ class AbstractGameTest {
         game.addPlayer(p4);
     }
 
+    @Test
+    void leftPlayer() {
+        AbstractPlayer test = game.getLeftPlayer();
+        
+    }
+
+    @Test
+    void nextPlayer() {
+        game.getLeftPlayer();
+        game.startNextTurn();
+    }
 
 }
