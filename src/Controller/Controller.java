@@ -72,7 +72,6 @@ public class Controller {
     }
 
     public void addPlayer(String name, Image icon){
-        //add icon and name to map
         //create player depending on game type
         AbstractPlayer newP;
         if (myGameType.equalsIgnoreCase("classic")){
@@ -81,10 +80,11 @@ public class Controller {
         else{
             newP = new ClassicPlayer(name);
         }
+        //add image to map
         playersToImages.put(newP,icon);
         //add player to arraylist
         newPlayers.add(newP);
-        // on startgame, initialize players in game
+        // on startgame, initialize players in game with setPlayers
     }
 
     public ImageView getPlayerImageView(AbstractPlayer p){

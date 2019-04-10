@@ -42,11 +42,12 @@ public abstract class AbstractGame {
             possibleTokens = configReader.parseTokens();
             dice = configReader.parseDice();
             double funds = configReader.parseBank();
-            bank = new Bank(funds);
+
             boardSize = configReader.parseBoard();
             List<List> spaceProps= configReader.parseSpaces();
             spaces = spaceProps.get(0);
             properties = spaceProps.get(1);
+            bank = new Bank(funds, properties);
             board = new Board(boardSize, spaceProps.get(0));
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
@@ -63,6 +64,11 @@ public abstract class AbstractGame {
         }
         players = p;
         this.currPlayer = p.get(0);
+        for (AbstractPlayer pl : players){
+            this.addPlayer(pl);
+        }
+
+        //debugging
         for (AbstractPlayer pl : players){
             System.out.println(pl);
         }
@@ -155,5 +161,7 @@ public abstract class AbstractGame {
     public void endTurn() {
 
     }
+
+
 
 }

@@ -8,8 +8,10 @@ package Model;
 public abstract class Property {
 
     double myPrice;
+
     String myName;
     String myColor;
+
 
     public Property(double price, String propName, String color){
         myPrice=price;
@@ -18,6 +20,7 @@ public abstract class Property {
     }
     public Property(double price, String propName){
         myPrice=price;
+
         myName = propName;
 
     }
@@ -39,10 +42,10 @@ public abstract class Property {
         return myPrice;
     }
 
+
     public String getColor(){
         return myColor;
     }
-
 
 
     /***

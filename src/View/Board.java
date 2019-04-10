@@ -35,9 +35,7 @@ public class Board {
         setUpGridConstraints();
         setUpBoardConfig();
         createSpaces();
-        for (AbstractPlayer p : myController.getPlayers()){
-            addTokenToIndex(0,myController.getPlayerImageView(p));
-        }
+        bindIconsToLocations();
     }
 
     public void addTokenToIndex(int i, ImageView image){
@@ -45,6 +43,17 @@ public class Board {
         myGridPane.add(image,coord[0],coord[1]);
     }
 
+//    public void renderPlayers(){
+//        for (AbstractPlayer pl : myController.getPlayers()){
+//            addTokenToIndex(pl.getCurrentLocation(),myController.getPlayerImageView(pl));
+//        }
+//    }
+
+    private void bindIconsToLocations(){
+        for (AbstractPlayer p : myController.getPlayers()){
+            addTokenToIndex(0,myController.getPlayerImageView(p));
+        }
+    }
 
     private void createSpaces(){
         for (Map.Entry<Point2D.Double, AbstractSpace> entry : indexToName.entrySet()) {
