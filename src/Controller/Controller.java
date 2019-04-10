@@ -27,7 +27,7 @@ public class Controller {
     private String myGameType;
     private String gameStyle;
     private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
-    private ObservableList<Image> availableTokens;
+    private ObservableList<String> availableTokens;
 
     private Stage window;
 
@@ -53,7 +53,7 @@ public class Controller {
             gameStyle = fileToStylesheetString(new File("data/GUI.css"));
             System.out.println(myGame.getPossibleTokens());
             System.out.println(myGame.getBank());
-            availableTokens = makeImagesFromStrings(myGame.getPossibleTokens());
+            availableTokens = FXCollections.observableList(myGame.getPossibleTokens());
             nextScene = new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers,availableTokens).getScene();
         }
         else{
@@ -67,7 +67,7 @@ public class Controller {
         window.setScene(new Layout(WIDTH,HEIGHT,gameStyle,this).getScene());
     }
 
-    public void addPlayer(){
+    public void addPlayer(String name, String icon){
         //add icon and name to map
         //create player depending on game type
         AbstractPlayer newP;
@@ -80,14 +80,6 @@ public class Controller {
         //add player to arraylist
         newPlayers.add(newP);
         // on startgame, initialize players in game
-    }
-
-    private ObservableList<Image> makeImagesFromStrings(List<String> strings){
-        List<Image> images = new ArrayList<>();
-        for(String s:strings){
-            images.add(new Image(this.getClass().getClassLoader().getResourceAsStream(s)));
-        }
-        return FXCollections.observableList(images);
     }
 
     private String fileToStylesheetString ( File stylesheetFile ) {

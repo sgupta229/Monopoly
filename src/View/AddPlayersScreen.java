@@ -4,22 +4,23 @@ import Controller.Controller;
 import Model.AbstractPlayer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -31,16 +32,19 @@ public class AddPlayersScreen {
     private Group myRoot;
     private Controller myController;
     private ObservableList<AbstractPlayer> myPlayers;
-    private ObservableList<Image> availableTokens;
+    private ObservableList<String> availableTokensStrings;
+    private ObservableList<Image> availableTokensImages;
     private AnchorPane anchorPane = new AnchorPane();
 
     private ComboBox myIconMenu;
     private TextField myPlayerNameField;
 
-    public AddPlayersScreen(double width, double height, String style, Controller controller, ObservableList<AbstractPlayer> players, ObservableList<Image> tokens) {
+    public AddPlayersScreen(double width, double height, String style, Controller controller, ObservableList<AbstractPlayer> players, ObservableList<String> tokens) {
         this.myController = controller;
         this.myPlayers = players;
-        this.availableTokens = tokens;
+        this.availableTokensStrings = tokens;
+        this.availableTokensImages = makeImagesFromStrings(availableTokensStrings);
+//        this.availableTokensStrings.addListener(availableTokensImages);
         this.myWidth = width;
         this.myHeight = height;
         this.myRoot = new Group();
@@ -106,7 +110,9 @@ public class AddPlayersScreen {
     }
 
     private ComboBox createNewIconMenu(){
-        ComboBox icon = new ComboBox(availableTokens);
+        ComboBox icon = new ComboBox(availableTokensImages);
+        icon.setButtonCell(new ImageListCell());
+        icon.setCellFactory(listView -> new ImageListCell());
         icon.setPrefSize(100,60);
         return icon;
     }
@@ -130,6 +136,15 @@ public class AddPlayersScreen {
         return editPlayerList;
     }
 
+    private ObservableList<Image> makeImagesFromStrings(ObservableList<String> strings){
+        List<Image> images = new ArrayList<>();
+        for(String s:strings){
+            images.add(new Image(this.getClass().getClassLoader().getResourceAsStream(s),
+                    60,60,false,false));
+        }
+        return FXCollections.observableList(images);
+    }
+
     class StartButtonHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
@@ -143,8 +158,28 @@ public class AddPlayersScreen {
             String name = myPlayerNameField.getText();
             myPlayerNameField.clear();
             Image icon = (Image) myIconMenu.getValue();
-            myController.addPlayer();
+            myController.addPlayer(name,"");
             System.out.println("added player");
+        }
+    }
+
+    class ImageListCell extends ListCell<Image> {
+        private final ImageView view;
+
+        ImageListCell() {
+            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            view = new ImageView();
+        }
+
+        @Override protected void updateItem(Image item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (item == null || empty) {
+                setGraphic(null);
+            } else {
+                view.setImage(item);
+                setGraphic(view);
+            }
         }
     }
 

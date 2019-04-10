@@ -5,6 +5,9 @@ import Controller.Token;
 import java.util.ArrayList;
 
 public abstract class AbstractPlayer implements Transfer {
+    private String name;
+    private String tokenImage;
+
     private double funds;
     private ArrayList<Property> properties;
     private ArrayList<AbstractActionCard> actionCards;
@@ -18,6 +21,11 @@ public abstract class AbstractPlayer implements Transfer {
 
     public AbstractPlayer() {
 
+    }
+
+    public AbstractPlayer(String name, String tokenImage) {
+        this.name = name;
+        this.tokenImage = tokenImage;
     }
 
     @Override
@@ -79,5 +87,13 @@ public abstract class AbstractPlayer implements Transfer {
 
     public int getCurrentLocation() {
         return token.getCurrentLocation();
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getTokenImage() {
+        return this.tokenImage;
     }
 }
