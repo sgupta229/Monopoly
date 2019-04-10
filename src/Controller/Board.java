@@ -53,4 +53,8 @@ public class Board {
         }
         throw new GameBoardException(spaceName);
     }
+
+    public int getSize() {
+        return this.myBoardSize;
+    }
 }
