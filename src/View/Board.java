@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import Model.*;
 import View.SpaceDisplay.*;
 import View.SpaceDisplay.CornerDisplay;
@@ -10,6 +11,9 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.List;
 import java.util.Map;
 
 public class Board {
@@ -17,22 +21,49 @@ public class Board {
 
     private static final String BOARD_PATH = "classic.jpg";
 
+    private Controller myController;
     private Pane myBoardPane;
     private GridPane myGridPane;
     private ImageView boardLogo;
     private Map<Point2D.Double, AbstractSpace> indexToName;
     private Map<String,String> nameToColor;
     private Map<String,Integer> nameToPrice;
+    private List<ImageView> imagesOnBoard = new ArrayList<>();
 
-    public Board(Pane board) {
+    public Board(Pane board, Controller controller) {
+        this.myController = controller;
         this.myBoardPane = board;
         myGridPane = new GridPane();
         myGridPane.setGridLinesVisible(true);
         setUpGridConstraints();
         setUpBoardConfig();
         createSpaces();
+        addTokensToGo();
     }
 
+    public void addTokenToIndex(int i, ImageView image){
+        int[] coord = indexToCoord(i);
+        myGridPane.add(image,coord[0],coord[1]);
+        imagesOnBoard.add(image);
+    }
+
+    public void renderPlayers(){
+        for (ImageView i : imagesOnBoard){
+            myGridPane.getChildren().remove(i);
+        }
+        for (AbstractPlayer pl : myController.getPlayers()){
+            addTokenToIndex(pl.getCurrentLocation(),myController.getPlayerImageView(pl));
+        }
+    }
+
+    private void addTokensToGo(){
+//    private void bindIconsToLocations(){
+        for (AbstractPlayer p : myController.getPlayers()){
+            ImageView img = myController.getPlayerImageView(p);
+            addTokenToIndex(0,img);
+            imagesOnBoard.add(img);
+        }
+    }
 
     private void createSpaces(){
         for (Map.Entry<Point2D.Double, AbstractSpace> entry : indexToName.entrySet()) {
@@ -113,6 +144,15 @@ public class Board {
 
             }
         }
+    }
+
+    private int[] indexToCoord(int i){
+        if (i>=0 && i<=10) return new int[]{10-i,10};
+        if (i>=11 && i<=19) return new int[]{0,20-i};
+        if (i>=19 && i<=30) return new int[]{i-20,0};
+        if (i>=31 && i<= 39) return new int[]{10,i-30};
+        else ; //throw some error
+        return null;
     }
 
     private void setUpGridConstraints(){

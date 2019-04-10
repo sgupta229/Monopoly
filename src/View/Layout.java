@@ -10,8 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-//TODO: refactor - probably would be smart to make an abstract GameScenes class that takes
-//width, height, style, and Controller with methods getScene and setUpLayout
 
 public class Layout {
 
@@ -20,6 +18,7 @@ public class Layout {
     private Group myRoot;
     private HBox myLayout;
     private Pane myBoardPane;
+    private Board myBoard;
     private PlayerTabs myPlayersTabs;
 
 
@@ -50,11 +49,11 @@ public class Layout {
         myBoardPane.setId("boardPane");
 
 
-        Board board = new Board(myBoardPane);
-        Pane gameBoard = board.getGridPane();
+        myBoard = new Board(myBoardPane,myController);
+        Pane gameBoard = myBoard.getGridPane();
 
         StackPane myGameBoard = new StackPane();
-        ImageView logo = board.getLogo();
+        ImageView logo = myBoard.getLogo();
         myGameBoard.getChildren().addAll(gameBoard, logo);
 
 
@@ -66,12 +65,7 @@ public class Layout {
 
 
     private TabPane createPlayersTabs(){
-//        myPlayerControlPane = new Pane();
-//        myPlayerControlPane.setPrefSize(Controller.WIDTH/2.2, Controller.HEIGHT);
-//        myPlayerControlPane.setId("playerControlPane");
-//        myPlayerControlPane.getChildren().addAll(new PlayerTabs().getTabPane());
-//        myLayout.getChildren().add(myPlayerControlPane);
-        myPlayersTabs = new PlayerTabs();
+        myPlayersTabs = new PlayerTabs(myController,myBoard);
         return myPlayersTabs.getTabPane();
     }
 

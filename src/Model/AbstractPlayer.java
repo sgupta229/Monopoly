@@ -21,9 +21,9 @@ public abstract class AbstractPlayer implements Transfer {
         actionCards = new ArrayList<>();
     }
 
-    public AbstractPlayer(String name, String tokenImage) {
+    public AbstractPlayer(String name) {
         this.name = name;
-        this.tokenImage = tokenImage;
+//        this.tokenImage = tokenImage;
         this.inJail = false;
         properties = new ArrayList<>();
         actionCards = new ArrayList<>();

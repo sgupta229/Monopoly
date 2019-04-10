@@ -65,6 +65,11 @@ public abstract class AbstractGame {
         players = p;
         this.currPlayer = p.get(0);
         for (AbstractPlayer pl : players){
+            this.addPlayer(pl);
+        }
+
+        //debugging
+        for (AbstractPlayer pl : players){
             System.out.println(pl);
         }
         System.out.println("set players in game done");
@@ -143,7 +148,6 @@ public abstract class AbstractGame {
         player.setFunds(startFunds);
         Token token = new Token(0);
         player.setToken(token);
-        players.add(player);
     }
 
     public List<String> getPossibleTokens() {
