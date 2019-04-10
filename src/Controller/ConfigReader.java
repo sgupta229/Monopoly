@@ -276,20 +276,20 @@ public class ConfigReader {
         return -1;
     }
 
-//    public static void main(String[] args) {
-//        ConfigReader c = new ConfigReader("Normal_Config.xml");
-//        try{
-//            c.parseSpaces();
-//            c.parseActionCards();
-//            c.parseActionDecks();
-//            c.parseBank();
-//            c.parseBoard();
-//            c.parseDice();
-//            c.parseTokens();
-//        }
-//        catch(XmlTagException e){
-//
-//        }
-//    }
+    public static void main(String[] args) {
+        ConfigReader c = new ConfigReader("Normal_Config.xml");
+        try{
+            c.parseSpaces();
+            c.parseActionCards();
+            c.parseActionDecks();
+            c.parseBank();
+            c.parseBoard();
+            c.parseDice();
+            c.parseTokens();
+        }
+        catch(XmlTagException e){
+
+        }
+    }
 
 }
