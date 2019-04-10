@@ -1,7 +1,6 @@
 package Model;
 
 import Controller.ClassicGame;
-import Controller.ConfigReader;
 import Controller.Token;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,17 +10,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GoToSpaceTest {
+class TaxSpaceTest {
 
     //ConfigReader conf = new ConfigReader("Normal_Config.xml");
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
-    AbstractSpace goToJail;
-    //List<AbstractSpace> spaceList;
-    //List<Property> propsList;
-    //Bank gameBank;
-    //Property prop1;
+    AbstractSpace taxSpace;
+    Bank gameBank;
 
     double startBalance = 10000;
 
@@ -31,28 +27,26 @@ class GoToSpaceTest {
     @BeforeEach
     void setUp() throws XmlTagException {
         gameClass = new ClassicGame("Normal_Config.xml");
-        goToJail = gameClass.getBoard().getSpaceAt(30);
+        taxSpace = gameClass.getBoard().getSpaceAt(38);
         player1 = new ClassicPlayer();
-        player1.setToken(new Token(0));
         List<AbstractPlayer> playerList = new ArrayList<>();
         playerList.add(player1);
+        player1.receivePayment(100);
         gameClass.setPlayers(playerList);
-        player1.moveTo(30);
-        player2 = new ClassicPlayer();
-
-
+        gameBank = gameClass.getBank();
     }
 
     @Test
-    void doActionMovesPlayer() {
-        goToJail.doAction(gameClass);
-        var newLocation = player1.getToken().getCurrentLocation();
-        assertEquals(10, newLocation);
+    void doActionRemovesPlayerFunds() {
+        var newFunds =player1.getFunds()-10;
+        taxSpace.doAction(gameClass);
+        assertEquals(newFunds, player1.getFunds());
     }
+
     @Test
-    void doActionSetsJailToTrue() {
-        goToJail.doAction(gameClass);
-        var jailbool = player1.isInJail();
-        assertEquals(true, jailbool);
+    void doActionAddsBankFunds() {
+        var newFunds =gameBank.getBankBalance()+10.0;
+        taxSpace.doAction(gameClass);
+        assertEquals(newFunds, gameBank.getBankBalance());
     }
 }
