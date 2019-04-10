@@ -9,10 +9,15 @@ public abstract class AbstractPlayer implements Transfer {
     private ArrayList<Property> properties;
     private ArrayList<AbstractActionCard> actionCards;
     private Token token;
+    private boolean inJail;
 
     public AbstractPlayer(double funds, Token token) {
         this.funds = funds;
         this.token = token;
+    }
+
+    public AbstractPlayer() {
+
     }
 
     @Override
@@ -38,8 +43,18 @@ public abstract class AbstractPlayer implements Transfer {
         return token;
     }
 
-    public void move(int moveSpaces) {
+    //finish this method
+
+    public int move(int moveSpaces, int boardSize) {
         token.move(moveSpaces);
+        if(token.getCurrentLocation() > boardSize) {
+            token.setLocation(token.getCurrentLocation() - boardSize - 1);
+        }
+        return token.getCurrentLocation();
+    }
+
+    public int moveTo(int newLocation) {
+        return token.moveTo(newLocation);
     }
 
     public void proposeTrade(AbstractPlayer other) {
@@ -47,7 +62,22 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public void setJail(boolean set) {
-
+        inJail = set;
     }
 
+    public void setFunds(double funds) {
+        this.funds = funds;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
+    }
+
+    public boolean isInJail() {
+        return inJail;
+    }
+
+    public int getCurrentLocation() {
+        return token.getCurrentLocation();
+    }
 }

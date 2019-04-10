@@ -8,8 +8,8 @@ public class ActionDeck {
     private List<AbstractActionCard> myDeadCards;
 
     //Live will be empty until call deck.fillLiveDeck(all action cards list);
-    public ActionDeck(String deckType){
-        myDeckType = DeckType.valueOf(deckType);
+    public ActionDeck(DeckType deckType){
+        myDeckType = deckType;
         myLiveCards = new Stack<>();
         myDeadCards = new ArrayList<>();
     }
@@ -36,6 +36,7 @@ public class ActionDeck {
     }
 
     //ASSUMPTION/SIMPLIFICATION -- discard to discard pile -- not to bottom of deck; then shuffle when live deck is empty
+    //Call this in the AbstractActionCard doCardAction() method == myDeck.discardCard(this);
     public void discardCard(AbstractActionCard card){
         myDeadCards.add(card);
     }
@@ -43,7 +44,7 @@ public class ActionDeck {
     //https://www.geeksforgeeks.org/collections-shuffle-java-examples/
     public void shuffleDeck(){
         Collections.shuffle(myDeadCards);
-        myLiveCards = new Stack<>();
+        //myLiveCards = new Stack<>();
         this.fillLiveDeck(myDeadCards);
         myDeadCards = new ArrayList<>();
     }
@@ -51,4 +52,6 @@ public class ActionDeck {
     public DeckType getMyDeckType(){
         return myDeckType;
     }
+    public Stack<AbstractActionCard> getMyLiveCards(){return myLiveCards;}
+    public List<AbstractActionCard> getMyDeadCards(){ return myDeadCards;}
 }

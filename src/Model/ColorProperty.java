@@ -1,32 +1,27 @@
 package Model;
 
-public class ClassicProperty implements Property {
+public class ColorProperty extends Property{
 
-    float price;
-    String name;
-    String color;
+    String myColor;
 
-
-    public ClassicProperty(String myName, float myPrice, String myColor){
-        name = myName;
-        price = myPrice;
-        color = myColor;
+    public ColorProperty(double price, String propName, String color){
+        super(price, propName,color);
+        myColor=color;
     }
-
     /***
      * A getter method that returns the cost to place a house on this property
      * @return the cost to place a house on this property
      */
-    public float getCostofHouse(){
-        return (float)0.0;
+    public double getCostofHouse(){
+        return 0.0;
     }
 
     /***
      * A getter method that returns the cost to place a hotel on this property
      * @return the cost to place a hotel on this property
      */
-    public float getCostofHotel(){
-        return (float)0.0;
+    public double getCostofHotel(){
+        return 0.0;
     }
 
     /***
@@ -34,15 +29,7 @@ public class ClassicProperty implements Property {
      * @return the color of this property
      */
     public String getPropertyColor(){
-        return null;
-    }
-
-    /***
-     * A getter method that returns the price of this property
-     * @return the cost to purchase this property
-     */
-    public float getPrice(){
-        return price;
+        return myColor;
     }
 
     /***
@@ -50,7 +37,7 @@ public class ClassicProperty implements Property {
      * much it costs when someone lands on this property
      * @return the total rent value to be paid
      */
-    public float calculateRent(){
-        return (float)0.0;
+    public double calculateRent(){
+        return 0.0;
     }
 }

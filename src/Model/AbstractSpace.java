@@ -54,21 +54,17 @@ public abstract class AbstractSpace {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this==o){
-            return true;
-        }
-        if(o==null || o.getClass()!=this.getClass()){
-            return false;
-        }
-
-        AbstractSpace space = (AbstractSpace) o;
-        return (space.getMyName().equals(this.getMyName()) && space.getMyLocation() == this.getMyLocation());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractSpace that = (AbstractSpace) o;
+        return myLocation == that.myLocation &&
+                myName.equals(that.myName);
     }
 
     @Override
-    public int hashCode(){
-        return this.getMyLocation();
+    public int hashCode() {
+        return Objects.hash(myLocation, myName);
     }
 
     /***

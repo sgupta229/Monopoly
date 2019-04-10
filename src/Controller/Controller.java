@@ -55,12 +55,12 @@ public class Controller {
             //temporary stuff ---------------------------------
             Bank theBank = new Bank(100000000);
             ArrayList<AbstractSpace> spaces = new ArrayList<>();
-            Board theBoard = new Board(spaces);
+            Board theBoard = new Board(0,spaces);
             Die[] theDice = new Die[0];
             ArrayList<ActionDeck> theDeck = new ArrayList<>();
             //-------------------------------------------------
 
-            myGame = new ClassicGame(theBank,theBoard,theDice,theDeck);
+            myGame = new ClassicGame("Normal_Config.xml");
             gameStyle = fileToStylesheetString(new File("resources/GUI.css"));
             nextScene = new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers).getScene();
         }
@@ -80,10 +80,10 @@ public class Controller {
         //create player depending on game type
         AbstractPlayer newP;
         if (myGameType.equalsIgnoreCase("classic")){
-            newP = new ClassicPlayer(500,new Token(0,"hi"));
+            newP = new ClassicPlayer();
         }
         else{
-            newP = new ClassicPlayer(500,new Token(0,"hi"));
+            newP = new ClassicPlayer();
         }
         //add player to arraylist
         newPlayers.add(newP);

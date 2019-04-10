@@ -4,7 +4,8 @@ module monopoly.team04 {
     requires javafx.graphics;
     requires javafx.media;
     requires java.desktop;
-
+    requires java.naming;
+    requires org.junit.jupiter.api;
 
     exports View;
 }

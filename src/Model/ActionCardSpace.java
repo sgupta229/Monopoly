@@ -7,11 +7,10 @@ import java.util.List;
 
 public class ActionCardSpace extends AbstractSpace {
 
-    List<AbstractPlayer> myOccupants = new ArrayList<>();
     DeckType myDeckType;
 
-    public ActionCardSpace(int locationIndex, String spaceName, String deckType){
-        super(locationIndex, spaceName);
+    public ActionCardSpace(int locationIndex, String deckType){
+        super(locationIndex, deckType);
         myDeckType = DeckType.valueOf(deckType);
     }
 
@@ -29,9 +28,11 @@ public class ActionCardSpace extends AbstractSpace {
         List<ActionDeck> tempDecks = game.getMyActionDecks();
         for(ActionDeck d : tempDecks) {
             if (d.getMyDeckType() == myDeckType) {
+                System.out.println("hiiii");
                 cardDrawn = d.drawCard();
                 cardDrawn.doCardAction(game);
             }
         }
+        game.endTurn();
     }
 }

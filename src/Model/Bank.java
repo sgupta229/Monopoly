@@ -9,9 +9,9 @@ public class Bank implements Transfer{
 
     Map<Property, AbstractPlayer> ownedPropsMap = new HashMap<>();
     List<Property> unOwnedProps = new ArrayList<>();
-    float myBalance;
+    double myBalance;
 
-    public Bank(float startingBalance){
+    public Bank(double startingBalance){
         myBalance=startingBalance;
     }
 
@@ -29,6 +29,12 @@ public class Bank implements Transfer{
         }
         //need to turn this into a try catch
         return null;
+    }
+
+    public void setPropertyOwner(Property property, AbstractPlayer newOwner){
+        if(ownedPropsMap.containsKey(property)){
+            ownedPropsMap.put(property, newOwner);
+        }
     }
 
     /***

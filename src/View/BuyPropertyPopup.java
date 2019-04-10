@@ -49,8 +49,8 @@ public class BuyPropertyPopup extends Popup {
         textPane.getChildren().addAll(name,rent,rent1House,rent2House,rent3House,rent4Houses,mortgage,costHouse,costhotel);
         textPane.setPrefWrapLength(scene.getWidth()/2.5);
         textPane.setAlignment(Pos.BOTTOM_CENTER);
-        textPane.setVgap(3);
-        textPane.setPadding(new Insets(0,0,15,5));
+        textPane.setVgap(1);
+        textPane.setPadding(new Insets(0,0,10,0));
         return textPane;
     }
 
