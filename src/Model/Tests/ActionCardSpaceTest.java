@@ -1,6 +1,7 @@
-package Model;
+package Model.Tests;
 
 import Controller.ConfigReader;
+import Model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
