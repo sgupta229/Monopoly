@@ -1,8 +1,12 @@
-package Model;
+package Model.Tests;
 
 import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Controller.Token;
+import Model.AbstractPlayer;
+import Model.AbstractSpace;
+import Model.ClassicPlayer;
+import Model.XmlTagException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +41,7 @@ class GoToSpaceTest {
         List<AbstractPlayer> playerList = new ArrayList<>();
         playerList.add(player1);
         gameClass.setPlayers(playerList);
-        player1.moveTo(30);
+        player1.moveTo(30, gameClass.getBoardSize());
         player2 = new ClassicPlayer();
 
 
