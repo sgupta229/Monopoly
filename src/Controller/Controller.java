@@ -53,7 +53,9 @@ public class Controller {
 
         if(myGameType.equalsIgnoreCase("classic")){
             //temporary stuff ---------------------------------
-            Bank theBank = new Bank(100000000);
+            ArrayList<Property> props = new ArrayList<>();
+
+            Bank theBank = new Bank(100000000, props);
             ArrayList<AbstractSpace> spaces = new ArrayList<>();
             Board theBoard = new Board(0,spaces);
             Die[] theDice = new Die[0];
