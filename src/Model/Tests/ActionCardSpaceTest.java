@@ -36,12 +36,15 @@ public class ActionCardSpaceTest {
 
     @Test
     void doActionChanceSpace() {
-        gameClass.getMyActionDecks();
+        List<ActionDeck> tempDecks = gameClass.getMyActionDecks();
+        for(ActionDeck d : tempDecks) {
+            if (d.getMyDeckType() == DeckType.valueOf("CHANCE")) {
+                chanceDeck = d;
+            }
+        }
         AbstractActionCard topCard = chanceDeck.getMyLiveCards().peek();
         AbstractSpace chanceSpace = spaceList.get(7);
-        System.out.println(chanceDeck.getMyLiveCards().size());
         chanceSpace.doAction(gameClass);
-        System.out.println(chanceDeck.getMyLiveCards().size());
         var deadCardList =  chanceDeck.getMyDeadCards();
         var mostRecentlyDeadCard = deadCardList.get(deadCardList.size()-1);
         assertEquals(topCard, mostRecentlyDeadCard);
