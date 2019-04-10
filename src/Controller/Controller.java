@@ -1,9 +1,5 @@
 package Controller;
 
-import Controller.AbstractGame;
-import Controller.ClassicGame;
-import Controller.Die;
-import Controller.Token;
 import Model.*;
 import View.AddPlayersScreen;
 import View.ChooseGameScreen;
@@ -13,13 +9,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Controller {
     public static final String TITLE = "Monopoly";
@@ -30,6 +30,8 @@ public class Controller {
     private String myGameType;
     private String gameStyle;
     private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
+    private ObservableList<String> availableTokens;
+    private Map<AbstractPlayer, Image> playersToImages = new HashMap<>();
 
     private Stage window;
 
@@ -49,22 +51,12 @@ public class Controller {
         myGameType = gameType;
 
         //TODO: make gameFactory or use reflection to create concrete Game class based on gameType
-        //TODO: note - shouldn't ClassicGame only take ClassicPlayers in constructor?
 
         if(myGameType.equalsIgnoreCase("classic")){
-            //temporary stuff ---------------------------------
-            ArrayList<Property> props = new ArrayList<>();
-
-            Bank theBank = new Bank(100000000, props);
-            ArrayList<AbstractSpace> spaces = new ArrayList<>();
-            Board theBoard = new Board(0,spaces);
-            Die[] theDice = new Die[0];
-            ArrayList<ActionDeck> theDeck = new ArrayList<>();
-            //-------------------------------------------------
-
             myGame = new ClassicGame("Normal_Config.xml");
             gameStyle = fileToStylesheetString(new File("data/GUI.css"));
-            nextScene = new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers).getScene();
+            availableTokens = FXCollections.observableList(myGame.getPossibleTokens());
+            nextScene = new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers,availableTokens).getScene();
         }
         else{
             nextScene = new Scene(new Group(),WIDTH,HEIGHT);
@@ -72,25 +64,36 @@ public class Controller {
 
         window.setScene(nextScene);
     }
+
     public void startGame(){
         myGame.setPlayers(newPlayers);
         window.setScene(new Layout(WIDTH,HEIGHT,gameStyle,this).getScene());
+        System.out.println("current player:" + myGame.getCurrPlayer().getName());
     }
 
-    public void addPlayer(){
-        //add icon and name to map
+    public void addPlayer(String name, Image icon){
         //create player depending on game type
         AbstractPlayer newP;
         if (myGameType.equalsIgnoreCase("classic")){
-            newP = new ClassicPlayer();
+            newP = new ClassicPlayer(name);
         }
         else{
-            newP = new ClassicPlayer();
+            newP = new ClassicPlayer(name);
         }
+        //add image to map
+        playersToImages.put(newP,icon);
         //add player to arraylist
         newPlayers.add(newP);
-        // on startgame, initialize players in game
+        // on startgame, initialize players in game with setPlayers
     }
+
+    public ImageView getPlayerImageView(AbstractPlayer p){
+        return new ImageView(playersToImages.get(p));
+    }
+
+    //temporary for testing
+    public AbstractGame getGame(){return myGame;}
+    public ObservableList<AbstractPlayer> getPlayers(){ return newPlayers;}
 
     private String fileToStylesheetString ( File stylesheetFile ) {
         try {
@@ -99,4 +102,6 @@ public class Controller {
             return null;
         }
     }
+
+
 }
