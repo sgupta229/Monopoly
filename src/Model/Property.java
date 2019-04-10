@@ -47,7 +47,7 @@ public abstract class Property {
         return myColor;
     }
 
-    
+
     /***
      * A method that utilizes the member variables to calculate how
      * much it costs when someone lands on this property
