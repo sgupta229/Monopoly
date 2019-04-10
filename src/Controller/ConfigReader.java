@@ -1,8 +1,7 @@
 package Controller;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
@@ -148,7 +147,7 @@ public class ConfigReader {
         return allActionCards;
     }
 
-    public List<List> parseSpaces() throws XmlTagException{
+    public List<List> parseSpaces(){
         List<List> allSpacesAndProps = new ArrayList<>();
         List<AbstractSpace> allSpaces = new ArrayList<>();
         List<Property> allProps = new ArrayList<>();
@@ -207,6 +206,7 @@ public class ConfigReader {
                     double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
                     Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup);
+                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
 
                 }
@@ -220,6 +220,7 @@ public class ConfigReader {
                     double rent4 = Double.parseDouble(space.getElementsByTagName("Rent4").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
                     Property newProp = new RailRoadProperty(buyPrice, spaceName);
+                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
 
                 }
@@ -231,11 +232,12 @@ public class ConfigReader {
                     double rentMult2 = Double.parseDouble(space.getElementsByTagName("Rent2Multiplier").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
                     Property newProp = new UtilityProperty(buyPrice, spaceName);
+                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
                 }
-                else{
-                    throw new XmlTagException(space.getAttribute("type"));
-                }
+//                else{
+//                    throw new XmlTagException(space.getAttribute("type"));
+//                }
             }
         }
         allSpacesAndProps.add(allSpaces);
@@ -274,20 +276,20 @@ public class ConfigReader {
         return -1;
     }
 
-/*    public static void main(String[] args) {
-        ConfigReader c = new ConfigReader("Normal_Config.xml");
-        try{
-            c.parseSpaces();
-            c.parseActionCards();
-            c.parseActionDecks();
-            c.parseBank();
-            c.parseBoard();
-            c.parseDice();
-            c.parseTokens();
-        }
-        catch(XmlTagException e){
-
-        }
-    }*/
+//    public static void main(String[] args) {
+//        ConfigReader c = new ConfigReader("Normal_Config.xml");
+//        try{
+//            c.parseSpaces();
+//            c.parseActionCards();
+//            c.parseActionDecks();
+//            c.parseBank();
+//            c.parseBoard();
+//            c.parseDice();
+//            c.parseTokens();
+//        }
+//        catch(XmlTagException e){
+//
+//        }
+//    }
 
 }

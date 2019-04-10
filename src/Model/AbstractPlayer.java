@@ -5,6 +5,9 @@ import Controller.Token;
 import java.util.ArrayList;
 
 public abstract class AbstractPlayer implements Transfer {
+    private String name;
+    private String tokenImage;
+
     private double funds;
     private ArrayList<Property> properties;
     private ArrayList<AbstractActionCard> actionCards;
@@ -18,6 +21,11 @@ public abstract class AbstractPlayer implements Transfer {
 
     public AbstractPlayer() {
 
+    }
+
+    public AbstractPlayer(String name, String tokenImage) {
+        this.name = name;
+        this.tokenImage = tokenImage;
     }
 
     @Override
@@ -43,8 +51,18 @@ public abstract class AbstractPlayer implements Transfer {
         return token;
     }
 
-    public void move(int moveSpaces) {
+    //finish this method
+
+    public int move(int moveSpaces, int boardSize) {
         token.move(moveSpaces);
+        if(token.getCurrentLocation() > boardSize) {
+            token.setLocation(token.getCurrentLocation() - boardSize - 1);
+        }
+        return token.getCurrentLocation();
+    }
+
+    public int moveTo(int newLocation) {
+        return token.moveTo(newLocation);
     }
 
     public void proposeTrade(AbstractPlayer other) {
@@ -63,4 +81,19 @@ public abstract class AbstractPlayer implements Transfer {
         this.token = token;
     }
 
+    public boolean isInJail() {
+        return inJail;
+    }
+
+    public int getCurrentLocation() {
+        return token.getCurrentLocation();
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getTokenImage() {
+        return this.tokenImage;
+    }
 }

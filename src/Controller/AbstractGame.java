@@ -6,13 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class AbstractGame {
+    private int boardSize = 0;
 
     //RULES
     private double startFunds;
     private double jailBail;
     private double passGo;
 
-    private ArrayList<AbstractPlayer> players;
+    private List<AbstractPlayer> players;
     private Bank bank;
     private Board board;
     private List<AbstractSpace> spaces;
@@ -21,7 +22,7 @@ public abstract class AbstractGame {
     private List<Die> dice;
     private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
-    private List<String> possibleTokens = new ArrayList<>();
+    private List<String> possibleTokens;
 
     public AbstractGame(String filename) {
         parseXMLFile(filename);
@@ -38,21 +39,34 @@ public abstract class AbstractGame {
             for(ActionDeck d : decks) {
                 d.fillLiveDeck(allCards);
             }
+            possibleTokens = configReader.parseTokens();
             dice = configReader.parseDice();
             double funds = configReader.parseBank();
             bank = new Bank(funds);
-            int boardSize = configReader.parseBoard();
+            boardSize = configReader.parseBoard();
             List<List> spaceProps= configReader.parseSpaces();
             spaces = spaceProps.get(0);
             properties = spaceProps.get(1);
             board = new Board(boardSize, spaceProps.get(0));
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
-            passGo = configReader.getRuleDouble("passGo");
+            passGo = configReader.getRuleDouble("PassGo");
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setPlayers(List<AbstractPlayer> p){
+        if (p.size() <=0 ) {
+            //TODO: throw some "can't initialize players w empty list" exception
+        }
+        players = p;
+        this.currPlayer = p.get(0);
+        for (AbstractPlayer pl : players){
+            System.out.println(pl);
+        }
+        System.out.println("set players in game done");
     }
 
     public AbstractPlayer getCurrPlayer() {
@@ -132,6 +146,14 @@ public abstract class AbstractGame {
 
     public List<String> getPossibleTokens() {
         return possibleTokens;
+    }
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    public void endTurn() {
+
     }
 
 }

@@ -24,6 +24,7 @@ public class PropSpace extends AbstractSpace {
         if(game.getBank().propertyOwnedBy(myProperty)==null){
             //prompt front end button to purchase property, handler does the rest
         }
+        game.endTurn();
     }
 
     public void linkSpaceToProperty(Property property){

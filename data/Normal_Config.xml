@@ -64,7 +64,7 @@
         <Space type="COLOR_PROPERTY">
             <Index>6</Index>
             <SpaceName>ORIENTAL_AVE</SpaceName>
-            <ColorGroup>BLUE</ColorGroup>
+            <ColorGroup>LIGHTBLUE</ColorGroup>
             <BuyPrice>100</BuyPrice>
             <Rent>6</Rent>
             <Rent1House>30</Rent1House>
@@ -82,7 +82,7 @@
         <Space type="COLOR_PROPERTY">
             <Index>8</Index>
             <SpaceName>VERMONT_AVE</SpaceName>
-            <ColorGroup>BLUE</ColorGroup>
+            <ColorGroup>LIGHTBLUE</ColorGroup>
             <BuyPrice>100</BuyPrice>
             <Rent>6</Rent>
             <Rent1House>30</Rent1House>
@@ -96,7 +96,7 @@
         <Space type="COLOR_PROPERTY">
             <Index>9</Index>
             <SpaceName>CONNECTICUT_AVE</SpaceName>
-            <ColorGroup>BLUE</ColorGroup>
+            <ColorGroup>LIGHTBLUE</ColorGroup>
             <BuyPrice>120</BuyPrice>
             <Rent>8</Rent>
             <Rent1House>40</Rent1House>
@@ -396,7 +396,7 @@
         <Space type="COLOR_PROPERTY">
             <Index>37</Index>
             <SpaceName>PARK_PLACE</SpaceName>
-            <ColorGroup>DARK_BLUE</ColorGroup>
+            <ColorGroup>DARKBLUE</ColorGroup>
             <BuyPrice>350</BuyPrice>
             <Rent>35</Rent>
             <Rent1House>175</Rent1House>
@@ -416,7 +416,7 @@
         <Space type="COLOR_PROPERTY">
             <Index>39</Index>
             <SpaceName>BOARDWALK</SpaceName>
-            <ColorGroup>DARK_BLUE</ColorGroup>
+            <ColorGroup>DARKBLUE</ColorGroup>
             <BuyPrice>400</BuyPrice>
             <Rent>50</Rent>
             <Rent1House>200</Rent1House>

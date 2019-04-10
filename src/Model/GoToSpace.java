@@ -1,5 +1,6 @@
 package Model;
 
+
 import Controller.AbstractGame;
 import Controller.Board;
 
@@ -25,10 +26,14 @@ public class GoToSpace extends AbstractSpace {
      */
 
     public void doAction(AbstractGame game){
+        AbstractPlayer currPlayer = game.getCurrPlayer();
         spacesLocation = game.getBoard().getLocationOfSpace(spaceToMoveTo);
-        game.getCurrPlayer().getToken().moveTo(spacesLocation);
+        this.removeOccupant(currPlayer);
+        currPlayer.moveTo(spacesLocation);
+        game.getBoard().getSpaceAt(spacesLocation).addOccupant(currPlayer);
         if(spaceToMoveTo.equalsIgnoreCase("JAIL")){
             game.getCurrPlayer().setJail(true);
         }
+        game.endTurn();
     }
 }

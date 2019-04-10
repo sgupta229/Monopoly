@@ -1,4 +1,4 @@
-package Controller;
+package monopoly_team04.Model.Controller;
 
 /***
  * This class handles all movements for a player. Holds the players current location on the board
