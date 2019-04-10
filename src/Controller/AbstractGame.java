@@ -50,6 +50,7 @@ public abstract class AbstractGame {
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("passGo");
+            possibleTokens = configReader.parseTokens();
         }
         catch (Exception e) {
             e.printStackTrace();

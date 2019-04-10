@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -30,11 +31,16 @@ public class AddPlayersScreen {
     private Group myRoot;
     private Controller myController;
     private ObservableList<AbstractPlayer> myPlayers;
+    private ObservableList<Image> availableTokens;
     private AnchorPane anchorPane = new AnchorPane();
 
-    public AddPlayersScreen(double width, double height, String style, Controller controller, ObservableList<AbstractPlayer> players) {
+    private ComboBox myIconMenu;
+    private TextField myPlayerNameField;
+
+    public AddPlayersScreen(double width, double height, String style, Controller controller, ObservableList<AbstractPlayer> players, ObservableList<Image> tokens) {
         this.myController = controller;
         this.myPlayers = players;
+        this.availableTokens = tokens;
         this.myWidth = width;
         this.myHeight = height;
         this.myRoot = new Group();
@@ -83,12 +89,9 @@ public class AddPlayersScreen {
 
         Text newPlayerTitle = new Text(messages.getString("new-player"));
 
-        ComboBox icon = new ComboBox();
-        icon.setPrefSize(100,60);
-        TextField playerName = new TextField();
-        playerName.setPrefWidth(300);
-        playerName.setPromptText(messages.getString("name-of-player"));
-        HBox nameAndIcon = new HBox(icon,playerName);
+        myIconMenu = createNewIconMenu();
+        myPlayerNameField = createPlayerNameField();
+        HBox nameAndIcon = new HBox(myIconMenu,myPlayerNameField);
         nameAndIcon.setSpacing(20);
 
         ComboBox playerTypes = new ComboBox();
@@ -100,6 +103,19 @@ public class AddPlayersScreen {
 
         newPlayer.getChildren().addAll(newPlayerTitle,playerTypes,nameAndIcon,add);
         return newPlayer;
+    }
+
+    private ComboBox createNewIconMenu(){
+        ComboBox icon = new ComboBox(availableTokens);
+        icon.setPrefSize(100,60);
+        return icon;
+    }
+
+    private TextField createPlayerNameField(){
+        TextField playerName = new TextField();
+        playerName.setPrefWidth(300);
+        playerName.setPromptText(messages.getString("name-of-player"));
+        return playerName;
     }
 
     private VBox createEditPlayerListBox(){
@@ -124,6 +140,9 @@ public class AddPlayersScreen {
     class AddButtonHandler implements EventHandler<ActionEvent>{
         @Override
         public void handle(ActionEvent event) {
+            String name = myPlayerNameField.getText();
+            myPlayerNameField.clear();
+            Image icon = (Image) myIconMenu.getValue();
             myController.addPlayer();
             System.out.println("added player");
         }

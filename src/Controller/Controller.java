@@ -1,9 +1,5 @@
 package Controller;
 
-import Controller.AbstractGame;
-import Controller.ClassicGame;
-import Controller.Die;
-import Controller.Token;
 import Model.*;
 import View.AddPlayersScreen;
 import View.ChooseGameScreen;
@@ -13,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -30,6 +27,7 @@ public class Controller {
     private String myGameType;
     private String gameStyle;
     private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
+    private ObservableList<Image> availableTokens;
 
     private Stage window;
 
@@ -49,20 +47,14 @@ public class Controller {
         myGameType = gameType;
 
         //TODO: make gameFactory or use reflection to create concrete Game class based on gameType
-        //TODO: note - shouldn't ClassicGame only take ClassicPlayers in constructor?
 
         if(myGameType.equalsIgnoreCase("classic")){
-            //temporary stuff ---------------------------------
-            Bank theBank = new Bank(100000000);
-            ArrayList<AbstractSpace> spaces = new ArrayList<>();
-            Board theBoard = new Board(0,spaces);
-            Die[] theDice = new Die[0];
-            ArrayList<ActionDeck> theDeck = new ArrayList<>();
-            //-------------------------------------------------
-
             myGame = new ClassicGame("Normal_Config.xml");
             gameStyle = fileToStylesheetString(new File("data/GUI.css"));
-            nextScene = new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers).getScene();
+            System.out.println(myGame.getPossibleTokens());
+            System.out.println(myGame.getBank());
+            availableTokens = makeImagesFromStrings(myGame.getPossibleTokens());
+            nextScene = new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers,availableTokens).getScene();
         }
         else{
             nextScene = new Scene(new Group(),WIDTH,HEIGHT);
@@ -88,6 +80,14 @@ public class Controller {
         //add player to arraylist
         newPlayers.add(newP);
         // on startgame, initialize players in game
+    }
+
+    private ObservableList<Image> makeImagesFromStrings(List<String> strings){
+        List<Image> images = new ArrayList<>();
+        for(String s:strings){
+            images.add(new Image(this.getClass().getClassLoader().getResourceAsStream(s)));
+        }
+        return FXCollections.observableList(images);
     }
 
     private String fileToStylesheetString ( File stylesheetFile ) {
