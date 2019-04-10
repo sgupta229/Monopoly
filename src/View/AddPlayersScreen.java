@@ -12,6 +12,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -85,6 +87,8 @@ public class AddPlayersScreen {
 
         ComboBox icon = new ComboBox();
         icon.setPrefSize(100,60);
+
+
         TextField playerName = new TextField();
         playerName.setPrefWidth(300);
         playerName.setPromptText(messages.getString("name-of-player"));
@@ -128,5 +132,6 @@ public class AddPlayersScreen {
             System.out.println("added player");
         }
     }
+    
 
 }
