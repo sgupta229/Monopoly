@@ -1,10 +1,12 @@
 package View;
 
+import Controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
@@ -20,31 +22,44 @@ import java.util.ResourceBundle;
 
 public class AddPlayersScreen {
     private ResourceBundle messages = ResourceBundle.getBundle("Messages");
+    private Scene myScene;
     private double myWidth;
     private double myHeight;
     private Group myRoot;
+    private Controller myController;
     private AnchorPane anchorPane = new AnchorPane();
 
-    public AddPlayersScreen(Group root, double screenWidth, double screenHeight) {
-        this.myWidth = screenWidth;
-        this.myHeight = screenHeight;
-        this.myRoot = root;
+    public AddPlayersScreen(double width, double height, String style, Controller controller) {
+        this.myController = controller;
+        this.myWidth = width;
+        this.myHeight = height;
+        this.myRoot = new Group();
 
+        myScene = new Scene(myRoot,width,height);
+        myScene.getStylesheets().add(style);
+
+        setUpLayout();
+
+        myRoot.getChildren().addAll(anchorPane);
+    }
+
+    public Scene getScene() {
+        return myScene;
+    }
+
+    private void setUpLayout(){
         anchorPane.setPrefSize(myWidth,myHeight);
 
         Text title = new Text(messages.getString("add-players"));
         title.setWrappingWidth(myWidth);
         title.setId("header2");
 
-
         HBox screenContent = new HBox();
         screenContent.setPrefWidth(myWidth);
         screenContent.setAlignment(Pos.CENTER);
         screenContent.setId("box");
 
-        VBox newPlayer = createNewPlayerBox();
-        VBox editPlayerList = createEditPlayerListBox();
-        screenContent.getChildren().addAll(newPlayer,editPlayerList);
+        screenContent.getChildren().addAll(createNewPlayerBox(),createEditPlayerListBox());
 
         Button startGame = new Button(messages.getString("start-game"));
         startGame.setOnAction(new ButtonHandler());
@@ -54,10 +69,10 @@ public class AddPlayersScreen {
         AnchorPane.setTopAnchor(screenContent,163.0);
         AnchorPane.setBottomAnchor(startGame,60.0);
         AnchorPane.setRightAnchor(startGame,60.0);
-
-        myRoot.getChildren().addAll(anchorPane);
     }
 
+    //TODO: refactor
+    //TODO: add dynamic ness
     private VBox createNewPlayerBox(){
         VBox newPlayer = new VBox();
         newPlayer.setId("box");
@@ -97,7 +112,8 @@ public class AddPlayersScreen {
     class ButtonHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
-            new Layout(myRoot);
+//            new Layout(myRoot);
+            myController.startGame();
         }
     }
 

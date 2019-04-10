@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import Controller.Die;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -21,7 +22,7 @@ public class DiceRoller {
         rollButton.setId("button1");
         rollButton.setOnAction(e -> rollDice());
         myHBox.getChildren().addAll(rollButton);
-        myHBox.setPrefWidth(GameView.WIDTH * 0.4);
+        myHBox.setPrefWidth(Controller.WIDTH * 0.4);
         myHBox.setAlignment(Pos.CENTER);
     }
 

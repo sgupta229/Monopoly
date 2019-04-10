@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -44,13 +45,13 @@ public abstract class Popup {
         VBox image= new VBox(10);
 
 
-        Scene scene1= new Scene(layout, GameView.WIDTH/2, GameView.HEIGHT/1.5);
+        Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
         scene1.getStylesheets().add(( new File("resources/GUI.css") ).toURI().toString());
         button1.setId("button2");
         button2.setId("button2");
         label1.setWrapText(true);
         label1.setId("popupMessage");
-        label1.setPrefSize(GameView.WIDTH/4,GameView.HEIGHT/2.25 );
+        label1.setPrefSize(Controller.WIDTH/4, Controller.HEIGHT/2.25 );
         buttons.getChildren().addAll(button1,button2);
         text.getChildren().addAll(label1, buttons);
         image.setAlignment(Pos.CENTER_LEFT);

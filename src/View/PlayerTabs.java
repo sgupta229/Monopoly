@@ -1,19 +1,16 @@
 package View;
 
-import Controller.Token;
-import Model.ClassicPlayer;
+import Controller.Controller;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
 public class PlayerTabs {
     private TabPane tabPane;
 
     public PlayerTabs(){
         tabPane = new TabPane();
-        tabPane.setPrefWidth(GameView.WIDTH * .4);
+        tabPane.setPrefWidth(Controller.WIDTH * .4);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         // create Play Tab
