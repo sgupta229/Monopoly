@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.ConfigReader;
 import Controller.Token;
 
 import java.util.ArrayList;
@@ -14,22 +15,25 @@ public abstract class AbstractPlayer implements Transfer {
     private Token token;
     private boolean inJail;
 
-    public AbstractPlayer(double funds, Token token) {
-        this.funds = funds;
-        this.token = token;
-    }
-
     public AbstractPlayer() {
-
+        this.inJail = false;
+        properties = new ArrayList<>();
+        actionCards = new ArrayList<>();
     }
 
     public AbstractPlayer(String name, String tokenImage) {
         this.name = name;
         this.tokenImage = tokenImage;
+        this.inJail = false;
+        properties = new ArrayList<>();
+        actionCards = new ArrayList<>();
     }
 
     @Override
     public void makePayment(double amount, Transfer receiver) {
+        if(this.funds < amount) {
+            throw new IllegalArgumentException("Not enough money to pay");
+        }
         this.funds = this.funds - amount;
         receiver.receivePayment(amount);
     }
