@@ -9,9 +9,11 @@ import java.util.*;
 public abstract class Property {
 
     double myPrice;
+    String propertyName;
 
     public Property(double price, String propName){
         myPrice=price;
+        propertyName = propName;
     }
 
 
@@ -21,6 +23,10 @@ public abstract class Property {
      */
     public double getPrice(){
         return myPrice;
+    }
+
+    public String getPropertyName(){
+        return propertyName;
     }
 
     /***

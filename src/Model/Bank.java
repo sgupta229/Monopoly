@@ -8,11 +8,12 @@ import java.util.Map;
 public class Bank implements Transfer{
 
     Map<Property, AbstractPlayer> ownedPropsMap = new HashMap<>();
-    List<Property> unOwnedProps = new ArrayList<>();
+    List<Property> unOwnedProps;
     double myBalance;
 
-    public Bank(double startingBalance){
+    public Bank(double startingBalance, List<Property> properties){
         myBalance=startingBalance;
+        unOwnedProps = properties;
     }
 
     /***
@@ -35,6 +36,11 @@ public class Bank implements Transfer{
         if(ownedPropsMap.containsKey(property)){
             ownedPropsMap.put(property, newOwner);
         }
+        else if(unOwnedProps.contains(property)){
+            System.out.println("here");
+            ownedPropsMap.put(property, newOwner);
+            unOwnedProps.remove(property);
+        }
     }
 
     /***
@@ -45,6 +51,7 @@ public class Bank implements Transfer{
     public void makePayment(double amount, Transfer receiver){
         if(myBalance-amount>0){
             myBalance -= amount;
+            receiver.receivePayment(amount);
         }
         else{
             receiver.receivePayment(myBalance);
@@ -73,4 +80,8 @@ public class Bank implements Transfer{
      * @param auctionGoers
      */
     public void auctionProperty(Property property, List<AbstractPlayer> auctionGoers){}
+
+    public double getBankBalance(){
+        return myBalance;
+    }
 }
