@@ -29,7 +29,6 @@ public class Layout {
 
     private Pane createBoardPane(){
         myBoardPane = new Pane();
-//        myBoardPane.setPadding(new Insets(20,20,20,20));
         myBoardPane.setPrefSize(Main.WIDTH*0.67, Main.HEIGHT);
         myBoardPane.setId("boardPane");
 

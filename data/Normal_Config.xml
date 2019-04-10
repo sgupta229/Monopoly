@@ -1,0 +1,672 @@
+<?xml version = "1.0"?>
+<Game>
+    <GameType> Normal </GameType>
+    <Dice>
+        <Number>2</Number>
+        <Sides>6</Sides>
+    </Dice>
+    <Board>
+        <BoardSize>40</BoardSize>
+    </Board>
+    <Spaces>
+        <Space type="GO">
+            <Index>0</Index>
+            <SpaceName>GO</SpaceName>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>1</Index>
+            <SpaceName>MEDITERRANEAN_AVE</SpaceName>
+            <ColorGroup>BROWN</ColorGroup>
+            <BuyPrice>60</BuyPrice>
+            <Rent>2</Rent>
+            <Rent1House>10</Rent1House>
+            <Rent2House>30</Rent2House>
+            <Rent3House>90</Rent3House>
+            <Rent4House>160</Rent4House>
+            <RentHotel>250</RentHotel>
+            <PricePerHouse>50</PricePerHouse>
+            <Mortgage>30</Mortgage>
+        </Space>
+        <Space type="ACTION">
+            <Index>2</Index>
+            <SpaceName>COMMUNITY_CHEST</SpaceName>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>3</Index>
+            <SpaceName>BALTIC_AVE</SpaceName>
+            <ColorGroup>BROWN</ColorGroup>
+            <BuyPrice>60</BuyPrice>
+            <Rent>4</Rent>
+            <Rent1House>20</Rent1House>
+            <Rent2House>60</Rent2House>
+            <Rent3House>180</Rent3House>
+            <Rent4House>320</Rent4House>
+            <RentHotel>450</RentHotel>
+            <PricePerHouse>50</PricePerHouse>
+            <Mortgage>30</Mortgage>
+        </Space>
+        <Space type="TAX">
+            <Index>4</Index>
+            <SpaceName> INCOME_TAX</SpaceName>
+            <FlatRate>200</FlatRate>
+            <Percentage>10</Percentage>
+        </Space>
+        <Space type="RAILROAD_PROPERTY">
+            <Index>5</Index>
+            <SpaceName>READING_RAILROAD</SpaceName>
+            <BuyPrice>200</BuyPrice>
+            <Rent>25</Rent>
+            <Rent2>50</Rent2>
+            <Rent3>100</Rent3>
+            <Rent4>200</Rent4>
+            <Mortgage>100</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>6</Index>
+            <SpaceName>ORIENTAL_AVE</SpaceName>
+            <ColorGroup>LIGHTBLUE</ColorGroup>
+            <BuyPrice>100</BuyPrice>
+            <Rent>6</Rent>
+            <Rent1House>30</Rent1House>
+            <Rent2House>90</Rent2House>
+            <Rent3House>270</Rent3House>
+            <Rent4House>400</Rent4House>
+            <RentHotel>550</RentHotel>
+            <PricePerHouse>50</PricePerHouse>
+            <Mortgage>50</Mortgage>
+        </Space>
+        <Space type="ACTION">
+            <Index>7</Index>
+            <SpaceName> CHANCE </SpaceName>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>8</Index>
+            <SpaceName>VERMONT_AVE</SpaceName>
+            <ColorGroup>LIGHTBLUE</ColorGroup>
+            <BuyPrice>100</BuyPrice>
+            <Rent>6</Rent>
+            <Rent1House>30</Rent1House>
+            <Rent2House>90</Rent2House>
+            <Rent3House>270</Rent3House>
+            <Rent4House>400</Rent4House>
+            <RentHotel>550</RentHotel>
+            <PricePerHouse>50</PricePerHouse>
+            <Mortgage>50</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>9</Index>
+            <SpaceName>CONNECTICUT_AVE</SpaceName>
+            <ColorGroup>LIGHTBLUE</ColorGroup>
+            <BuyPrice>120</BuyPrice>
+            <Rent>8</Rent>
+            <Rent1House>40</Rent1House>
+            <Rent2House>100</Rent2House>
+            <Rent3House>300</Rent3House>
+            <Rent4House>450</Rent4House>
+            <RentHotel>600</RentHotel>
+            <PricePerHouse>50</PricePerHouse>
+            <Mortgage>60</Mortgage>
+        </Space>
+        <Space type="JAIL">
+            <Index>10</Index>
+            <SpaceName>JAIL</SpaceName>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>11</Index>
+            <SpaceName>ST._CHARLES_AVE</SpaceName>
+            <ColorGroup>PINK</ColorGroup>
+            <BuyPrice>140</BuyPrice>
+            <Rent>10</Rent>
+            <Rent1House>50</Rent1House>
+            <Rent2House>150</Rent2House>
+            <Rent3House>450</Rent3House>
+            <Rent4House>625</Rent4House>
+            <RentHotel>750</RentHotel>
+            <PricePerHouse>100</PricePerHouse>
+            <Mortgage>70</Mortgage>
+        </Space>
+        <Space type="UTILITY_PROPERTY">
+            <Index>12</Index>
+            <SpaceName>ELECTRIC_COMPANY</SpaceName>
+            <BuyPrice>150</BuyPrice>
+            <RentMultiplier>4</RentMultiplier>
+            <Rent2Multiplier>10</Rent2Multiplier>
+            <Mortgage>75</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>13</Index>
+            <SpaceName>STATES_AVE</SpaceName>
+            <ColorGroup>PINK</ColorGroup>
+            <BuyPrice>140</BuyPrice>
+            <Rent>10</Rent>
+            <Rent1House>50</Rent1House>
+            <Rent2House>150</Rent2House>
+            <Rent3House>450</Rent3House>
+            <Rent4House>625</Rent4House>
+            <RentHotel>750</RentHotel>
+            <PricePerHouse>100</PricePerHouse>
+            <Mortgage>70</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>14</Index>
+            <SpaceName>VIRGINIA_AVE</SpaceName>
+            <ColorGroup>PINK</ColorGroup>
+            <BuyPrice>160</BuyPrice>
+            <Rent>12</Rent>
+            <Rent1House>60</Rent1House>
+            <Rent2House>180</Rent2House>
+            <Rent3House>500</Rent3House>
+            <Rent4House>700</Rent4House>
+            <RentHotel>900</RentHotel>
+            <PricePerHouse>100</PricePerHouse>
+            <Mortgage>80</Mortgage>
+        </Space>
+        <Space type="RAILROAD_PROPERTY">
+            <Index>15</Index>
+            <SpaceName>PENNSYLVANIA_RAILROAD</SpaceName>
+            <BuyPrice>200</BuyPrice>
+            <Rent>25</Rent>
+            <Rent2>50</Rent2>
+            <Rent3>100</Rent3>
+            <Rent4>200</Rent4>
+            <Mortgage>100</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>16</Index>
+            <SpaceName>ST._JAMES_PLACE</SpaceName>
+            <ColorGroup>ORANGE</ColorGroup>
+            <BuyPrice>180</BuyPrice>
+            <Rent>14</Rent>
+            <Rent1House>70</Rent1House>
+            <Rent2House>200</Rent2House>
+            <Rent3House>550</Rent3House>
+            <Rent4House>750</Rent4House>
+            <RentHotel>950</RentHotel>
+            <PricePerHouse>100</PricePerHouse>
+            <Mortgage>90</Mortgage>
+        </Space>
+        <Space type="ACTION">
+            <Index>17</Index>
+            <SpaceName>COMMUNITY_CHEST</SpaceName>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>18</Index>
+            <SpaceName>TENNESSEE_AVE</SpaceName>
+            <ColorGroup>ORANGE</ColorGroup>
+            <BuyPrice>180</BuyPrice>
+            <Rent>14</Rent>
+            <Rent1House>70</Rent1House>
+            <Rent2House>200</Rent2House>
+            <Rent3House>550</Rent3House>
+            <Rent4House>750</Rent4House>
+            <RentHotel>950</RentHotel>
+            <PricePerHouse>100</PricePerHouse>
+            <Mortgage>90</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>19</Index>
+            <SpaceName>NEW_YORK_AVE</SpaceName>
+            <ColorGroup>ORANGE</ColorGroup>
+            <BuyPrice>200</BuyPrice>
+            <Rent>16</Rent>
+            <Rent1House>80</Rent1House>
+            <Rent2House>220</Rent2House>
+            <Rent3House>600</Rent3House>
+            <Rent4House>800</Rent4House>
+            <RentHotel>1000</RentHotel>
+            <PricePerHouse>100</PricePerHouse>
+            <Mortgage>100</Mortgage>
+        </Space>
+        <Space type="FREE_PARKING">
+            <Index>20</Index>
+            <SpaceName>FREE_PARKING</SpaceName>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>21</Index>
+            <SpaceName>KENTUCKY_AVE</SpaceName>
+            <ColorGroup>RED</ColorGroup>
+            <BuyPrice>220</BuyPrice>
+            <Rent>18</Rent>
+            <Rent1House>90</Rent1House>
+            <Rent2House>250</Rent2House>
+            <Rent3House>700</Rent3House>
+            <Rent4House>875</Rent4House>
+            <RentHotel>1050</RentHotel>
+            <PricePerHouse>150</PricePerHouse>
+            <Mortgage>110</Mortgage>
+        </Space>
+        <Space type="ACTION">
+            <Index>22</Index>
+            <SpaceName>CHANCE</SpaceName>
+
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>23</Index>
+            <SpaceName>INDIANA_AVE</SpaceName>
+            <ColorGroup>RED</ColorGroup>
+            <BuyPrice>220</BuyPrice>
+            <Rent>18</Rent>
+            <Rent1House>90</Rent1House>
+            <Rent2House>250</Rent2House>
+            <Rent3House>700</Rent3House>
+            <Rent4House>875</Rent4House>
+            <RentHotel>1050</RentHotel>
+            <PricePerHouse>150</PricePerHouse>
+            <Mortgage>110</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>24</Index>
+            <SpaceName>ILLINOIS_AVE</SpaceName>
+            <ColorGroup>RED</ColorGroup>
+            <BuyPrice>240</BuyPrice>
+            <Rent>20</Rent>
+            <Rent1House>100</Rent1House>
+            <Rent2House>300</Rent2House>
+            <Rent3House>750</Rent3House>
+            <Rent4House>925</Rent4House>
+            <RentHotel>1100</RentHotel>
+            <PricePerHouse>150</PricePerHouse>
+            <Mortgage>120</Mortgage>
+        </Space>
+        <Space type="RAILROAD_PROPERTY">
+            <Index>25</Index>
+            <SpaceName>B.&amp;O._RAILROAD</SpaceName>
+            <BuyPrice>200</BuyPrice>
+            <Rent>25</Rent>
+            <Rent2>50</Rent2>
+            <Rent3>100</Rent3>
+            <Rent4>200</Rent4>
+            <Mortgage>100</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>26</Index>
+            <SpaceName>ATLANTIC_AVE</SpaceName>
+            <ColorGroup>YELLOW</ColorGroup>
+            <BuyPrice>260</BuyPrice>
+            <Rent>22</Rent>
+            <Rent1House>110</Rent1House>
+            <Rent2House>330</Rent2House>
+            <Rent3House>800</Rent3House>
+            <Rent4House>975</Rent4House>
+            <RentHotel>1150</RentHotel>
+            <PricePerHouse>150</PricePerHouse>
+            <Mortgage>130</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>27</Index>
+            <SpaceName>VENTNOR_AVE</SpaceName>
+            <ColorGroup>YELLOW</ColorGroup>
+            <BuyPrice>260</BuyPrice>
+            <Rent>22</Rent>
+            <Rent1House>110</Rent1House>
+            <Rent2House>330</Rent2House>
+            <Rent3House>800</Rent3House>
+            <Rent4House>975</Rent4House>
+            <RentHotel>1150</RentHotel>
+            <PricePerHouse>150</PricePerHouse>
+            <Mortgage>130</Mortgage>
+        </Space>
+        <Space type="UTILITY_PROPERTY">
+            <Index>28</Index>
+            <SpaceName>WATER_WORKS</SpaceName>
+            <BuyPrice>150</BuyPrice>
+            <RentMultiplier>4</RentMultiplier>
+            <Rent2Multiplier>10</Rent2Multiplier>
+            <Mortgage>75</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>29</Index>
+            <SpaceName>MARVIN_GARDENS</SpaceName>
+            <ColorGroup>YELLOW</ColorGroup>
+            <BuyPrice>280</BuyPrice>
+            <Rent>24</Rent>
+            <Rent1House>120</Rent1House>
+            <Rent2House>360</Rent2House>
+            <Rent3House>850</Rent3House>
+            <Rent4House>1025</Rent4House>
+            <RentHotel>1200</RentHotel>
+            <PricePerHouse>150</PricePerHouse>
+            <Mortgage>140</Mortgage>
+        </Space>
+        <Space type="GO_TO_JAIL">
+            <Index>30</Index>
+            <SpaceName>GO_TO_JAIL</SpaceName>
+            <TargetSpace>JAIL</TargetSpace>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>31</Index>
+            <SpaceName>PACIFIC_AVE</SpaceName>
+            <ColorGroup>GREEN</ColorGroup>
+            <BuyPrice>300</BuyPrice>
+            <Rent>26</Rent>
+            <Rent1House>130</Rent1House>
+            <Rent2House>390</Rent2House>
+            <Rent3House>900</Rent3House>
+            <Rent4House>1105</Rent4House>
+            <RentHotel>1275</RentHotel>
+            <PricePerHouse>200</PricePerHouse>
+            <Mortgage>150</Mortgage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>32</Index>
+            <SpaceName>CAROLINA_AVE</SpaceName>
+            <ColorGroup>GREEN</ColorGroup>
+            <BuyPrice>300</BuyPrice>
+            <Rent>26</Rent>
+            <Rent1House>130</Rent1House>
+            <Rent2House>390</Rent2House>
+            <Rent3House>900</Rent3House>
+            <Rent4House>1105</Rent4House>
+            <RentHotel>1275</RentHotel>
+            <PricePerHouse>200</PricePerHouse>
+            <Mortgage>150</Mortgage>
+        </Space>
+        <Space type="ACTION">
+            <Index>33</Index>
+            <SpaceName>COMMUNITY_CHEST</SpaceName>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>34</Index>
+            <SpaceName>PENNSYLVANIA_AVE</SpaceName>
+            <ColorGroup>GREEN</ColorGroup>
+            <BuyPrice>320</BuyPrice>
+            <Rent>28</Rent>
+            <Rent1House>150</Rent1House>
+            <Rent2House>450</Rent2House>
+            <Rent3House>1000</Rent3House>
+            <Rent4House>1200</Rent4House>
+            <RentHotel>1400</RentHotel>
+            <PricePerHouse>200</PricePerHouse>
+            <Mortgage>160</Mortgage>
+        </Space>
+        <Space type="RAILROAD_PROPERTY">
+            <Index>35</Index>
+            <SpaceName>SHORT_LINE_RAILROAD</SpaceName>
+            <BuyPrice>200</BuyPrice>
+            <Rent>25</Rent>
+            <Rent2>50</Rent2>
+            <Rent3>100</Rent3>
+            <Rent4>200</Rent4>
+            <Mortgage>100</Mortgage>
+        </Space>
+        <Space type="ACTION">
+            <Index>36</Index>
+            <SpaceName>CHANCE</SpaceName>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>37</Index>
+            <SpaceName>PARK_PLACE</SpaceName>
+            <ColorGroup>DARKBLUE</ColorGroup>
+            <BuyPrice>350</BuyPrice>
+            <Rent>35</Rent>
+            <Rent1House>175</Rent1House>
+            <Rent2House>500</Rent2House>
+            <Rent3House>1100</Rent3House>
+            <Rent4House>1300</Rent4House>
+            <RentHotel>1500</RentHotel>
+            <PricePerHouse>200</PricePerHouse>
+            <Mortgage>175</Mortgage>
+        </Space>
+        <Space type="TAX">
+            <Index>38</Index>
+            <SpaceName>LUXURY_TAX</SpaceName>
+            <FlatRate>200</FlatRate>
+            <Percentage>10</Percentage>
+        </Space>
+        <Space type="COLOR_PROPERTY">
+            <Index>39</Index>
+            <SpaceName>BOARDWALK</SpaceName>
+            <ColorGroup>DARKBLUE</ColorGroup>
+            <BuyPrice>400</BuyPrice>
+            <Rent>50</Rent>
+            <Rent1House>200</Rent1House>
+            <Rent2House>600</Rent2House>
+            <Rent3House>1400</Rent3House>
+            <Rent4House>1700</Rent4House>
+            <RentHotel>2000</RentHotel>
+            <PricePerHouse>200</PricePerHouse>
+            <Mortgage>200</Mortgage>
+        </Space>
+    </Spaces>
+    <ActionDecks>
+        <ActionDeck>CHANCE</ActionDeck>
+        <ActionDeck>COMMUNITY_CHEST</ActionDeck>
+    </ActionDecks>
+    <ActionCards>
+        <ActionCardType type="MOVE_TO">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO "GO"(COLLECT $200)</Message>
+            <Holdable>FALSE</Holdable>
+            <TargetSpace>GO</TargetSpace>
+        </ActionCardType>
+        <ActionCardType type="MOVE_TO">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>ADVANCE TO "GO"(COLLECT $200)</Message>
+            <Holdable>FALSE</Holdable>
+            <TargetSpace>GO</TargetSpace>
+        </ActionCardType>
+        <ActionCardType type="MOVE_TO">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO ILLINOIS AVE. IF YOU PASS GO, COLLECT $200</Message>
+            <Holdable>FALSE</Holdable>
+            <TargetSpace>ILLINOIS_AVE</TargetSpace>
+        </ActionCardType>
+        <ActionCardType type="MOVE_TO">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO ST.CHARLES PLACE. IF YOU PASS GO, COLLECT $200</Message>
+            <Holdable>FALSE</Holdable>
+            <TargetSpace>ST.CHARLES_PLACE</TargetSpace>
+        </ActionCardType>
+        <ActionCardType type="MOVE_TO">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TOKEN TO NEAREST UTILITY. IF UNOWNED, YOU MAY BUY IT FROM THE BANK.
+                IF OWNED, THROW DICE AND PAY OWNER 10 TIMES THE AMOUNT THROWN</Message>
+            <Holdable>FALSE</Holdable>
+            <TargetSpace>UTILITY_PROPERTY</TargetSpace>
+        </ActionCardType>
+        <ActionCardType type="MOVE_TO">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TOKEN TO NEAREST RAILROAD PAY OWNER TWICE THE RENTAL TO WHICH HE/SHE IS
+            OTHERWISE ENTITLED. IF RAILROAD IS UNOWNED, YOU MAY BUY IT FROM THE BANK</Message>
+            <Holdable>FALSE</Holdable>
+            <TargetSpace>RAILROAD_PROPERTY</TargetSpace>
+        </ActionCardType>
+        <ActionCardType type="MOVE_TO">
+            <DeckType>CHANCE</DeckType>
+            <Message>GO BACK THREE SPACES</Message>
+            <Holdable>FALSE</Holdable>
+            <TargetSpace>PROPERTY</TargetSpace>
+        </ActionCardType>
+        <ActionCardType type="MOVE_TO">
+            <DeckType>CHANCE</DeckType>
+            <Message>TAKE A TRIP TO READING RAILROAD. IF YOU PASS GO, COLLECT $200</Message>
+            <Holdable>FALSE</Holdable>
+            <TargetSpace>READING_RAILROAD</TargetSpace>
+        </ActionCardType>
+        <ActionCardType type="MOVE_TO">
+            <DeckType>CHANCE</DeckType>
+            <Message>TAKE A WALK ON THE BOARDWALK. ADVANCE TOKEN TO BOARDWALK</Message>
+            <Holdable>FALSE</Holdable>
+            <TargetSpace>BOARDWALK</TargetSpace>
+        </ActionCardType>
+        <ActionCardType type="GO_TO_JAIL">
+            <DeckType>CHANCE</DeckType>
+            <Message>GO TO JAIL. GO DIRECTLY TO JAIL. DO NOT PASS GO, DO NOT COLLECT $200</Message>
+            <Holdable>False</Holdable>
+        </ActionCardType>
+        <ActionCardType type="GO_TO_JAIL">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>GO TO JAIL. GO DIRECTLY TO JAIL. DO NOT PASS GO, DO NOT COLLECT $200</Message>
+            <Holdable>False</Holdable>
+        </ActionCardType>
+        <ActionCardType type="GET_OUT_OF_JAIL">
+            <DeckType>CHANCE</DeckType>
+            <Message>GET OUT OF JAIL FREE. THIS CARD MAY BE KEPT UNTIL NEEDED, TRADED/SOLD</Message>
+            <Holdable>TRUE</Holdable>
+        </ActionCardType>
+        <ActionCardType type="GET_OUT_OF_JAIL">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>GET OUT OF JAIL FREE. THIS CARD MAY BE KEPT UNTIL NEEDED, TRADED/SOLD</Message>
+            <Holdable>TRUE</Holdable>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>CHANCE</DeckType>
+            <Message>BANK PAYS YOU DIVIDEND OF $50</Message>
+            <Holdable>False</Holdable>
+            <Amount>50</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>CHANCE</DeckType>
+            <Message>YOUR BUILDING LOAN MATURES.RECEIVE $150</Message>
+            <Holdable>False</Holdable>
+            <Amount>150</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>CHANCE</DeckType>
+            <Message>YOU HAVE WON A CROSSWORD COMPETITION. COLLECT $100</Message>
+            <Holdable>False</Holdable>
+            <Amount>150</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>FOM SALE OF STOCK YOU GET $50</Message>
+            <Holdable>False</Holdable>
+            <Amount>50</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>BANK ERROR IN YOUR FAVOR. COLLECT $200</Message>
+            <Holdable>False</Holdable>
+            <Amount>200</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>GRAND OPERA NIGHT. COLLECT $50 FROM EVERY PLAYER FOR OPENING NIGHT SEATS</Message>
+            <Holdable>False</Holdable>
+            <Amount>50</Amount>
+            <From>ALL</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>HOLIDAY FUND MATURES. RECEIVE $100</Message>
+            <Holdable>False</Holdable>
+            <Amount>100</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>INCOME TAX REFUND. COLLECT $20</Message>
+            <Holdable>False</Holdable>
+            <Amount>20</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>IT IS YOUR BIRTHDAY. COLLECT $10 FROM EVERY PLAYER</Message>
+            <Holdable>False</Holdable>
+            <Amount>10</Amount>
+            <From>ALL</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>LIFE INSURANCE MATURES. COLLECT $100</Message>
+            <Holdable>False</Holdable>
+            <Amount>100</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>RECEIVE $25 CONSULTANCY FEE</Message>
+            <Holdable>False</Holdable>
+            <Amount>25</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>YOU HAVE WON SECOND PRIZE IN A BEAUTY CONTEST. COLLECT $10</Message>
+            <Holdable>False</Holdable>
+            <Amount>10</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="WIN_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>YOU INHERIT $100</Message>
+            <Holdable>False</Holdable>
+            <Amount>100</Amount>
+            <From>BANK</From>
+        </ActionCardType>
+        <ActionCardType type="LOSE_MONEY">
+            <DeckType>CHANCE</DeckType>
+            <Message>MAKE GENERAL REPAIRS ON ALL YOUR PROPERTY: FOR EACH HOUSE PAY $25, FOR EACH HOTEL $100</Message>
+            <Holdable>False</Holdable>
+            <Amount>25</Amount><!--,100</Amount>-->
+            <To>BANK</To>
+        </ActionCardType>
+        <ActionCardType type="LOSE_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>DOCTOR'S FEES. PAY $50</Message>
+            <Holdable>False</Holdable>
+            <Amount>50</Amount>
+            <To>BANK</To>
+        </ActionCardType>
+        <ActionCardType type="LOSE_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>YOU ARE ASSESSED FOR STREET REPAIRS: PAY $40 PER HOUSE AND $115 PER HOTEL YOU OWN</Message>
+            <Holdable>False</Holdable>
+            <Amount>40</Amount><!--,115</Amount>-->
+            <To>BANK</To>
+        </ActionCardType>
+        <ActionCardType type="LOSE_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>HOSPITAL FEES. PAY $50</Message>
+            <Holdable>False</Holdable>
+            <Amount>50</Amount>
+            <To>BANK</To>
+        </ActionCardType>
+        <ActionCardType type="LOSE_MONEY">
+            <DeckType>COMMUNITY_CHEST</DeckType>
+            <Message>SCHOOL FEES. PAY $50</Message>
+            <Holdable>False</Holdable>
+            <Amount>50</Amount>
+            <To>BANK</To>
+        </ActionCardType>
+        <ActionCardType type="LOSE_MONEY">
+            <DeckType>CHANCE</DeckType>
+            <Message>YOU HAVE BEEN ELECTED CHAIRMAN OF THE BOARD. PAY EACH PLAYER $50</Message>
+            <Holdable>False</Holdable>
+            <Amount>50</Amount>
+            <To>ALL</To>
+        </ActionCardType>
+        <ActionCardType type="LOSE_MONEY">
+            <DeckType>CHANCE</DeckType>
+            <Message>PAY POOR TAX OF $15</Message>
+            <Holdable>False</Holdable>
+            <Amount>15</Amount>
+            <To>BANK</To>
+        </ActionCardType>
+    </ActionCards>
+    <Bank>
+        <BankFunds>10000000</BankFunds>
+    </Bank>
+    <Tokens>
+        <Token>battleship.png</Token>
+        <Token>boot.png</Token>
+        <Token>iron.png</Token>
+        <Token>racecar.png</Token>
+        <Token>sheep_dog.png</Token>
+        <Token>thimble.png</Token>
+        <Token>top_hat.png</Token>
+        <Token>wheelbarrow.png</Token>
+    </Tokens>
+    <Rules>
+        <StartFunds>2500</StartFunds>
+        <JailBail>50</JailBail>
+        <PassGo>200</PassGo>
+    </Rules>
+    <!--</GameType>-->
+</Game>

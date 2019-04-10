@@ -10,8 +10,8 @@ public class ActionCardSpace extends AbstractSpace {
     List<AbstractPlayer> myOccupants = new ArrayList<>();
     DeckType myDeckType;
 
-    public ActionCardSpace(int locationIndex, String spaceName, String deckType){
-        super(locationIndex, spaceName);
+    public ActionCardSpace(int locationIndex, String deckType){
+        super(locationIndex, deckType);
         myDeckType = DeckType.valueOf(deckType);
     }
 

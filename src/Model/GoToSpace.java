@@ -2,17 +2,18 @@ package Model;
 
 
 import Controller.AbstractGame;
+import Controller.Board;
 
 
 public class GoToSpace extends AbstractSpace {
 
-    AbstractSpace spaceToMoveTo;
+    String spaceToMoveTo;
     int spacesLocation;
 
-    public GoToSpace(int locationIndex, String spaceName, AbstractSpace jumpToSpace){
+    public GoToSpace(int locationIndex, String spaceName, String jumpToSpace){
         super(locationIndex, spaceName);
         spaceToMoveTo = jumpToSpace;
-        spacesLocation = spaceToMoveTo.getMyLocation();
+        //spacesLocation = spaceToMoveTo.getMyLocation();
     }
 
 
@@ -25,8 +26,9 @@ public class GoToSpace extends AbstractSpace {
      */
 
     public void doAction(AbstractGame game){
+        spacesLocation = game.getBoard().getLocationOfSpace(spaceToMoveTo);
         game.getCurrPlayer().getToken().moveTo(spacesLocation);
-        if(spaceToMoveTo.getMyName().equals("Jail")){
+        if(spaceToMoveTo.equalsIgnoreCase("JAIL")){
             game.getCurrPlayer().setJail(true);
         }
     }
