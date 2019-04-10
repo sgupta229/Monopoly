@@ -7,7 +7,6 @@ import java.util.List;
 
 public class TaxSpace extends AbstractSpace {
 
-    List<AbstractPlayer> myOccupants = new ArrayList<>();
     double flatRate;
     double percentageTaken;
     Transfer taxReceiver;
@@ -47,7 +46,6 @@ public class TaxSpace extends AbstractSpace {
             amountTaxed = flatRate;
         }
         currentPlayer.makePayment(amountTaxed, taxReceiver);
-        taxReceiver.receivePayment(amountTaxed);
         game.endTurn();
     }
 
