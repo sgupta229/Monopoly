@@ -38,7 +38,7 @@ public class Controller {
     }
     public void goToChooseGameScreen() {
         window.setTitle(TITLE);
-        String style = fileToStylesheetString(new File("resources/GUI.css"));
+        String style = fileToStylesheetString(new File("data/GUI.css"));
         window.setScene(new ChooseGameScreen(WIDTH,HEIGHT,style,this).getScene());
         window.show();
     }
@@ -61,7 +61,7 @@ public class Controller {
             //-------------------------------------------------
 
             myGame = new ClassicGame("Normal_Config.xml");
-            gameStyle = fileToStylesheetString(new File("resources/GUI.css"));
+            gameStyle = fileToStylesheetString(new File("data/GUI.css"));
             nextScene = new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers).getScene();
         }
         else{

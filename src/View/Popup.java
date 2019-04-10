@@ -46,7 +46,7 @@ public abstract class Popup {
 
 
         Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
-        scene1.getStylesheets().add(( new File("resources/GUI.css") ).toURI().toString());
+        scene1.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
         button1.setId("button2");
         button2.setId("button2");
         label1.setWrapText(true);
