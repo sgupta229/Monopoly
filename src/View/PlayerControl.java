@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import Model.AbstractPlayer;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -10,6 +11,7 @@ public abstract class PlayerControl {
     protected AnchorPane myAnchorPane;
     protected VBox myVBox;
     protected DiceRoller myDiceRoller;
+    protected Controller myController;
 
     protected AbstractPlayer myPlayer;
 
@@ -23,7 +25,7 @@ public abstract class PlayerControl {
         Text playerName = new Text("player name");
         myVBox.getChildren().addAll(playerName);
 
-        myDiceRoller = new DiceRoller();
+        myDiceRoller = new DiceRoller(myController);
         HBox diceRollerView = myDiceRoller.getDiceRollerView();
 
         myAnchorPane.getChildren().addAll(myVBox,diceRollerView);
@@ -32,14 +34,15 @@ public abstract class PlayerControl {
     }
 
     //temporary until concrete player is made
-    public PlayerControl(){
+    public PlayerControl(Controller controller){
+        myController = controller;
         myAnchorPane = new AnchorPane();
         myVBox = new VBox();
 
         Text playerName = new Text("player name");
         myVBox.getChildren().addAll(playerName);
 
-        myDiceRoller = new DiceRoller();
+        myDiceRoller = new DiceRoller(myController);
         HBox diceRollerView = myDiceRoller.getDiceRollerView();
 
         myAnchorPane.getChildren().addAll(myVBox,diceRollerView);

@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import Model.*;
 import View.SpaceDisplay.*;
 import View.SpaceDisplay.CornerDisplay;
@@ -10,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 
 import java.awt.geom.Point2D;
+import java.util.ConcurrentModificationException;
 import java.util.Map;
 
 public class Board {
@@ -17,6 +19,7 @@ public class Board {
 
     private static final String BOARD_PATH = "classic.jpg";
 
+    private Controller myController;
     private Pane myBoardPane;
     private GridPane myGridPane;
     private ImageView boardLogo;
@@ -24,13 +27,22 @@ public class Board {
     private Map<String,String> nameToColor;
     private Map<String,Integer> nameToPrice;
 
-    public Board(Pane board) {
+    public Board(Pane board, Controller controller) {
+        this.myController = controller;
         this.myBoardPane = board;
         myGridPane = new GridPane();
         myGridPane.setGridLinesVisible(true);
         setUpGridConstraints();
         setUpBoardConfig();
         createSpaces();
+        for (AbstractPlayer p : myController.getPlayers()){
+            addTokenToIndex(0,myController.getPlayerImageView(p));
+        }
+    }
+
+    public void addTokenToIndex(int i, ImageView image){
+        int[] coord = indexToCoord(i);
+        myGridPane.add(image,coord[0],coord[1]);
     }
 
 
@@ -113,6 +125,15 @@ public class Board {
 
             }
         }
+    }
+
+    private int[] indexToCoord(int i){
+        if (i>=0 && i<=10) return new int[]{10-i,10};
+        if (i>=11 && i<=19) return new int[]{0,20-i};
+        if (i>=19 && i<=30) return new int[]{i-20,0};
+        if (i>=31 && i<= 39) return new int[]{10,i-30};
+        else ; //throw some error
+        return null;
     }
 
     private void setUpGridConstraints(){

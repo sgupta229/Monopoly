@@ -6,16 +6,19 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 public class PlayerTabs {
+    private Controller myController;
     private TabPane tabPane;
 
-    public PlayerTabs(){
+    public PlayerTabs(Controller controller){
+        myController = controller;
+
         tabPane = new TabPane();
         tabPane.setPrefWidth(Controller.WIDTH * .4);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         // create Play Tab
         Tab playTab = new Tab("Play"); //label "P1"
-        playTab.setContent(new ClassicPlayerControl().getPlayerControlView());
+        playTab.setContent(new ClassicPlayerControl(myController).getPlayerControlView());
 
         Tab statsTab = new Tab("Stats");
         statsTab.setContent(createStats());

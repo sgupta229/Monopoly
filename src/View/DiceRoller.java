@@ -2,6 +2,7 @@ package View;
 
 import Controller.Controller;
 import Controller.Die;
+import Model.AbstractPlayer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -11,8 +12,10 @@ import javafx.scene.text.Text;
 public class DiceRoller {
     protected Die myDie;
     protected HBox myHBox;
+    protected Controller myController;
 
-    public DiceRoller(){
+    public DiceRoller(Controller controller){
+        myController = controller;
         myDie = new Die(6);
 
         myHBox = new HBox();
@@ -35,8 +38,10 @@ public class DiceRoller {
         myHBox.getChildren().add(diceValue);
     }
     private void rollDice(){
-        updateDiceView(myDie.rollDie() + myDie.rollDie());
-        //TODO: change to use Game's rollDie()
+        updateDiceView(myController.getGame().rollDice());
+        for (AbstractPlayer p:myController.getPlayers()) {
+            System.out.println(p.getCurrentLocation());
+        }
     }
     private void updateDiceView(int val){
         Text newVal = new Text(Integer.toString(val));

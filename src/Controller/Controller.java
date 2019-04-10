@@ -10,13 +10,16 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Controller {
     public static final String TITLE = "Monopoly";
@@ -28,6 +31,7 @@ public class Controller {
     private String gameStyle;
     private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
     private ObservableList<String> availableTokens;
+    private Map<AbstractPlayer, Image> playersToImages = new HashMap<>();
 
     private Stage window;
 
@@ -51,8 +55,6 @@ public class Controller {
         if(myGameType.equalsIgnoreCase("classic")){
             myGame = new ClassicGame("Normal_Config.xml");
             gameStyle = fileToStylesheetString(new File("data/GUI.css"));
-            System.out.println(myGame.getPossibleTokens());
-            System.out.println(myGame.getBank());
             availableTokens = FXCollections.observableList(myGame.getPossibleTokens());
             nextScene = new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers,availableTokens).getScene();
         }
@@ -62,25 +64,36 @@ public class Controller {
 
         window.setScene(nextScene);
     }
+
     public void startGame(){
         myGame.setPlayers(newPlayers);
         window.setScene(new Layout(WIDTH,HEIGHT,gameStyle,this).getScene());
+        System.out.println("current player:" + myGame.getCurrPlayer().getName());
     }
 
-    public void addPlayer(String name, String icon){
+    public void addPlayer(String name, Image icon){
         //add icon and name to map
         //create player depending on game type
         AbstractPlayer newP;
         if (myGameType.equalsIgnoreCase("classic")){
-            newP = new ClassicPlayer();
+            newP = new ClassicPlayer(name);
         }
         else{
-            newP = new ClassicPlayer();
+            newP = new ClassicPlayer(name);
         }
+        playersToImages.put(newP,icon);
         //add player to arraylist
         newPlayers.add(newP);
         // on startgame, initialize players in game
     }
+
+    public ImageView getPlayerImageView(AbstractPlayer p){
+        return new ImageView(playersToImages.get(p));
+    }
+
+    //temporary for testing
+    public AbstractGame getGame(){return myGame;}
+    public ObservableList<AbstractPlayer> getPlayers(){ return newPlayers;}
 
     private String fileToStylesheetString ( File stylesheetFile ) {
         try {
@@ -89,4 +102,6 @@ public class Controller {
             return null;
         }
     }
+
+
 }

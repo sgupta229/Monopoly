@@ -35,7 +35,7 @@ public class AddPlayersScreen {
     private Controller myController;
     private ObservableList<AbstractPlayer> myPlayers;
     private ObservableList<String> availableTokensStrings;
-    private ObservableList<Image> availableTokensImages;
+//    private ObservableList<Image> availableTokensImages;
     private AnchorPane anchorPane = new AnchorPane();
 
     private ComboBox myIconMenu;
@@ -45,7 +45,7 @@ public class AddPlayersScreen {
         this.myController = controller;
         this.myPlayers = players;
         this.availableTokensStrings = tokens;
-        this.availableTokensImages = makeImagesFromStrings(availableTokensStrings);
+//        this.availableTokensImages = makeImagesFromStrings(availableTokensStrings);
 //        this.availableTokensStrings.addListener(availableTokensImages);
         this.myWidth = width;
         this.myHeight = height;
@@ -112,7 +112,7 @@ public class AddPlayersScreen {
     }
 
     private ComboBox createNewIconMenu(){
-        ComboBox icon = new ComboBox(availableTokensImages);
+        ComboBox icon = new ComboBox(makeImagesFromStrings(availableTokensStrings));
         icon.setButtonCell(new ImageListCell());
         icon.setCellFactory(listView -> new ImageListCell());
         icon.setPrefSize(100,60);
@@ -142,7 +142,7 @@ public class AddPlayersScreen {
         List<Image> images = new ArrayList<>();
         for(String s:strings){
             images.add(new Image(this.getClass().getClassLoader().getResourceAsStream(s),
-                    60,60,false,false));
+                    40,40,false,false));
         }
         return FXCollections.observableList(images);
     }
@@ -160,11 +160,12 @@ public class AddPlayersScreen {
             String name = myPlayerNameField.getText();
             myPlayerNameField.clear();
             Image icon = (Image) myIconMenu.getValue();
-            myController.addPlayer(name,"");
+            //remove icon from observablelist
+            //reset combobox
+            myController.addPlayer(name,icon);
             System.out.println("added player");
         }
     }
-    
 
     class ImageListCell extends ListCell<Image> {
         private final ImageView view;
