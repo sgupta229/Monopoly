@@ -11,7 +11,9 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.List;
 import java.util.Map;
 
 public class Board {
@@ -26,6 +28,7 @@ public class Board {
     private Map<Point2D.Double, AbstractSpace> indexToName;
     private Map<String,String> nameToColor;
     private Map<String,Integer> nameToPrice;
+    private List<ImageView> imagesOnBoard = new ArrayList<>();
 
     public Board(Pane board, Controller controller) {
         this.myController = controller;
@@ -35,23 +38,30 @@ public class Board {
         setUpGridConstraints();
         setUpBoardConfig();
         createSpaces();
-        bindIconsToLocations();
+        addTokensToGo();
     }
 
     public void addTokenToIndex(int i, ImageView image){
         int[] coord = indexToCoord(i);
         myGridPane.add(image,coord[0],coord[1]);
+        imagesOnBoard.add(image);
     }
 
-//    public void renderPlayers(){
-//        for (AbstractPlayer pl : myController.getPlayers()){
-//            addTokenToIndex(pl.getCurrentLocation(),myController.getPlayerImageView(pl));
-//        }
-//    }
+    public void renderPlayers(){
+        for (ImageView i : imagesOnBoard){
+            myGridPane.getChildren().remove(i);
+        }
+        for (AbstractPlayer pl : myController.getPlayers()){
+            addTokenToIndex(pl.getCurrentLocation(),myController.getPlayerImageView(pl));
+        }
+    }
 
-    private void bindIconsToLocations(){
+    private void addTokensToGo(){
+//    private void bindIconsToLocations(){
         for (AbstractPlayer p : myController.getPlayers()){
-            addTokenToIndex(0,myController.getPlayerImageView(p));
+            ImageView img = myController.getPlayerImageView(p);
+            addTokenToIndex(0,img);
+            imagesOnBoard.add(img);
         }
     }
 

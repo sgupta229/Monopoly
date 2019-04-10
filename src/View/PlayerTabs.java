@@ -9,7 +9,7 @@ public class PlayerTabs {
     private Controller myController;
     private TabPane tabPane;
 
-    public PlayerTabs(Controller controller){
+    public PlayerTabs(Controller controller,Board board){
         myController = controller;
 
         tabPane = new TabPane();
@@ -18,7 +18,7 @@ public class PlayerTabs {
 
         // create Play Tab
         Tab playTab = new Tab("Play"); //label "P1"
-        playTab.setContent(new ClassicPlayerControl(myController).getPlayerControlView());
+        playTab.setContent(new ClassicPlayerControl(myController,board).getPlayerControlView());
 
         Tab statsTab = new Tab("Stats");
         statsTab.setContent(createStats());

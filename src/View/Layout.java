@@ -18,6 +18,7 @@ public class Layout {
     private Group myRoot;
     private HBox myLayout;
     private Pane myBoardPane;
+    private Board myBoard;
     private PlayerTabs myPlayersTabs;
 
 
@@ -48,11 +49,11 @@ public class Layout {
         myBoardPane.setId("boardPane");
 
 
-        Board board = new Board(myBoardPane,myController);
-        Pane gameBoard = board.getGridPane();
+        myBoard = new Board(myBoardPane,myController);
+        Pane gameBoard = myBoard.getGridPane();
 
         StackPane myGameBoard = new StackPane();
-        ImageView logo = board.getLogo();
+        ImageView logo = myBoard.getLogo();
         myGameBoard.getChildren().addAll(gameBoard, logo);
 
 
@@ -64,7 +65,7 @@ public class Layout {
 
 
     private TabPane createPlayersTabs(){
-        myPlayersTabs = new PlayerTabs(myController);
+        myPlayersTabs = new PlayerTabs(myController,myBoard);
         return myPlayersTabs.getTabPane();
     }
 

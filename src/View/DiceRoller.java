@@ -13,8 +13,10 @@ public class DiceRoller {
     protected Die myDie;
     protected HBox myHBox;
     protected Controller myController;
+    protected Board myBoard;
 
-    public DiceRoller(Controller controller){
+    public DiceRoller(Controller controller,Board board){
+        myBoard = board;
         myController = controller;
         myDie = new Die(6);
 
@@ -39,6 +41,7 @@ public class DiceRoller {
     }
     private void rollDice(){
         updateDiceView(myController.getGame().rollDice());
+        updateTokensView();
         for (AbstractPlayer p:myController.getPlayers()) {
             System.out.println(p.getCurrentLocation());
         }
@@ -47,5 +50,9 @@ public class DiceRoller {
         Text newVal = new Text(Integer.toString(val));
         newVal.setId("header2");
         myHBox.getChildren().set(0,newVal);
+    }
+
+    private void updateTokensView(){
+        myBoard.renderPlayers();
     }
 }

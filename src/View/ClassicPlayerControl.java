@@ -14,8 +14,8 @@ public class ClassicPlayerControl extends PlayerControl {
     }
 
     //temporary until concrete Player is made
-    public ClassicPlayerControl(Controller controller){
-        super(controller);
+    public ClassicPlayerControl(Controller controller,Board board){
+        super(controller,board);
 
         Text t = new Text("insert view of properties and player actions here");
         for (AbstractPlayer p : controller.getPlayers()){

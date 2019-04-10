@@ -26,7 +26,7 @@ public abstract class PlayerControl {
         Text playerName = new Text("player name");
         myVBox.getChildren().addAll(playerName);
 
-        myDiceRoller = new DiceRoller(myController);
+//        myDiceRoller = new DiceRoller(myController);
         HBox diceRollerView = myDiceRoller.getDiceRollerView();
 
         myAnchorPane.getChildren().addAll(myVBox,diceRollerView);
@@ -35,7 +35,7 @@ public abstract class PlayerControl {
     }
 
     //temporary until concrete player is made
-    public PlayerControl(Controller controller){
+    public PlayerControl(Controller controller, Board board){
         myController = controller;
         myAnchorPane = new AnchorPane();
         myVBox = new VBox();
@@ -46,7 +46,7 @@ public abstract class PlayerControl {
         endTurnButton.setOnAction(e->myController.getGame().startNextTurn());
         myVBox.getChildren().addAll(endTurnButton);
 
-        myDiceRoller = new DiceRoller(myController);
+        myDiceRoller = new DiceRoller(myController,board);
         HBox diceRollerView = myDiceRoller.getDiceRollerView();
 
         myAnchorPane.getChildren().addAll(myVBox,diceRollerView);
