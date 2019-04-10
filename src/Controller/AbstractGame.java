@@ -10,24 +10,38 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class AbstractGame {
-    private ArrayList<AbstractPlayer> players;
+    private List<AbstractPlayer> players;
     private Bank bank;
     private Board board;
     private AbstractPlayer currPlayer;
     private Die[] dice;
-    private ArrayList<ActionDeck> decks;
+    private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
 
-    public AbstractGame(ArrayList<AbstractPlayer> players, Bank bank, Board board, Die[] dice, ArrayList<ActionDeck> decks) {
-        this.players = players;
+    public AbstractGame(Bank bank, Board board, Die[] dice, List<ActionDeck> decks) {
+//    public AbstractGame(List<AbstractPlayer> players, Bank bank, Board board, Die[] dice, ArrayList<ActionDeck> decks) {
+//        this.players = players;
         this.bank = bank;
         this.board = board;
-        this.currPlayer = players.get(0);
+        //Abby commented this out
+//        this.currPlayer = players.get(0);
         this.dice = dice;
         this.decks = decks;
         for(int i = 0; i < dice.length; i++) {
             diceHistory.put(i, new ArrayList<Integer>());
         }
+    }
+
+    public void setPlayers(List<AbstractPlayer> p){
+        if (p.size() <=0 ) {
+            //TODO: throw some "can't initialize players w empty list" exception
+        }
+        players = p;
+        this.currPlayer = p.get(0);
+        for (AbstractPlayer pl : players){
+            System.out.println(pl);
+        }
+        System.out.println("set players in game done");
     }
 
     public AbstractPlayer getCurrPlayer() {

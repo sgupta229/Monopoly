@@ -1,6 +1,9 @@
 package View;
 
 import Controller.Controller;
+import Model.AbstractPlayer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,7 +19,6 @@ import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
-import java.awt.*;
 import java.util.ResourceBundle;
 
 
@@ -27,10 +29,12 @@ public class AddPlayersScreen {
     private double myHeight;
     private Group myRoot;
     private Controller myController;
+    private ObservableList<AbstractPlayer> myPlayers;
     private AnchorPane anchorPane = new AnchorPane();
 
-    public AddPlayersScreen(double width, double height, String style, Controller controller) {
+    public AddPlayersScreen(double width, double height, String style, Controller controller, ObservableList<AbstractPlayer> players) {
         this.myController = controller;
+        this.myPlayers = players;
         this.myWidth = width;
         this.myHeight = height;
         this.myRoot = new Group();
@@ -62,7 +66,7 @@ public class AddPlayersScreen {
         screenContent.getChildren().addAll(createNewPlayerBox(),createEditPlayerListBox());
 
         Button startGame = new Button(messages.getString("start-game"));
-        startGame.setOnAction(new ButtonHandler());
+        startGame.setOnAction(new StartButtonHandler());
 
         anchorPane.getChildren().addAll(title,screenContent,startGame);
         AnchorPane.setTopAnchor(title,76.0);
@@ -92,6 +96,7 @@ public class AddPlayersScreen {
         playerTypes.setPrefWidth(300);
         Button add = new Button(messages.getString("add"));
         add.setAlignment(Pos.BOTTOM_RIGHT);
+        add.setOnAction(new AddButtonHandler());
 
         newPlayer.getChildren().addAll(newPlayerTitle,playerTypes,nameAndIcon,add);
         return newPlayer;
@@ -102,18 +107,25 @@ public class AddPlayersScreen {
         editPlayerList.setId("box");
 
         Text editPlayerListTitle = new Text(messages.getString("edit-player-list"));
-        ListView playerList = new ListView();
+        ListView playerList = new ListView(myPlayers);
         playerList.setMaxHeight(180.0);
 
         editPlayerList.getChildren().addAll(editPlayerListTitle,playerList);
         return editPlayerList;
     }
 
-    class ButtonHandler implements EventHandler<ActionEvent> {
+    class StartButtonHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
-//            new Layout(myRoot);
             myController.startGame();
+        }
+    }
+
+    class AddButtonHandler implements EventHandler<ActionEvent>{
+        @Override
+        public void handle(ActionEvent event) {
+            myController.addPlayer();
+            System.out.println("added player");
         }
     }
 
