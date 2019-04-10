@@ -9,6 +9,7 @@ public class GoToJailAC extends AbstractActionCard {
 
     @Override
     public void doCardAction(AbstractGame game) {
-
+        ActionDeck d = this.getMyDeck();
+        d.discardCard(this);
     }
 }

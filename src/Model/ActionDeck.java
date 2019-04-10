@@ -44,7 +44,7 @@ public class ActionDeck {
     //https://www.geeksforgeeks.org/collections-shuffle-java-examples/
     public void shuffleDeck(){
         Collections.shuffle(myDeadCards);
-        myLiveCards = new Stack<>();
+        //myLiveCards = new Stack<>();
         this.fillLiveDeck(myDeadCards);
         myDeadCards = new ArrayList<>();
     }
@@ -52,4 +52,6 @@ public class ActionDeck {
     public DeckType getMyDeckType(){
         return myDeckType;
     }
+    public Stack<AbstractActionCard> getMyLiveCards(){return myLiveCards;}
+    public List<AbstractActionCard> getMyDeadCards(){ return myDeadCards;}
 }

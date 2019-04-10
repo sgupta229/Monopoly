@@ -206,6 +206,7 @@ public class ConfigReader {
                     double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
                     Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup);
+                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
 
                 }
@@ -219,6 +220,7 @@ public class ConfigReader {
                     double rent4 = Double.parseDouble(space.getElementsByTagName("Rent4").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
                     Property newProp = new RailRoadProperty(buyPrice, spaceName);
+                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
 
                 }
@@ -230,6 +232,7 @@ public class ConfigReader {
                     double rentMult2 = Double.parseDouble(space.getElementsByTagName("Rent2Multiplier").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
                     Property newProp = new UtilityProperty(buyPrice, spaceName);
+                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
                 }
 //                else{

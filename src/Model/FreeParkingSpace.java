@@ -18,5 +18,6 @@ public class FreeParkingSpace extends AbstractSpace{
      */
 
     public void doAction(AbstractGame game){
+        game.endTurn();
     }
 }

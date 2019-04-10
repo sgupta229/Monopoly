@@ -17,6 +17,7 @@ public class WinMoneyAC extends AbstractActionCard {
 
     @Override
     public void doCardAction(AbstractGame game) {
-
+        ActionDeck d = this.getMyDeck();
+        d.discardCard(this);
     }
 }

@@ -2,13 +2,13 @@ package Model;
 
 import Controller.AbstractGame;
 
+import java.util.Objects;
 
 public abstract class AbstractActionCard {
     private DeckType myDeckType;
     private ActionDeck myDeck;
     private String myMessage;
     private Boolean isHoldable;
-
 
     //Initialize empty decks
     //Parse action card data checking for deck type then using that deck in this constructor
@@ -20,6 +20,22 @@ public abstract class AbstractActionCard {
         myDeckType = deckType;
         myMessage = message;
         isHoldable = holdable;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractActionCard)) return false;
+        AbstractActionCard that = (AbstractActionCard) o;
+        return myDeckType == that.myDeckType &&
+                Objects.equals(myDeck, that.myDeck) &&
+                Objects.equals(myMessage, that.myMessage) &&
+                Objects.equals(isHoldable, that.isHoldable);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(myDeckType, myDeck, myMessage, isHoldable);
     }
 
     public void setDeck(ActionDeck deck){
