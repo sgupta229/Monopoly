@@ -12,6 +12,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -162,6 +164,7 @@ public class AddPlayersScreen {
             System.out.println("added player");
         }
     }
+    
 
     class ImageListCell extends ListCell<Image> {
         private final ImageView view;
