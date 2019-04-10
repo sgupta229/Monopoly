@@ -3,13 +3,17 @@ package View;
 import Model.*;
 import View.SpaceDisplay.*;
 import View.SpaceDisplay.CornerDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
+
 import java.awt.geom.Point2D;
 import java.util.Map;
 
 public class Board {
+    //Todo: needs to be refactored but wanted to make it work, all data is read in from file
 
     private static final String BOARD_PATH = "classic.jpg";
 
@@ -95,6 +99,18 @@ public class Board {
                 myGridPane.add(jailSpace.getMyPropertyStackPane(), 0, 10);
                 CornerDisplay goToJail = new CornerDisplay("#c7edc9", myBoardPane, "goToJail.png");
                 myGridPane.add(goToJail.getMyPropertyStackPane(), 10, 0);
+
+                //Todo: THIS IS JUST AN EXAMPLE FOR SPRINT 1 PURPOSES WILL REFACTOR OUT AFTER
+                StackPane token = new StackPane();
+                Circle popUpExample = new Circle(10);
+                Label player1 = new Label("1");
+                player1.setId("popUp");
+                token.getChildren().addAll(popUpExample,player1);
+
+                Popup myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?");
+                popUpExample.setOnMouseClicked(e -> myPopup.display());
+                myGridPane.add(token, 1 ,10);
+
             }
         }
     }
