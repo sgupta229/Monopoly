@@ -59,13 +59,16 @@ public abstract class AbstractPlayer implements Transfer {
 
     public int move(int moveSpaces, int boardSize) {
         token.move(moveSpaces);
-        if(token.getCurrentLocation() > boardSize) {
-            token.setLocation(token.getCurrentLocation() - boardSize - 1);
+        if(token.getCurrentLocation() > boardSize - 1) {
+            token.setLocation(token.getCurrentLocation() - boardSize);
         }
         return token.getCurrentLocation();
     }
 
-    public int moveTo(int newLocation) {
+    public int moveTo(int newLocation, int boardSize) {
+        if(newLocation > boardSize - 1) {
+            throw new IllegalArgumentException("This is an invalid location");
+        }
         return token.moveTo(newLocation);
     }
 

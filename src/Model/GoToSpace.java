@@ -29,7 +29,7 @@ public class GoToSpace extends AbstractSpace {
         AbstractPlayer currPlayer = game.getCurrPlayer();
         spacesLocation = game.getBoard().getLocationOfSpace(spaceToMoveTo);
         this.removeOccupant(currPlayer);
-        currPlayer.moveTo(spacesLocation);
+        currPlayer.moveTo(spacesLocation, game.getBoardSize());
         game.getBoard().getSpaceAt(spacesLocation).addOccupant(currPlayer);
         if(spaceToMoveTo.equalsIgnoreCase("JAIL")){
             game.getCurrPlayer().setJail(true);
