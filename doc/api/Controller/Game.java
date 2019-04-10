@@ -1,8 +1,9 @@
-package Controller;
+package monopoly_team04.Model.Controller;
 
-import Model.Bank;
-import Model.DeckType;
-import Model.Player;
+import monopoly_team04.Model.Bank;
+import monopoly_team04.Model.Deck;
+import monopoly_team04.Model.DeckType;
+import monopoly_team04.Model.Player;
 
 import java.util.List;
 

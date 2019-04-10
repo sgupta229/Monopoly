@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class AbstractGame {
-
     private int boardSize = 0;
 
     //RULES
@@ -14,7 +13,7 @@ public abstract class AbstractGame {
     private double jailBail;
     private double passGo;
 
-    private ArrayList<AbstractPlayer> players;
+    private List<AbstractPlayer> players;
     private Bank bank;
     private Board board;
     private List<AbstractSpace> spaces;
@@ -55,6 +54,18 @@ public abstract class AbstractGame {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setPlayers(List<AbstractPlayer> p){
+        if (p.size() <=0 ) {
+            //TODO: throw some "can't initialize players w empty list" exception
+        }
+        players = p;
+        this.currPlayer = p.get(0);
+        for (AbstractPlayer pl : players){
+            System.out.println(pl);
+        }
+        System.out.println("set players in game done");
     }
 
     public AbstractPlayer getCurrPlayer() {

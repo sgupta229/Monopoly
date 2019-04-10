@@ -1,8 +1,7 @@
 package Controller;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
@@ -148,7 +147,7 @@ public class ConfigReader {
         return allActionCards;
     }
 
-    public List<List> parseSpaces() throws XmlTagException{
+    public List<List> parseSpaces(){
         List<List> allSpacesAndProps = new ArrayList<>();
         List<AbstractSpace> allSpaces = new ArrayList<>();
         List<Property> allProps = new ArrayList<>();
@@ -236,9 +235,9 @@ public class ConfigReader {
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
                 }
-                else{
-                    throw new XmlTagException(space.getAttribute("type"));
-                }
+//                else{
+//                    throw new XmlTagException(space.getAttribute("type"));
+//                }
             }
         }
         allSpacesAndProps.add(allSpaces);

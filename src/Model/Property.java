@@ -1,5 +1,4 @@
 package Model;
-import java.util.*;
 
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,
@@ -9,11 +8,28 @@ import java.util.*;
 public abstract class Property {
 
     double myPrice;
+    String myName;
+    String myColor;
 
+    public Property(double price, String propName, String color){
+        myPrice=price;
+        myName = propName;
+        myColor=color;
+    }
     public Property(double price, String propName){
         myPrice=price;
+        myName = propName;
+
     }
 
+
+    /***
+     * A getter method that returns the name of this property
+     * @return the name of Property
+     */
+    public String getName(){
+        return myName;
+    }
 
     /***
      * A getter method that returns the price of this property
@@ -22,6 +38,12 @@ public abstract class Property {
     public double getPrice(){
         return myPrice;
     }
+
+    public String getColor(){
+        return myColor;
+    }
+
+
 
     /***
      * A method that utilizes the member variables to calculate how

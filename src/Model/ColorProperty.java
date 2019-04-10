@@ -5,7 +5,7 @@ public class ColorProperty extends Property{
     String myColor;
 
     public ColorProperty(double price, String propName, String color){
-        super(price, propName);
+        super(price, propName,color);
         myColor=color;
     }
     /***

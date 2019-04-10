@@ -1,6 +1,5 @@
 package Controller;
 
-
 import Model.AbstractSpace;
 
 public class ClassicGame extends AbstractGame {
