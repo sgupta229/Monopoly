@@ -1,6 +1,10 @@
-package Controller;
+package Controller.Tests;
 
 import Model.*;
+import Controller.Board;
+import Controller.ConfigReader;
+import Controller.GameBoardException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

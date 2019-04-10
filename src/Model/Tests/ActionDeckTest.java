@@ -1,6 +1,10 @@
-package Model;
+package Model.Tests;
 
 import Controller.ConfigReader;
+import Model.AbstractActionCard;
+import Model.ActionDeck;
+import Model.DeckType;
+import Model.XmlTagException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
