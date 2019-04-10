@@ -24,7 +24,5 @@ class AbstractGameTest {
         game.addPlayer(p4);
     }
 
-    @Test
-
 
 }
