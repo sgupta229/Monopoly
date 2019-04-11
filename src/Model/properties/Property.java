@@ -8,9 +8,12 @@ package Model.properties;
 public abstract class Property {
 
     double myPrice;
+    double mortgageAmount;
     String myGroup;
     String myName;
     String myColor;
+    Boolean isMortgaged;
+
 
 
     public Property(double price, String propName, String color){
@@ -58,6 +61,17 @@ public abstract class Property {
      * @return the total rent value to be paid
      */
     public abstract double calculateRent();
+
+    public void setIsMortgaged(boolean mortgageVal){
+        isMortgaged = mortgageVal;
+    }
+    public boolean getIsMortgaged(){
+        return isMortgaged;
+    }
+
+    public double getMortgageAmount(){
+        return mortgageAmount;
+    }
 
 
 }
