@@ -1,10 +1,15 @@
 package Model.spaces;
 
 import Controller.AbstractGame;
-import Model.AbstractActionCard;
-import Model.ActionDeck;
+
+import Model.actioncards.AbstractActionCard;
+import Model.actioncards.ActionDeck;
 import Model.DeckType;
 import Model.spaces.AbstractSpace;
+
+import Model.actioncards.AbstractActionCard;
+import Model.actioncards.ActionDeck;
+
 
 import java.util.List;
 

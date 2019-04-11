@@ -1,4 +1,7 @@
-package Model;
+package Model.actioncards;
+
+import Model.DeckType;
+import Model.actioncards.AbstractActionCard;
 
 import java.util.*;
 
