@@ -2,14 +2,13 @@ package Model.Tests;
 
 import Controller.ConfigReader;
 import Model.*;
+import Model.spaces.AbstractSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Controller.AbstractGame;
 import Controller.ClassicGame;
 
 import java.util.List;
-import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 

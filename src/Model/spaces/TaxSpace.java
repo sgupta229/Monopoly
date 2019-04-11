@@ -1,9 +1,9 @@
-package Model;
+package Model.spaces;
 
 import Controller.AbstractGame;
-
-import java.util.ArrayList;
-import java.util.List;
+import Model.AbstractPlayer;
+import Model.Transfer;
+import Model.spaces.AbstractSpace;
 
 public class TaxSpace extends AbstractSpace {
 

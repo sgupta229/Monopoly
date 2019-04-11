@@ -3,11 +3,12 @@ package Model.Tests;
 import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Model.*;
+import Model.properties.Property;
+import Model.spaces.AbstractSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,20 +1,20 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import Model.properties.Property;
+
+import java.util.*;
 
 public class Bank implements Transfer{
 
     Map<Property, AbstractPlayer> ownedPropsMap = new HashMap<>();
-    List<Property> unOwnedProps;
+    Set<Property> unOwnedProps;
     double myBalance;
 
     public Bank(double startingBalance, List<Property> properties){
         myBalance=startingBalance;
-        unOwnedProps = properties;
+        unOwnedProps = new HashSet<Property>(properties);
     }
+
 
     /***
      * Returns the player that owns a specific property, or null if no one does

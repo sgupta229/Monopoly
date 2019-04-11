@@ -1,6 +1,9 @@
 package Controller;
 
 import Model.*;
+import Model.properties.Property;
+import Model.spaces.AbstractSpace;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

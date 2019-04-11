@@ -1,8 +1,9 @@
-package Model;
+package Model.spaces;
 
 
 import Controller.AbstractGame;
-import Controller.Board;
+import Model.AbstractPlayer;
+import Model.spaces.AbstractSpace;
 
 
 public class GoToSpace extends AbstractSpace {

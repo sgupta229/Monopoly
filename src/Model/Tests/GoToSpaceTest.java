@@ -1,10 +1,9 @@
 package Model.Tests;
 
 import Controller.ClassicGame;
-import Controller.ConfigReader;
 import Controller.Token;
 import Model.AbstractPlayer;
-import Model.AbstractSpace;
+import Model.spaces.AbstractSpace;
 import Model.ClassicPlayer;
 import Model.XmlTagException;
 import org.junit.jupiter.api.BeforeEach;

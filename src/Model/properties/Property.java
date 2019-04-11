@@ -1,4 +1,4 @@
-package Model;
+package Model.properties;
 
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,
@@ -8,7 +8,7 @@ package Model;
 public abstract class Property {
 
     double myPrice;
-
+    String myGroup;
     String myName;
     String myColor;
 
@@ -45,6 +45,10 @@ public abstract class Property {
 
     public String getColor(){
         return myColor;
+    }
+
+    public String getGroup(){
+        return myGroup;
     }
 
 

@@ -1,7 +1,7 @@
 package Model;
 
-import Controller.ConfigReader;
 import Controller.Token;
+import Model.properties.Property;
 
 import java.util.ArrayList;
 

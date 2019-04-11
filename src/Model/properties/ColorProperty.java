@@ -1,12 +1,16 @@
-package Model;
+package Model.properties;
 
-public class ColorProperty extends Property{
+import Model.properties.Property;
+
+public class ColorProperty extends Property {
 
     String myColor;
+
 
     public ColorProperty(double price, String propName, String color){
         super(price, propName,color);
         myColor=color;
+        myGroup=color;
     }
     /***
      * A getter method that returns the cost to place a house on this property

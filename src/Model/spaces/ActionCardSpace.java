@@ -1,8 +1,11 @@
-package Model;
+package Model.spaces;
 
 import Controller.AbstractGame;
+import Model.AbstractActionCard;
+import Model.ActionDeck;
+import Model.DeckType;
+import Model.spaces.AbstractSpace;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ActionCardSpace extends AbstractSpace {
@@ -28,7 +31,6 @@ public class ActionCardSpace extends AbstractSpace {
         List<ActionDeck> tempDecks = game.getMyActionDecks();
         for(ActionDeck d : tempDecks) {
             if (d.getMyDeckType() == myDeckType) {
-                System.out.println("hiiii");
                 cardDrawn = d.drawCard();
                 cardDrawn.doCardAction(game);
             }
