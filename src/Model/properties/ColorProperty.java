@@ -66,4 +66,6 @@ public class ColorProperty extends Property {
     public double getNumHotel(){
         return numHotel;
     }
+
+
 }
