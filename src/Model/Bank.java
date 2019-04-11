@@ -8,7 +8,10 @@ public class Bank implements Transfer{
 
     Map<Property, AbstractPlayer> ownedPropsMap = new HashMap<>();
     Set<Property> unOwnedProps;
-    double myBalance;
+    private double myBalance;
+    private double numHouses;
+    private double numHotels;
+
 
     @Deprecated
     public Bank(double startingBalance, List<Property> properties){
@@ -18,6 +21,8 @@ public class Bank implements Transfer{
 
     public Bank(List<Double> allInfo, List<Property> properties){
         myBalance=allInfo.get(0);
+        numHouses = allInfo.get(1);
+        numHotels = allInfo.get(2);
         unOwnedProps = new HashSet<Property>(properties);
     }
 
@@ -89,5 +94,26 @@ public class Bank implements Transfer{
 
     public double getBankBalance(){
         return myBalance;
+    }
+
+    public void giveHouse(){
+        numHouses--;
+    }
+    public void returnHouse(){
+        numHouses++;
+    }
+
+    public void giveHotel(){
+        numHotels++;
+    }
+    public void returnHotel(){
+        numHotels++;
+    }
+
+    public double getNumHouses(){
+        return numHouses;
+    }
+    public double getNumHotels(){
+        return numHotels;
     }
 }
