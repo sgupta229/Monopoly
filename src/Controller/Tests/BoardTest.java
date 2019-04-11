@@ -5,6 +5,9 @@ import Controller.Board;
 import Controller.ConfigReader;
 import Controller.GameBoardException;
 
+import Model.spaces.AbstractSpace;
+import Model.spaces.GoSpace;
+import Model.spaces.JailSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

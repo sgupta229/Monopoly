@@ -1,8 +1,8 @@
 package View;
 
 import Controller.ConfigReader;
-import Model.AbstractSpace;
-import Model.Property;
+import Model.spaces.AbstractSpace;
+import Model.properties.Property;
 
 import java.awt.geom.Point2D;
 import java.util.HashMap;

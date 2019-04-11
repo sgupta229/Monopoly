@@ -1,8 +1,7 @@
 package Controller;
 
-import Model.AbstractSpace;
+import Model.spaces.AbstractSpace;
 
-import java.security.InvalidParameterException;
 import java.util.List;
 
 /**

@@ -6,7 +6,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
 import Model.*;
+
+import Model.properties.ColorProperty;
+import Model.properties.Property;
+import Model.properties.RailRoadProperty;
+import Model.properties.UtilityProperty;
+import Model.spaces.*;
+
 import Model.actioncards.*;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
