@@ -1,7 +1,6 @@
-package Model.Tests;
+package Model.tests;
 
 import Controller.ClassicGame;
-import Controller.ConfigReader;
 import Controller.Token;
 import Model.AbstractPlayer;
 import Model.AbstractSpace;

@@ -6,6 +6,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
 import Model.*;
+import Model.actioncards.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -35,9 +36,15 @@ public class ConfigReader {
         return boardSize;
     }
 
-    public double parseBank() throws XmlTagException{
+    public List<Double> parseBank() throws XmlTagException{
+        List<Double> bankInfo = new ArrayList<>();
         double bankFunds = Double.parseDouble(doc.getElementsByTagName("BankFunds").item(0).getTextContent());
-        return bankFunds;
+        double numHouses = Double.parseDouble(doc.getElementsByTagName("Houses").item(0).getTextContent());
+        double numHotels = Double.parseDouble(doc.getElementsByTagName("Hotels").item(0).getTextContent());
+        bankInfo.add(bankFunds);
+        bankInfo.add(numHouses);
+        bankInfo.add(numHotels);
+        return bankInfo;
     }
 
     public List<Die> parseDice() throws XmlTagException{
@@ -135,8 +142,14 @@ public class ConfigReader {
                 }
                 else if(card.getAttribute("type").equalsIgnoreCase("LOSE_MONEY")){
                     String loseTo = card.getElementsByTagName("To").item(0).getTextContent();
-                    double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
-                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, amnt);
+                    String[] amntTemp = loseTo.split(",");
+                    List<Double> resAmnt = new ArrayList<>();
+
+                    for(String n:amntTemp){
+                        resAmnt.add(Double.parseDouble(n));
+                    }
+                    //double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
+                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
                     allActionCards.add(newCard);
                 }
                 else{

@@ -1,17 +1,13 @@
-package Model.Tests;
+package Model.tests;
 
-import Controller.Board;
 import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Controller.Token;
 import Model.AbstractPlayer;
-import Model.AbstractSpace;
 import Model.ClassicPlayer;
 import Model.XmlTagException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
