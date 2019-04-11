@@ -60,4 +60,10 @@ public class ColorProperty extends Property {
     public void removeHotel(){
         numHotel--;
     }
+    public double getNumHouse(){
+        return numHouse;
+    }
+    public double getNumHotel(){
+        return numHotel;
+    }
 }
