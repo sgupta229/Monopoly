@@ -4,6 +4,8 @@ import Model.properties.Property;
 
 public class ColorProperty extends Property {
 
+    double numHouse;
+    double numHotel;
     String myColor;
 
 
@@ -43,5 +45,25 @@ public class ColorProperty extends Property {
      */
     public double calculateRent(){
         return 0.0;
+    }
+
+    public void addHouse(){
+        numHouse++;
+    }
+    public void addHotel(){
+        numHotel++;
+    }
+
+    public void removeHouse(){
+        numHouse--;
+    }
+    public void removeHotel(){
+        numHotel--;
+    }
+    public double getNumHouse(){
+        return numHouse;
+    }
+    public double getNumHotel(){
+        return numHotel;
     }
 }
