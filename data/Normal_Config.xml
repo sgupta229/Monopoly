@@ -632,7 +632,7 @@
             <DeckType>CHANCE</DeckType>
             <Message>MAKE GENERAL REPAIRS ON ALL YOUR PROPERTY: FOR EACH HOUSE PAY $25, FOR EACH HOTEL $100</Message>
             <Holdable>False</Holdable>
-            <Amount>25</Amount><!--,100</Amount>-->
+            <Amount>25,100</Amount>
             <To>BANK</To>
         </ActionCardType>
         <ActionCardType type="LOSE_MONEY">
@@ -646,7 +646,7 @@
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>YOU ARE ASSESSED FOR STREET REPAIRS: PAY $40 PER HOUSE AND $115 PER HOTEL YOU OWN</Message>
             <Holdable>False</Holdable>
-            <Amount>40</Amount><!--,115</Amount>-->
+            <Amount>40,115</Amount>
             <To>BANK</To>
         </ActionCardType>
         <ActionCardType type="LOSE_MONEY">
@@ -680,6 +680,8 @@
     </ActionCards>
     <Bank>
         <BankFunds>10000000</BankFunds>
+        <Houses>50</Houses>
+        <Hotels>25</Hotels>
     </Bank>
     <Tokens>
         <Token>battleship.png</Token>
@@ -696,5 +698,4 @@
         <JailBail>50</JailBail>
         <PassGo>200</PassGo>
     </Rules>
-    <!--</GameType>-->
 </Game>

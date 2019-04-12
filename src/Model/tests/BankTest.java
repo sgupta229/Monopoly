@@ -1,4 +1,4 @@
-package Model.Tests;
+package Model.tests;
 
 import Controller.ClassicGame;
 import Controller.ConfigReader;
@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,9 +1,10 @@
-package Model;
+package Model.actioncards;
 
 import Controller.AbstractGame;
+import Model.DeckType;
 
-public class GoToJailAC extends AbstractActionCard {
-    public GoToJailAC(DeckType deckType, String message, Boolean holdable) {
+public class GetOutJailAC extends AbstractActionCard {
+    public GetOutJailAC(DeckType deckType, String message, Boolean holdable) {
         super(deckType, message, holdable);
     }
 
