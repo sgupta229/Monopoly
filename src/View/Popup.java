@@ -28,37 +28,39 @@ public abstract class Popup {
 
     public void display() {
         Stage popUpWindow =new Stage();
-
         popUpWindow.initModality(Modality.APPLICATION_MODAL);
+
         popUpWindow.setTitle(myTitle);
 
         Label label1= new Label(myMessage);
 
-        Button button1= new Button("YES");
-        Button button2= new Button("NO");
-        button2.setOnAction(e -> popUpWindow.close());
 
         BorderPane layout = new BorderPane();
         HBox all = new HBox(40);
         VBox text= new VBox();
-        HBox buttons = new HBox(10);
-        VBox image= new VBox(10);
 
-
+//        Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
+//        Scene popUpScene = setSizeOfPopup(layout);
         Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
         scene1.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
-        button1.setId("button2");
-        button2.setId("button2");
+
+
+
         label1.setWrapText(true);
         label1.setId("popupMessage");
         label1.setPrefSize(Controller.WIDTH/4, Controller.HEIGHT/2.25 );
-        buttons.getChildren().addAll(button1,button2);
+        Pane buttons = createButtons(popUpWindow);
         text.getChildren().addAll(label1, buttons);
+
+        VBox image= new VBox(10);
         image.setAlignment(Pos.CENTER_LEFT);
-        image.getChildren().addAll(createImage(scene1, "Connecticut Avenue"));
-        Label title = createHeader(scene1, "Connecticut Avenue");
+        Pane fullImage = createImage(scene1);
+        image.getChildren().addAll(fullImage);
+
+        Label title = createHeader();
         title.setId("popupTitle");
         all.getChildren().addAll(image, text);
+
         layout.setCenter(all);
         all.setAlignment(Pos.CENTER);
         layout.setTop(title);
@@ -69,9 +71,12 @@ public abstract class Popup {
         popUpWindow.showAndWait();
     }
 
-    protected abstract Pane createImage(Scene scene, String prop);
+    protected abstract Pane createImage(Scene scene);
 
+    protected abstract Pane createButtons(Stage window);
 
-    protected abstract Label createHeader(Scene scene, String prop);
+//    protected abstract Scene setSizeOfPopup(BorderPane layout);
+
+    protected abstract Label createHeader();
 
 }

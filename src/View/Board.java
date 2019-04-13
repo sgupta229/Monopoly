@@ -54,10 +54,25 @@ public class Board {
         for (ImageView i : imagesOnBoard){
             myGridPane.getChildren().remove(i);
         }
+        int playerLocation = 0;
+        Popup myPopup;
         for (AbstractPlayer pl : myController.getPlayers()){
+            playerLocation = pl.getCurrentLocation();
             addTokenToIndex(pl.getCurrentLocation(),myController.getPlayerImageView(pl));
+            System.out.println(playerLocation);
         }
+        if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
+            myPopup = new ActionCardPopup("Action Card", "Need this from backend?", playerLocation);
+        }
+//        if (playerLocation==4 || playerLocation==37){
+//            myPopup = new TaxPopup("Tax", "Must pay");
+//        }
+        else {
+            myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?", playerLocation);
+        }
+        myPopup.display();
     }
+
 
     private void addTokensToGo(){
 //    private void bindIconsToLocations(){
@@ -83,6 +98,7 @@ public class Board {
                     myGridPane.add(propSpaces.getMyPropStackPane(), 0, (int) entry.getKey().getY());
                 }
                 if (entry.getKey().getY() == 0) {
+                    System.out.println((int) entry.getKey().getX());
                     TopPropertyDisplay propSpaces = new TopPropertyDisplay(name, price, color, myBoardPane, "#c7edc9");
                     myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 0);
                 }
@@ -136,14 +152,14 @@ public class Board {
 
                 //Todo: THIS IS JUST AN EXAMPLE FOR SPRINT 1 PURPOSES WILL REFACTOR OUT AFTER
                 StackPane token = new StackPane();
-                Circle popUpExample = new Circle(10);
-                Label player1 = new Label("1");
-                player1.setId("popUp");
-                token.getChildren().addAll(popUpExample,player1);
-
-                Popup myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?");
-                popUpExample.setOnMouseClicked(e -> myPopup.display());
-                myGridPane.add(token, 1 ,10);
+//                Circle popUpExample = new Circle(10);
+//                Label player1 = new Label("1");
+//                player1.setId("popUp");
+//                token.getChildren().addAll(player1);
+//
+//                Popup myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?", 13);
+//                popUpExample.setOnAction(e -> myPopup.display());
+//                myGridPane.add(token, 1 ,10);
 
             }
         }

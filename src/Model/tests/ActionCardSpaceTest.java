@@ -1,13 +1,10 @@
-package Model.tests;
+package Model.Tests;
 
 import Controller.ConfigReader;
 import Model.*;
-<<<<<<< HEAD:src/Model/Tests/ActionCardSpaceTest.java
 import Model.spaces.AbstractSpace;
-=======
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
->>>>>>> bcb3dc01c7ad468d5ed8877746571c34dc7dfef4:src/Model/tests/ActionCardSpaceTest.java
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

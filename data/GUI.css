@@ -103,5 +103,9 @@
     -fx-text-fill: white;
 }
 
+#propPopUp{
+    -fx-font-size: 15pt;
+}
+
 
 
