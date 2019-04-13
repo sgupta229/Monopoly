@@ -16,8 +16,6 @@ public class DiceRoller {
     protected Board myBoard;
 
     public DiceRoller(Controller controller){
-//    public DiceRoller(Controller controller,Board board){
-//        myBoard = board;
         myController = controller;
         myDie = new Die(6);
 

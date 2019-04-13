@@ -17,9 +17,9 @@ public class PlayerTabs implements PropertyChangeListener {
     private Tab rulesTab;
     private AbstractPlayer currPlayer;
 
-    public PlayerTabs(Controller controller,Board board){
+    public PlayerTabs(Controller controller){
         myController = controller;
-        myController.getGame().addPropertyChangeListener(this);
+        myController.getGame().addPropertyChangeListener("currPlayer",this);
 
         tabPane = new TabPane();
         tabPane.setPrefWidth(Controller.WIDTH * .4);

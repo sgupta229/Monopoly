@@ -39,7 +39,7 @@ public class Board implements PropertyChangeListener {
         this.myController = controller;
         this.myBoardPane = board;
         for (AbstractPlayer p : controller.getPlayers()) {
-            p.addPropertyChangeListener(this);
+            p.addPropertyChangeListener("currentLocation",this);
         }
 
         myGridPane = new GridPane();
@@ -202,6 +202,5 @@ public class Board implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         renderPlayers();
-        System.out.println("location changed");
     }
 }

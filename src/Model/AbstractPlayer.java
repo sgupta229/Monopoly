@@ -40,13 +40,13 @@ public abstract class AbstractPlayer implements Transfer {
         if(this.funds < amount) {
             throw new IllegalArgumentException("Not enough money to pay");
         }
-        this.funds = this.funds - amount;
+        setFunds(this.funds - amount);
         receiver.receivePayment(amount);
     }
 
     @Override
     public void receivePayment(double amount) {
-        this.funds = this.funds + amount;
+        setFunds(this.funds + amount);
     }
 
     public boolean checkMonopoly() {
@@ -69,11 +69,13 @@ public abstract class AbstractPlayer implements Transfer {
 //    }
     public int move(int moveSpaces, int boardSize) {
         int oldLocation = currentLocation;
-        currentLocation += moveSpaces;
-        if(currentLocation > boardSize - 1) {
-            moveTo(currentLocation - boardSize,boardSize);
+        int newLocation = currentLocation + moveSpaces;
+        if(newLocation > boardSize - 1) {
+            moveTo(newLocation - boardSize,boardSize);
         }
-        myPCS.firePropertyChange("location",currentLocation,oldLocation);
+        else {
+            moveTo(newLocation, boardSize);
+        }
         return currentLocation;
     }
     public int moveTo(int newLocation, int boardSize) {
@@ -93,8 +95,9 @@ public abstract class AbstractPlayer implements Transfer {
         inJail = set;
     }
 
-    public void setFunds(double funds) {
-        this.funds = funds;
+    public void setFunds(double newFunds) {
+        myPCS.firePropertyChange("funds",this.funds,newFunds);
+        this.funds = newFunds;
     }
 
 //    public void setToken(Token token) {
@@ -113,8 +116,8 @@ public abstract class AbstractPlayer implements Transfer {
         return this.tokenImage;
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        myPCS.addPropertyChangeListener(listener);
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        myPCS.addPropertyChangeListener(propertyName,listener);
     }
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         myPCS.removePropertyChangeListener(listener);

@@ -87,8 +87,8 @@ public abstract class AbstractGame {
         myPCS.firePropertyChange("currPlayer",currPlayer,players.get(index));
         currPlayer = players.get(index);
     }
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        myPCS.addPropertyChangeListener(listener);
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        myPCS.addPropertyChangeListener(propertyName,listener);
     }
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         myPCS.removePropertyChangeListener(listener);

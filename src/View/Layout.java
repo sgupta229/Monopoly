@@ -65,7 +65,7 @@ public class Layout {
 
 
     private TabPane createPlayersTabs(){
-        myPlayersTabs = new PlayerTabs(myController,myBoard);
+        myPlayersTabs = new PlayerTabs(myController);
         return myPlayersTabs.getTabPane();
     }
 
