@@ -9,11 +9,15 @@ import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
 
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
 
 public abstract class AbstractGame {
+    private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
     private int boardSize = 0;
 
     //RULES
@@ -71,20 +75,24 @@ public abstract class AbstractGame {
             //TODO: throw some "can't initialize players w empty list" exception
         }
         players = p;
-        this.currPlayer = p.get(0);
+        setCurrPlayer(0);
         for (AbstractPlayer pl : players){
             this.addPlayer(pl);
         }
-
-        //debugging
-        for (AbstractPlayer pl : players){
-            System.out.println(pl);
-        }
-        System.out.println("set players in game done");
     }
 
     public AbstractPlayer getCurrPlayer() {
         return currPlayer;
+    }
+    public void setCurrPlayer(int index){
+        myPCS.firePropertyChange("currPlayer",currPlayer,players.get(index));
+        currPlayer = players.get(index);
+    }
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        myPCS.addPropertyChangeListener(listener);
+    }
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        myPCS.removePropertyChangeListener(listener);
     }
 
     public AbstractPlayer getLeftPlayer() {
@@ -116,6 +124,12 @@ public abstract class AbstractGame {
             value += roll;
             diceHistory.get(i).add(roll);
         }
+
+                            //debug
+                            for (AbstractPlayer p: players) {
+                                System.out.println(p.getCurrentLocation());
+                            }
+
         return value;
     }
 
@@ -132,7 +146,7 @@ public abstract class AbstractGame {
         if(index > (players.size() - 1)) {
             index = 0;
         }
-        currPlayer = players.get(index);
+        setCurrPlayer(index);
     }
 
     //checks 3 matching all dice in a row

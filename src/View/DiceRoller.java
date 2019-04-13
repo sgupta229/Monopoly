@@ -15,8 +15,9 @@ public class DiceRoller {
     protected Controller myController;
     protected Board myBoard;
 
-    public DiceRoller(Controller controller,Board board){
-        myBoard = board;
+    public DiceRoller(Controller controller){
+//    public DiceRoller(Controller controller,Board board){
+//        myBoard = board;
         myController = controller;
         myDie = new Die(6);
 
@@ -42,9 +43,6 @@ public class DiceRoller {
     private void rollDice(){
         updateDiceView(myController.getGame().rollDice());
         updateTokensView();
-        for (AbstractPlayer p:myController.getPlayers()) {
-            System.out.println(p.getCurrentLocation());
-        }
     }
     private void updateDiceView(int val){
         Text newVal = new Text(Integer.toString(val));
@@ -53,6 +51,6 @@ public class DiceRoller {
     }
 
     private void updateTokensView(){
-        myBoard.renderPlayers();
+//        myBoard.renderPlayers();
     }
 }

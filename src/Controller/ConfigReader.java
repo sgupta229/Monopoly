@@ -153,12 +153,12 @@ public class ConfigReader {
                     String[] amntTemp = loseTo.split(",");
                     List<Double> resAmnt = new ArrayList<>();
 
-                    for(String n:amntTemp){
-                        resAmnt.add(Double.parseDouble(n));
-                    }
-                    //double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
-                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
-                    allActionCards.add(newCard);
+//                    for(String n:amntTemp){
+//                        resAmnt.add(Double.parseDouble(n));
+//                    }
+//                    //double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
+//                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
+//                    allActionCards.add(newCard);
                 }
                 else{
                     throw new XmlTagException(card.getAttribute("type"));
