@@ -1,4 +1,4 @@
-package View;
+package View.PopUps;
 
 import Controller.Controller;
 import javafx.geometry.Insets;

@@ -6,13 +6,12 @@ import Model.spaces.AbstractSpace;
 import Model.spaces.ActionCardSpace;
 import Model.spaces.PropSpace;
 import Model.spaces.TaxSpace;
+import View.PopUps.*;
 import View.SpaceDisplay.*;
 import View.SpaceDisplay.CornerDisplay;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;

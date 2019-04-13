@@ -1,6 +1,8 @@
-package View;
+package View.PopUps;
 
 import Model.spaces.AbstractSpace;
+import View.BoardConfigReader;
+import View.PopUps.Popup;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,7 +29,6 @@ public class CornerPopup extends Popup {
         spaces = spaceInfo.getSpaces();
     }
 
-
     @Override
     protected Pane createImage(Scene scene) {
         for (AbstractSpace sp : spaces) {
@@ -52,7 +53,5 @@ public class CornerPopup extends Popup {
     }
 
     @Override
-    protected Label createHeader() {
-        return new Label(name);
-    }
+    protected Label createHeader() { return new Label(name);}
 }

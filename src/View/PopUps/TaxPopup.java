@@ -1,7 +1,8 @@
-package View;
+package View.PopUps;
 
 import Controller.ConfigReader;
 import Model.spaces.AbstractSpace;
+import View.BoardConfigReader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

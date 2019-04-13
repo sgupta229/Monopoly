@@ -1,7 +1,9 @@
-package View;
+package View.PopUps;
 
-import Controller.Controller;
 import Model.spaces.AbstractSpace;
+import View.BoardConfigReader;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -76,14 +78,23 @@ public class BuyPropertyPopup extends Popup {
     }
 
     @Override
-    protected HBox createButtons(Stage popUpWindow) {
+    protected Pane createButtons(Stage popUpWindow) {
         HBox buttons = new HBox(10);
         Button button1= new Button("YES");
         Button button2= new Button("NO");
         button1.setId("button2");
         button2.setId("button2");
-//        button1.setOnAction(e -> new AuctionPopUp())
-        button2.setOnAction(e -> popUpWindow.close());
+//        button2.setOnAction(e -> new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name).display());
+        button2.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                Popup myPopup = new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name);
+                myPopup.display();
+                popUpWindow.close();
+            }
+        });
+        button1.setOnAction(e -> popUpWindow.close());
         buttons.getChildren().addAll(button1,button2);
 
         return buttons;
