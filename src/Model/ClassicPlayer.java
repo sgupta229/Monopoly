@@ -1,7 +1,13 @@
 package Model;
 
 public class ClassicPlayer extends AbstractPlayer {
-    public ClassicPlayer() {
 
+    public ClassicPlayer(String name) {
+        super(name);
     }
+
+    public ClassicPlayer() {
+        super();
+    }
+
 }

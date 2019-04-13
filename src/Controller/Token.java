@@ -7,7 +7,6 @@ public class Token {
         this.location = location;
     }
 
-    //ADD FUNCTIONALITY OF WRAPPING AROUND BOARD ONCE BOARD CLASS IS MADE
     public int move(int numSpaces) {
         location += numSpaces;
         return location;

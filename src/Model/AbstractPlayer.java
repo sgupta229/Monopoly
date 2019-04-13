@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.ConfigReader;
 import Controller.Token;
 
 import java.util.ArrayList;
@@ -14,22 +15,25 @@ public abstract class AbstractPlayer implements Transfer {
     private Token token;
     private boolean inJail;
 
-    public AbstractPlayer(double funds, Token token) {
-        this.funds = funds;
-        this.token = token;
-    }
-
     public AbstractPlayer() {
-
+        this.inJail = false;
+        properties = new ArrayList<>();
+        actionCards = new ArrayList<>();
     }
 
-    public AbstractPlayer(String name, String tokenImage) {
+    public AbstractPlayer(String name) {
         this.name = name;
-        this.tokenImage = tokenImage;
+//        this.tokenImage = tokenImage;
+        this.inJail = false;
+        properties = new ArrayList<>();
+        actionCards = new ArrayList<>();
     }
 
     @Override
     public void makePayment(double amount, Transfer receiver) {
+        if(this.funds < amount) {
+            throw new IllegalArgumentException("Not enough money to pay");
+        }
         this.funds = this.funds - amount;
         receiver.receivePayment(amount);
     }
@@ -55,13 +59,16 @@ public abstract class AbstractPlayer implements Transfer {
 
     public int move(int moveSpaces, int boardSize) {
         token.move(moveSpaces);
-        if(token.getCurrentLocation() > boardSize) {
-            token.setLocation(token.getCurrentLocation() - boardSize - 1);
+        if(token.getCurrentLocation() > boardSize - 1) {
+            token.setLocation(token.getCurrentLocation() - boardSize);
         }
         return token.getCurrentLocation();
     }
 
-    public int moveTo(int newLocation) {
+    public int moveTo(int newLocation, int boardSize) {
+        if(newLocation > boardSize - 1) {
+            throw new IllegalArgumentException("This is an invalid location");
+        }
         return token.moveTo(newLocation);
     }
 
