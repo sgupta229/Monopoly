@@ -42,7 +42,6 @@ public class DiceRoller {
     }
     private void rollDice(){
         updateDiceView(myController.getGame().rollDice());
-        updateTokensView();
     }
     private void updateDiceView(int val){
         Text newVal = new Text(Integer.toString(val));
@@ -50,7 +49,4 @@ public class DiceRoller {
         myHBox.getChildren().set(0,newVal);
     }
 
-    private void updateTokensView(){
-//        myBoard.renderPlayers();
-    }
 }

@@ -14,7 +14,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observable;
 
 public abstract class AbstractGame {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
@@ -168,8 +167,9 @@ public abstract class AbstractGame {
     //instantiate a player and add it to the list
     public void addPlayer(AbstractPlayer player) {
         player.setFunds(startFunds);
-        Token token = new Token(0);
-        player.setToken(token);
+//        Token token = new Token(0);
+//        player.setToken(token);
+        player.moveTo(0,boardSize);
     }
 
     public List<String> getPossibleTokens() {

@@ -1,22 +1,24 @@
 package Model;
 
-import Controller.Token;
-
 import Model.properties.Property;
 
 import Model.actioncards.AbstractActionCard;
 
-
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 public abstract class AbstractPlayer implements Transfer {
+    private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
+
     private String name;
     private String tokenImage;
 
     private double funds;
     private ArrayList<Property> properties;
     private ArrayList<AbstractActionCard> actionCards;
-    private Token token;
+//    private Token token;
+    private int currentLocation;
     private boolean inJail;
 
     public AbstractPlayer() {
@@ -55,25 +57,32 @@ public abstract class AbstractPlayer implements Transfer {
         return funds;
     }
 
-    public Token getToken() {
-        return token;
+//    public Token getToken() {
+//        return token;
+//    }
+
+    public int getCurrentLocation(){
+        return currentLocation;
     }
-
-    //finish this method
-
+//    public void setCurrentLocation(int newLocation) {
+//        currentLocation = newLocation;
+//    }
     public int move(int moveSpaces, int boardSize) {
-        token.move(moveSpaces);
-        if(token.getCurrentLocation() > boardSize - 1) {
-            token.setLocation(token.getCurrentLocation() - boardSize);
+        int oldLocation = currentLocation;
+        currentLocation += moveSpaces;
+        if(currentLocation > boardSize - 1) {
+            moveTo(currentLocation - boardSize,boardSize);
         }
-        return token.getCurrentLocation();
+        myPCS.firePropertyChange("location",currentLocation,oldLocation);
+        return currentLocation;
     }
-
     public int moveTo(int newLocation, int boardSize) {
         if(newLocation > boardSize - 1) {
             throw new IllegalArgumentException("This is an invalid location");
         }
-        return token.moveTo(newLocation);
+        myPCS.firePropertyChange("currentLocation",currentLocation,newLocation);
+        currentLocation = newLocation;
+        return currentLocation;
     }
 
     public void proposeTrade(AbstractPlayer other) {
@@ -88,16 +97,12 @@ public abstract class AbstractPlayer implements Transfer {
         this.funds = funds;
     }
 
-    public void setToken(Token token) {
-        this.token = token;
-    }
+//    public void setToken(Token token) {
+//        this.token = token;
+//    }
 
     public boolean isInJail() {
         return inJail;
-    }
-
-    public int getCurrentLocation() {
-        return token.getCurrentLocation();
     }
 
     public String getName() {
@@ -106,5 +111,12 @@ public abstract class AbstractPlayer implements Transfer {
 
     public String getTokenImage() {
         return this.tokenImage;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        myPCS.addPropertyChangeListener(listener);
+    }
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        myPCS.removePropertyChangeListener(listener);
     }
 }
