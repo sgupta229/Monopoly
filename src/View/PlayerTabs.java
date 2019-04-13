@@ -28,7 +28,7 @@ public class PlayerTabs implements PropertyChangeListener {
         currPlayer = controller.getGame().getCurrPlayer();
 
         // create Play Tab
-        playTab = new Tab("Play"); //label "P1"
+        playTab = new Tab("Play");
         setPlayTab();
 
         statsTab = new Tab("Stats");

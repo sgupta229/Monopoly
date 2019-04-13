@@ -17,6 +17,14 @@
     -fx-spacing: 20;
 }
 
+#playerControlBox {
+    -fx-background-color: #e1e1e1;
+    -fx-padding: 15;
+    -fx-spacing: 20;
+    -fx-pref-height: 380;
+    -fx-pref-height: 400;
+}
+
 #button1 {
     -fx-text-fill: black;
     -fx-font-weight: bold;

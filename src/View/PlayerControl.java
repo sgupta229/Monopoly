@@ -44,6 +44,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
     private VBox createVBox(){
         myVBox = new VBox();
+        myVBox.setId("playerControlBox");
         Text playerName = new Text(myPlayer.getName());
         Button endTurnButton = new Button("END TURN");
         endTurnButton.setOnAction(e->myController.getGame().startNextTurn());
