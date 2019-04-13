@@ -58,9 +58,9 @@ public class BuyPropertyPopup extends Popup {
             imagePane = new Pane(rectangle, image);
             name = propDetails.get(6).toString().replace("_", " ");
         }
-        if (propLocation==12 || propLocation==28){
+        else if (propLocation==12 || propLocation==28){
             imagePane = new Pane(rectangle);
-            name = propDetails.get(6).toString().replace("_", " ");
+            name = propDetails.get(4).toString().replace("_", " ");
         }
         else{
             Rectangle propColor = new Rectangle(scene.getWidth()/2.5, scene.getHeight()/7);
@@ -114,7 +114,7 @@ public class BuyPropertyPopup extends Popup {
             mortgage = new Text("Mortgage: $" + propDetails.get(5));
             textPane.getChildren().addAll(priceProp, rent,rent1House,rent2House,rent3House,mortgage);
         }
-        if (name.toLowerCase().contains("works") || name.toLowerCase().contains("company")){
+        else if (name.toLowerCase().contains("works") || name.toLowerCase().contains("company")){
             priceProp.getChildren().add(new Text("Price: $" + propDetails.get(0)));
             rent = new Text("If one utility is owned, rent is " + propDetails.get(1) + " times amount shown on dice.");
             rent2House = new Text("If both utilities are owned, rent is " + propDetails.get(2) + " times amount shown on dice.");

@@ -310,6 +310,13 @@ public class ConfigReader {
                     ArrayList details = new ArrayList();
                     details.addAll(Arrays.asList(buyPrice, rentMult, rentMult2, mortgage, spaceName));
                     propInfo.put(index, details);
+                } else if (space.getAttribute("type").equalsIgnoreCase("TAX")){
+                    double flatRate = Double.parseDouble(space.getElementsByTagName("FlatRate").item(0).getTextContent());
+                    double percentage = Double.parseDouble(space.getElementsByTagName("Percentage").item(0).getTextContent());
+                    double newPercent = percentage/100;
+                    ArrayList details = new ArrayList();
+                    details.addAll(Arrays.asList(flatRate, percentage, newPercent));
+                    propInfo.put(index, details);
                 }
             }
         }

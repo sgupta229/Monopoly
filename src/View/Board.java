@@ -64,9 +64,12 @@ public class Board {
         if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
             myPopup = new ActionCardPopup("Action Card", "Need this from backend?", playerLocation);
         }
-//        if (playerLocation==4 || playerLocation==37){
-//            myPopup = new TaxPopup("Tax", "Must pay");
-//        }
+        else if (playerLocation==4 || playerLocation==38){
+            myPopup = new TaxPopup("Tax", "Time to pay your taxes!", playerLocation);
+        }
+        else if (playerLocation==0 || playerLocation==10 || playerLocation==20 || playerLocation==30){
+            myPopup = new CornerPopup("Other Space", playerLocation);
+        }
         else {
             myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?", playerLocation);
         }

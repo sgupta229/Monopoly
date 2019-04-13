@@ -47,6 +47,23 @@
     -fx-text-fill: white;
 }
 
+
+#button3 {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size: 16pt;
+    -fx-background-color: linear-gradient(#C4C4C4, #7D7D7D);
+    -fx-pref-width: 200px;
+    -fx-pref-height: 55px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#button3:hover {
+    -fx-background-color: linear-gradient(#a52121, #e02323);
+    -fx-text-fill: white;
+}
+
+
 #flowPane {
     "-fx-alignment: center;"
 }

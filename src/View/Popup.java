@@ -25,6 +25,10 @@ public abstract class Popup {
         this.myMessage = message;
     }
 
+    public Popup(String title){
+        this.myTitle = title;
+    }
+
 
     public void display() {
         Stage popUpWindow =new Stage();
@@ -32,23 +36,21 @@ public abstract class Popup {
 
         popUpWindow.setTitle(myTitle);
 
-        Label label1= new Label(myMessage);
-
 
         BorderPane layout = new BorderPane();
         HBox all = new HBox(40);
-        VBox text= new VBox();
 
 //        Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
 //        Scene popUpScene = setSizeOfPopup(layout);
         Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
         scene1.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
 
-
-
+        Label label1= new Label(myMessage);
         label1.setWrapText(true);
         label1.setId("popupMessage");
         label1.setPrefSize(Controller.WIDTH/4, Controller.HEIGHT/2.25 );
+
+        VBox text= new VBox();
         Pane buttons = createButtons(popUpWindow);
         text.getChildren().addAll(label1, buttons);
 
