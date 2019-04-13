@@ -82,8 +82,9 @@ public abstract class AbstractPlayer implements Transfer {
         if(newLocation > boardSize - 1) {
             throw new IllegalArgumentException("This is an invalid location");
         }
-        myPCS.firePropertyChange("currentLocation",currentLocation,newLocation);
+        int oldLocation = currentLocation;
         currentLocation = newLocation;
+        myPCS.firePropertyChange("currentLocation",oldLocation,currentLocation);
         return currentLocation;
     }
 
@@ -98,6 +99,7 @@ public abstract class AbstractPlayer implements Transfer {
     public void setFunds(double newFunds) {
         myPCS.firePropertyChange("funds",this.funds,newFunds);
         this.funds = newFunds;
+        System.out.println(this.getName() + "'s funds updated. new funds: " + funds);
     }
 
 //    public void setToken(Token token) {

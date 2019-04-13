@@ -52,6 +52,7 @@ public class Board implements PropertyChangeListener {
 
     public void addTokenToIndex(int i, ImageView image){
         int[] coord = indexToCoord(i);
+        System.out.println(coord[0] + " " + coord[1]);
         myGridPane.add(image,coord[0],coord[1]);
         imagesOnBoard.add(image);
     }
@@ -66,7 +67,6 @@ public class Board implements PropertyChangeListener {
     }
 
     private void addTokensToGo(){
-//    private void bindIconsToLocations(){
         for (AbstractPlayer p : myController.getPlayers()){
             ImageView img = myController.getPlayerImageView(p);
             addTokenToIndex(0,img);

@@ -34,12 +34,14 @@ public class DiceRoller {
         return myHBox;
     }
     private void createDiceView(){
-        Text diceValue = new Text("2");
+        Text diceValue = new Text("->");
         diceValue.setId("header2");
         myHBox.getChildren().add(diceValue);
     }
     private void rollDice(){
-        updateDiceView(myController.getGame().rollDice());
+        int roll = myController.getGame().rollDice();
+        System.out.println("roll: " + roll);
+        updateDiceView(roll);
     }
     private void updateDiceView(int val){
         Text newVal = new Text(Integer.toString(val));
