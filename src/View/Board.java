@@ -2,6 +2,10 @@ package View;
 
 import Controller.Controller;
 import Model.*;
+import Model.spaces.AbstractSpace;
+import Model.spaces.ActionCardSpace;
+import Model.spaces.PropSpace;
+import Model.spaces.TaxSpace;
 import View.SpaceDisplay.*;
 import View.SpaceDisplay.CornerDisplay;
 import javafx.scene.control.Label;
@@ -12,7 +16,6 @@ import javafx.scene.shape.Circle;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Map;
 

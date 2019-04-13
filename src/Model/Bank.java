@@ -1,20 +1,32 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import Model.properties.ColorProperty;
+import Model.properties.Property;
+
+import java.util.*;
 
 public class Bank implements Transfer{
 
     Map<Property, AbstractPlayer> ownedPropsMap = new HashMap<>();
-    List<Property> unOwnedProps;
-    double myBalance;
+    Set<Property> unOwnedProps;
+    private double myBalance;
+    private double numHouses;
+    private double numHotels;
 
+
+    @Deprecated
     public Bank(double startingBalance, List<Property> properties){
         myBalance=startingBalance;
-        unOwnedProps = properties;
+        unOwnedProps = new HashSet<Property>(properties);
     }
+
+    public Bank(List<Double> allInfo, List<Property> properties){
+        myBalance=allInfo.get(0);
+        numHouses = allInfo.get(1);
+        numHotels = allInfo.get(2);
+        unOwnedProps = new HashSet<Property>(properties);
+    }
+
 
     /***
      * Returns the player that owns a specific property, or null if no one does
@@ -74,6 +86,12 @@ public class Bank implements Transfer{
      */
     public void sellProperty(Property property, AbstractPlayer purchaser){}
 
+    public void mortgageProperty(Property property){
+        AbstractPlayer propOwner = ownedPropsMap.get(property);
+        propOwner.makePayment(property.getMortgageAmount(), this);
+        property.setIsMortgaged(true);
+    }
+
     /***
      * Auctions off a property to the list of players at the auction
      * @param property
@@ -83,5 +101,26 @@ public class Bank implements Transfer{
 
     public double getBankBalance(){
         return myBalance;
+    }
+
+    public void giveHouse(){
+        numHouses--;
+    }
+    public void returnHouse(){
+        numHouses++;
+    }
+
+    public void giveHotel(){
+        numHotels++;
+    }
+    public void returnHotel(){
+        numHotels++;
+    }
+
+    public double getNumHouses(){
+        return numHouses;
+    }
+    public double getNumHotels(){
+        return numHotels;
     }
 }

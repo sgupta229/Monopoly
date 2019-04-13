@@ -1,10 +1,11 @@
-package Model;
+package Model.spaces;
 
 import Controller.AbstractGame;
+import Model.spaces.AbstractSpace;
 
-public class JailSpace extends AbstractSpace{
+public class GoSpace extends AbstractSpace {
 
-    public JailSpace(int locationIndex, String spaceName){
+    public GoSpace(int locationIndex, String spaceName){
         super(locationIndex, spaceName);
     }
 

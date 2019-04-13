@@ -1,6 +1,14 @@
 package Controller;
 
 import Model.*;
+
+import Model.properties.Property;
+import Model.spaces.AbstractSpace;
+
+import Model.actioncards.AbstractActionCard;
+import Model.actioncards.ActionDeck;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +49,7 @@ public abstract class AbstractGame {
             }
             possibleTokens = configReader.parseTokens();
             dice = configReader.parseDice();
-            double funds = configReader.parseBank();
+            List<Double> funds = configReader.parseBank();
 
             boardSize = configReader.parseBoard();
             List<List> spaceProps= configReader.parseSpaces();
