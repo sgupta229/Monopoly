@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public abstract class AbstractPlayer implements Transfer {
     private String name;
-    private String tokenImage;
 
     private double funds;
     private ArrayList<Property> properties;
@@ -76,6 +75,8 @@ public abstract class AbstractPlayer implements Transfer {
 
     }
 
+    public abstract void doSpecialMove();
+
     public void setJail(boolean set) {
         inJail = set;
     }
@@ -100,7 +101,4 @@ public abstract class AbstractPlayer implements Transfer {
         return this.name;
     }
 
-    public String getTokenImage() {
-        return this.tokenImage;
-    }
 }
