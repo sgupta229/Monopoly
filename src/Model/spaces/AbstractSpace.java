@@ -1,5 +1,7 @@
-package Model;
+package Model.spaces;
 import Controller.*;
+import Model.AbstractPlayer;
+
 import java.util.*;
 
 /***

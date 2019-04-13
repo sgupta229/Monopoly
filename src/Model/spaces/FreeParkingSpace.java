@@ -1,10 +1,11 @@
-package Model;
+package Model.spaces;
 
 import Controller.AbstractGame;
+import Model.spaces.AbstractSpace;
 
-public class GoSpace extends AbstractSpace{
+public class FreeParkingSpace extends AbstractSpace {
 
-    public GoSpace(int locationIndex, String spaceName){
+    public FreeParkingSpace(int locationIndex, String spaceName){
         super(locationIndex, spaceName);
     }
 

@@ -1,10 +1,6 @@
 package Controller;
 
-import Model.AbstractSpace;
-
-import Model.AbstractPlayer;
-
-import java.util.List;
+import Model.spaces.AbstractSpace;
 
 public class ClassicGame extends AbstractGame {
 

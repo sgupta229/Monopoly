@@ -1,8 +1,7 @@
-package Model;
+package Model.actioncards;
 
 import Controller.AbstractGame;
-
-import java.util.List;
+import Model.DeckType;
 
 public class WinMoneyAC extends AbstractActionCard {
     //private List<Transfer> winMoneyFrom;

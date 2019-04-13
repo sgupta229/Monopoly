@@ -1,7 +1,11 @@
 package Model;
 
-import Controller.ConfigReader;
 import Controller.Token;
+
+import Model.properties.Property;
+
+import Model.actioncards.AbstractActionCard;
+
 
 import java.util.ArrayList;
 

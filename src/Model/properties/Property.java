@@ -1,4 +1,4 @@
-package Model;
+package Model.properties;
 
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,
@@ -8,9 +8,12 @@ package Model;
 public abstract class Property {
 
     double myPrice;
-
+    double mortgageAmount;
+    String myGroup;
     String myName;
     String myColor;
+    Boolean isMortgaged;
+
 
 
     public Property(double price, String propName, String color){
@@ -47,6 +50,10 @@ public abstract class Property {
         return myColor;
     }
 
+    public String getGroup(){
+        return myGroup;
+    }
+
 
     /***
      * A method that utilizes the member variables to calculate how
@@ -54,6 +61,17 @@ public abstract class Property {
      * @return the total rent value to be paid
      */
     public abstract double calculateRent();
+
+    public void setIsMortgaged(boolean mortgageVal){
+        isMortgaged = mortgageVal;
+    }
+    public boolean getIsMortgaged(){
+        return isMortgaged;
+    }
+
+    public double getMortgageAmount(){
+        return mortgageAmount;
+    }
 
 
 }
