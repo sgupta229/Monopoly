@@ -25,6 +25,8 @@ public class ActionCardPopup extends Popup {
     private String name;
     private String title;
 
+//message needs to be myGame.getCurrActionCard().getMessage();
+    //actionCard.doAction() when ok is pressed
 
     public ActionCardPopup(String title, String message, int propLocation){
         super(title, message);
