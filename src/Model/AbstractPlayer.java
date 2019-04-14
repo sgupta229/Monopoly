@@ -1,7 +1,7 @@
 package Model;
 
 import Model.actioncards.AbstractActionCard;
-import Model.properties.BuildingTypes;
+import Model.properties.BuildingType;
 import Model.properties.Property;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -73,7 +73,7 @@ public abstract class AbstractPlayer implements Transfer {
 
     }
 
-    public void build(BuildingTypes type) {
+    public void build(BuildingType type) {
 
 
     }
@@ -110,7 +110,7 @@ public abstract class AbstractPlayer implements Transfer {
         actionCards.add(c);
     }
 
-    public abstract Map<BuildingTypes, Integer> getNumBuildings();
+    public abstract Map<BuildingType, Integer> getNumBuildings();
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
