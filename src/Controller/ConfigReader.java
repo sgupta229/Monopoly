@@ -226,7 +226,16 @@ public class ConfigReader {
                     double rentHotel = Double.parseDouble(space.getElementsByTagName("RentHotel").item(0).getTextContent());
                     double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup);
+                    ArrayList<Double> rentAmounts = new ArrayList<>();
+                    rentAmounts.add(rent);
+                    rentAmounts.add(rentOneHouse);
+                    rentAmounts.add(rentTwoHouse);
+                    rentAmounts.add(rentThreeHouse);
+                    rentAmounts.add(rentFourHouse);
+                    rentAmounts.add(rentHotel);
+                    rentAmounts.add(pricePerHouse);
+                    rentAmounts.add(mortgage);
+                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
 
@@ -240,7 +249,13 @@ public class ConfigReader {
                     double rent3 = Double.parseDouble(space.getElementsByTagName("Rent3").item(0).getTextContent());
                     double rent4 = Double.parseDouble(space.getElementsByTagName("Rent4").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    Property newProp = new RailRoadProperty(buyPrice, spaceName);
+                    ArrayList<Double> rentAmounts = new ArrayList<>();
+                    rentAmounts.add(rent);
+                    rentAmounts.add(rent2);
+                    rentAmounts.add(rent3);
+                    rentAmounts.add(rent4);
+                    rentAmounts.add(mortgage);
+                    Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
 
@@ -252,7 +267,11 @@ public class ConfigReader {
                     double rentMult = Double.parseDouble(space.getElementsByTagName("RentMultiplier").item(0).getTextContent());
                     double rentMult2 = Double.parseDouble(space.getElementsByTagName("Rent2Multiplier").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    Property newProp = new UtilityProperty(buyPrice, spaceName);
+                    ArrayList<Double> rentAmounts = new ArrayList<>();
+                    rentAmounts.add(rentMult);
+                    rentAmounts.add(rentMult2);
+                    rentAmounts.add(mortgage);
+                    Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
                 }
