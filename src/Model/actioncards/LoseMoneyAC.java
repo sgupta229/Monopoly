@@ -3,7 +3,9 @@ package Model.actioncards;
 import Controller.AbstractGame;
 import Model.AbstractPlayer;
 import Model.Transfer;
+import Model.properties.BuildingTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoseMoneyAC extends AbstractActionCard {
@@ -56,15 +58,16 @@ public class LoseMoneyAC extends AbstractActionCard {
     //If paying per house/hotel -- always to bank
     public void multiPay(AbstractGame game){
         AbstractPlayer currP = game.getCurrPlayer();
-        int payment = 0;
-        //var buildingsMap = currP.getNumBuildings();
-        //for(int num : buildingsMap.getValues()){
-        //}
+        double houseCost = amountLose.get(0);
+        double hotelCost = amountLose.get(1);
+        var buildingsMap = currP.getNumBuildings();
 
-        //int numHouses = currP.getNumHouses();
-        //int numHotels = currP.getNumHotels();
+        //Must be changed for diff game types
+        houseCost *= buildingsMap.get(BuildingTypes.HOUSE);
+        hotelCost *= buildingsMap.get(BuildingTypes.HOTEL);
 
-        //double payment = (5 * amountLose.get(0)) + (2 * amountLose.get(1));
+        double payment = houseCost + hotelCost;
+
         currP.makePayment(payment, game.getBank());
     }
 }
