@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ActionCardSpace extends AbstractSpace {
 
-    DeckType myDeckType;
+    private DeckType myDeckType;
 
     public ActionCardSpace(int locationIndex, String deckType){
         super(locationIndex, deckType);

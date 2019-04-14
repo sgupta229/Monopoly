@@ -8,7 +8,7 @@ import Model.AbstractPlayer;
 public class PropSpace extends AbstractSpace {
 
 
-    Property myProperty;
+    private Property myProperty;
 
     public PropSpace(int locationIndex, String spaceName){
         super(locationIndex, spaceName);
@@ -26,7 +26,10 @@ public class PropSpace extends AbstractSpace {
     public void doAction(AbstractGame game){
         AbstractPlayer propOwner = game.getBank().propertyOwnedBy(myProperty);
         if(propOwner==null){
-            //prompt front end button to purchase property, handler does the rest
+            game.setCurrPropertyOwned(false);
+        }
+        else{
+            game.setCurrP
         }
         //else()
         game.endTurn();

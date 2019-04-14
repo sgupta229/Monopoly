@@ -80,6 +80,10 @@ public class ColorProperty extends Property {
         return 0.0;
     }
 
+    public void build(){
+
+    }
+
     public void addHouse(){
         numHouse++;
     }
