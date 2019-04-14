@@ -62,7 +62,6 @@ public class Board {
         }
         Popup myPopup;
         playerLocation = myGame.getCurrPlayer().getCurrentLocation();
-        //TODO need to get current player or something bc right now it is doing popups in a list type fashion. Maybe go in roll dice?
         if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
             myPopup = new ActionCardPopup("Action Card", "Need this from backend?", playerLocation);
         }
