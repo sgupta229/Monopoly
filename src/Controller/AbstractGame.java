@@ -20,6 +20,7 @@ public abstract class AbstractGame {
     private double startFunds;
     private double jailBail;
     private double passGo;
+    private AbstractActionCard currentActionCard;
 
     private List<AbstractPlayer> players;
     private Bank bank;
@@ -183,6 +184,12 @@ public abstract class AbstractGame {
         return numRollsInJail;
     }
 
+    public AbstractActionCard getCurrentActionCard() {
+        return currentActionCard;
+    }
 
+    public void setCurrentActionCard(AbstractActionCard c) {
+        this.currentActionCard = c;
+    }
 
 }

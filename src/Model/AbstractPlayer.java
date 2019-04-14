@@ -111,4 +111,8 @@ public abstract class AbstractPlayer implements Transfer {
         return this.name;
     }
 
+    public void addActionCard(AbstractActionCard c) {
+        actionCards.add(c);
+    }
+
 }
