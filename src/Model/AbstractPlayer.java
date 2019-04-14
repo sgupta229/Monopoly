@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.Token;
 import Model.properties.Property;
 
 import Model.actioncards.AbstractActionCard;
@@ -17,7 +18,7 @@ public abstract class AbstractPlayer implements Transfer {
     private double funds;
     private ArrayList<Property> properties;
     private ArrayList<AbstractActionCard> actionCards;
-//    private Token token;
+    private Token token;
     private int currentLocation;
     private boolean inJail;
 
@@ -57,16 +58,20 @@ public abstract class AbstractPlayer implements Transfer {
         return funds;
     }
 
-//    public Token getToken() {
-//        return token;
-//    }
+    @Deprecated
+    public Token getToken() {
+        return token;
+    }
 
     public int getCurrentLocation(){
         return currentLocation;
     }
-//    public void setCurrentLocation(int newLocation) {
-//        currentLocation = newLocation;
-//    }
+
+    @Deprecated
+    public void setCurrentLocation(int newLocation) {
+        currentLocation = newLocation;
+    }
+
     public int move(int moveSpaces, int boardSize) {
         int oldLocation = currentLocation;
         int newLocation = currentLocation + moveSpaces;
@@ -102,9 +107,10 @@ public abstract class AbstractPlayer implements Transfer {
         System.out.println(this.getName() + "'s funds updated. new funds: " + funds);
     }
 
-//    public void setToken(Token token) {
-//        this.token = token;
-//    }
+    @Deprecated
+    public void setToken(Token token) {
+        this.token = token;
+    }
 
     public boolean isInJail() {
         return inJail;
@@ -114,6 +120,7 @@ public abstract class AbstractPlayer implements Transfer {
         return this.name;
     }
 
+    @Deprecated
     public String getTokenImage() {
         return this.tokenImage;
     }

@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,17 +134,11 @@ public class AddPlayersScreen {
         Text editPlayerListTitle = new Text(messages.getString("edit-player-list"));
         ListView playerList = new ListView(myPlayers);
         playerList.setMaxHeight(180.0);
-        playerList.setCellFactory(param -> new ListCell<AbstractPlayer>() {
-            @Override
-            protected void updateItem(AbstractPlayer item, boolean empty) {
-                super.updateItem(item, empty);
 
-                if(!empty || item == null) {
-                    setText(null);
-                }
-                else {
-                    setText(item.getName());
-                }
+        playerList.setCellFactory(new Callback<ListView<AbstractPlayer>,ListCell<AbstractPlayer>>() {
+            @Override
+            public ListCell<AbstractPlayer> call(ListView<AbstractPlayer> list) {
+                return new AbstractPlayerCell();
             }
         });
 
