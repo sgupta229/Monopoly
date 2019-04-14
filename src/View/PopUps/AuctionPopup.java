@@ -19,8 +19,8 @@ public class AuctionPopup extends BuyPropertyPopup {
     }
 
     @Override
-    protected Pane createImage(Scene scene) {
-        return super.createImage(scene);
+    protected Pane createImage(Scene scene, Stage popUpWindow) {
+        return super.createImage(scene, popUpWindow);
     }
 
     @Override

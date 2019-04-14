@@ -2,7 +2,6 @@ package View.PopUps;
 
 import Model.spaces.AbstractSpace;
 import View.BoardConfigReader;
-import View.PopUps.Popup;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,7 +29,7 @@ public class CornerPopup extends Popup {
     }
 
     @Override
-    protected Pane createImage(Scene scene) {
+    protected Pane createImage(Scene scene, Stage popUpWindow) {
         for (AbstractSpace sp : spaces) {
             if (sp.getMyLocation() == propLocation) {
                 name = sp.getMyName();

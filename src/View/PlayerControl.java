@@ -2,6 +2,7 @@ package View;
 
 import Controller.Controller;
 import Model.AbstractPlayer;
+import View.PopUps.BuildOrSellPopup;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -45,6 +46,10 @@ public abstract class PlayerControl {
         Button endTurnButton = new Button("END TURN");
         endTurnButton.setOnAction(e->myController.getGame().startNextTurn());
         myVBox.getChildren().addAll(endTurnButton);
+
+        Button manageProperty = new Button("Manage Property");
+        manageProperty.setOnAction(e -> new BuildOrSellPopup("Manage Property", 39).display());
+        myVBox.getChildren().addAll(manageProperty);
 
         myDiceRoller = new DiceRoller(myController,board);
         HBox diceRollerView = myDiceRoller.getDiceRollerView();

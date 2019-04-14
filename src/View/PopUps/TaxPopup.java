@@ -34,7 +34,7 @@ public class TaxPopup extends Popup {
     }
 
     @Override
-    protected Pane createImage(Scene scene) {
+    protected Pane createImage(Scene scene, Stage popUpWindow) {
         for (AbstractSpace sp : spaces) {
             if (sp.getMyLocation() == propLocation) {
                 name = sp.getMyName();

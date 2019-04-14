@@ -37,7 +37,7 @@ public class ActionCardPopup extends Popup {
     }
 
     @Override
-    protected Pane createImage(Scene scene) {
+    protected Pane createImage(Scene scene, Stage popUpWindow) {
         String myImage = "";
         for (AbstractSpace sp : spaces) {
             if (sp.getMyLocation() == propLocation) {

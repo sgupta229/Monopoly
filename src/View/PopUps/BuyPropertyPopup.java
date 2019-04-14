@@ -29,8 +29,6 @@ public class BuyPropertyPopup extends Popup {
     private ArrayList propDetails;
     private String name;
 
-
-
     public BuyPropertyPopup(String title, String message, int propLocation) {
         super(title, message);
         this.propLocation = propLocation;
@@ -38,8 +36,16 @@ public class BuyPropertyPopup extends Popup {
         colorPropInfo = spaceInfo.getColorPropInfo();
     }
 
+    public BuyPropertyPopup(String title, int propLocation) {
+        super(title);
+        this.propLocation = propLocation;
+        BoardConfigReader spaceInfo = new BoardConfigReader();
+        colorPropInfo = spaceInfo.getColorPropInfo();
+    }
+
+
     @Override
-    protected Pane createImage(Scene scene) {
+    protected Pane createImage(Scene scene, Stage popUpWindow) {
         propDetails = new ArrayList();
         Pane imagePane = new Pane();
         Rectangle rectangle = new Rectangle(scene.getWidth()/2.5, scene.getHeight()/1.5);
