@@ -1,6 +1,7 @@
 package Model.actioncards;
 
 import Controller.AbstractGame;
+import Model.AbstractPlayer;
 import Model.DeckType;
 
 public class GoToJailAC extends AbstractActionCard {
@@ -10,6 +11,10 @@ public class GoToJailAC extends AbstractActionCard {
 
     @Override
     public void doCardAction(AbstractGame game) {
+        AbstractPlayer curr = game.getCurrPlayer();
+        int loc = game.getBoard().getLocationOfSpace("JAIL");
+        curr.moveTo(loc, game.getBoardSize());
+        curr.setJail(true);
         ActionDeck d = this.getMyDeck();
         d.discardCard(this);
     }
