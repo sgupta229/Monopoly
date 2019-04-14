@@ -697,5 +697,6 @@
         <StartFunds>2500</StartFunds>
         <JailBail>50</JailBail>
         <PassGo>200</PassGo>
+        <MaxHouses>4</MaxHouses>
     </Rules>
 </Game>

@@ -9,17 +9,21 @@ import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
 
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public abstract class AbstractGame {
+    private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
     private int boardSize = 0;
 
     //RULES
     private double startFunds;
     private double jailBail;
     private double passGo;
+    private AbstractActionCard currentActionCard;
 
     private List<AbstractPlayer> players;
     private Bank bank;
@@ -31,6 +35,7 @@ public abstract class AbstractGame {
     private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
     private List<String> possibleTokens;
+    private int numRollsInJail = 0;
 
     public AbstractGame(String filename) {
         parseXMLFile(filename);
@@ -71,20 +76,24 @@ public abstract class AbstractGame {
             //TODO: throw some "can't initialize players w empty list" exception
         }
         players = p;
-        this.currPlayer = p.get(0);
+        setCurrPlayer(0);
         for (AbstractPlayer pl : players){
             this.addPlayer(pl);
         }
-
-        //debugging
-        for (AbstractPlayer pl : players){
-            System.out.println(pl);
-        }
-        System.out.println("set players in game done");
     }
 
     public AbstractPlayer getCurrPlayer() {
         return currPlayer;
+    }
+    public void setCurrPlayer(int index){
+        myPCS.firePropertyChange("currPlayer",currPlayer,players.get(index));
+        currPlayer = players.get(index);
+    }
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        myPCS.addPropertyChangeListener(propertyName,listener);
+    }
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        myPCS.removePropertyChangeListener(listener);
     }
 
     public AbstractPlayer getLeftPlayer() {
@@ -116,6 +125,12 @@ public abstract class AbstractGame {
             value += roll;
             diceHistory.get(i).add(roll);
         }
+
+                            //debug
+                            for (AbstractPlayer p: players) {
+                                System.out.println(p.getCurrentLocation());
+                            }
+
         return value;
     }
 
@@ -132,7 +147,7 @@ public abstract class AbstractGame {
         if(index > (players.size() - 1)) {
             index = 0;
         }
-        currPlayer = players.get(index);
+        setCurrPlayer(index);
     }
 
     //checks 3 matching all dice in a row
@@ -154,8 +169,9 @@ public abstract class AbstractGame {
     //instantiate a player and add it to the list
     public void addPlayer(AbstractPlayer player) {
         player.setFunds(startFunds);
-        Token token = new Token(0);
-        player.setToken(token);
+//        Token token = new Token(0);
+//        player.setToken(token);
+        player.moveTo(0,boardSize);
     }
 
     public List<String> getPossibleTokens() {
@@ -170,6 +186,24 @@ public abstract class AbstractGame {
 
     }
 
+    public void incrementNumRollsinJail() {
+        numRollsInJail++;
+    }
 
+    public void resetNumRollsInJail() {
+        numRollsInJail = 0;
+    }
+
+    public int getNumRollsInJail() {
+        return numRollsInJail;
+    }
+
+    public AbstractActionCard getCurrentActionCard() {
+        return currentActionCard;
+    }
+
+    public void setCurrentActionCard(AbstractActionCard c) {
+        this.currentActionCard = c;
+    }
 
 }

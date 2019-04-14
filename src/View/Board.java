@@ -1,30 +1,32 @@
 package View;
 
-import Controller.Controller;
+import Controller.*;
 import Model.*;
 import Model.spaces.AbstractSpace;
 import Model.spaces.ActionCardSpace;
 import Model.spaces.PropSpace;
 import Model.spaces.TaxSpace;
+import View.PopUps.*;
 import View.SpaceDisplay.*;
 import View.SpaceDisplay.CornerDisplay;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
 
 import java.awt.geom.Point2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Board {
+public class Board implements PropertyChangeListener {
     //Todo: needs to be refactored but wanted to make it work, all data is read in from file
 
     private static final String BOARD_PATH = "classic.jpg";
 
     private Controller myController;
+    private AbstractGame myGame;
     private Pane myBoardPane;
     private GridPane myGridPane;
     private ImageView boardLogo;
@@ -33,9 +35,14 @@ public class Board {
     private Map<String,Integer> nameToPrice;
     private List<ImageView> imagesOnBoard = new ArrayList<>();
 
-    public Board(Pane board, Controller controller) {
+    public Board(Pane board, Controller controller, AbstractGame myGame) {
         this.myController = controller;
         this.myBoardPane = board;
+        this.myGame = myGame;
+        for (AbstractPlayer p : controller.getPlayers()) {
+            p.addPropertyChangeListener("currentLocation",this);
+        }
+
         myGridPane = new GridPane();
         myGridPane.setGridLinesVisible(true);
         setUpGridConstraints();
@@ -46,6 +53,7 @@ public class Board {
 
     public void addTokenToIndex(int i, ImageView image){
         int[] coord = indexToCoord(i);
+        System.out.println(coord[0] + " " + coord[1]);
         myGridPane.add(image,coord[0],coord[1]);
         imagesOnBoard.add(image);
     }
@@ -54,13 +62,31 @@ public class Board {
         for (ImageView i : imagesOnBoard){
             myGridPane.getChildren().remove(i);
         }
+        int playerLocation = 0;
         for (AbstractPlayer pl : myController.getPlayers()){
             addTokenToIndex(pl.getCurrentLocation(),myController.getPlayerImageView(pl));
+            System.out.println(pl.getCurrentLocation());
         }
+        Popup myPopup;
+        playerLocation = myGame.getCurrPlayer().getCurrentLocation();
+        if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
+            myPopup = new ActionCardPopup("Action Card", "Need this from backend?", playerLocation);
+        }
+        else if (playerLocation==4 || playerLocation==38){
+            myPopup = new TaxPopup("Tax", "Time to pay your taxes!", playerLocation);
+        }
+        else if (playerLocation==0 || playerLocation==10 || playerLocation==20 || playerLocation==30){
+            myPopup = new CornerPopup("Other Space", playerLocation);
+        }
+        else {
+            //TODO: CHECK IF THE PROPERTY IS OWNED, IF NOT DISPLAY THIS.  IF OWNED PROMPT WITH RENT(still need to make this popup!!!!)
+            myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?", playerLocation, myController);
+        }
+        myPopup.display();
     }
 
+
     private void addTokensToGo(){
-//    private void bindIconsToLocations(){
         for (AbstractPlayer p : myController.getPlayers()){
             ImageView img = myController.getPlayerImageView(p);
             addTokenToIndex(0,img);
@@ -83,6 +109,7 @@ public class Board {
                     myGridPane.add(propSpaces.getMyPropStackPane(), 0, (int) entry.getKey().getY());
                 }
                 if (entry.getKey().getY() == 0) {
+                    System.out.println((int) entry.getKey().getX());
                     TopPropertyDisplay propSpaces = new TopPropertyDisplay(name, price, color, myBoardPane, "#c7edc9");
                     myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 0);
                 }
@@ -134,17 +161,6 @@ public class Board {
                 CornerDisplay goToJail = new CornerDisplay("#c7edc9", myBoardPane, "goToJail.png");
                 myGridPane.add(goToJail.getMyPropertyStackPane(), 10, 0);
 
-                //Todo: THIS IS JUST AN EXAMPLE FOR SPRINT 1 PURPOSES WILL REFACTOR OUT AFTER
-                StackPane token = new StackPane();
-                Circle popUpExample = new Circle(10);
-                Label player1 = new Label("1");
-                player1.setId("popUp");
-                token.getChildren().addAll(popUpExample,player1);
-
-                Popup myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?");
-                popUpExample.setOnMouseClicked(e -> myPopup.display());
-                myGridPane.add(token, 1 ,10);
-
             }
         }
     }
@@ -191,5 +207,10 @@ public class Board {
         boardLogo.setFitHeight((myBoardPane.getPrefWidth() / 13) * 9);
         boardLogo.setId("boardLogo");
         return boardLogo;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        renderPlayers();
     }
 }
