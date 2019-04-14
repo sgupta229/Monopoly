@@ -32,6 +32,10 @@ public class UtilityProperty extends Property {
 
     }
 
+    public void build(){
+
+    }
+
 
     /***
      * A method that utilizes the member variables to calculate how

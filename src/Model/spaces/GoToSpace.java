@@ -8,8 +8,8 @@ import Model.spaces.AbstractSpace;
 
 public class GoToSpace extends AbstractSpace {
 
-    String spaceToMoveTo;
-    int spacesLocation;
+    private String spaceToMoveTo;
+    private int spacesLocation;
 
     public GoToSpace(int locationIndex, String spaceName, String jumpToSpace){
         super(locationIndex, spaceName);
