@@ -11,11 +11,12 @@ import java.util.ArrayList;
 
 public abstract class AbstractPlayer implements Transfer {
     private String name;
-    private String tokenImage;
 
     private double funds;
     private ArrayList<Property> properties;
     private ArrayList<AbstractActionCard> actionCards;
+
+
     private Token token;
     private boolean inJail;
 
@@ -80,6 +81,12 @@ public abstract class AbstractPlayer implements Transfer {
 
     }
 
+    public void build() {
+
+    }
+
+    public abstract void doSpecialMove();
+
     public void setJail(boolean set) {
         inJail = set;
     }
@@ -104,7 +111,8 @@ public abstract class AbstractPlayer implements Transfer {
         return this.name;
     }
 
-    public String getTokenImage() {
-        return this.tokenImage;
+    public void addActionCard(AbstractActionCard c) {
+        actionCards.add(c);
     }
+
 }
