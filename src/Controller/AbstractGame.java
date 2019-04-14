@@ -1,6 +1,10 @@
 package Controller;
 
 import Model.*;
+import Model.actioncards.AbstractActionCard;
+import Model.actioncards.ActionDeck;
+import Model.properties.Property;
+import Model.spaces.AbstractSpace;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -185,4 +189,16 @@ public abstract class AbstractGame {
         this.currentActionCard = c;
     }
 
+    public void getNewIndex(int oldIndex, int roll) {
+
+    }
+
+    public void movePlayer(int oldIndex, int newIndex) {
+
+        AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
+        oldSpace.removeOccupant(getCurrPlayer());
+        AbstractSpace newSpace = getBoard().getSpaceAt(newIndex);
+        newSpace.addOccupant(getCurrPlayer());
+        newSpace.doAction(this);
+    }
 }

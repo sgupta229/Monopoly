@@ -1,6 +1,10 @@
 package Model;
 
 import Controller.Token;
+import Model.actioncards.AbstractActionCard;
+import Model.properties.BuildingTypes;
+import Model.properties.Property;
+
 import java.util.ArrayList;
 
 public abstract class AbstractPlayer implements Transfer {
@@ -75,7 +79,8 @@ public abstract class AbstractPlayer implements Transfer {
 
     }
 
-    public void build() {
+    public void build(BuildingTypes type) {
+
 
     }
 
@@ -112,5 +117,7 @@ public abstract class AbstractPlayer implements Transfer {
     public void addActionCard(AbstractActionCard c) {
         actionCards.add(c);
     }
+
+    public abstract int getNumBuildings();
 
 }

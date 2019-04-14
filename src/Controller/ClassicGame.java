@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.AbstractSpace;
+import Model.spaces.AbstractSpace;
 
 public class ClassicGame extends AbstractGame {
 
@@ -51,5 +51,4 @@ public class ClassicGame extends AbstractGame {
             getCurrPlayer().addFunds(passGoAmount);
         }
     }
-
 }
