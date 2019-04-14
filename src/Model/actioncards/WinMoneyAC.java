@@ -1,7 +1,6 @@
 package Model.actioncards;
 
 import Controller.AbstractGame;
-import Model.DeckType;
 
 public class WinMoneyAC extends AbstractActionCard {
     //private List<Transfer> winMoneyFrom;

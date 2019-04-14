@@ -224,6 +224,5 @@ public abstract class AbstractGame {
 
     public void callAction() {
         int currentLocation = currPlayer.getCurrentLocation();
-
     }
 }

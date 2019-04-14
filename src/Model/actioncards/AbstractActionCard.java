@@ -1,7 +1,6 @@
 package Model.actioncards;
 
 import Controller.AbstractGame;
-import Model.DeckType;
 
 import java.util.Objects;
 
