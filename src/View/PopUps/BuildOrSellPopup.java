@@ -21,10 +21,11 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
     private Map<Integer, ArrayList> colorPropInfo;
     private ArrayList propDetails;
     private String property;
+    private Controller myController;
 
+    //TODO: CHECK PLAYERS MONOPOLY WHEN MANAGE PROP IS HIT, IF FALSE THEN DISABLE ALL BUTTONS
 
-
-    public BuildOrSellPopup(String title, int propLocation) {
+    public BuildOrSellPopup(String title, int propLocation, Controller controller) {
         super(title, propLocation);
 
         BoardConfigReader spaceInfo = new BoardConfigReader();
@@ -33,6 +34,8 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         tabPane = new TabPane();
         tabPane.setPrefWidth(Controller.WIDTH/1.5);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        this.myController = controller;
     }
 
     @Override

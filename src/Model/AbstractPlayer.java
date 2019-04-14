@@ -107,4 +107,5 @@ public abstract class AbstractPlayer implements Transfer {
     public String getTokenImage() {
         return this.tokenImage;
     }
+
 }

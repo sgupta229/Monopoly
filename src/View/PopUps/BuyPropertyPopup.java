@@ -1,5 +1,6 @@
 package View.PopUps;
 
+import Controller.Controller;
 import Model.spaces.AbstractSpace;
 import View.BoardConfigReader;
 import javafx.event.ActionEvent;
@@ -28,12 +29,14 @@ public class BuyPropertyPopup extends Popup {
     private int propLocation;
     private ArrayList propDetails;
     private String name;
+    private Controller myController;
 
-    public BuyPropertyPopup(String title, String message, int propLocation) {
+    public BuyPropertyPopup(String title, String message, int propLocation, Controller controller) {
         super(title, message);
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         colorPropInfo = spaceInfo.getColorPropInfo();
+        this.myController = controller;
     }
 
     public BuyPropertyPopup(String title, int propLocation) {
@@ -95,7 +98,9 @@ public class BuyPropertyPopup extends Popup {
 
             @Override
             public void handle(ActionEvent event) {
-                Popup myPopup = new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name);
+                //TODO: get current player then loop through other players asking each for a bid, then go to a new screen that notifies the highest bid
+
+                Popup myPopup = new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name, myController);
                 myPopup.display();
                 popUpWindow.close();
             }

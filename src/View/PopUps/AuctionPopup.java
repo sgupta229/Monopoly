@@ -1,5 +1,6 @@
 package View.PopUps;
 
+import Controller.Controller;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,8 +14,8 @@ public class AuctionPopup extends BuyPropertyPopup {
     private String name;
 
 
-    public AuctionPopup(String title, String message, int propLocation, String name) {
-        super(title, message, propLocation);
+    public AuctionPopup(String title, String message, int propLocation, String name, Controller controller) {
+        super(title, message, propLocation, controller);
         this.name = name;
     }
 

@@ -1,6 +1,6 @@
 package View;
 
-import Controller.Controller;
+import Controller.*;
 import Model.*;
 import Model.spaces.AbstractSpace;
 import Model.spaces.ActionCardSpace;
@@ -24,6 +24,7 @@ public class Board {
     private static final String BOARD_PATH = "classic.jpg";
 
     private Controller myController;
+    private AbstractGame myGame;
     private Pane myBoardPane;
     private GridPane myGridPane;
     private ImageView boardLogo;
@@ -32,9 +33,10 @@ public class Board {
     private Map<String,Integer> nameToPrice;
     private List<ImageView> imagesOnBoard = new ArrayList<>();
 
-    public Board(Pane board, Controller controller) {
+    public Board(Pane board, Controller controller, AbstractGame myGame) {
         this.myController = controller;
         this.myBoardPane = board;
+        this.myGame = myGame;
         myGridPane = new GridPane();
         myGridPane.setGridLinesVisible(true);
         setUpGridConstraints();
@@ -54,12 +56,13 @@ public class Board {
             myGridPane.getChildren().remove(i);
         }
         int playerLocation = 0;
-        Popup myPopup;
         for (AbstractPlayer pl : myController.getPlayers()){
-            playerLocation = pl.getCurrentLocation();
             addTokenToIndex(pl.getCurrentLocation(),myController.getPlayerImageView(pl));
-            System.out.println(playerLocation);
+            System.out.println(pl.getCurrentLocation());
         }
+        Popup myPopup;
+        playerLocation = myGame.getCurrPlayer().getCurrentLocation();
+        //TODO need to get current player or something bc right now it is doing popups in a list type fashion. Maybe go in roll dice?
         if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
             myPopup = new ActionCardPopup("Action Card", "Need this from backend?", playerLocation);
         }
@@ -70,7 +73,8 @@ public class Board {
             myPopup = new CornerPopup("Other Space", playerLocation);
         }
         else {
-            myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?", playerLocation);
+            //TODO: CHECK IF THE PROPERTY IS OWNED, IF NOT DISPLAY THIS.  IF OWNED PROMPT WITH RENT(still need to make this popup!!!!)
+            myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?", playerLocation, myController);
         }
         myPopup.display();
     }
@@ -151,17 +155,6 @@ public class Board {
                 myGridPane.add(jailSpace.getMyPropertyStackPane(), 0, 10);
                 CornerDisplay goToJail = new CornerDisplay("#c7edc9", myBoardPane, "goToJail.png");
                 myGridPane.add(goToJail.getMyPropertyStackPane(), 10, 0);
-
-                //Todo: THIS IS JUST AN EXAMPLE FOR SPRINT 1 PURPOSES WILL REFACTOR OUT AFTER
-                StackPane token = new StackPane();
-//                Circle popUpExample = new Circle(10);
-//                Label player1 = new Label("1");
-//                player1.setId("popUp");
-//                token.getChildren().addAll(player1);
-//
-//                Popup myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?", 13);
-//                popUpExample.setOnAction(e -> myPopup.display());
-//                myGridPane.add(token, 1 ,10);
 
             }
         }

@@ -3,6 +3,8 @@ package View;
 import Controller.Controller;
 import Model.AbstractPlayer;
 import View.PopUps.BuildOrSellPopup;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -41,18 +43,27 @@ public abstract class PlayerControl {
         myAnchorPane = new AnchorPane();
         myVBox = new VBox();
 
+        myDiceRoller = new DiceRoller(myController,board);
+        HBox diceRollerView = myDiceRoller.getDiceRollerView();
+
         Text playerName = new Text("player name");
         //TODO: move magic val to properties
         Button endTurnButton = new Button("END TURN");
-        endTurnButton.setOnAction(e->myController.getGame().startNextTurn());
+//        endTurnButton.setOnAction(e->myController.getGame().startNextTurn());
+
+        endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                myController.getGame().startNextTurn();
+                myDiceRoller.setDisable(false);
+            }
+        });
+
         myVBox.getChildren().addAll(endTurnButton);
 
         Button manageProperty = new Button("Manage Property");
-        manageProperty.setOnAction(e -> new BuildOrSellPopup("Manage Property", 39).display());
+        manageProperty.setOnAction(e -> new BuildOrSellPopup("Manage Property", 39, myController).display());
         myVBox.getChildren().addAll(manageProperty);
 
-        myDiceRoller = new DiceRoller(myController,board);
-        HBox diceRollerView = myDiceRoller.getDiceRollerView();
 
         myAnchorPane.getChildren().addAll(myVBox,diceRollerView);
         AnchorPane.setTopAnchor(myVBox,20.0);
