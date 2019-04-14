@@ -20,4 +20,9 @@ public class UtilityProperty extends Property {
     public double calculateRent(){
         return 0.0;
     }
+
+    @Override
+    public void build() {
+
+    }
 }

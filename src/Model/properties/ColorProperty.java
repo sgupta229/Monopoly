@@ -47,6 +47,11 @@ public class ColorProperty extends Property {
         return 0.0;
     }
 
+    @Override
+    public void build() {
+
+    }
+
     public void addHouse(){
         numHouse++;
     }

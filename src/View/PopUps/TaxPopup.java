@@ -60,13 +60,13 @@ public class TaxPopup extends Popup {
 //            }
 //        }
 
-        Button button1= new Button("Pay $200");
-        Button button2= new Button("Pay 10%");
+        Button button1= new Button("Click to Pay!");
+//        Button button2= new Button("Pay 10%");
 
         button1.setId("button3");
-        button2.setId("button3");
+//        button2.setId("button3");
         button1.setOnAction(e -> window.close());
-        buttons.getChildren().addAll(button1,button2);
+        buttons.getChildren().addAll(button1);
         buttons.setPadding(new Insets(0,0,50,0));
         return buttons;
     }
