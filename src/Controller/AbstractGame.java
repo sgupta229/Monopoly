@@ -20,6 +20,7 @@ public abstract class AbstractGame {
     private double startFunds;
     private double jailBail;
     private double passGo;
+    private AbstractActionCard currentActionCard;
 
     private List<AbstractPlayer> players;
     private Bank bank;
@@ -31,6 +32,7 @@ public abstract class AbstractGame {
     private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
     private List<String> possibleTokens;
+    private int numRollsInJail = 0;
 
     public AbstractGame(String filename) {
         parseXMLFile(filename);
@@ -170,6 +172,24 @@ public abstract class AbstractGame {
 
     }
 
+    public void incrementNumRollsinJail() {
+        numRollsInJail++;
+    }
 
+    public void resetNumRollsInJail() {
+        numRollsInJail = 0;
+    }
+
+    public int getNumRollsInJail() {
+        return numRollsInJail;
+    }
+
+    public AbstractActionCard getCurrentActionCard() {
+        return currentActionCard;
+    }
+
+    public void setCurrentActionCard(AbstractActionCard c) {
+        this.currentActionCard = c;
+    }
 
 }
