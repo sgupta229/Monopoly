@@ -1,12 +1,6 @@
 package Model;
 
 import Controller.Token;
-
-import Model.properties.Property;
-
-import Model.actioncards.AbstractActionCard;
-
-
 import java.util.ArrayList;
 
 public abstract class AbstractPlayer implements Transfer {
@@ -93,6 +87,10 @@ public abstract class AbstractPlayer implements Transfer {
 
     public void setFunds(double funds) {
         this.funds = funds;
+    }
+
+    public void addFunds(double funds) {
+        this.funds += funds;
     }
 
     public void setToken(Token token) {
