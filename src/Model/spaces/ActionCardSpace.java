@@ -37,7 +37,8 @@ public class ActionCardSpace extends AbstractSpace {
         for(ActionDeck d : tempDecks) {
             if (d.getMyDeckType() == myDeckType) {
                 cardDrawn = d.drawCard();
-                cardDrawn.doCardAction(game);
+                //cardDrawn.doCardAction(game);
+                game.setCurrentActionCard(cardDrawn);
             }
         }
         game.endTurn();
