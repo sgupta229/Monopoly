@@ -2,7 +2,6 @@ package Model.actioncards;
 
 import Controller.AbstractGame;
 import Model.AbstractPlayer;
-import Model.DeckType;
 
 public class GetOutJailAC extends AbstractActionCard {
     public GetOutJailAC(DeckType deckType, String message, Boolean holdable) {

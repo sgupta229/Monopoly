@@ -1,8 +1,5 @@
 package Model.actioncards;
 
-import Model.DeckType;
-import Model.actioncards.AbstractActionCard;
-
 import java.util.*;
 
 public class ActionDeck {
@@ -28,6 +25,7 @@ public class ActionDeck {
                 cd.setDeck(this);
             }
         }
+        Collections.shuffle(myLiveCards);
     }
 
     public AbstractActionCard drawCard(){
@@ -46,7 +44,7 @@ public class ActionDeck {
 
     //https://www.geeksforgeeks.org/collections-shuffle-java-examples/
     public void shuffleDeck(){
-        Collections.shuffle(myDeadCards);
+        //Collections.shuffle(myDeadCards);
         //myLiveCards = new Stack<>();
         this.fillLiveDeck(myDeadCards);
         myDeadCards = new ArrayList<>();

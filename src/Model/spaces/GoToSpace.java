@@ -8,8 +8,8 @@ import Model.spaces.AbstractSpace;
 
 public class GoToSpace extends AbstractSpace {
 
-    String spaceToMoveTo;
-    int spacesLocation;
+    private String spaceToMoveTo;
+    private int spacesLocation;
 
     public GoToSpace(int locationIndex, String spaceName, String jumpToSpace){
         super(locationIndex, spaceName);
@@ -29,9 +29,11 @@ public class GoToSpace extends AbstractSpace {
     public void doAction(AbstractGame game){
         AbstractPlayer currPlayer = game.getCurrPlayer();
         spacesLocation = game.getBoard().getLocationOfSpace(spaceToMoveTo);
-        this.removeOccupant(currPlayer);
-        currPlayer.moveTo(spacesLocation, game.getBoardSize());
-        game.getBoard().getSpaceAt(spacesLocation).addOccupant(currPlayer);
+        int oldLocation = currPlayer.getCurrentLocation();
+        //this.removeOccupant(currPlayer);
+        //currPlayer.moveTo(spacesLocation, game.getBoardSize());
+        //game.getBoard().getSpaceAt(spacesLocation).addOccupant(currPlayer);
+        game.movePlayer(oldLocation, spacesLocation);
         if(spaceToMoveTo.equalsIgnoreCase("JAIL")){
             game.getCurrPlayer().setJail(true);
         }
