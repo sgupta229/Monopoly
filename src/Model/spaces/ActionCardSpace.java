@@ -4,11 +4,7 @@ import Controller.AbstractGame;
 
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
-import Model.DeckType;
-import Model.spaces.AbstractSpace;
-
-import Model.actioncards.AbstractActionCard;
-import Model.actioncards.ActionDeck;
+import Model.actioncards.DeckType;
 
 
 import java.util.List;
