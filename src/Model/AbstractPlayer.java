@@ -81,6 +81,8 @@ public abstract class AbstractPlayer implements Transfer {
 
     }
 
+    public void build()
+
     public abstract void doSpecialMove();
 
     public void setJail(boolean set) {

@@ -4,6 +4,9 @@ import Model.spaces.AbstractSpace;
 
 public class ClassicGame extends AbstractGame {
 
+    private int maxHouses;
+    private int maxHotels;
+
     public ClassicGame(String filename) {
         super(filename);
     }
