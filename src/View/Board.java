@@ -14,11 +14,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.awt.geom.Point2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Board {
+public class Board implements PropertyChangeListener {
     //Todo: needs to be refactored but wanted to make it work, all data is read in from file
 
     private static final String BOARD_PATH = "classic.jpg";
@@ -37,6 +39,10 @@ public class Board {
         this.myController = controller;
         this.myBoardPane = board;
         this.myGame = myGame;
+        for (AbstractPlayer p : controller.getPlayers()) {
+            p.addPropertyChangeListener("currentLocation",this);
+        }
+
         myGridPane = new GridPane();
         myGridPane.setGridLinesVisible(true);
         setUpGridConstraints();
@@ -47,6 +53,7 @@ public class Board {
 
     public void addTokenToIndex(int i, ImageView image){
         int[] coord = indexToCoord(i);
+        System.out.println(coord[0] + " " + coord[1]);
         myGridPane.add(image,coord[0],coord[1]);
         imagesOnBoard.add(image);
     }
@@ -80,7 +87,6 @@ public class Board {
 
 
     private void addTokensToGo(){
-//    private void bindIconsToLocations(){
         for (AbstractPlayer p : myController.getPlayers()){
             ImageView img = myController.getPlayerImageView(p);
             addTokenToIndex(0,img);
@@ -201,5 +207,10 @@ public class Board {
         boardLogo.setFitHeight((myBoardPane.getPrefWidth() / 13) * 9);
         boardLogo.setId("boardLogo");
         return boardLogo;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        renderPlayers();
     }
 }

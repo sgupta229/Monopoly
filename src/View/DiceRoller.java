@@ -15,12 +15,10 @@ public class DiceRoller {
     protected Die myDie;
     protected HBox myHBox;
     protected Controller myController;
-    protected Board myBoard;
     protected  Button rollButton;
 
 
-    public DiceRoller(Controller controller,Board board){
-        myBoard = board;
+    public DiceRoller(Controller controller){
         myController = controller;
         myDie = new Die(6);
 
@@ -44,28 +42,21 @@ public class DiceRoller {
         return myHBox;
     }
     private void createDiceView(){
-        Text diceValue = new Text("2");
+        Text diceValue = new Text("->");
         diceValue.setId("header2");
         myHBox.getChildren().add(diceValue);
     }
     private void rollDice(){
-        updateDiceView(myController.getGame().rollDice());
-        updateTokensView();
-        for (AbstractPlayer p:myController.getPlayers()) {
-            System.out.println(p.getCurrentLocation());
-        }
+        int roll = myController.getGame().rollDice();
+        System.out.println("roll: " + roll);
+        updateDiceView(roll);
         rollButton.setDisable(true);
-
     }
 
     private void updateDiceView(int val){
         Text newVal = new Text(Integer.toString(val));
         newVal.setId("header2");
         myHBox.getChildren().set(0,newVal);
-    }
-
-    private void updateTokensView(){
-        myBoard.renderPlayers();
     }
 
     public void setDisable(boolean bool) {rollButton.setDisable(bool);}

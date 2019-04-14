@@ -157,9 +157,10 @@ public class ConfigReader {
 //                    for(String n:amntTemp){
 //                        resAmnt.add(Double.parseDouble(n));
 //                    }
-//                    double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
-                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
-                    allActionCards.add(newCard);
+
+//                    //double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
+//                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
+//                    allActionCards.add(newCard);
                 }
 //                else{
 //                    throw new XmlTagException(card.getAttribute("type"));
