@@ -81,7 +81,9 @@ public abstract class AbstractPlayer implements Transfer {
 
     }
 
-    public void build()
+    public void build() {
+
+    }
 
     public abstract void doSpecialMove();
 
