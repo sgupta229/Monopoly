@@ -1,6 +1,7 @@
 package Model.actioncards;
 
 import Controller.AbstractGame;
+import Model.AbstractPlayer;
 import Model.DeckType;
 
 public class GetOutJailAC extends AbstractActionCard {
@@ -10,7 +11,14 @@ public class GetOutJailAC extends AbstractActionCard {
 
     @Override
     public void doCardAction(AbstractGame game) {
-        ActionDeck d = this.getMyDeck();
-        d.discardCard(this);
+        AbstractPlayer curr = game.getCurrPlayer();
+        if(curr.isInJail()){
+            curr.setJail(false);
+            ActionDeck d = this.getMyDeck();
+            d.discardCard(this);
+        }
+        else{
+            curr.addActionCard(this);
+        }
     }
 }

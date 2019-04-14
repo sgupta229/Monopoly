@@ -10,4 +10,8 @@ public class ClassicPlayer extends AbstractPlayer {
         super();
     }
 
+    public void doSpecialMove() {
+
+    }
+
 }
