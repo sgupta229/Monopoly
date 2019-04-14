@@ -4,6 +4,9 @@ import Model.spaces.AbstractSpace;
 
 public class ClassicGame extends AbstractGame {
 
+    private int maxHouses;
+    private int maxHotels;
+
     public ClassicGame(String filename) {
         super(filename);
     }
@@ -18,7 +21,13 @@ public class ClassicGame extends AbstractGame {
         if(!getCurrPlayer().isInJail()) {
             getCurrPlayer().move(roll, getBoardSize());
         }
-
+        else {
+            incrementNumRollsinJail();
+            if(getNumRollsInJail() == 3) {
+                getCurrPlayer().move(roll, getBoardSize());
+                resetNumRollsInJail();
+            }
+        }
         int newIndex = getCurrPlayer().getCurrentLocation();
         AbstractSpace newSpace = getBoard().getSpaceAt(newIndex);
         newSpace.addOccupant(getCurrPlayer());

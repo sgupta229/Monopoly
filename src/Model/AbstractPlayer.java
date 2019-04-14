@@ -12,13 +12,13 @@ public abstract class AbstractPlayer implements Transfer {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
     private String name;
-    private String tokenImage;
 
     private double funds;
     private ArrayList<Property> properties;
     private ArrayList<AbstractActionCard> actionCards;
 //    private Token token;
     private int currentLocation;
+
     private boolean inJail;
 
     public AbstractPlayer() {
@@ -92,6 +92,12 @@ public abstract class AbstractPlayer implements Transfer {
 
     }
 
+    public void build() {
+
+    }
+
+    public abstract void doSpecialMove();
+
     public void setJail(boolean set) {
         inJail = set;
     }
@@ -114,8 +120,8 @@ public abstract class AbstractPlayer implements Transfer {
         return this.name;
     }
 
-    public String getTokenImage() {
-        return this.tokenImage;
+    public void addActionCard(AbstractActionCard c) {
+        actionCards.add(c);
     }
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
