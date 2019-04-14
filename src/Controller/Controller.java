@@ -67,7 +67,7 @@ public class Controller {
 
     public void startGame(){
         myGame.setPlayers(newPlayers);
-        window.setScene(new Layout(WIDTH,HEIGHT,gameStyle,this).getScene());
+        window.setScene(new Layout(WIDTH,HEIGHT,gameStyle,this,myGame).getScene());
         System.out.println("current player:" + myGame.getCurrPlayer().getName());
     }
 
@@ -91,7 +91,7 @@ public class Controller {
         return new ImageView(playersToImages.get(p));
     }
 
-    //temporary for testing
+    //maybe should pass game directly in constructors? to make dependency clearer?
     public AbstractGame getGame(){return myGame;}
     public ObservableList<AbstractPlayer> getPlayers(){ return newPlayers;}
 

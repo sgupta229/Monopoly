@@ -17,6 +17,14 @@
     -fx-spacing: 20;
 }
 
+#playerControlBox {
+    -fx-background-color: #e1e1e1;
+    -fx-padding: 15;
+    -fx-spacing: 20;
+    -fx-pref-height: 380;
+    -fx-pref-height: 400;
+}
+
 #button1 {
     -fx-text-fill: black;
     -fx-font-weight: bold;
@@ -46,6 +54,39 @@
     -fx-background-color: linear-gradient(#a52121, #e02323);
     -fx-text-fill: white;
 }
+
+
+#button3 {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size: 16pt;
+    -fx-background-color: linear-gradient(#C4C4C4, #7D7D7D);
+    -fx-pref-width: 200px;
+    -fx-pref-height: 55px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#button3:hover {
+    -fx-background-color: linear-gradient(#a52121, #e02323);
+    -fx-text-fill: white;
+}
+
+
+#button4 {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size: 16pt;
+    -fx-background-color: linear-gradient(#C4C4C4, #7D7D7D);
+    -fx-pref-width: 75px;
+    -fx-pref-height: 45px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#button4:hover {
+    -fx-background-color: linear-gradient(#a52121, #e02323);
+    -fx-text-fill: white;
+}
+
 
 #flowPane {
     "-fx-alignment: center;"
@@ -101,6 +142,10 @@
 #popUp{
     -fx-font-size: 8pt;
     -fx-text-fill: white;
+}
+
+#propPopUp{
+    -fx-font-size: 15pt;
 }
 
 
