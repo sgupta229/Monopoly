@@ -78,7 +78,7 @@ public abstract class Property {
      */
     public abstract double calculateRent();
 
-    public abstract void build();
+    public abstract void build(BuildingTypes type, Property property);
 
     public void setIsMortgaged(boolean mortgageVal){
         isMortgaged = mortgageVal;
