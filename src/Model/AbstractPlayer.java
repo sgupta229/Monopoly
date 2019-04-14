@@ -15,6 +15,8 @@ public abstract class AbstractPlayer implements Transfer {
     private double funds;
     private ArrayList<Property> properties;
     private ArrayList<AbstractActionCard> actionCards;
+
+
     private Token token;
     private boolean inJail;
 
