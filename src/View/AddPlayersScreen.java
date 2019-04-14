@@ -133,6 +133,19 @@ public class AddPlayersScreen {
         Text editPlayerListTitle = new Text(messages.getString("edit-player-list"));
         ListView playerList = new ListView(myPlayers);
         playerList.setMaxHeight(180.0);
+        playerList.setCellFactory(param -> new ListCell<AbstractPlayer>() {
+            @Override
+            protected void updateItem(AbstractPlayer item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if(!empty || item == null) {
+                    setText(null);
+                }
+                else {
+                    setText(item.getName());
+                }
+            }
+        });
 
         editPlayerList.getChildren().addAll(editPlayerListTitle,playerList);
         return editPlayerList;
@@ -166,6 +179,7 @@ public class AddPlayersScreen {
             System.out.println("added player");
         }
     }
+
 
     class ImageListCell extends ListCell<Image> {
         private final ImageView view;
