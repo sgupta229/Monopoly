@@ -1,6 +1,6 @@
 package Model;
 
-import Model.properties.BuildingTypes;
+import Model.properties.BuildingType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,8 +19,8 @@ public class ClassicPlayer extends AbstractPlayer {
 
     }
 
-    public Map<BuildingTypes, Integer> getNumBuildings() {
-        Map<BuildingTypes, Integer> buildingInventory = new HashMap<>();
+    public Map<BuildingType, Integer> getNumBuildings() {
+        Map<BuildingType, Integer> buildingInventory = new HashMap<>();
         return buildingInventory;
     }
 
