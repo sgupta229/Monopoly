@@ -1,10 +1,13 @@
-package Model;
+package Model.properties;
 
-public class UtilityProperty extends Property{
+import Model.properties.Property;
+
+public class RailRoadProperty extends Property {
 
 
-    public UtilityProperty(double price, String propName){
+    public RailRoadProperty(double price, String propName){
         super(price, propName);
+        myGroup = propName;
     }
 
 
