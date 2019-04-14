@@ -3,6 +3,7 @@ package Model.spaces;
 import Controller.AbstractGame;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
+import Model.AbstractPlayer;
 
 public class PropSpace extends AbstractSpace {
 
@@ -23,9 +24,11 @@ public class PropSpace extends AbstractSpace {
      * @param game the active Game driver class for this game
      */
     public void doAction(AbstractGame game){
-        if(game.getBank().propertyOwnedBy(myProperty)==null){
+        AbstractPlayer propOwner = game.getBank().propertyOwnedBy(myProperty);
+        if(propOwner==null){
             //prompt front end button to purchase property, handler does the rest
         }
+        //else()
         game.endTurn();
     }
 
