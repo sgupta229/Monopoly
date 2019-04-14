@@ -13,11 +13,11 @@ public class LoseMoneyAC extends AbstractActionCard {
 
     //Deprecate -- was Double amount, now List<Double> amount
     @Deprecated
-/*    public LoseMoneyAC(DeckType deckType, String message, Boolean holdable, String loseTo, Double amount) {
+    public LoseMoneyAC(DeckType deckType, String message, Boolean holdable, String loseTo, Double amount) {
         super(deckType, message, holdable);
         loseMoneyTo = loseTo;
-        amountLose = amount;
-    }*/
+        //amountLose = amount;
+    }
 
     public LoseMoneyAC(DeckType deckType, String message, Boolean holdable, String loseTo, List<Double> amount) {
         super(deckType, message, holdable);
