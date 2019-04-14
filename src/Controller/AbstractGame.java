@@ -122,12 +122,6 @@ public abstract class AbstractGame {
             value += roll;
             diceHistory.get(i).add(roll);
         }
-
-                            //debug
-                            for (AbstractPlayer p: players) {
-                                System.out.println(p.getCurrentLocation());
-                            }
-
         return value;
     }
 
@@ -219,10 +213,11 @@ public abstract class AbstractGame {
         oldSpace.removeOccupant(getCurrPlayer());
         AbstractSpace newSpace = getBoard().getSpaceAt(newIndex);
         newSpace.addOccupant(getCurrPlayer());
-        newSpace.doAction(this);
     }
 
     public void callAction() {
         int currentLocation = currPlayer.getCurrentLocation();
+        AbstractSpace currSpace = getBoard().getSpaceAt(currentLocation);
+        currSpace.doAction(this);
     }
 }
