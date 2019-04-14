@@ -48,7 +48,7 @@ public class ColorProperty extends Property {
      * @return the cost to place a house on this property
      */
     public double getCostofHouse(){
-        return 0.0;
+        return pricePerHouse;
     }
 
     /***
@@ -73,6 +73,10 @@ public class ColorProperty extends Property {
      * @return the total rent value to be paid
      */
     public double calculateRent(){
+        if(this.getIsMortgaged()){
+            return 0.0;
+        }
+
         return 0.0;
     }
 
