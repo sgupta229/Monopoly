@@ -1,7 +1,8 @@
-package Model;
+package Model.Tests;
 
 import Controller.ClassicGame;
-import Controller.Token;
+import Model.*;
+import Model.spaces.AbstractSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

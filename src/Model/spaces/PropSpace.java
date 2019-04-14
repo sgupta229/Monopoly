@@ -1,11 +1,17 @@
-package Model;
+package Model.spaces;
 
 import Controller.AbstractGame;
+import Model.properties.Property;
+import Model.spaces.AbstractSpace;
 
-public class FreeParkingSpace extends AbstractSpace{
+public class PropSpace extends AbstractSpace {
 
-    public FreeParkingSpace(int locationIndex, String spaceName){
+
+    Property myProperty;
+
+    public PropSpace(int locationIndex, String spaceName){
         super(locationIndex, spaceName);
+
     }
 
 
@@ -16,8 +22,16 @@ public class FreeParkingSpace extends AbstractSpace{
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-
     public void doAction(AbstractGame game){
+        if(game.getBank().propertyOwnedBy(myProperty)==null){
+            //prompt front end button to purchase property, handler does the rest
+        }
         game.endTurn();
     }
+
+    public void linkSpaceToProperty(Property property){
+        myProperty = property;
+    }
+
+
 }

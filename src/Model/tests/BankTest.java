@@ -3,6 +3,8 @@ package Model.tests;
 import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Model.*;
+import Model.properties.Property;
+import Model.spaces.AbstractSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
