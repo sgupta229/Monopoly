@@ -3,7 +3,7 @@ package Model.tests;
 import Controller.ConfigReader;
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
-import Model.DeckType;
+import Model.actioncards.DeckType;
 import Model.XmlTagException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

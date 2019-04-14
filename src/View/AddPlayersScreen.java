@@ -175,6 +175,7 @@ public class AddPlayersScreen {
         }
     }
 
+
     class ImageListCell extends ListCell<Image> {
         private final ImageView view;
 

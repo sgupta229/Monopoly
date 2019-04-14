@@ -1,13 +1,10 @@
 package Controller;
 
 import Model.*;
-
-import Model.properties.Property;
-import Model.spaces.AbstractSpace;
-
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
-
+import Model.properties.Property;
+import Model.spaces.AbstractSpace;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -23,6 +20,7 @@ public abstract class AbstractGame {
     private double startFunds;
     private double jailBail;
     private double passGo;
+    private AbstractActionCard currentActionCard;
 
     private List<AbstractPlayer> players;
     private Bank bank;
@@ -34,6 +32,7 @@ public abstract class AbstractGame {
     private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
     private List<String> possibleTokens;
+    private int numRollsInJail = 0;
 
     public AbstractGame(String filename) {
         parseXMLFile(filename);
@@ -167,9 +166,7 @@ public abstract class AbstractGame {
     //instantiate a player and add it to the list
     public void addPlayer(AbstractPlayer player) {
         player.setFunds(startFunds);
-//        Token token = new Token(0);
-//        player.setToken(token);
-        player.moveTo(0,boardSize);
+        player.moveTo(0);
     }
 
     public List<String> getPossibleTokens() {
@@ -184,6 +181,48 @@ public abstract class AbstractGame {
 
     }
 
+    public void incrementNumRollsinJail() {
+        numRollsInJail++;
+    }
 
+    public void resetNumRollsInJail() {
+        numRollsInJail = 0;
+    }
 
+    public int getNumRollsInJail() {
+        return numRollsInJail;
+    }
+
+    public AbstractActionCard getCurrentActionCard() {
+        return currentActionCard;
+    }
+
+    public void setCurrentActionCard(AbstractActionCard c) {
+        this.currentActionCard = c;
+    }
+
+    public int getNewIndex(int oldIndex, int roll) {
+        int boardSize = board.getSize();
+        int newIndex = oldIndex + roll;
+        if(newIndex > board.getSize() - 1) {
+            newIndex = newIndex - boardSize;
+        }
+        return newIndex;
+    }
+
+    public void movePlayer(int oldIndex, int newIndex) {
+        if(newIndex > board.getSize() - 1) {
+            throw new IllegalArgumentException("The new index is outside of the board size");
+        }
+        currPlayer.moveTo(newIndex);
+        AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
+        oldSpace.removeOccupant(getCurrPlayer());
+        AbstractSpace newSpace = getBoard().getSpaceAt(newIndex);
+        newSpace.addOccupant(getCurrPlayer());
+        newSpace.doAction(this);
+    }
+
+    public void callAction() {
+        int currentLocation = currPlayer.getCurrentLocation();
+    }
 }

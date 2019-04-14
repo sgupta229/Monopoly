@@ -2,8 +2,11 @@ package View;
 
 import Controller.Controller;
 import Model.AbstractPlayer;
+import View.PopUps.BuildOrSellPopup;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,7 +28,6 @@ public abstract class PlayerControl implements PropertyChangeListener {
     public PlayerControl(AbstractPlayer player, Controller controller){
         myPlayer = player;
         myController = controller;
-
         myPlayer.addPropertyChangeListener("funds",this);
 
         setUpLayout();
@@ -44,11 +46,32 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
     private VBox createVBox(){
         myVBox = new VBox();
-        myVBox.setId("playerControlBox");
-        Text playerName = new Text(myPlayer.getName());
+
+        //TODO: move magic val to properties
         Button endTurnButton = new Button("END TURN");
-        endTurnButton.setOnAction(e->myController.getGame().startNextTurn());
-        myVBox.getChildren().addAll(playerName,endTurnButton,createBalanceText());
+        endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                myController.getGame().startNextTurn();
+                myDiceRoller.setDisable(false);
+            }
+        });
+
+        Button manageProperty = new Button("Manage Property");
+        manageProperty.setOnAction(e -> new BuildOrSellPopup("Manage Property", 39, myController).display());
+
+        HBox moveBox = new HBox();
+        TextField moveTo = new TextField();
+        Button move = new Button("MOVE");
+        moveBox.getChildren().addAll(moveTo,move);
+        move.setOnAction(e -> myPlayer.moveTo(Integer.parseInt(moveTo.getText())));
+
+        //TODO game.movePlayer(curr.getcurrentloc, new ind)
+
+        myVBox.setId("playerControlBox");
+        HBox nameAndEnd = new HBox(50);
+        Text playerName = new Text(myPlayer.getName());
+        nameAndEnd.getChildren().addAll(playerName,endTurnButton);
+        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(), moveBox,manageProperty);
         return myVBox;
     }
 

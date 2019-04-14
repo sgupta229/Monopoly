@@ -114,7 +114,8 @@ public class ConfigReader {
         return decks;
     }
 
-    public List<AbstractActionCard> parseActionCards() throws XmlTagException{
+//    public List<AbstractActionCard> parseActionCards() throws XmlTagException{
+    public List<AbstractActionCard> parseActionCards(){
         //Feed this allActionCards list into fillLiveDeck() in deck class after initializing empty decks
         List<AbstractActionCard> allActionCards = new ArrayList<>();
 
@@ -156,13 +157,14 @@ public class ConfigReader {
 //                    for(String n:amntTemp){
 //                        resAmnt.add(Double.parseDouble(n));
 //                    }
+
 //                    //double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
 //                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
 //                    allActionCards.add(newCard);
                 }
-                else{
-                    throw new XmlTagException(card.getAttribute("type"));
-                }
+//                else{
+//                    throw new XmlTagException(card.getAttribute("type"));
+//                }
             }
         }
         return allActionCards;
@@ -172,6 +174,7 @@ public class ConfigReader {
         List<List> allSpacesAndProps = new ArrayList<>();
         List<AbstractSpace> allSpaces = new ArrayList<>();
         List<Property> allProps = new ArrayList<>();
+        Map<String, ArrayList> propInfo = new HashMap<String, ArrayList>();
         NodeList spaceList = doc.getElementsByTagName("Space");
         for(int i = 0; i < spaceList.getLength(); i++) {
             Node s = spaceList.item(i);
@@ -226,7 +229,16 @@ public class ConfigReader {
                     double rentHotel = Double.parseDouble(space.getElementsByTagName("RentHotel").item(0).getTextContent());
                     double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup);
+                    ArrayList<Double> rentAmounts = new ArrayList<>();
+                    rentAmounts.add(rent);
+                    rentAmounts.add(rentOneHouse);
+                    rentAmounts.add(rentTwoHouse);
+                    rentAmounts.add(rentThreeHouse);
+                    rentAmounts.add(rentFourHouse);
+                    rentAmounts.add(rentHotel);
+                    rentAmounts.add(pricePerHouse);
+                    rentAmounts.add(mortgage);
+                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
 
@@ -240,7 +252,13 @@ public class ConfigReader {
                     double rent3 = Double.parseDouble(space.getElementsByTagName("Rent3").item(0).getTextContent());
                     double rent4 = Double.parseDouble(space.getElementsByTagName("Rent4").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    Property newProp = new RailRoadProperty(buyPrice, spaceName);
+                    ArrayList<Double> rentAmounts = new ArrayList<>();
+                    rentAmounts.add(rent);
+                    rentAmounts.add(rent2);
+                    rentAmounts.add(rent3);
+                    rentAmounts.add(rent4);
+                    rentAmounts.add(mortgage);
+                    Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
 
@@ -252,7 +270,11 @@ public class ConfigReader {
                     double rentMult = Double.parseDouble(space.getElementsByTagName("RentMultiplier").item(0).getTextContent());
                     double rentMult2 = Double.parseDouble(space.getElementsByTagName("Rent2Multiplier").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    Property newProp = new UtilityProperty(buyPrice, spaceName);
+                    ArrayList<Double> rentAmounts = new ArrayList<>();
+                    rentAmounts.add(rentMult);
+                    rentAmounts.add(rentMult2);
+                    rentAmounts.add(mortgage);
+                    Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
                 }
@@ -265,6 +287,62 @@ public class ConfigReader {
         allSpacesAndProps.add(allProps);
         return allSpacesAndProps;
     }
+
+
+    public Map<Integer, ArrayList> parseColorPropInfo() {
+        Map<Integer, ArrayList> propInfo = new HashMap<Integer, ArrayList>();
+        NodeList spaceList = doc.getElementsByTagName("Space");
+        for (int i = 0; i < spaceList.getLength(); i++) {
+            Node s = spaceList.item(i);
+            if (s.getNodeType() == Node.ELEMENT_NODE) {
+                Element space = (Element) s;
+                String spaceName = space.getElementsByTagName("SpaceName").item(0).getTextContent().strip();
+                int index = Integer.parseInt(space.getElementsByTagName("Index").item(0).getTextContent());
+                if (space.getAttribute("type").equalsIgnoreCase("COLOR_PROPERTY")) {
+                    String colorGroup = space.getElementsByTagName("ColorGroup").item(0).getTextContent();
+                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
+                    double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
+                    double rentOneHouse = Double.parseDouble(space.getElementsByTagName("Rent1House").item(0).getTextContent());
+                    double rentTwoHouse = Double.parseDouble(space.getElementsByTagName("Rent2House").item(0).getTextContent());
+                    double rentThreeHouse = Double.parseDouble(space.getElementsByTagName("Rent3House").item(0).getTextContent());
+                    double rentFourHouse = Double.parseDouble(space.getElementsByTagName("Rent4House").item(0).getTextContent());
+                    double rentHotel = Double.parseDouble(space.getElementsByTagName("RentHotel").item(0).getTextContent());
+                    double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
+                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
+                    ArrayList details = new ArrayList();
+                    details.addAll(Arrays.asList(colorGroup, buyPrice, rent, rentOneHouse, rentTwoHouse, rentThreeHouse, rentFourHouse, rentHotel, pricePerHouse, mortgage, spaceName));
+                    propInfo.put(index, details);
+                } else if (space.getAttribute("type").equalsIgnoreCase("RAILROAD_PROPERTY")) {
+                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
+                    double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
+                    double rent2 = Double.parseDouble(space.getElementsByTagName("Rent2").item(0).getTextContent());
+                    double rent3 = Double.parseDouble(space.getElementsByTagName("Rent3").item(0).getTextContent());
+                    double rent4 = Double.parseDouble(space.getElementsByTagName("Rent4").item(0).getTextContent());
+                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
+                    ArrayList details = new ArrayList();
+                    details.addAll(Arrays.asList(buyPrice, rent, rent2, rent3, rent4, mortgage, spaceName));
+                    propInfo.put(index, details);
+                } else if (space.getAttribute("type").equalsIgnoreCase("UTILITY_PROPERTY")){
+                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
+                    double rentMult = Double.parseDouble(space.getElementsByTagName("RentMultiplier").item(0).getTextContent());
+                    double rentMult2 = Double.parseDouble(space.getElementsByTagName("Rent2Multiplier").item(0).getTextContent());
+                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
+                    ArrayList details = new ArrayList();
+                    details.addAll(Arrays.asList(buyPrice, rentMult, rentMult2, mortgage, spaceName));
+                    propInfo.put(index, details);
+                } else if (space.getAttribute("type").equalsIgnoreCase("TAX")){
+                    double flatRate = Double.parseDouble(space.getElementsByTagName("FlatRate").item(0).getTextContent());
+                    double percentage = Double.parseDouble(space.getElementsByTagName("Percentage").item(0).getTextContent());
+                    double newPercent = percentage/100;
+                    ArrayList details = new ArrayList();
+                    details.addAll(Arrays.asList(flatRate, percentage, newPercent));
+                    propInfo.put(index, details);
+                }
+            }
+        }
+        return propInfo;
+    }
+
 
     public List<String> parseTokens() throws XmlTagException{
         List<String> allTokens = new ArrayList<>();
@@ -298,20 +376,20 @@ public class ConfigReader {
         return -1;
     }
 
-//    public static void main(String[] args) {
-//        ConfigReader c = new ConfigReader("Normal_Config.xml");
-//        try{
-//            c.parseSpaces();
-//            c.parseActionCards();
-//            c.parseActionDecks();
-//            c.parseBank();
-//            c.parseBoard();
-//            c.parseDice();
-//            c.parseTokens();
-//        }
-//        catch(XmlTagException e){
-//
-//        }
-//    }
+    public static void main(String[] args) {
+        ConfigReader c = new ConfigReader("Normal_Config.xml");
+        try{
+            c.parseSpaces();
+            c.parseActionCards();
+            c.parseActionDecks();
+            c.parseBank();
+            c.parseBoard();
+            c.parseDice();
+            c.parseTokens();
+        }
+        catch(XmlTagException e){
+
+        }
+    }
 
 }

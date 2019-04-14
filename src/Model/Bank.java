@@ -86,11 +86,11 @@ public class Bank implements Transfer{
      */
     public void sellProperty(Property property, AbstractPlayer purchaser){}
 
-    public void mortgageProperty(Property property){
+    /*public void mortgageProperty(Property property){
         AbstractPlayer propOwner = ownedPropsMap.get(property);
         propOwner.makePayment(property.getMortgageAmount(), this);
         property.setIsMortgaged(true);
-    }
+    }*/
 
     /***
      * Auctions off a property to the list of players at the auction

@@ -1,5 +1,7 @@
 package Model.properties;
 
+import java.util.List;
+
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,
  * rent amount with monopoly, cost of placing a house, cost of placing a hotel, cost of rent
@@ -7,20 +9,33 @@ package Model.properties;
  */
 public abstract class Property {
 
-    double myPrice;
-    double mortgageAmount;
-    String myGroup;
-    String myName;
-    String myColor;
-    Boolean isMortgaged;
+    private double myPrice;
+    private double mortgageAmount;
+    private String myGroup;
+    private String myName;
+    private String myColor;
+    private Boolean isMortgaged;
+    private List allPaymentInfo;
 
 
+    public Property(double price, String propName,  List<Double> paymentInfo){
+        myPrice=price;
+        myName = propName;
+        allPaymentInfo = paymentInfo;
+        initializePaymentInfo(allPaymentInfo);
+    }
 
-    public Property(double price, String propName, String color){
+
+    public Property(double price, String propName, String color, List<Double> paymentInfo){
         myPrice=price;
         myName = propName;
         myColor=color;
+        allPaymentInfo = paymentInfo;
+        initializePaymentInfo(allPaymentInfo);
+
     }
+
+    @Deprecated
     public Property(double price, String propName){
         myPrice=price;
 
@@ -28,6 +43,7 @@ public abstract class Property {
 
     }
 
+    protected abstract void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException;
 
     /***
      * A getter method that returns the name of this property
@@ -61,6 +77,8 @@ public abstract class Property {
      * @return the total rent value to be paid
      */
     public abstract double calculateRent();
+
+    public abstract void build();
 
     public void setIsMortgaged(boolean mortgageVal){
         isMortgaged = mortgageVal;

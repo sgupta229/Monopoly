@@ -67,7 +67,7 @@ public class Controller {
 
     public void startGame(){
         myGame.setPlayers(newPlayers);
-        window.setScene(new Layout(WIDTH,HEIGHT,gameStyle,this).getScene());
+        window.setScene(new Layout(WIDTH,HEIGHT,gameStyle,this,myGame).getScene());
         System.out.println("current player:" + myGame.getCurrPlayer().getName());
     }
 

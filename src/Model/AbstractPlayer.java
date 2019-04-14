@@ -2,24 +2,26 @@ package Model;
 
 import Controller.Token;
 import Model.properties.Property;
-
 import Model.actioncards.AbstractActionCard;
-
+import Model.properties.BuildingTypes;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 public abstract class AbstractPlayer implements Transfer {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
     private String name;
-    private String tokenImage;
 
     private double funds;
     private ArrayList<Property> properties;
     private ArrayList<AbstractActionCard> actionCards;
     private Token token;
+    private String tokenImage;
     private int currentLocation;
+
     private boolean inJail;
 
     public AbstractPlayer() {
@@ -72,21 +74,7 @@ public abstract class AbstractPlayer implements Transfer {
         currentLocation = newLocation;
     }
 
-    public int move(int moveSpaces, int boardSize) {
-        int oldLocation = currentLocation;
-        int newLocation = currentLocation + moveSpaces;
-        if(newLocation > boardSize - 1) {
-            moveTo(newLocation - boardSize,boardSize);
-        }
-        else {
-            moveTo(newLocation, boardSize);
-        }
-        return currentLocation;
-    }
-    public int moveTo(int newLocation, int boardSize) {
-        if(newLocation > boardSize - 1) {
-            throw new IllegalArgumentException("This is an invalid location");
-        }
+    public int moveTo(int newLocation) {
         int oldLocation = currentLocation;
         currentLocation = newLocation;
         myPCS.firePropertyChange("currentLocation",oldLocation,currentLocation);
@@ -96,6 +84,13 @@ public abstract class AbstractPlayer implements Transfer {
     public void proposeTrade(AbstractPlayer other) {
 
     }
+
+    public void build(BuildingTypes type) {
+
+
+    }
+
+    public abstract void doSpecialMove();
 
     public void setJail(boolean set) {
         inJail = set;
@@ -112,6 +107,10 @@ public abstract class AbstractPlayer implements Transfer {
         this.token = token;
     }
 
+    public void addFunds(double addAmount) {
+        setFunds(this.funds += addAmount);
+    }
+
     public boolean isInJail() {
         return inJail;
     }
@@ -125,10 +124,14 @@ public abstract class AbstractPlayer implements Transfer {
         return this.tokenImage;
     }
 
+    public void addActionCard(AbstractActionCard c) {
+        actionCards.add(c);
+    }
+
+    public abstract Map<BuildingTypes, Integer> getNumBuildings();
+
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        myPCS.removePropertyChangeListener(listener);
-    }
+
 }

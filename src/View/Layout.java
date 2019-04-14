@@ -1,6 +1,6 @@
 package View;
 
-import Controller.Controller;
+import Controller.*;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 
@@ -19,12 +19,15 @@ public class Layout {
     private HBox myLayout;
     private Pane myBoardPane;
     private Board myBoard;
+    private AbstractGame myGame;
+
     private PlayerTabs myPlayersTabs;
 
 
-    public Layout(double width, double height, String style, Controller controller){
+    public Layout(double width, double height, String style, Controller controller, AbstractGame myGame){
         this.myController = controller;
         this.myRoot = new Group();
+        this.myGame = myGame;
 
         myScene = new Scene(myRoot,width,height);
         myScene.getStylesheets().add(style);
@@ -49,7 +52,7 @@ public class Layout {
         myBoardPane.setId("boardPane");
 
 
-        myBoard = new Board(myBoardPane,myController);
+        myBoard = new Board(myBoardPane,myController,myGame);
         Pane gameBoard = myBoard.getGridPane();
 
         StackPane myGameBoard = new StackPane();
