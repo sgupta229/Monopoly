@@ -25,24 +25,19 @@ public class ClassicGame extends AbstractGame {
         AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
         oldSpace.removeOccupant(getCurrPlayer());
         int roll = rollDice();
+        int newIndex = getNewIndex(oldIndex, roll);
 
         if(!getCurrPlayer().isInJail()) {
-            getCurrPlayer().move(roll, getBoardSize());
+            this.movePlayer(oldIndex, newIndex);
         }
         else {
             incrementNumRollsinJail();
             if(getNumRollsInJail() == 3) {
-                getCurrPlayer().move(roll, getBoardSize());
+                this.movePlayer(oldIndex, newIndex);
                 resetNumRollsInJail();
             }
         }
-        int newIndex = getCurrPlayer().getCurrentLocation();
         checkPassGo(oldIndex, newIndex);
-        AbstractSpace newSpace = getBoard().getSpaceAt(newIndex);
-        newSpace.addOccupant(getCurrPlayer());
-
-        newSpace.doAction(this);
-
         return roll;
     }
 

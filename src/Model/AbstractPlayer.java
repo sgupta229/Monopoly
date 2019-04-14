@@ -7,6 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public abstract class AbstractPlayer implements Transfer {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
@@ -57,31 +58,11 @@ public abstract class AbstractPlayer implements Transfer {
         return funds;
     }
 
-//    public Token getToken() {
-//        return token;
-//    }
-
     public int getCurrentLocation(){
         return currentLocation;
     }
-//    public void setCurrentLocation(int newLocation) {
-//        currentLocation = newLocation;
-//    }
-    public int move(int moveSpaces, int boardSize) {
-        int oldLocation = currentLocation;
-        int newLocation = currentLocation + moveSpaces;
-        if(newLocation > boardSize - 1) {
-            moveTo(newLocation - boardSize,boardSize);
-        }
-        else {
-            moveTo(newLocation, boardSize);
-        }
-        return currentLocation;
-    }
-    public int moveTo(int newLocation, int boardSize) {
-        if(newLocation > boardSize - 1) {
-            throw new IllegalArgumentException("This is an invalid location");
-        }
+
+    public int moveTo(int newLocation) {
         int oldLocation = currentLocation;
         currentLocation = newLocation;
         myPCS.firePropertyChange("currentLocation",oldLocation,currentLocation);
@@ -121,12 +102,15 @@ public abstract class AbstractPlayer implements Transfer {
         return this.name;
     }
 
+    public void setCurrentLocation(int newLocation) {
+        currentLocation = newLocation;
+    }
+
     public void addActionCard(AbstractActionCard c) {
         actionCards.add(c);
     }
 
-    public abstract int getNumBuildings();
-
+    public abstract Map<BuildingTypes, Integer> getNumBuildings();
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
