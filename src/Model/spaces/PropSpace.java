@@ -12,8 +12,9 @@ public class PropSpace extends AbstractSpace {
     private Property myProperty;
 
 
-    public PropSpace(int locationIndex, String spaceName){
+    public PropSpace(int locationIndex, String spaceName, Property prop){
         super(locationIndex, spaceName);
+        myProperty = prop;
 
     }
 
