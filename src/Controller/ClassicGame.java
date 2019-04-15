@@ -11,9 +11,7 @@ public class ClassicGame extends AbstractGame {
         super(filename);
         ConfigReader configReader = new ConfigReader(filename);
 
-        numHouses = (int) configReader.getRuleDouble("Houses");
-        numHotels = (int) configReader.getRuleDouble("Hotels");
-        maxHouses = (int) configReader.getRuleDouble("MaxHouses");
+
         passGoAmount = (int) configReader.getRuleDouble("PassGo");
     }
 
