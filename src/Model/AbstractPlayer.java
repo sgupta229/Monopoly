@@ -17,7 +17,7 @@ public abstract class AbstractPlayer implements Transfer {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
     private String name;
-
+    private int numRollsInJail = 0;
     private double funds;
     private Map<String, ObservableList<Property>> properties;
     private ArrayList<AbstractActionCard> actionCards;
@@ -141,6 +141,18 @@ public abstract class AbstractPlayer implements Transfer {
 
     public Map<String, ObservableList<Property>> getProperties() {
         return properties;
+    }
+
+    public void incrementNumRollsinJail() {
+        numRollsInJail++;
+    }
+
+    public void resetNumRollsInJail() {
+        numRollsInJail = 0;
+    }
+
+    public int getNumRollsInJail() {
+        return numRollsInJail;
     }
 
 }

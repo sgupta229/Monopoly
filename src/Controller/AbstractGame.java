@@ -33,7 +33,7 @@ public abstract class AbstractGame {
 
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
     private List<String> possibleTokens;
-    private int numRollsInJail = 0;
+
 
     public AbstractGame(String filename) {
         parseXMLFile(filename);
@@ -176,18 +176,6 @@ public abstract class AbstractGame {
 
     }
 
-    public void incrementNumRollsinJail() {
-        numRollsInJail++;
-    }
-
-    public void resetNumRollsInJail() {
-        numRollsInJail = 0;
-    }
-
-    public int getNumRollsInJail() {
-        return numRollsInJail;
-    }
-
     public AbstractActionCard getCurrentActionCard() {
         return currentActionCard;
     }
@@ -220,10 +208,10 @@ public abstract class AbstractGame {
 
     }
 
-    public void callAction() {
+    public void callAction(int userChoice) {
         int currentLocation = currPlayer.getCurrentLocation();
         AbstractSpace currSpace = getBoard().getSpaceAt(currentLocation);
-        currSpace.doAction(this);
+        currSpace.doAction(this, userChoice);
     }
 
     public HashMap<Integer, ArrayList<Integer>> getDiceHistory() {

@@ -26,10 +26,10 @@ public class ClassicGame extends AbstractGame {
             this.movePlayer(oldIndex, newIndex);
         }
         else {
-            incrementNumRollsinJail();
-            if(getNumRollsInJail() == 3) {
+            getCurrPlayer().incrementNumRollsinJail();
+            if(getCurrPlayer().getNumRollsInJail() == 3) {
                 this.movePlayer(oldIndex, newIndex);
-                resetNumRollsInJail();
+                getCurrPlayer().resetNumRollsInJail();
             }
         }
         checkPassGo(oldIndex, newIndex);
