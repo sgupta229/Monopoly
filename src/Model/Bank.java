@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.ConfigReader;
 import Model.properties.ColorProperty;
 import Model.properties.Property;
 
@@ -12,6 +13,7 @@ public class Bank implements Transfer{
     private double myBalance;
     private double numHouses;
     private double numHotels;
+    private double maxHousesPerProp;
 
 
     @Deprecated
@@ -24,6 +26,7 @@ public class Bank implements Transfer{
         myBalance=allInfo.get(0);
         numHouses = allInfo.get(1);
         numHotels = allInfo.get(2);
+        maxHousesPerProp = allInfo.get(3);
         unOwnedProps = new HashSet<Property>(properties);
     }
 
@@ -86,11 +89,15 @@ public class Bank implements Transfer{
      */
     public void sellProperty(Property property, AbstractPlayer purchaser){}
 
-    /*public void mortgageProperty(Property property){
+    public void mortgageProperty(Property property){
         AbstractPlayer propOwner = ownedPropsMap.get(property);
         propOwner.makePayment(property.getMortgageAmount(), this);
         property.setIsMortgaged(true);
-    }*/
+    }
+
+    public void build(Property property){
+
+    }
 
     /***
      * Auctions off a property to the list of players at the auction

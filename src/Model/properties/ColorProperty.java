@@ -23,8 +23,8 @@ public class ColorProperty extends Property {
     private final double INFO_NUM = 8;
 
 
-    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo){
-        super(price, propName,color, paymentInfo);
+    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize){
+        super(price, propName, paymentInfo, groupSize);
         myColor=color;
         myGroup=color;
     }

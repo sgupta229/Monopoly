@@ -18,16 +18,18 @@ public abstract class Property {
     private String myColor;
     private Boolean isMortgaged;
     private List allPaymentInfo;
+    private int myGroupSize;
 
 
-    public Property(double price, String propName,  List<Double> paymentInfo){
+    public Property(double price, String propName,  List<Double> paymentInfo, int groupSize){
         myPrice=price;
         myName = propName;
         allPaymentInfo = paymentInfo;
+        myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
     }
 
-
+    @Deprecated
     public Property(double price, String propName, String color, List<Double> paymentInfo){
         myPrice=price;
         myName = propName;
@@ -72,6 +74,10 @@ public abstract class Property {
         return myGroup;
     }
 
+    public int getMyGroupSize(){
+        return myGroupSize;
+    }
+
 
     /***
      * A method that utilizes the member variables to calculate how
@@ -85,6 +91,7 @@ public abstract class Property {
     public void setIsMortgaged(boolean mortgageVal){
         isMortgaged = mortgageVal;
     }
+
     public boolean getIsMortgaged(){
         return isMortgaged;
     }
