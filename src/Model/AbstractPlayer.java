@@ -7,6 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractPlayer implements Transfer {
@@ -15,8 +16,8 @@ public abstract class AbstractPlayer implements Transfer {
     private String name;
 
     private double funds;
-    private ArrayList<Property> properties;
-    private ArrayList<AbstractActionCard> actionCards;
+    private List<Property> properties;
+    private List<AbstractActionCard> actionCards;
 //    private Token token;
     private int currentLocation;
 
@@ -115,5 +116,7 @@ public abstract class AbstractPlayer implements Transfer {
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
+
+    public List<AbstractActionCard> getActionCards(){return actionCards;}
 
 }

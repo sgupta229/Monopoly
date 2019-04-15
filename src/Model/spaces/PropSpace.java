@@ -25,31 +25,29 @@ public class PropSpace extends AbstractSpace {
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-    public void doAction(AbstractGame game, int userChoice){
+
+    public void doAction(AbstractGame game, int userChoice) {
         AbstractPlayer propOwner = game.getBank().propertyOwnedBy(myProperty);
         Bank bank = game.getBank();
         AbstractPlayer currPlayer = game.getCurrPlayer();
         double propertyPrice = myProperty.getPrice();
         int lastDiceRoll = game.getLastDiceRoll();
-        if(propOwner==null){
-            if(userChoice==0){ //aka buy property
+        if (propOwner == null) {
+            if (userChoice == 0) { //aka buy property
                 bank.setPropertyOwner(myProperty, currPlayer);
                 currPlayer.makePayment(propertyPrice, bank);
                 currPlayer.updateProperties //have to update the players assets
                 currPlayer.updatePropsMap
                 //front end updates this somewhere?
-            }
-            else{
+            } else {
                 //start auction process.
                 game.startAuction;
             }
-        }
-        else{ //property is owned by someone, what are the choices?
+        } else { //property is owned by someone, what are the choices?
             //pay rent or...
             currPlayer.makePayment(myProperty.calculateRent(propOwner, lastDiceRoll), propOwner);
         }
         //else()
-        game.endTurn();
     }
 
     public void linkSpaceToProperty(Property property){

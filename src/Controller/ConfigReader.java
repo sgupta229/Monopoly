@@ -151,16 +151,16 @@ public class ConfigReader {
                 }
                 else if(card.getAttribute("type").equalsIgnoreCase("LOSE_MONEY")){
                     String loseTo = card.getElementsByTagName("To").item(0).getTextContent();
-                    String[] amntTemp = loseTo.split(",");
+                    String[] amntTemp = card.getElementsByTagName("Amount").item(0).getTextContent().split(",");
                     List<Double> resAmnt = new ArrayList<>();
 
-//                    for(String n:amntTemp){
-//                        resAmnt.add(Double.parseDouble(n));
-//                    }
+                    for(String n:amntTemp){
+                        resAmnt.add(Double.parseDouble(n));
+                    }
 
-//                    //double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
-//                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
-//                    allActionCards.add(newCard);
+                    //double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
+                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
+                    allActionCards.add(newCard);
                 }
 //                else{
 //                    throw new XmlTagException(card.getAttribute("type"));
