@@ -11,6 +11,7 @@ import java.beans.PropertyChangeSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractPlayer implements Transfer {
@@ -18,13 +19,12 @@ public abstract class AbstractPlayer implements Transfer {
 
     private String name;
     private int numRollsInJail = 0;
+    private boolean inJail;
     private double funds;
     private Map<String, ObservableList<Property>> properties;
-    private ArrayList<AbstractActionCard> actionCards;
-//    private Token token;
+    private List<AbstractActionCard> actionCards;
     private int currentLocation;
 
-    private boolean inJail;
 
     public AbstractPlayer() {
         this.inJail = false;
@@ -65,8 +65,9 @@ public abstract class AbstractPlayer implements Transfer {
         setFunds(this.funds + amount);
     }
 
-    public boolean checkMonopoly() {
-        return false;
+    public boolean checkMonopoly(Property property) {
+        String group = property.getGroup().toLowerCase();
+        List<Property> check = 
     }
 
     public double getFunds() {
@@ -153,6 +154,10 @@ public abstract class AbstractPlayer implements Transfer {
 
     public int getNumRollsInJail() {
         return numRollsInJail;
+    }
+
+    public List<AbstractActionCard> getActionsCards() {
+        return actionCards;
     }
 
 }

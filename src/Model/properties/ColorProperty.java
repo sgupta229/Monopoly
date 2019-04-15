@@ -45,8 +45,6 @@ public class ColorProperty extends Property {
         else{
             throw new IndexOutOfBoundsException("Bad data") ;
         }
-
-
     }
 
     /***
@@ -90,10 +88,6 @@ public class ColorProperty extends Property {
             rentTotal+= rentNumbers.get(numHouse);
         }
         return rentTotal;
-    }
-
-    public void build(BuildingType type, Property property){
-
     }
 
     public void addHouse(){

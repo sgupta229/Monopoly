@@ -218,6 +218,10 @@ public abstract class AbstractGame {
         return diceHistory;
     }
 
+    public void startAuction() {
+
+    }
+
     public int getLastDiceRoll() {
         int roll = 0;
         for(Integer k : diceHistory.keySet()) {

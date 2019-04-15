@@ -80,8 +80,6 @@ public abstract class Property {
      */
     public abstract double calculateRent(AbstractPlayer propOwner, int lastDiceRoll);
 
-    public abstract void build(BuildingType type, Property property);
-
     public void setIsMortgaged(boolean mortgageVal){
         isMortgaged = mortgageVal;
     }

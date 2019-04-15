@@ -39,10 +39,6 @@ public class RailRoadProperty extends Property {
     @Deprecated
     public void build(){}
 
-    public void build(BuildingType type, Property property){
-
-    }
-
     /***
      * A method that utilizes the member variables to calculate how
      * much it costs when someone lands on this property
