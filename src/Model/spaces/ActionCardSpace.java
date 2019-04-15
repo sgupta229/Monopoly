@@ -4,18 +4,14 @@ import Controller.AbstractGame;
 
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
-import Model.DeckType;
-import Model.spaces.AbstractSpace;
-
-import Model.actioncards.AbstractActionCard;
-import Model.actioncards.ActionDeck;
+import Model.actioncards.DeckType;
 
 
 import java.util.List;
 
 public class ActionCardSpace extends AbstractSpace {
 
-    DeckType myDeckType;
+    private DeckType myDeckType;
 
     public ActionCardSpace(int locationIndex, String deckType){
         super(locationIndex, deckType);
@@ -37,7 +33,8 @@ public class ActionCardSpace extends AbstractSpace {
         for(ActionDeck d : tempDecks) {
             if (d.getMyDeckType() == myDeckType) {
                 cardDrawn = d.drawCard();
-                cardDrawn.doCardAction(game);
+                //cardDrawn.doCardAction(game);
+                game.setCurrentActionCard(cardDrawn);
             }
         }
         game.endTurn();

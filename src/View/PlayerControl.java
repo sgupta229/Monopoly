@@ -63,7 +63,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         TextField moveTo = new TextField();
         Button move = new Button("MOVE");
         moveBox.getChildren().addAll(moveTo,move);
-        move.setOnAction(e -> myPlayer.moveTo(Integer.parseInt(moveTo.getText()),40));
+        move.setOnAction(e -> myController.getGame().movePlayer(myController.getGame().getCurrPlayer().getCurrentLocation(), Integer.parseInt(moveTo.getText())));
 
         //TODO game.movePlayer(curr.getcurrentloc, new ind)
 

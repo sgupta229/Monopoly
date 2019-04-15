@@ -100,11 +100,6 @@ public class BuyPropertyPopup extends Popup {
             @Override
             public void handle(ActionEvent event) {
                 popUpWindow.close();
-
-                //TODO: get current player then loop through other players asking each for a bid, then go to a new screen that notifies the highest bid
-                for (AbstractPlayer pl : myController.getGame().getPlayers()){
-
-                }
                 Popup myPopup = new AuctionPopup("Auction",  myController.getGame().getRightPlayer().getName() +", would you like to purchase this property?", propLocation, name, myController);
                 myPopup.display();
             }

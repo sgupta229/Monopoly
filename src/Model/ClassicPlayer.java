@@ -1,5 +1,10 @@
 package Model;
 
+import Model.properties.BuildingType;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ClassicPlayer extends AbstractPlayer {
 
     public ClassicPlayer(String name) {
@@ -12,6 +17,11 @@ public class ClassicPlayer extends AbstractPlayer {
 
     public void doSpecialMove() {
 
+    }
+
+    public Map<BuildingType, Integer> getNumBuildings() {
+        Map<BuildingType, Integer> buildingInventory = new HashMap<>();
+        return buildingInventory;
     }
 
 }

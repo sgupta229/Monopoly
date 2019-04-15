@@ -2,7 +2,6 @@ package Model.actioncards;
 
 
 import Controller.AbstractGame;
-import Model.DeckType;
 
 public class MoveToAC extends AbstractActionCard {
     private String myTargetSpace;
