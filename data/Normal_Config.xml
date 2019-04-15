@@ -720,5 +720,6 @@
         <JailBail>50</JailBail>
         <PassGo>200</PassGo>
         <MaxHouses>4</MaxHouses>
+        <EvenBuilding>true</EvenBuilding>
     </Rules>
 </Game>

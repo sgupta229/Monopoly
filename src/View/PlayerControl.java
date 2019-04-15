@@ -75,9 +75,8 @@ public abstract class PlayerControl implements PropertyChangeListener {
         TextField moveTo = new TextField();
         Button move = new Button("MOVE");
         moveBox.getChildren().addAll(moveTo,move);
-        move.setOnAction(e -> myController.getGame().movePlayer(myController.getGame().getCurrPlayer().getCurrentLocation(), Integer.parseInt(moveTo.getText())));
 
-
+        move.setOnAction(e -> myController.getGame().movePlayer(myPlayer.getCurrentLocation(), Integer.parseInt(moveTo.getText())));
 
         //TODO game.movePlayer(curr.getcurrentloc, new ind)
 
@@ -97,7 +96,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         for (int i=0;i<10;i++){
             fakeVals.add(i+0.5);
         }
-        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals));
+        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals,3));
 
         ObservableList<Property> assetsList = FXCollections.observableArrayList(temp);
         ListView<Property> assetsListView = new ListView<>(assetsList);
