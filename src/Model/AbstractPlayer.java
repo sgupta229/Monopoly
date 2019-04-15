@@ -40,7 +40,7 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public void addProperty(Property property) {
-        String group = property.getGroup();
+        String group = property.getGroup().toLowerCase();
         if(!properties.containsKey(group)) {
             properties.get(group).add(property);
         }
@@ -129,6 +129,14 @@ public abstract class AbstractPlayer implements Transfer {
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
+    }
+
+    public void startAuction() {
+
+    }
+
+    public int getPropertiesOfType(String type) {
+        return properties.get(type.toLowerCase()).size();
     }
 
 }

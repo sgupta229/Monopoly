@@ -216,6 +216,10 @@ public abstract class AbstractGame {
         newSpace.addOccupant(getCurrPlayer());
     }
 
+    public void displayPopup() {
+
+    }
+
     public void callAction() {
         int currentLocation = currPlayer.getCurrentLocation();
         AbstractSpace currSpace = getBoard().getSpaceAt(currentLocation);
@@ -224,5 +228,13 @@ public abstract class AbstractGame {
 
     public HashMap<Integer, ArrayList<Integer>> getDiceHistory() {
         return diceHistory;
+    }
+
+    public int getLastDiceRoll() {
+        int roll = 0;
+        for(Integer k : diceHistory.keySet()) {
+            roll += diceHistory.get(k).get(diceHistory.get(k).size() - 1);
+        }
+        return roll;
     }
 }
