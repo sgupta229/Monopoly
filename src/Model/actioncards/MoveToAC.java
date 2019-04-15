@@ -21,7 +21,7 @@ public class MoveToAC extends AbstractActionCard {
             ActionDeck d = this.getMyDeck();
             d.discardCard(this);
         }
-        catch (IncompatibleClassChangeError e){
+        catch (NumberFormatException e){
             int counter = 0;
             for(SpaceGroup sg : SpaceGroup.values()){
                 counter ++;
