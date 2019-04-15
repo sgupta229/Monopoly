@@ -36,7 +36,6 @@ public class AddPlayersScreen {
     private Controller myController;
     private ObservableList<AbstractPlayer> myPlayers;
     private ObservableList<String> availableTokensStrings;
-//    private ObservableList<Image> availableTokensImages;
     private AnchorPane anchorPane = new AnchorPane();
 
     private ComboBox myIconMenu;
@@ -46,8 +45,6 @@ public class AddPlayersScreen {
         this.myController = controller;
         this.myPlayers = players;
         this.availableTokensStrings = tokens;
-//        this.availableTokensImages = makeImagesFromStrings(availableTokensStrings);
-//        this.availableTokensStrings.addListener(availableTokensImages);
         this.myWidth = width;
         this.myHeight = height;
         this.myRoot = new Group();
@@ -99,11 +96,12 @@ public class AddPlayersScreen {
         myIconMenu = createNewIconMenu();
         myPlayerNameField = createPlayerNameField();
         HBox nameAndIcon = new HBox(myIconMenu,myPlayerNameField);
+        nameAndIcon.setAlignment(Pos.CENTER_LEFT);
         nameAndIcon.setSpacing(20);
 
         ComboBox playerTypes = new ComboBox();
         playerTypes.setPromptText(messages.getString("choose-player-type"));
-        playerTypes.setPrefWidth(300);
+        playerTypes.setPrefWidth(350);
         Button add = new Button(messages.getString("add"));
         add.setAlignment(Pos.BOTTOM_RIGHT);
         add.setOnAction(new AddButtonHandler());

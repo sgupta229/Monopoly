@@ -97,8 +97,9 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public void setFunds(double newFunds) {
-        myPCS.firePropertyChange("funds",this.funds,newFunds);
+        double oldFunds = this.funds;
         this.funds = newFunds;
+        myPCS.firePropertyChange("funds",oldFunds,this.funds);
         System.out.println(this.getName() + "'s funds updated. new funds: " + funds);
     }
 
@@ -108,7 +109,7 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public void addFunds(double addAmount) {
-        setFunds(this.funds += addAmount);
+        setFunds(this.funds + addAmount);
     }
 
     public boolean isInJail() {

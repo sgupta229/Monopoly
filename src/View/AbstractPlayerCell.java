@@ -1,6 +1,7 @@
 package View;
 
 import Model.AbstractPlayer;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -11,7 +12,7 @@ import javafx.scene.layout.Priority;
 
 
 public class AbstractPlayerCell extends ListCell<AbstractPlayer> {
-        private HBox myHBox = new HBox();
+        private HBox myHBox;
         private Label label = new Label("");
         private Pane pane = new Pane();
         private Button button = new Button("X");
@@ -19,6 +20,8 @@ public class AbstractPlayerCell extends ListCell<AbstractPlayer> {
         public AbstractPlayerCell() {
             super();
 
+            myHBox = new HBox();
+            myHBox.setAlignment(Pos.CENTER_LEFT);
             myHBox.getChildren().addAll(label, pane, button);
             HBox.setHgrow(pane, Priority.ALWAYS);
             button.setOnAction(event -> getListView().getItems().remove(getItem()));
