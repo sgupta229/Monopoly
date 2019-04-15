@@ -490,20 +490,20 @@
             <Message>ADVANCE TOKEN TO NEAREST UTILITY. IF UNOWNED, YOU MAY BUY IT FROM THE BANK.
                 IF OWNED, THROW DICE AND PAY OWNER 10 TIMES THE AMOUNT THROWN</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>UTILITY_PROPERTY</TargetSpace>
+            <TargetSpace>UTILITY</TargetSpace>
         </ActionCardType>
         <ActionCardType type="MOVE_TO">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TOKEN TO NEAREST RAILROAD PAY OWNER TWICE THE RENTAL TO WHICH HE/SHE IS
             OTHERWISE ENTITLED. IF RAILROAD IS UNOWNED, YOU MAY BUY IT FROM THE BANK</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>RAILROAD_PROPERTY</TargetSpace>
+            <TargetSpace>RAILROAD</TargetSpace>
         </ActionCardType>
         <ActionCardType type="MOVE_TO">
             <DeckType>CHANCE</DeckType>
             <Message>GO BACK THREE SPACES</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>PROPERTY</TargetSpace>
+            <TargetSpace>-3</TargetSpace>
         </ActionCardType>
         <ActionCardType type="MOVE_TO">
             <DeckType>CHANCE</DeckType>
