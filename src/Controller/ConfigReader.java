@@ -388,7 +388,6 @@ public class ConfigReader {
             c.parseTokens();
         }
         catch(XmlTagException e){
-
         }
     }
 
