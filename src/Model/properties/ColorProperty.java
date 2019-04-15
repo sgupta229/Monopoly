@@ -4,8 +4,8 @@ import java.util.List;
 
 public class ColorProperty extends Property {
 
-    private double numHouse;
-    private double numHotel;
+    private int numHouse;
+    private int numHotel;
     private String myColor;
     private String myGroup;
     private double rent;
@@ -14,7 +14,9 @@ public class ColorProperty extends Property {
     private double rentThreeHouse;
     private double rentFourHouse;
     private double rentHotel;
+    private List<Double> rentNumbers;
     private double pricePerHouse;
+    private double pricePerHotel;
     private double mortgage;
     private final double INFO_NUM = 8;
 
@@ -34,7 +36,9 @@ public class ColorProperty extends Property {
             rentFourHouse = paymentInformation.get(4);
             rentHotel = paymentInformation.get(5);
             pricePerHouse = paymentInformation.get(6);
+            pricePerHotel = 0;
             mortgage = paymentInformation.get(7);
+            rentNumbers = paymentInformation.subList(0, 5);
         }
         else{
             throw new IndexOutOfBoundsException("Bad data") ;
@@ -56,7 +60,7 @@ public class ColorProperty extends Property {
      * @return the cost to place a hotel on this property
      */
     public double getCostofHotel(){
-        return 0.0;
+        return pricePerHotel;
     }
 
     /***
@@ -76,8 +80,14 @@ public class ColorProperty extends Property {
         if(this.getIsMortgaged()){
             return 0.0;
         }
-
-        return 0.0;
+        double rentTotal = 0.0;
+        if(numHotel>0){
+            rentTotal+= numHotel*pricePerHotel;
+        }
+        else{
+            rentTotal+= rentNumbers.get(numHouse);
+        }
+        return rentTotal;
     }
 
     public void build(){
@@ -97,10 +107,10 @@ public class ColorProperty extends Property {
     public void removeHotel(){
         numHotel--;
     }
-    public double getNumHouse(){
+    public int getNumHouse(){
         return numHouse;
     }
-    public double getNumHotel(){
+    public int getNumHotel(){
         return numHotel;
     }
 

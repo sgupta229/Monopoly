@@ -43,6 +43,20 @@ public class UtilityProperty extends Property {
      * @return the total rent value to be paid
      */
     public double calculateRent(){
-        return 0.0;
+        double rentTotal = 0.0;
+        if(this.getIsMortgaged()){
+            return 0.0;
+        }
+        else{
+            int lastDiceRoll = fdsfafa;
+            int numberOfUtilities = 0;
+            if(numberOfUtilities==1){
+                rentTotal+=lastDiceRoll*rentMult;
+            }
+            else{
+                rentTotal+=lastDiceRoll*rentMult2;
+            }
+        }
+        return rentTotal;
     }
 }

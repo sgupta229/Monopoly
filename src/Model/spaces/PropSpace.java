@@ -26,10 +26,10 @@ public class PropSpace extends AbstractSpace {
     public void doAction(AbstractGame game){
         AbstractPlayer propOwner = game.getBank().propertyOwnedBy(myProperty);
         if(propOwner==null){
-            game.setCurrPropertyOwned(false);
+            //game.setCurrPropertyOwned(false);
         }
         else{
-            game.setCurrP
+            //game.setCurrP
         }
         //else()
         game.endTurn();

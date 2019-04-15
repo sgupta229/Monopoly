@@ -1,15 +1,20 @@
 package Model.properties;
 
+
+import Model.AbstractPlayer;
+
 import java.util.List;
 
 public class RailRoadProperty extends Property {
 
     private String myGroup;
+    private AbstractPlayer myOwner;
     private double rent;
     private double rent2;
     private double rent3;
     private double rent4;
     private double mortgage;
+    private List<Double> rentNumbers;
     private final double INFO_NUM = 5;
 
 
@@ -25,6 +30,7 @@ public class RailRoadProperty extends Property {
             rent3 = paymentInformation.get(2);
             rent4 = paymentInformation.get(3);
             mortgage = paymentInformation.get(4);
+            rentNumbers = paymentInformation;
         }
         else{
             throw new IndexOutOfBoundsException("Bad data");
@@ -33,8 +39,9 @@ public class RailRoadProperty extends Property {
     }
 
     public void build(){
-
     }
+
+
 
     /***
      * A method that utilizes the member variables to calculate how
@@ -42,6 +49,15 @@ public class RailRoadProperty extends Property {
      * @return the total rent value to be paid
      */
     public double calculateRent(){
-        return 0.0;
+        double rentTotal = 0.0;
+        if(this.getIsMortgaged()){
+            return 0.0;
+        }
+        else{
+            int numberOfRailRoads = myOwner.g;
+            rentTotal+=rentNumbers.get(numberOfRailRoads-1);
+
+        }
+        return rentTotal;
     }
 }
