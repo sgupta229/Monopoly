@@ -1,7 +1,5 @@
 package Controller;
 
-import Model.spaces.AbstractSpace;
-
 public class ClassicGame extends AbstractGame {
 
     private int numHouses;
@@ -22,11 +20,8 @@ public class ClassicGame extends AbstractGame {
     @Override
     public int rollDice() {
         int oldIndex = getCurrPlayer().getCurrentLocation();
-        AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
-        oldSpace.removeOccupant(getCurrPlayer());
-        int roll = rollDice();
+        int roll = super.rollDice();
         int newIndex = getNewIndex(oldIndex, roll);
-
         if(!getCurrPlayer().isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }

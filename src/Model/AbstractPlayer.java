@@ -3,11 +3,14 @@ package Model;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
 import Model.properties.Property;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractPlayer implements Transfer {
@@ -16,8 +19,8 @@ public abstract class AbstractPlayer implements Transfer {
     private String name;
 
     private double funds;
-    private List<Property> properties;
-    private List<AbstractActionCard> actionCards;
+    private Map<String, ObservableList<Property>> properties;
+    private ArrayList<AbstractActionCard> actionCards;
 //    private Token token;
     private int currentLocation;
 
@@ -25,16 +28,27 @@ public abstract class AbstractPlayer implements Transfer {
 
     public AbstractPlayer() {
         this.inJail = false;
-        properties = new ArrayList<>();
+        properties = new HashMap<>();
         actionCards = new ArrayList<>();
     }
 
     public AbstractPlayer(String name) {
         this.name = name;
-//        this.tokenImage = tokenImage;
         this.inJail = false;
-        properties = new ArrayList<>();
+        properties = new HashMap<>();
         actionCards = new ArrayList<>();
+    }
+
+    public void addProperty(Property property) {
+        String group = property.getGroup().toLowerCase();
+        if(!properties.containsKey(group)) {
+            properties.get(group).add(property);
+        }
+        else {
+            ObservableList<Property> list = FXCollections.observableArrayList();
+            list.add(property);
+            properties.put(group, list);
+        }
     }
 
     @Override
@@ -117,6 +131,12 @@ public abstract class AbstractPlayer implements Transfer {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
 
-    public List<AbstractActionCard> getActionCards(){return actionCards;}
+    public void startAuction() {
+
+    }
+
+    public int getPropertiesOfType(String type) {
+        return properties.get(type.toLowerCase()).size();
+    }
 
 }

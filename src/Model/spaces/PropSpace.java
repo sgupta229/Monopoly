@@ -40,7 +40,7 @@ public class PropSpace extends AbstractSpace {
                 //front end updates this somewhere?
             } else {
                 //start auction process.
-                game.startAuction();
+                //game.startAuction();
             }
         } else { //property is owned by someone, what are the choices?
             //pay rent or...

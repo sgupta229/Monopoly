@@ -92,7 +92,7 @@ public class ColorProperty extends Property {
         return rentTotal;
     }
 
-    public void build(){
+    public void build(BuildingType type, Property property){
 
     }
 

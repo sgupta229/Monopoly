@@ -32,7 +32,7 @@ public class UtilityProperty extends Property {
 
     }
 
-    public void build(){
+    public void build(BuildingType type, Property property){
 
     }
 

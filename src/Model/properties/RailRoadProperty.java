@@ -36,7 +36,11 @@ public class RailRoadProperty extends Property {
 
     }
 
-    public void build(){
+    @Deprecated
+    public void build(){}
+
+    public void build(BuildingType type, Property property){
+
     }
 
 
