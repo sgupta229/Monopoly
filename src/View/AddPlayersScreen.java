@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,6 @@ public class AddPlayersScreen {
     private Controller myController;
     private ObservableList<AbstractPlayer> myPlayers;
     private ObservableList<String> availableTokensStrings;
-//    private ObservableList<Image> availableTokensImages;
     private AnchorPane anchorPane = new AnchorPane();
 
     private ComboBox myIconMenu;
@@ -45,8 +45,6 @@ public class AddPlayersScreen {
         this.myController = controller;
         this.myPlayers = players;
         this.availableTokensStrings = tokens;
-//        this.availableTokensImages = makeImagesFromStrings(availableTokensStrings);
-//        this.availableTokensStrings.addListener(availableTokensImages);
         this.myWidth = width;
         this.myHeight = height;
         this.myRoot = new Group();
@@ -98,11 +96,12 @@ public class AddPlayersScreen {
         myIconMenu = createNewIconMenu();
         myPlayerNameField = createPlayerNameField();
         HBox nameAndIcon = new HBox(myIconMenu,myPlayerNameField);
+        nameAndIcon.setAlignment(Pos.CENTER_LEFT);
         nameAndIcon.setSpacing(20);
 
         ComboBox playerTypes = new ComboBox();
         playerTypes.setPromptText(messages.getString("choose-player-type"));
-        playerTypes.setPrefWidth(300);
+        playerTypes.setPrefWidth(350);
         Button add = new Button(messages.getString("add"));
         add.setAlignment(Pos.BOTTOM_RIGHT);
         add.setOnAction(new AddButtonHandler());
@@ -133,17 +132,11 @@ public class AddPlayersScreen {
         Text editPlayerListTitle = new Text(messages.getString("edit-player-list"));
         ListView playerList = new ListView(myPlayers);
         playerList.setMaxHeight(180.0);
-        playerList.setCellFactory(param -> new ListCell<AbstractPlayer>() {
-            @Override
-            protected void updateItem(AbstractPlayer item, boolean empty) {
-                super.updateItem(item, empty);
 
-                if(!empty || item == null) {
-                    setText(null);
-                }
-                else {
-                    setText(item.getName());
-                }
+        playerList.setCellFactory(new Callback<ListView<AbstractPlayer>,ListCell<AbstractPlayer>>() {
+            @Override
+            public ListCell<AbstractPlayer> call(ListView<AbstractPlayer> list) {
+                return new AbstractPlayerCell();
             }
         });
 

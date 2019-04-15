@@ -94,13 +94,14 @@ public class BuyPropertyPopup extends Popup {
         Button button2= new Button("NO");
         button1.setId("button2");
         button2.setId("button2");
-//        button2.setOnAction(e -> new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name).display());
+//        button2.setOnAction(e -> new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name, myController).display());
         button2.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 popUpWindow.close();
-                Popup myPopup = new AuctionPopup("Auction",  myController.getGame().getRightPlayer().getName() +", would you like to purchase this property?", propLocation, name, myController);
+//                Popup myPopup = new AuctionPopup("Auction",  myController.getGame().getRightPlayer().getName() +", would you like to purchase this property?", propLocation, name, myController);
+                Popup myPopup = new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name, myController);
                 myPopup.display();
             }
         });

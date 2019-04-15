@@ -22,11 +22,8 @@ public class ClassicGame extends AbstractGame {
     @Override
     public int rollDice() {
         int oldIndex = getCurrPlayer().getCurrentLocation();
-        AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
-        oldSpace.removeOccupant(getCurrPlayer());
-        int roll = rollDice();
+        int roll = super.rollDice();
         int newIndex = getNewIndex(oldIndex, roll);
-
         if(!getCurrPlayer().isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }
@@ -42,7 +39,8 @@ public class ClassicGame extends AbstractGame {
     }
 
     public void checkPassGo(int oldIndex, int newIndex) {
-        if(0 <= newIndex && 0>= oldIndex) {
+        if(newIndex < oldIndex) {
+//        if(0 <= newIndex && 0>= oldIndex) {
             getCurrPlayer().addFunds(passGoAmount);
         }
     }
