@@ -67,7 +67,12 @@ public abstract class AbstractPlayer implements Transfer {
 
     public boolean checkMonopoly(Property property) {
         String group = property.getGroup().toLowerCase();
-        List<Property> check = 
+        int groupSize = property.getMyGroupSize();
+        List<Property> check = properties.get(group);
+        if(check.size() != groupSize) {
+            return false;
+        }
+        return true;
     }
 
     public double getFunds() {
@@ -160,4 +165,5 @@ public abstract class AbstractPlayer implements Transfer {
         return actionCards;
     }
 
+    public List<AbstractActionCard> getActionCards(){return actionCards;}
 }

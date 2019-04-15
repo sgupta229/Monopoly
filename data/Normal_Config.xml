@@ -720,6 +720,10 @@
         <JailBail>50</JailBail>
         <PassGo>200</PassGo>
         <MaxHouses>4</MaxHouses>
+<<<<<<< HEAD
         <RollsInJail>3</RollsInJail>
+=======
+        <EvenBuilding>true</EvenBuilding>
+>>>>>>> 70ddeefac433a385e7f0f03b38b4c37add0c5482
     </Rules>
 </Game>
