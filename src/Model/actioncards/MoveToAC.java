@@ -27,6 +27,7 @@ public class MoveToAC extends AbstractActionCard {
                 counter ++;
                 if (sg.name().equalsIgnoreCase(myTargetSpace)){
                     generalMove(game, sg);
+                    break;
                 }
                 else if(counter >= SpaceGroup.values().length){
                     specificMove(game);
@@ -42,12 +43,13 @@ public class MoveToAC extends AbstractActionCard {
         AbstractPlayer curr = game.getCurrPlayer();
         int prevLocation = curr.getCurrentLocation();
         int boardSize = game.getBoardSize();
-        for(int i=prevLocation+1; i<boardSize+prevLocation; i++){
+        for(int i=prevLocation; i<boardSize+prevLocation; i++){
             if(i >= boardSize){
                 i = i-boardSize;
             }
             if(game.getBoard().getSpaceAt(i).getMyGroup() == group){
                 game.movePlayer(prevLocation, i);
+                return;
             }
         }
     }
