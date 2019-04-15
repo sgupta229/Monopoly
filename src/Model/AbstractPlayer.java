@@ -51,6 +51,8 @@ public abstract class AbstractPlayer implements Transfer {
         }
     }
 
+
+
     @Override
     public void makePayment(double amount, Transfer receiver) {
         if(this.funds < amount) {
@@ -90,12 +92,7 @@ public abstract class AbstractPlayer implements Transfer {
         return currentLocation;
     }
 
-    public void proposeTrade(AbstractPlayer other) {
-
-    }
-
-    public void build(BuildingType type) {
-
+    public void executeTrade(AbstractPlayer other, List<Property> currProp, List<Property> otherProp) {
 
     }
 
