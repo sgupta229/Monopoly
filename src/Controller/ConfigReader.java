@@ -189,24 +189,28 @@ public class ConfigReader {
                 if(space.getAttribute("type").equalsIgnoreCase("ACTION")) {
                     AbstractSpace newSpace = new ActionCardSpace(index, spaceName);
                     allSpaces.add(newSpace);
-
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("FREE_PARKING")) {
                     AbstractSpace newSpace = new FreeParkingSpace(index, spaceName);
                     allSpaces.add(newSpace);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("GO")) {
                     AbstractSpace newSpace = new GoSpace(index, spaceName);
                     allSpaces.add(newSpace);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("GO_TO_JAIL")) {
                     String spaceToMoveTo = space.getElementsByTagName("TargetSpace").item(0).getTextContent();
                     AbstractSpace newSpace = new GoToSpace(index, spaceName, spaceToMoveTo);
                     allSpaces.add(newSpace);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("JAIL")) {
                     AbstractSpace newSpace = new JailSpace(index, spaceName);
                     allSpaces.add(newSpace);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("TAX")) {
                     double flatRate = Double.parseDouble(space.getElementsByTagName("FlatRate").item(0).getTextContent());
@@ -214,6 +218,7 @@ public class ConfigReader {
                     double newPercent = percentage/100;
                     AbstractSpace newSpace = new TaxSpace(index, spaceName, flatRate, newPercent);
                     allSpaces.add(newSpace);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("COLOR_PROPERTY")) {
@@ -244,6 +249,7 @@ public class ConfigReader {
                     Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("RAILROAD_PROPERTY")) {
@@ -264,6 +270,7 @@ public class ConfigReader {
                     Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("UTILITY_PROPERTY")) {
@@ -280,6 +287,7 @@ public class ConfigReader {
                     Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
                 }
 //                else{
 //                    throw new XmlTagException(space.getAttribute("type"));
