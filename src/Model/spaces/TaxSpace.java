@@ -7,9 +7,12 @@ import Model.spaces.AbstractSpace;
 
 public class TaxSpace extends AbstractSpace {
 
-    double flatRate;
-    double percentageTaken;
-    Transfer taxReceiver;
+    private double flatRate;
+    private double percentageTaken;
+    private Transfer taxReceiver;
+    private final int TAKE_FIXED_AMOUNT=0;
+    private final int TAKE_PERCENTAGE=1;
+
 
     public TaxSpace(int locationIndex, String spaceName, double myRate, double myPercentage){
         super(locationIndex, spaceName);
@@ -27,24 +30,18 @@ public class TaxSpace extends AbstractSpace {
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-    public void doAction(AbstractGame game){
+    public void doAction(AbstractGame game, int userChoice){
         double amountTaxed;
         taxReceiver = game.getBank();
         AbstractPlayer currentPlayer = game.getCurrPlayer();
         double playersWealth = currentPlayer.getFunds();
-        double tempFlat = playersWealth-flatRate;
-        double tempPercent =  playersWealth - (playersWealth*percentageTaken);
-        if(percentageTaken>0){
-            if(tempFlat>tempPercent){
-                amountTaxed = flatRate;
-            }
-            else{
-                amountTaxed = playersWealth*percentageTaken;
-            }
-        }
-        else{
+        if(userChoice==TAKE_FIXED_AMOUNT){
             amountTaxed = flatRate;
         }
+        else{
+            amountTaxed = playersWealth*percentageTaken;
+        }
+
         currentPlayer.makePayment(amountTaxed, taxReceiver);
         game.endTurn();
     }

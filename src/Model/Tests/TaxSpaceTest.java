@@ -1,4 +1,4 @@
-package Model.Tests;
+package Model.tests;
 
 import Controller.ClassicGame;
 import Model.*;
@@ -40,14 +40,14 @@ class TaxSpaceTest {
     @Test
     void doActionRemovesPlayerFunds() {
         var newFunds =player1.getFunds()-10;
-        taxSpace.doAction(gameClass);
+        taxSpace.doAction(gameClass,0);
         assertEquals(newFunds, player1.getFunds());
     }
 
     @Test
     void doActionAddsBankFunds() {
         var newFunds =gameBank.getBankBalance()+10.0;
-        taxSpace.doAction(gameClass);
+        taxSpace.doAction(gameClass,0);
         assertEquals(newFunds, gameBank.getBankBalance());
     }
 }

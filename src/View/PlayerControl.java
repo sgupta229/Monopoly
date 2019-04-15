@@ -78,6 +78,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         move.setOnAction(e -> myController.getGame().movePlayer(myController.getGame().getCurrPlayer().getCurrentLocation(), Integer.parseInt(moveTo.getText())));
 
 
+
         //TODO game.movePlayer(curr.getcurrentloc, new ind)
 
         myVBox.setId("playerControlBox");
@@ -93,7 +94,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
     private ListView createAssetsListView(){
         ArrayList<Property> temp = new ArrayList<>();
         ArrayList<Double> fakeVals = new ArrayList<>();
-        for (int i=0;i<8;i++){
+        for (int i=0;i<10;i++){
             fakeVals.add(i+0.5);
         }
         temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals));

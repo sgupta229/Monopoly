@@ -3,6 +3,7 @@ package View.PopUps;
 import Controller.Controller;
 import Model.AbstractPlayer;
 import Model.spaces.AbstractSpace;
+import Model.spaces.PropSpace;
 import View.BoardConfigReader;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,13 +32,17 @@ public class BuyPropertyPopup extends Popup {
     private ArrayList propDetails;
     private String name;
     private Controller myController;
+    private AbstractSpace mySpace;
+
 
     public BuyPropertyPopup(int propLocation, Controller controller) {
         super();
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         colorPropInfo = spaceInfo.getColorPropInfo();
+        ArrayList details = colorPropInfo.get(propLocation);
         this.myController = controller;
+        mySpace = new PropSpace(propLocation, details.get(details.size()-1).toString());
     }
 
     public BuyPropertyPopup(int propLocation) {
@@ -115,17 +120,13 @@ public class BuyPropertyPopup extends Popup {
                 myPopup.display();
             }
         });
-        button1.setOnAction(e -> popUpWindow.close());
+        button1.setOnAction(e -> mySpace.doAction(myController.getGame(),0));
+//        button1.setOnAction(e -> popUpWindow.close());
         buttons.getChildren().addAll(button1,button2);
 
         return buttons;
     }
 
-//    @Override
-//    protected Scene setSizeOfPopup(BorderPane layout) {
-//        Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
-//        return scene1;
-//    }
 
     private FlowPane propertyInfo(Scene scene){
         FlowPane textPane = new FlowPane();

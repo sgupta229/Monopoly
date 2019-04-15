@@ -43,6 +43,7 @@ public abstract class AbstractActionCard {
     }
 
     public abstract void doCardAction(AbstractGame game);
+    //public abstract void doCardAction(AbstractGame game, int userChoice);
 
     public DeckType getMyDeckType(){
         return myDeckType;
