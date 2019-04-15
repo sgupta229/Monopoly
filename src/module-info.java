@@ -7,6 +7,7 @@ module monopoly.team04 {
     requires java.naming;
     requires org.junit.jupiter.api;
     requires org.testfx;
+    requires org.testfx.junit5;
 
     exports View;
 }
