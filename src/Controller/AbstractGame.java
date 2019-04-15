@@ -220,10 +220,10 @@ public abstract class AbstractGame {
 
     }
 
-    public void callAction() {
+    public void callAction(int userChoice) {
         int currentLocation = currPlayer.getCurrentLocation();
         AbstractSpace currSpace = getBoard().getSpaceAt(currentLocation);
-        currSpace.doAction(this);
+        currSpace.doAction(this, userChoice);
     }
 
     public HashMap<Integer, ArrayList<Integer>> getDiceHistory() {
