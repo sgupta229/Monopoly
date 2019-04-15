@@ -2,6 +2,7 @@ package View;
 
 import Controller.Controller;
 import Model.AbstractPlayer;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -77,6 +78,7 @@ public class AddPlayersScreen {
 
         Button startGame = new Button(messages.getString("start-game"));
         startGame.setOnAction(new StartButtonHandler());
+        startGame.disableProperty().bind(Bindings.size(myPlayers).lessThan(1));
 
         anchorPane.getChildren().addAll(title,screenContent,startGame);
         AnchorPane.setTopAnchor(title,76.0);
@@ -105,6 +107,7 @@ public class AddPlayersScreen {
         Button add = new Button(messages.getString("add"));
         add.setAlignment(Pos.BOTTOM_RIGHT);
         add.setOnAction(new AddButtonHandler());
+        add.disableProperty().bind(Bindings.size(myPlayers).greaterThan(7));
 
         newPlayer.getChildren().addAll(newPlayerTitle,playerTypes,nameAndIcon,add);
         return newPlayer;
