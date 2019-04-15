@@ -1,5 +1,7 @@
 package Model.properties;
 
+import Model.AbstractPlayer;
+
 import java.util.List;
 
 public class ColorProperty extends Property {
@@ -36,8 +38,8 @@ public class ColorProperty extends Property {
             rentFourHouse = paymentInformation.get(4);
             rentHotel = paymentInformation.get(5);
             pricePerHouse = paymentInformation.get(6);
-            pricePerHotel = 0;
-            mortgage = paymentInformation.get(7);
+            pricePerHotel = paymentInformation.get(7);
+            mortgage = paymentInformation.get(8);
             rentNumbers = paymentInformation.subList(0, 5);
         }
         else{
@@ -76,7 +78,7 @@ public class ColorProperty extends Property {
      * much it costs when someone lands on this property
      * @return the total rent value to be paid
      */
-    public double calculateRent(){
+    public double calculateRent(AbstractPlayer propOwner, int lastDiceRoll){
         if(this.getIsMortgaged()){
             return 0.0;
         }

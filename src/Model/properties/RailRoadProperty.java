@@ -7,8 +7,7 @@ import java.util.List;
 
 public class RailRoadProperty extends Property {
 
-    private String myGroup;
-    private AbstractPlayer myOwner;
+    private String myGroup= "RAILROAD";
     private double rent;
     private double rent2;
     private double rent3;
@@ -20,7 +19,6 @@ public class RailRoadProperty extends Property {
 
     public RailRoadProperty(double price, String propName, List<Double> paymentInfo){
         super(price, propName, paymentInfo);
-        myGroup = propName;
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation){
@@ -48,13 +46,13 @@ public class RailRoadProperty extends Property {
      * much it costs when someone lands on this property
      * @return the total rent value to be paid
      */
-    public double calculateRent(){
+    public double calculateRent(AbstractPlayer propOwner, int lastDiceRoll){
         double rentTotal = 0.0;
         if(this.getIsMortgaged()){
             return 0.0;
         }
         else{
-            int numberOfRailRoads = myOwner.g;
+            int numberOfRailRoads = propOwner.get;
             rentTotal+=rentNumbers.get(numberOfRailRoads-1);
 
         }

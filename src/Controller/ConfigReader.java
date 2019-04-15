@@ -228,6 +228,8 @@ public class ConfigReader {
                     double rentFourHouse = Double.parseDouble(space.getElementsByTagName("Rent4House").item(0).getTextContent());
                     double rentHotel = Double.parseDouble(space.getElementsByTagName("RentHotel").item(0).getTextContent());
                     double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
+                    double pricePerHotel = Double.parseDouble(space.getElementsByTagName("PricePerHotel").item(0).getTextContent());
+
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
                     ArrayList<Double> rentAmounts = new ArrayList<>();
                     rentAmounts.add(rent);
@@ -237,6 +239,7 @@ public class ConfigReader {
                     rentAmounts.add(rentFourHouse);
                     rentAmounts.add(rentHotel);
                     rentAmounts.add(pricePerHouse);
+                    rentAmounts.add(pricePerHotel);
                     rentAmounts.add(mortgage);
                     Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);

@@ -26,6 +26,7 @@
             <Rent4House>160</Rent4House>
             <RentHotel>250</RentHotel>
             <PricePerHouse>50</PricePerHouse>
+            <PricePerHotel>50</PricePerHotel>
             <Mortgage>30</Mortgage>
         </Space>
         <Space type="ACTION">
@@ -45,6 +46,7 @@
             <Rent4House>320</Rent4House>
             <RentHotel>450</RentHotel>
             <PricePerHouse>50</PricePerHouse>
+            <PricePerHotel>50</PricePerHotel>
             <Mortgage>30</Mortgage>
         </Space>
         <Space type="TAX">
@@ -77,6 +79,7 @@
             <Rent4House>400</Rent4House>
             <RentHotel>550</RentHotel>
             <PricePerHouse>50</PricePerHouse>
+            <PricePerHotel>50</PricePerHotel>
             <Mortgage>50</Mortgage>
         </Space>
         <Space type="ACTION">
@@ -96,6 +99,7 @@
             <Rent4House>400</Rent4House>
             <RentHotel>550</RentHotel>
             <PricePerHouse>50</PricePerHouse>
+            <PricePerHotel>50</PricePerHotel>
             <Mortgage>50</Mortgage>
         </Space>
         <Space type="COLOR_PROPERTY">
@@ -111,6 +115,7 @@
             <Rent4House>450</Rent4House>
             <RentHotel>600</RentHotel>
             <PricePerHouse>50</PricePerHouse>
+            <PricePerHotel>50</PricePerHotel>
             <Mortgage>60</Mortgage>
         </Space>
         <Space type="JAIL">
@@ -130,6 +135,7 @@
             <Rent4House>625</Rent4House>
             <RentHotel>750</RentHotel>
             <PricePerHouse>100</PricePerHouse>
+            <PricePerHotel>100</PricePerHotel>
             <Mortgage>70</Mortgage>
         </Space>
         <Space type="UTILITY_PROPERTY">
@@ -154,6 +160,7 @@
             <Rent4House>625</Rent4House>
             <RentHotel>750</RentHotel>
             <PricePerHouse>100</PricePerHouse>
+            <PricePerHotel>100</PricePerHotel>
             <Mortgage>70</Mortgage>
         </Space>
         <Space type="COLOR_PROPERTY">
@@ -169,6 +176,7 @@
             <Rent4House>700</Rent4House>
             <RentHotel>900</RentHotel>
             <PricePerHouse>100</PricePerHouse>
+            <PricePerHotel>100</PricePerHotel>
             <Mortgage>80</Mortgage>
         </Space>
         <Space type="RAILROAD_PROPERTY">
@@ -195,6 +203,7 @@
             <Rent4House>750</Rent4House>
             <RentHotel>950</RentHotel>
             <PricePerHouse>100</PricePerHouse>
+            <PricePerHotel>100</PricePerHotel>
             <Mortgage>90</Mortgage>
         </Space>
         <Space type="ACTION">
@@ -214,6 +223,7 @@
             <Rent4House>750</Rent4House>
             <RentHotel>950</RentHotel>
             <PricePerHouse>100</PricePerHouse>
+            <PricePerHotel>100</PricePerHotel>
             <Mortgage>90</Mortgage>
         </Space>
         <Space type="COLOR_PROPERTY">
@@ -229,6 +239,7 @@
             <Rent4House>800</Rent4House>
             <RentHotel>1000</RentHotel>
             <PricePerHouse>100</PricePerHouse>
+            <PricePerHotel>100</PricePerHotel>
             <Mortgage>100</Mortgage>
         </Space>
         <Space type="FREE_PARKING">
@@ -248,6 +259,7 @@
             <Rent4House>875</Rent4House>
             <RentHotel>1050</RentHotel>
             <PricePerHouse>150</PricePerHouse>
+            <PricePerHotel>150</PricePerHotel>
             <Mortgage>110</Mortgage>
         </Space>
         <Space type="ACTION">
@@ -268,6 +280,7 @@
             <Rent4House>875</Rent4House>
             <RentHotel>1050</RentHotel>
             <PricePerHouse>150</PricePerHouse>
+            <PricePerHotel>150</PricePerHotel>
             <Mortgage>110</Mortgage>
         </Space>
         <Space type="COLOR_PROPERTY">
@@ -283,6 +296,7 @@
             <Rent4House>925</Rent4House>
             <RentHotel>1100</RentHotel>
             <PricePerHouse>150</PricePerHouse>
+            <PricePerHotel>150</PricePerHotel>
             <Mortgage>120</Mortgage>
         </Space>
         <Space type="RAILROAD_PROPERTY">
@@ -309,6 +323,7 @@
             <Rent4House>975</Rent4House>
             <RentHotel>1150</RentHotel>
             <PricePerHouse>150</PricePerHouse>
+            <PricePerHotel>150</PricePerHotel>
             <Mortgage>130</Mortgage>
         </Space>
         <Space type="COLOR_PROPERTY">
@@ -324,6 +339,7 @@
             <Rent4House>975</Rent4House>
             <RentHotel>1150</RentHotel>
             <PricePerHouse>150</PricePerHouse>
+            <PricePerHotel>150</PricePerHotel>
             <Mortgage>130</Mortgage>
         </Space>
         <Space type="UTILITY_PROPERTY">
@@ -348,6 +364,7 @@
             <Rent4House>1025</Rent4House>
             <RentHotel>1200</RentHotel>
             <PricePerHouse>150</PricePerHouse>
+            <PricePerHotel>150</PricePerHotel>
             <Mortgage>140</Mortgage>
         </Space>
         <Space type="GO_TO_JAIL">
@@ -368,6 +385,7 @@
             <Rent4House>1105</Rent4House>
             <RentHotel>1275</RentHotel>
             <PricePerHouse>200</PricePerHouse>
+            <PricePerHotel>200</PricePerHotel>
             <Mortgage>150</Mortgage>
         </Space>
         <Space type="COLOR_PROPERTY">
@@ -383,6 +401,7 @@
             <Rent4House>1105</Rent4House>
             <RentHotel>1275</RentHotel>
             <PricePerHouse>200</PricePerHouse>
+            <PricePerHotel>200</PricePerHotel>
             <Mortgage>150</Mortgage>
         </Space>
         <Space type="ACTION">
@@ -402,6 +421,7 @@
             <Rent4House>1200</Rent4House>
             <RentHotel>1400</RentHotel>
             <PricePerHouse>200</PricePerHouse>
+            <PricePerHotel>200</PricePerHotel>
             <Mortgage>160</Mortgage>
         </Space>
         <Space type="RAILROAD_PROPERTY">
@@ -432,6 +452,7 @@
             <Rent4House>1300</Rent4House>
             <RentHotel>1500</RentHotel>
             <PricePerHouse>200</PricePerHouse>
+            <PricePerHotel>200</PricePerHotel>
             <Mortgage>175</Mortgage>
         </Space>
         <Space type="TAX">
@@ -453,6 +474,7 @@
             <Rent4House>1700</Rent4House>
             <RentHotel>2000</RentHotel>
             <PricePerHouse>200</PricePerHouse>
+            <PricePerHotel>200</PricePerHotel>
             <Mortgage>200</Mortgage>
         </Space>
     </Spaces>

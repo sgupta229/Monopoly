@@ -1,12 +1,13 @@
 package Model.properties;
 
+import Model.AbstractPlayer;
 import Model.properties.Property;
 
 import java.util.List;
 
 public class UtilityProperty extends Property {
 
-    private String myGroup;
+    private String myGroup = "UTILITY";
     private double rentMult;
     private double rentMult2;
     private double mortgage;
@@ -15,7 +16,6 @@ public class UtilityProperty extends Property {
 
     public UtilityProperty(double price, String propName, List<Double> paymentInfo){
         super(price, propName, paymentInfo);
-        myGroup = propName;
 
     }
 
@@ -42,14 +42,13 @@ public class UtilityProperty extends Property {
      * much it costs when someone lands on this property
      * @return the total rent value to be paid
      */
-    public double calculateRent(){
+    public double calculateRent(AbstractPlayer propOwner, int lastDiceRoll){
         double rentTotal = 0.0;
         if(this.getIsMortgaged()){
             return 0.0;
         }
         else{
-            int lastDiceRoll = fdsfafa;
-            int numberOfUtilities = 0;
+            int numberOfUtilities = propOwner.get;
             if(numberOfUtilities==1){
                 rentTotal+=lastDiceRoll*rentMult;
             }
