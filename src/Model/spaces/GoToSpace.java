@@ -26,7 +26,7 @@ public class GoToSpace extends AbstractSpace {
      * @param game the active Game driver class for this game
      */
 
-    public void doAction(AbstractGame game){
+    public void doAction(AbstractGame game, int userChoice){
         AbstractPlayer currPlayer = game.getCurrPlayer();
         spacesLocation = game.getBoard().getLocationOfSpace(spaceToMoveTo);
         int oldLocation = currPlayer.getCurrentLocation();

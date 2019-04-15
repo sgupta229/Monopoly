@@ -14,6 +14,7 @@ public abstract class AbstractSpace {
     private int myLocation;
     private String myName;
     List<AbstractPlayer> myOccupants = new ArrayList<>();
+    private SpaceGroup myGroup;
 
     public AbstractSpace(int locationIndex, String spaceName){
         myLocation = locationIndex;
@@ -27,7 +28,7 @@ public abstract class AbstractSpace {
      * get a specific deck and draw a card, and more.
      * @param game the active Game driver class for this game
      */
-    public abstract void doAction(AbstractGame game);
+    public abstract void doAction(AbstractGame game, int userChoice);
 
     /***
      * Getter method that gets all the players on the given space
@@ -55,6 +56,7 @@ public abstract class AbstractSpace {
         return myName;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,6 +64,14 @@ public abstract class AbstractSpace {
         AbstractSpace that = (AbstractSpace) o;
         return myLocation == that.myLocation &&
                 myName.equals(that.myName);
+    }
+
+    public SpaceGroup getMyGroup(){
+        return myGroup;
+    }
+
+    public void setMyGroup(SpaceGroup group){
+        myGroup = group;
     }
 
     @Override

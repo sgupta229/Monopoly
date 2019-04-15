@@ -27,7 +27,7 @@ public class ActionCardSpace extends AbstractSpace {
      * @param game the active Game driver class for this game
      */
 
-    public void doAction(AbstractGame game){
+    public void doAction(AbstractGame game, int userChoice){
         AbstractActionCard cardDrawn;
         List<ActionDeck> tempDecks = game.getMyActionDecks();
         for(ActionDeck d : tempDecks) {

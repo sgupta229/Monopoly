@@ -18,7 +18,7 @@ public class JailSpace extends AbstractSpace {
      * @param game the active Game driver class for this game
      */
 
-    public void doAction(AbstractGame game){
+    public void doAction(AbstractGame game, int userChoice){
         game.endTurn();
     }
 }

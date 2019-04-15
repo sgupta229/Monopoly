@@ -151,16 +151,16 @@ public class ConfigReader {
                 }
                 else if(card.getAttribute("type").equalsIgnoreCase("LOSE_MONEY")){
                     String loseTo = card.getElementsByTagName("To").item(0).getTextContent();
-                    String[] amntTemp = loseTo.split(",");
+                    String[] amntTemp = card.getElementsByTagName("Amount").item(0).getTextContent().split(",");
                     List<Double> resAmnt = new ArrayList<>();
 
-//                    for(String n:amntTemp){
-//                        resAmnt.add(Double.parseDouble(n));
-//                    }
+                    for(String n:amntTemp){
+                        resAmnt.add(Double.parseDouble(n));
+                    }
 
-//                    //double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
-//                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
-//                    allActionCards.add(newCard);
+                    //double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
+                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
+                    allActionCards.add(newCard);
                 }
 //                else{
 //                    throw new XmlTagException(card.getAttribute("type"));
@@ -189,24 +189,28 @@ public class ConfigReader {
                 if(space.getAttribute("type").equalsIgnoreCase("ACTION")) {
                     AbstractSpace newSpace = new ActionCardSpace(index, spaceName);
                     allSpaces.add(newSpace);
-
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("FREE_PARKING")) {
                     AbstractSpace newSpace = new FreeParkingSpace(index, spaceName);
                     allSpaces.add(newSpace);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("GO")) {
                     AbstractSpace newSpace = new GoSpace(index, spaceName);
                     allSpaces.add(newSpace);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("GO_TO_JAIL")) {
                     String spaceToMoveTo = space.getElementsByTagName("TargetSpace").item(0).getTextContent();
                     AbstractSpace newSpace = new GoToSpace(index, spaceName, spaceToMoveTo);
                     allSpaces.add(newSpace);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("JAIL")) {
                     AbstractSpace newSpace = new JailSpace(index, spaceName);
                     allSpaces.add(newSpace);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("TAX")) {
                     double flatRate = Double.parseDouble(space.getElementsByTagName("FlatRate").item(0).getTextContent());
@@ -214,6 +218,7 @@ public class ConfigReader {
                     double newPercent = percentage/100;
                     AbstractSpace newSpace = new TaxSpace(index, spaceName, flatRate, newPercent);
                     allSpaces.add(newSpace);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("COLOR_PROPERTY")) {
@@ -228,6 +233,8 @@ public class ConfigReader {
                     double rentFourHouse = Double.parseDouble(space.getElementsByTagName("Rent4House").item(0).getTextContent());
                     double rentHotel = Double.parseDouble(space.getElementsByTagName("RentHotel").item(0).getTextContent());
                     double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
+                    double pricePerHotel = Double.parseDouble(space.getElementsByTagName("PricePerHotel").item(0).getTextContent());
+
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
                     ArrayList<Double> rentAmounts = new ArrayList<>();
                     rentAmounts.add(rent);
@@ -237,10 +244,12 @@ public class ConfigReader {
                     rentAmounts.add(rentFourHouse);
                     rentAmounts.add(rentHotel);
                     rentAmounts.add(pricePerHouse);
+                    rentAmounts.add(pricePerHotel);
                     rentAmounts.add(mortgage);
                     Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("RAILROAD_PROPERTY")) {
@@ -261,6 +270,7 @@ public class ConfigReader {
                     Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("UTILITY_PROPERTY")) {
@@ -277,6 +287,7 @@ public class ConfigReader {
                     Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts);
                     ((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
+                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
                 }
 //                else{
 //                    throw new XmlTagException(space.getAttribute("type"));

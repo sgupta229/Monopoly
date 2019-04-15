@@ -1,7 +1,5 @@
 package Controller;
 
-import Model.spaces.AbstractSpace;
-
 public class ClassicGame extends AbstractGame {
 
     private int numHouses;
