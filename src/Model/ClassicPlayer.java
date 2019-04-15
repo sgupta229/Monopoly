@@ -1,6 +1,8 @@
 package Model;
 
 import Model.properties.BuildingType;
+import Model.properties.Property;
+import javafx.collections.ObservableList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +18,15 @@ public class ClassicPlayer extends AbstractPlayer {
     }
 
     public void doSpecialMove() {
+
+    }
+
+    public int getNumHouses() {
+        Map<String, ObservableList<Property>> properties = getProperties();
+
+    }
+
+    public int getNumHotels() {
 
     }
 

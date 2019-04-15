@@ -80,7 +80,7 @@ public class ColorProperty extends Property {
         return 0.0;
     }
 
-    public void build(BuildingTypes type, Property property){
+    public void build(BuildingType type, Property property){
 
     }
 

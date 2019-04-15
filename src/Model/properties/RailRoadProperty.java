@@ -32,7 +32,7 @@ public class RailRoadProperty extends Property {
 
     }
 
-    public void build(BuildingTypes type, Property property){
+    public void build(BuildingType type, Property property){
 
     }
 

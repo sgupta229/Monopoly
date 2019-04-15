@@ -139,4 +139,8 @@ public abstract class AbstractPlayer implements Transfer {
         return properties.get(type.toLowerCase()).size();
     }
 
+    public Map<String, ObservableList<Property>> getProperties() {
+        return properties;
+    }
+
 }
