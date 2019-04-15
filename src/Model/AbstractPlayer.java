@@ -18,14 +18,13 @@ public abstract class AbstractPlayer implements Transfer {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
     private String name;
-
+    private int numRollsInJail = 0;
+    private boolean inJail;
     private double funds;
     private Map<String, ObservableList<Property>> properties;
     private List<AbstractActionCard> actionCards;
-//    private Token token;
     private int currentLocation;
 
-    private boolean inJail;
 
     public AbstractPlayer() {
         this.inJail = false;
@@ -52,6 +51,8 @@ public abstract class AbstractPlayer implements Transfer {
         }
     }
 
+
+
     @Override
     public void makePayment(double amount, Transfer receiver) {
         if(this.funds < amount) {
@@ -66,8 +67,14 @@ public abstract class AbstractPlayer implements Transfer {
         setFunds(this.funds + amount);
     }
 
-    public boolean checkMonopoly() {
-        return false;
+    public boolean checkMonopoly(Property property) {
+        String group = property.getGroup().toLowerCase();
+        int groupSize = property.getMyGroupSize();
+        List<Property> check = properties.get(group);
+        if(check.size() != groupSize) {
+            return false;
+        }
+        return true;
     }
 
     public double getFunds() {
@@ -85,12 +92,7 @@ public abstract class AbstractPlayer implements Transfer {
         return currentLocation;
     }
 
-    public void proposeTrade(AbstractPlayer other) {
-
-    }
-
-    public void build(BuildingType type) {
-
+    public void executeTrade(AbstractPlayer other, List<Property> currProp, List<Property> otherProp) {
 
     }
 
@@ -138,6 +140,26 @@ public abstract class AbstractPlayer implements Transfer {
 
     public int getPropertiesOfType(String type) {
         return properties.get(type.toLowerCase()).size();
+    }
+
+    public Map<String, ObservableList<Property>> getProperties() {
+        return properties;
+    }
+
+    public void incrementNumRollsinJail() {
+        numRollsInJail++;
+    }
+
+    public void resetNumRollsInJail() {
+        numRollsInJail = 0;
+    }
+
+    public int getNumRollsInJail() {
+        return numRollsInJail;
+    }
+
+    public List<AbstractActionCard> getActionsCards() {
+        return actionCards;
     }
 
     public List<AbstractActionCard> getActionCards(){return actionCards;}
