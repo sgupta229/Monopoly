@@ -24,8 +24,8 @@ public class TaxPopup extends Popup {
     private Map<Integer, ArrayList> taxSpaces;
 
 
-    public TaxPopup(String title, String message, int propLocation) {
-        super(title, message);
+    public TaxPopup(int propLocation) {
+        super();
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         spaces = spaceInfo.getSpaces();
@@ -46,6 +46,18 @@ public class TaxPopup extends Popup {
         Pane imagePane= new Pane(image);
 
         return imagePane;
+    }
+
+    @Override
+    protected String createMessage() {
+        String myMessage = "Time to pay your taxes!";
+        return myMessage;
+    }
+
+    @Override
+    protected String createTitle() {
+        String myTitle = "Tax";
+        return myTitle;
     }
 
     @Override

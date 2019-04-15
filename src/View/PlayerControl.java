@@ -69,7 +69,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         });
 
         Button manageProperty = new Button("Manage Property");
-        manageProperty.setOnAction(e -> new BuildOrSellPopup("Manage Property", 39, myController).display());
+        manageProperty.setOnAction(e -> new BuildOrSellPopup( 39, myController).display());
 
         HBox moveBox = new HBox();
         TextField moveTo = new TextField();

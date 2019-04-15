@@ -32,16 +32,16 @@ public class BuyPropertyPopup extends Popup {
     private String name;
     private Controller myController;
 
-    public BuyPropertyPopup(String title, String message, int propLocation, Controller controller) {
-        super(title, message);
+    public BuyPropertyPopup(int propLocation, Controller controller) {
+        super();
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         colorPropInfo = spaceInfo.getColorPropInfo();
         this.myController = controller;
     }
 
-    public BuyPropertyPopup(String title, int propLocation) {
-        super(title);
+    public BuyPropertyPopup(int propLocation) {
+        super();
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         colorPropInfo = spaceInfo.getColorPropInfo();
@@ -88,20 +88,30 @@ public class BuyPropertyPopup extends Popup {
     }
 
     @Override
+    protected String createMessage() {
+        String myMessage = "Would you like to purchase this property?";
+        return myMessage;
+    }
+
+    @Override
+    protected String createTitle() {
+        String myTitle = "Property";
+        return myTitle;
+    }
+
+    @Override
     protected Pane createButtons(Stage popUpWindow) {
         HBox buttons = new HBox(10);
         Button button1= new Button("YES");
         Button button2= new Button("NO");
         button1.setId("button2");
         button2.setId("button2");
-//        button2.setOnAction(e -> new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name, myController).display());
+//        button2.setOnAction(e -> new AuctionPopup(propLocation, name, myController).display());
         button2.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                popUpWindow.close();
-//                Popup myPopup = new AuctionPopup("Auction",  myController.getGame().getRightPlayer().getName() +", would you like to purchase this property?", propLocation, name, myController);
-                Popup myPopup = new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name, myController);
+                Popup myPopup = new AuctionPopup(propLocation, name, myController, popUpWindow);
                 myPopup.display();
             }
         });

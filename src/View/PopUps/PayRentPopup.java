@@ -4,20 +4,15 @@ import Controller.Controller;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class AuctionPopup extends BuyPropertyPopup {
+public class PayRentPopup extends BuyPropertyPopup {
 
-    private String name;
-
-
-    public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow) {
+    public PayRentPopup(int propLocation, Controller controller) {
         super(propLocation, controller);
-        this.name = name;
-        popUpWindow.close();
+
     }
 
     @Override
@@ -28,36 +23,32 @@ public class AuctionPopup extends BuyPropertyPopup {
     @Override
     protected Pane createButtons(Stage window) {
         HBox buttons = new HBox(10);
-        Button button2= new Button("OK");
+        Button button2= new Button("PAY");
         button2.setId("button2");
-//        button2.setOnAction(e -> new AuctionPopup("Auction", "Player #, Enter your bid amount.", propLocation));
         button2.setOnAction(e -> window.close());
 
-        TextField searchInput = new TextField();
-        searchInput.setPromptText("Enter Amount");
-        searchInput.setPrefWidth(125);
-
-        buttons.getChildren().addAll(searchInput,button2);
+        buttons.getChildren().addAll(button2);
 
         return buttons;
     }
 
-
     @Override
     protected String createMessage() {
-        String myMessage = "Player #, would you like to purchase this property?";
+        String myMessage = "Oops this property is owned by ____. Rent is ???.";
         return myMessage;
     }
 
     @Override
     protected String createTitle() {
-        String myTitle =  "Auction";
+        String myTitle = "Rent";
         return myTitle;
     }
 
+
     @Override
     protected Label createHeader() {
-        Label title = new Label("Auction for " + name + "!");
+        Label title = new Label("Pay rent!");
         return title;
     }
 }
+
