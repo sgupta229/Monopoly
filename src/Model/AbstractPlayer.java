@@ -11,6 +11,7 @@ import java.beans.PropertyChangeSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractPlayer implements Transfer {
@@ -20,7 +21,7 @@ public abstract class AbstractPlayer implements Transfer {
 
     private double funds;
     private Map<String, ObservableList<Property>> properties;
-    private ArrayList<AbstractActionCard> actionCards;
+    private List<AbstractActionCard> actionCards;
 //    private Token token;
     private int currentLocation;
 
@@ -139,4 +140,5 @@ public abstract class AbstractPlayer implements Transfer {
         return properties.get(type.toLowerCase()).size();
     }
 
+    public List<AbstractActionCard> getActionCards(){return actionCards;}
 }
