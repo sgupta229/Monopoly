@@ -52,7 +52,7 @@ public class RailRoadProperty extends Property {
             return 0.0;
         }
         else{
-            int numberOfRailRoads = propOwner.get;
+            int numberOfRailRoads = propOwner.getPropertiesOfType("RailRoad");
             rentTotal+=rentNumbers.get(numberOfRailRoads-1);
 
         }

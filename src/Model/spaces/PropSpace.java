@@ -36,12 +36,11 @@ public class PropSpace extends AbstractSpace {
             if (userChoice == 0) { //aka buy property
                 bank.setPropertyOwner(myProperty, currPlayer);
                 currPlayer.makePayment(propertyPrice, bank);
-                currPlayer.updateProperties //have to update the players assets
-                currPlayer.updatePropsMap
+                currPlayer.addProperty(myProperty); //have to update the players assets
                 //front end updates this somewhere?
             } else {
                 //start auction process.
-                game.startAuction;
+                game.startAuction();
             }
         } else { //property is owned by someone, what are the choices?
             //pay rent or...
