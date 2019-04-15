@@ -5,6 +5,7 @@ public class ClassicGame extends AbstractGame {
     private int numHouses;
     private int numHotels;
     private int maxHouses;
+    private int rollsInJail;
     private int passGoAmount;
 
     public ClassicGame(String filename) {
@@ -15,6 +16,7 @@ public class ClassicGame extends AbstractGame {
         numHotels = (int) configReader.getRuleDouble("Hotels");
         maxHouses = (int) configReader.getRuleDouble("MaxHouses");
         passGoAmount = (int) configReader.getRuleDouble("PassGo");
+        rollsInJail = (int) configReader.getRuleDouble("RollsInJail");
     }
 
     @Override
@@ -27,7 +29,7 @@ public class ClassicGame extends AbstractGame {
         }
         else {
             getCurrPlayer().incrementNumRollsinJail();
-            if(getCurrPlayer().getNumRollsInJail() == 3) {
+            if(getCurrPlayer().getNumRollsInJail() == rollsInJail) {
                 this.movePlayer(oldIndex, newIndex);
                 getCurrPlayer().resetNumRollsInJail();
             }

@@ -720,5 +720,6 @@
         <JailBail>50</JailBail>
         <PassGo>200</PassGo>
         <MaxHouses>4</MaxHouses>
+        <RollsInJail>3</RollsInJail>
     </Rules>
 </Game>
