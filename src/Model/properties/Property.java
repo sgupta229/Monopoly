@@ -1,5 +1,7 @@
 package Model.properties;
 
+import Model.AbstractPlayer;
+
 import java.util.List;
 
 /***
@@ -76,9 +78,9 @@ public abstract class Property {
      * much it costs when someone lands on this property
      * @return the total rent value to be paid
      */
-    public abstract double calculateRent();
+    public abstract double calculateRent(AbstractPlayer propOwner, int lastDiceRoll);
 
-    public abstract void build();
+    public abstract void build(BuildingType type, Property property);
 
     public void setIsMortgaged(boolean mortgageVal){
         isMortgaged = mortgageVal;
