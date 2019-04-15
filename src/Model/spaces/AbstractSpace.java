@@ -14,7 +14,7 @@ public abstract class AbstractSpace {
     private int myLocation;
     private String myName;
     List<AbstractPlayer> myOccupants = new ArrayList<>();
-    private String myGroup;
+    private SpaceGroup myGroup;
 
     public AbstractSpace(int locationIndex, String spaceName){
         myLocation = locationIndex;
@@ -56,6 +56,7 @@ public abstract class AbstractSpace {
         return myName;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,8 +66,12 @@ public abstract class AbstractSpace {
                 myName.equals(that.myName);
     }
 
-    public String getMyGroup(){
+    public SpaceGroup getMyGroup(){
         return myGroup;
+    }
+
+    public void setMyGroup(SpaceGroup group){
+        myGroup = group;
     }
 
     @Override
