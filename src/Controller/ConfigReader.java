@@ -429,9 +429,6 @@ public class ConfigReader {
                 buildingTotalAmount.put(bType, total);
                 int max = Integer.parseInt(building.getElementsByTagName("MaxAmount").item(0).getTextContent());
                 buildingMaxAmount.put(bType, max);
-                System.out.println(bType);
-                System.out.println(total);
-                System.out.println(max);
             }
         }
 

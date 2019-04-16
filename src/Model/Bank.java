@@ -14,10 +14,17 @@ public class Bank implements Transfer{
     private double myBalance;
     private Map<BuildingType, Integer> totalBuildingMap;
     private Map<BuildingType, Integer> maxBuildingsPerProp;
-    private double numHouses;
-    private double numHotels;
-    private double maxHousesPerProp;
 
+
+
+    public Bank(List<Double> allInfo, List<Property> properties, List<Map<BuildingType, Integer>> buildingInfo){
+        myBalance=allInfo.get(0);
+        unOwnedProps = new HashSet<>(properties);
+        totalBuildingMap = buildingInfo.get(0);
+        maxBuildingsPerProp = buildingInfo.get(1);
+        //////totalBuildingMap.put(something);
+        //////maxBuildingsPerProp.put(something);
+    }
 
     @Deprecated
     public Bank(double startingBalance, List<Property> properties){
@@ -27,11 +34,9 @@ public class Bank implements Transfer{
 
     ////need to take in atotalBuildingmap and maxbuilingPerPropmap
     /////and set them here
+    @Deprecated
     public Bank(List<Double> allInfo, List<Property> properties){
         myBalance=allInfo.get(0);
-        numHouses = allInfo.get(1);
-        numHotels = allInfo.get(2);
-        maxHousesPerProp = allInfo.get(3);
         unOwnedProps = new HashSet<>(properties);
         //////totalBuildingMap.put(something);
         //////maxBuildingsPerProp.put(something);
