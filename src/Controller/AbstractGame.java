@@ -31,7 +31,7 @@ public abstract class AbstractGame {
     private List<Die> dice;
     private List<ActionDeck> decks;
 
-    private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
+    private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     private List<String> possibleTokens;
     private int rollsInJailRule;
     private boolean evenBuildingRule;
@@ -228,11 +228,18 @@ public abstract class AbstractGame {
     }
 
     public int getLastDiceRoll() {
-        int roll = 0;
-        for(Integer k : diceHistory.keySet()) {
-            roll += diceHistory.get(k).get(diceHistory.get(k).size() - 1);
+        int value = 0;
+
+        for(int i = 0; i < dice.size(); i++) {
+            ArrayList<Integer> rollList = diceHistory.get(i);
+            if(rollList.size() == 0) {
+                throw new IllegalArgumentException("The dice has not been rolled");
+            }
+            else {
+                value += rollList.get(rollList.size() - 1);
+            }
         }
-        return roll;
+        return value;
     }
 
     public boolean getEvenBuildingRule(){return evenBuildingRule;}
