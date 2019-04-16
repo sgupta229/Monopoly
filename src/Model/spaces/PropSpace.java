@@ -47,6 +47,7 @@ public class PropSpace extends AbstractSpace {
             }
         } else { //property is owned by someone, what are the choices?
             //pay rent or...
+            System.out.println("PAYING RENT");
             currPlayer.makePayment(myProperty.calculateRent(propOwner, 2), propOwner);
         }
         //else()

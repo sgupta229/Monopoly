@@ -38,6 +38,8 @@ public class Bank implements Transfer{
      */
     public AbstractPlayer propertyOwnedBy(Property property){
         if(ownedPropsMap.containsKey(property)){
+            System.out.println("PROPERTY IN OWNED MAP");
+            System.out.println("MY OWNER IS: " + ownedPropsMap.get(property));
             return ownedPropsMap.get(property);
         }
         else if (unOwnedProps.contains(property)){
@@ -51,17 +53,9 @@ public class Bank implements Transfer{
         if(ownedPropsMap.containsKey(property)){
             ownedPropsMap.put(property, newOwner);
         }
-        if(unOwnedProps.contains(property)){
-            System.out.println("here");
+        else if(unOwnedProps.contains(property)){
             ownedPropsMap.put(property, newOwner);
             unOwnedProps.remove(property);
-        }
-        ownedPropsMap.put(property, newOwner);
-        for (Map.Entry<Property,AbstractPlayer> k : ownedPropsMap.entrySet()){
-            System.out.println("Just Purchased by "+ k.getKey().getName() + " " + k.getValue().getName());
-        }
-        for (Property k : unOwnedProps){
-            System.out.println("Unowned "+ k.getName());
         }
     }
 
@@ -136,5 +130,9 @@ public class Bank implements Transfer{
     }
     public double getNumHotels(){
         return numHotels;
+    }
+
+    public Set<Property> getUnOwnedProps(){
+        return unOwnedProps;
     }
 }

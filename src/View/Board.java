@@ -61,7 +61,7 @@ public class Board implements PropertyChangeListener {
 
     public void addTokenToIndex(int i, ImageView image){
         int[] coord = indexToCoord(i);
-        System.out.println(coord[0] + " " + coord[1]);
+//        System.out.println(coord[0] + " " + coord[1]);
         myGridPane.add(image,coord[0],coord[1]);
         imagesOnBoard.add(image);
     }
@@ -95,14 +95,15 @@ public class Board implements PropertyChangeListener {
                 }
             }
             for (Property p : myProps){
-                if (myAbstractSpace.getMyName()==p.getName()){
+                if (myAbstractSpace.getMyName().equalsIgnoreCase(p.getName())){
                     myProperty = p;
-                    System.out.println("HELLO MY PROP " + myProperty.getName());
+                    System.out.println("HELLO MY PROP " + myProperty.getName() + " " + p);
                 }
             }
 
-            System.out.println("IS PROP OWNED " + myController.getGame().getBank().propertyOwnedBy(myProperty));
-            if (myController.getGame().getBank().propertyOwnedBy(myProperty)!=null){
+            System.out.println("PROP IS OWNED BY: " + myController.getGame().getBank().propertyOwnedBy(myProperty));
+            System.out.println(myController.getGame().getBank().propertyOwnedBy(myProperty));
+            if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null){
                 myPopup = new PayRentPopup(playerLocation, myController);
             }
             else{
@@ -223,7 +224,8 @@ public class Board implements PropertyChangeListener {
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
         allSpaces = configs.getSpaces();
-        myProps = configs.getProperties();
+//        myProps = configs.getProperties();
+        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
     }
 
     public Pane getGridPane() {
