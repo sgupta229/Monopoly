@@ -2,6 +2,8 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 /***
@@ -20,14 +22,40 @@ public abstract class Property {
     private List allPaymentInfo;
     private int myGroupSize;
 
+    protected Map<BuildingType, Integer> buildingMap;
+    protected Map<BuildingType, Double> buildingPrices;
 
+
+    /////need property to take in building map with buildingtypes as keys already
+           ///// and also buildingprices that is already populated, and just set these
+
+    public Property(double price, String propName,  List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
+        myPrice=price;
+        myName = propName;
+        allPaymentInfo = paymentInfo;
+        myGroupSize = groupSize;
+        initializePaymentInfo(allPaymentInfo);
+        buildingPrices=buildingPricesMap;
+        buildingMap = new HashMap<>();
+        for(BuildingType buildingType : buildingPrices.keySet()){
+            buildingMap.put(buildingType, 0);
+        }
+    }
+
+    @Deprecated
     public Property(double price, String propName,  List<Double> paymentInfo, int groupSize){
         myPrice=price;
         myName = propName;
         allPaymentInfo = paymentInfo;
         myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
+        //////buildingMap = new HashMap<>();
+        /////for(BuildingType buildingType : buildingMap.keySet()){
+            /////buildingMap.put(buildingType, 0);
+        ////}
     }
+
+
 
     @Deprecated
     public Property(double price, String propName, String color, List<Double> paymentInfo){
@@ -48,6 +76,12 @@ public abstract class Property {
     }
 
     protected abstract void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException;
+
+    public abstract void addBuilding(BuildingType building);
+
+    public abstract void removeBuilding(BuildingType building);
+
+    public abstract int getNumBuilding(BuildingType building);
 
     /***
      * A getter method that returns the name of this property
@@ -104,6 +138,14 @@ public abstract class Property {
 
     public double getMortgageAmount(){
         return mortgageAmount;
+    }
+
+    public void setMortgageAmount(Double amount){
+        mortgageAmount = amount;
+    }
+
+    public double getBuildingPrice(BuildingType building){
+        return buildingPrices.get(building);
     }
 
 

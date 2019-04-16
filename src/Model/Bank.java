@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.ConfigReader;
+import Model.properties.BuildingType;
 import Model.properties.ColorProperty;
 import Model.properties.Property;
 
@@ -11,6 +12,8 @@ public class Bank implements Transfer{
     Map<Property, AbstractPlayer> ownedPropsMap = new HashMap<>();
     Set<Property> unOwnedProps;
     private double myBalance;
+    private Map<BuildingType, Integer> totalBuildingMap;
+    private Map<BuildingType, Integer> maxBuildingsPerProp;
     private double numHouses;
     private double numHotels;
     private double maxHousesPerProp;
@@ -22,12 +25,16 @@ public class Bank implements Transfer{
         unOwnedProps = new HashSet<Property>(properties);
     }
 
+    ////need to take in atotalBuildingmap and maxbuilingPerPropmap
+    /////and set them here
     public Bank(List<Double> allInfo, List<Property> properties){
         myBalance=allInfo.get(0);
         numHouses = allInfo.get(1);
         numHotels = allInfo.get(2);
         maxHousesPerProp = allInfo.get(3);
-        unOwnedProps = new HashSet<Property>(properties);
+        unOwnedProps = new HashSet<>(properties);
+        //////totalBuildingMap.put(something);
+        //////maxBuildingsPerProp.put(something);
     }
 
 
@@ -91,12 +98,31 @@ public class Bank implements Transfer{
 
     public void mortgageProperty(Property property){
         AbstractPlayer propOwner = ownedPropsMap.get(property);
-        propOwner.makePayment(property.getMortgageAmount(), this);
+        this.makePayment(property.getMortgageAmount(), propOwner);
         property.setIsMortgaged(true);
     }
 
-    public void build(Property property){
+    public void build(Property property, BuildingType building){
+        if(maxBuildingsPerProp.get(building) > property.getNumBuilding(building)){
+            AbstractPlayer propOwner = propertyOwnedBy(property);
+            totalBuildingMap.put(building, totalBuildingMap.get(building)-1);
+            property.addBuilding(building);
+            propOwner.makePayment(property.getBuildingPrice(building), this);
+        }
+    }
 
+    public void sellBackBuildings(Property property, BuildingType building){
+        AbstractPlayer propOwner = propertyOwnedBy(property);
+        totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
+        property.removeBuilding(building);
+        this.makePayment(property.getBuildingPrice(building)/2, propOwner);
+    }
+
+    public void unbuildForUpgrade(Property property, BuildingType building){
+        AbstractPlayer propOwner = propertyOwnedBy(property);
+
+        totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
+        property.removeBuilding(building);
     }
 
     /***
@@ -110,24 +136,5 @@ public class Bank implements Transfer{
         return myBalance;
     }
 
-    public void giveHouse(){
-        numHouses--;
-    }
-    public void returnHouse(){
-        numHouses++;
-    }
 
-    public void giveHotel(){
-        numHotels++;
-    }
-    public void returnHotel(){
-        numHotels++;
-    }
-
-    public double getNumHouses(){
-        return numHouses;
-    }
-    public double getNumHotels(){
-        return numHotels;
-    }
 }

@@ -1,4 +1,4 @@
-package Model.tests;
+package Model.Tests;
 
 import Controller.ConfigReader;
 import Model.*;
@@ -38,7 +38,7 @@ public class ActionCardSpaceTest {
 
 
 
-/*    @Test
+    @Test
     void doActionChanceSpace() {
         List<ActionDeck> tempDecks = gameClass.getMyActionDecks();
         for(ActionDeck d : tempDecks) {
@@ -48,11 +48,12 @@ public class ActionCardSpaceTest {
         }
         AbstractActionCard topCard = chanceDeck.getMyLiveCards().peek();
         AbstractSpace chanceSpace = spaceList.get(7);
-        chanceSpace.doAction(gameClass);
-        var deadCardList =  chanceDeck.getMyDeadCards();
-        var mostRecentlyDeadCard = deadCardList.get(deadCardList.size()-1);
-        assertEquals(topCard, mostRecentlyDeadCard);
-    }*/
+        chanceSpace.doAction(gameClass, 0);
+        //var deadCardList =  chanceDeck.getMyDeadCards();
+        //var mostRecentlyDeadCard = deadCardList.get(deadCardList.size()-1);
+        var mostRecentCard = gameClass.getCurrentActionCard();
+        assertEquals(topCard, mostRecentCard);
+    }
 
     @Test
     void testLocation(){

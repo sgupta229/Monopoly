@@ -52,9 +52,6 @@ public class PropSpace extends AbstractSpace {
         //else()
     }
 
-    public void linkSpaceToProperty(Property property){
-        myProperty = property;
-    }
 
 
 }
