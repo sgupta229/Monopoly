@@ -22,6 +22,10 @@ public abstract class AbstractPlayer implements Transfer {
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
+
+    private Token token;
+    private String tokenImage;
+
     private ObservableList<Property> properties;
     private List<AbstractActionCard> actionCards;
     private int currentLocation;

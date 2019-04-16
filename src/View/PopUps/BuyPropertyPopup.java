@@ -1,7 +1,10 @@
 package View.PopUps;
 
 import Controller.Controller;
+import Model.AbstractPlayer;
+import Model.properties.Property;
 import Model.spaces.AbstractSpace;
+import Model.spaces.PropSpace;
 import View.BoardConfigReader;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class BuyPropertyPopup extends Popup {
@@ -30,17 +34,21 @@ public class BuyPropertyPopup extends Popup {
     private ArrayList propDetails;
     private String name;
     private Controller myController;
+    List<AbstractSpace> allSpaces;
+    private AbstractSpace mySpace;
 
-    public BuyPropertyPopup(String title, String message, int propLocation, Controller controller) {
-        super(title, message);
+
+    public BuyPropertyPopup(int propLocation, Controller controller) {
+        super();
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         colorPropInfo = spaceInfo.getColorPropInfo();
+        allSpaces = spaceInfo.getSpaces();
         this.myController = controller;
     }
 
-    public BuyPropertyPopup(String title, int propLocation) {
-        super(title);
+    public BuyPropertyPopup(int propLocation) {
+        super();
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         colorPropInfo = spaceInfo.getColorPropInfo();
@@ -87,35 +95,54 @@ public class BuyPropertyPopup extends Popup {
     }
 
     @Override
+    protected String createMessage() {
+        String myMessage = "Would you like to purchase this property?";
+        return myMessage;
+    }
+
+    @Override
+    protected String createTitle() {
+        String myTitle = "Property";
+        return myTitle;
+    }
+
+    @Override
     protected Pane createButtons(Stage popUpWindow) {
         HBox buttons = new HBox(10);
         Button button1= new Button("YES");
         Button button2= new Button("NO");
         button1.setId("button2");
         button2.setId("button2");
-//        button2.setOnAction(e -> new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name).display());
+//        button2.setOnAction(e -> new AuctionPopup(propLocation, name, myController).display());
         button2.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                //TODO: get current player then loop through other players asking each for a bid, then go to a new screen that notifies the highest bid
-
-                Popup myPopup = new AuctionPopup("Auction", "Player #, would you like to purchase this property?", propLocation, name, myController);
+                Popup myPopup = new AuctionPopup(propLocation, name, myController, popUpWindow);
                 myPopup.display();
+            }
+        });
+
+        for (AbstractSpace sp : allSpaces){
+            if (sp.getMyLocation()==propLocation){
+                mySpace = sp;
+            }
+        }
+        button1.setOnAction(e -> mySpace.doAction(myController.getGame(),0));
+
+        button1.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                mySpace.doAction(myController.getGame(),0);
                 popUpWindow.close();
             }
         });
-        button1.setOnAction(e -> popUpWindow.close());
         buttons.getChildren().addAll(button1,button2);
 
         return buttons;
     }
 
-//    @Override
-//    protected Scene setSizeOfPopup(BorderPane layout) {
-//        Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
-//        return scene1;
-//    }
 
     private FlowPane propertyInfo(Scene scene){
         FlowPane textPane = new FlowPane();

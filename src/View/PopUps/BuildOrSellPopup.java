@@ -25,8 +25,8 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
 
     //TODO: CHECK PLAYERS MONOPOLY WHEN MANAGE PROP IS HIT, IF FALSE THEN DISABLE ALL BUTTONS
 
-    public BuildOrSellPopup(String title, int propLocation, Controller controller) {
-        super(title, propLocation);
+    public BuildOrSellPopup(int propLocation, Controller controller) {
+        super(propLocation);
 
         BoardConfigReader spaceInfo = new BoardConfigReader();
         colorPropInfo = spaceInfo.getColorPropInfo();
@@ -111,6 +111,11 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         return pane;
     }
 
+    @Override
+    protected String createTitle() {
+        String myTitle = "Manage Property";
+        return myTitle;
+    }
 
     @Override
     protected Pane createButtons(Stage window) {

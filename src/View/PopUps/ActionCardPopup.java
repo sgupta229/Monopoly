@@ -28,8 +28,8 @@ public class ActionCardPopup extends Popup {
 //message needs to be myGame.getCurrActionCard().getMessage();
     //actionCard.doAction() when ok is pressed
 
-    public ActionCardPopup(String title, String message, int propLocation){
-        super(title, message);
+    public ActionCardPopup(int propLocation){
+        super();
         this.propLocation = propLocation;
         ConfigReader spaceInfo = new ConfigReader(BoardConfigReader.CONFIG_PATH);
         actionCards = spaceInfo.parseActionCards();
@@ -57,6 +57,18 @@ public class ActionCardPopup extends Popup {
         ImageView image = new ImageView(imageFile);
         Pane imagePane= new Pane(image);
         return imagePane;
+    }
+
+    @Override
+    protected String createMessage() {
+        String myMessage = "Need this from backend?";
+        return myMessage;
+    }
+
+    @Override
+    protected String createTitle() {
+        String myTitle = "Pay Rent";
+        return myTitle;
     }
 
     @Override

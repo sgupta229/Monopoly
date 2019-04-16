@@ -14,6 +14,7 @@ public class PropSpace extends AbstractSpace {
 
     public PropSpace(int locationIndex, String spaceName, Property prop){
         super(locationIndex, spaceName);
+
         myProperty = prop;
 
     }
@@ -31,8 +32,9 @@ public class PropSpace extends AbstractSpace {
         AbstractPlayer propOwner = game.getBank().propertyOwnedBy(myProperty);
         Bank bank = game.getBank();
         AbstractPlayer currPlayer = game.getCurrPlayer();
+        System.out.println("this is my property " + myProperty.getName());
         double propertyPrice = myProperty.getPrice();
-        int lastDiceRoll = game.getLastDiceRoll();
+//        int lastDiceRoll = game.getLastDiceRoll();
         if (propOwner == null) {
             if (userChoice == 0) { //aka buy property
                 bank.setPropertyOwner(myProperty, currPlayer);
@@ -45,7 +47,7 @@ public class PropSpace extends AbstractSpace {
             }
         } else { //property is owned by someone, what are the choices?
             //pay rent or...
-            currPlayer.makePayment(myProperty.calculateRent(propOwner, lastDiceRoll), propOwner);
+            currPlayer.makePayment(myProperty.calculateRent(propOwner, 2), propOwner);
         }
         //else()
     }

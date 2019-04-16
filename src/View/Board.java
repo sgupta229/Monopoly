@@ -70,17 +70,19 @@ public class Board implements PropertyChangeListener {
         Popup myPopup;
         playerLocation = myGame.getCurrPlayer().getCurrentLocation();
         if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
-            myPopup = new ActionCardPopup("Action Card", "Need this from backend?", playerLocation);
+            myPopup = new ActionCardPopup( playerLocation);
         }
         else if (playerLocation==4 || playerLocation==38){
-            myPopup = new TaxPopup("Tax", "Time to pay your taxes!", playerLocation);
+            myPopup = new TaxPopup(playerLocation);
         }
         else if (playerLocation==0 || playerLocation==10 || playerLocation==20 || playerLocation==30){
-            myPopup = new CornerPopup("Other Space", playerLocation);
+            myPopup = new CornerPopup(playerLocation);
         }
         else {
             //TODO: CHECK IF THE PROPERTY IS OWNED, IF NOT DISPLAY THIS.  IF OWNED PROMPT WITH RENT(still need to make this popup!!!!)
-            myPopup = new BuyPropertyPopup("Property", "Would you like to purchase this property?", playerLocation, myController);
+            myPopup = new BuyPropertyPopup(playerLocation, myController);
+//            myPopup = new PayRentPopup(playerLocation, myController);
+
         }
         myPopup.display();
     }
@@ -100,6 +102,7 @@ public class Board implements PropertyChangeListener {
             if (entry.getValue() instanceof PropSpace) {
                 String price = nameToPrice.get(name).toString();
                 String color = nameToColor.get(name);
+                System.out.println(color);
                 if (entry.getKey().getY() == 10) {
                     BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(name, price, color, myBoardPane, "#c7edc9");
                     myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 10);

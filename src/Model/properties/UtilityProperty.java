@@ -55,4 +55,6 @@ public class UtilityProperty extends Property {
         }
         return rentTotal;
     }
+
+
 }

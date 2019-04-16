@@ -69,12 +69,13 @@ public abstract class PlayerControl implements PropertyChangeListener {
         });
 
         Button manageProperty = new Button("Manage Property");
-        manageProperty.setOnAction(e -> new BuildOrSellPopup("Manage Property", 39, myController).display());
+        manageProperty.setOnAction(e -> new BuildOrSellPopup( 39, myController).display());
 
         HBox moveBox = new HBox();
         TextField moveTo = new TextField();
         Button move = new Button("MOVE");
         moveBox.getChildren().addAll(moveTo,move);
+
         move.setOnAction(e -> myController.getGame().movePlayer(myPlayer.getCurrentLocation(),Integer.parseInt(moveTo.getText())));
 
         myVBox.setId("playerControlBox");
@@ -93,10 +94,10 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
         ArrayList<Property> temp = new ArrayList<>();
         ArrayList<Double> fakeVals = new ArrayList<>();
-        for (int i=0;i<8;i++){
+        for (int i=0;i<10;i++){
             fakeVals.add(i+0.5);
         }
-        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals));
+        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals,3));
 
         ObservableList<Property> assetsList = FXCollections.observableList(temp);
         ListView<Property> assetsListView = new ListView<>(assetsList);
