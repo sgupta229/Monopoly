@@ -26,6 +26,7 @@ public class ColorProperty extends Property {
     public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize){
         super(price, propName, paymentInfo, groupSize);
         myColor=color;
+        setMyColor(color);
         setGroup(color);
         myGroup=color;
     }

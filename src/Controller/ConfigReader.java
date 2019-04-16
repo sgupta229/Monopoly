@@ -305,6 +305,8 @@ public class ConfigReader {
         }
         allSpacesAndProps.add(allSpaces);
         allSpacesAndProps.add(allProps);
+
+
         return allSpacesAndProps;
     }
 
