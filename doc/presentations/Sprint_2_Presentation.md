@@ -16,6 +16,7 @@ Sprint 2 Presentation
 * Pass Go -- collect 200
 * ~~Forfeit?????~~
 * ~~Building on monopolized properties~~
+    * Back end works
 * ~~Roll/pay to get out of jail??~~
 
 ### Work Related to Demo
