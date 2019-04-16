@@ -129,7 +129,15 @@ public class BuyPropertyPopup extends Popup {
             }
         }
         button1.setOnAction(e -> mySpace.doAction(myController.getGame(),0));
-//        button1.setOnAction(e -> popUpWindow.close());
+
+        button1.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                mySpace.doAction(myController.getGame(),0);
+                popUpWindow.close();
+            }
+        });
         buttons.getChildren().addAll(button1,button2);
 
         return buttons;
