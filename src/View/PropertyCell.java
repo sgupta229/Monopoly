@@ -20,7 +20,7 @@ public class PropertyCell extends ListCell<Property> {
     private Rectangle color;
     private Label label = new Label("");
     private Pane pane = new Pane();
-    private Button button = new Button("...");
+//    private Button button = new Button("...");
 
     public PropertyCell() {
         super();
@@ -29,9 +29,9 @@ public class PropertyCell extends ListCell<Property> {
         myHBox = new HBox();
         myHBox.setSpacing(10);
         myHBox.setAlignment(Pos.CENTER_LEFT);
-        myHBox.getChildren().addAll(label, pane, color, button);
+        myHBox.getChildren().addAll(label, pane, color);
         HBox.setHgrow(pane, Priority.ALWAYS);
-        button.setOnAction(event -> getListView().getItems());  //TODO: set to show more info?
+//        button.setOnAction(event -> getListView().getItems());  //TODO: set to show more info?
     }
 
     @Override

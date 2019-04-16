@@ -89,16 +89,14 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
     private ListView createAssetsListView(){
 
+//        ArrayList<Property> temp = new ArrayList<>();
+//        ArrayList<Double> fakeVals = new ArrayList<>();
+//        for (int i=0;i<10;i++){
+//            fakeVals.add(i+0.5);
+//        }
+//        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals,3));
 
-
-        ArrayList<Property> temp = new ArrayList<>();
-        ArrayList<Double> fakeVals = new ArrayList<>();
-        for (int i=0;i<8;i++){
-            fakeVals.add(i+0.5);
-        }
-        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals,3));
-
-        ObservableList<Property> assetsList = FXCollections.observableList(temp);
+        ObservableList<Property> assetsList = FXCollections.observableList(myPlayer.getProperties());
         ListView<Property> assetsListView = new ListView<>(assetsList);
 
         assetsListView.setCellFactory(new Callback<ListView<Property>, ListCell<Property>>() {
