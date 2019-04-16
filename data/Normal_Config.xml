@@ -51,7 +51,7 @@
         </Space>
         <Space type="TAX">
             <Index>4</Index>
-            <SpaceName> INCOME_TAX</SpaceName>
+            <SpaceName>INCOME_TAX</SpaceName>
             <FlatRate>200</FlatRate>
             <Percentage>10</Percentage>
         </Space>
@@ -720,5 +720,8 @@
         <JailBail>50</JailBail>
         <PassGo>200</PassGo>
         <MaxHouses>4</MaxHouses>
+        <EvenBuilding>false</EvenBuilding>
+        <FreeParking>false</FreeParking>
+        <RollsInJail>3</RollsInJail>
     </Rules>
 </Game>

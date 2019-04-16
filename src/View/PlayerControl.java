@@ -96,7 +96,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         for (int i=0;i<8;i++){
             fakeVals.add(i+0.5);
         }
-        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals));
+        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals,3));
 
         ObservableList<Property> assetsList = FXCollections.observableList(temp);
         ListView<Property> assetsListView = new ListView<>(assetsList);

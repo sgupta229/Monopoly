@@ -14,8 +14,9 @@ public class UtilityProperty extends Property {
     private final double INFO_NUM = 3;
 
 
-    public UtilityProperty(double price, String propName, List<Double> paymentInfo){
-        super(price, propName, paymentInfo);
+    public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
+        super(price, propName, paymentInfo, groupSize);
+        setGroup(myGroup);
 
     }
 
@@ -29,10 +30,6 @@ public class UtilityProperty extends Property {
             throw new IndexOutOfBoundsException("Bad data");
         }
 
-
-    }
-
-    public void build(BuildingType type, Property property){
 
     }
 

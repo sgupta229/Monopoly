@@ -33,7 +33,9 @@ public abstract class AbstractGame {
 
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
     private List<String> possibleTokens;
-    private int numRollsInJail = 0;
+    private int rollsInJailRule;
+    private boolean evenBuildingRule;
+    private boolean freeParkingRule;
 
     public AbstractGame(String filename) {
         parseXMLFile(filename);
@@ -63,6 +65,9 @@ public abstract class AbstractGame {
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
+            evenBuildingRule = configReader.getRuleBool("EvenBuilding");
+            freeParkingRule = configReader.getRuleBool("FreeParking");
+            rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -176,18 +181,6 @@ public abstract class AbstractGame {
 
     }
 
-    public void incrementNumRollsinJail() {
-        numRollsInJail++;
-    }
-
-    public void resetNumRollsInJail() {
-        numRollsInJail = 0;
-    }
-
-    public int getNumRollsInJail() {
-        return numRollsInJail;
-    }
-
     public AbstractActionCard getCurrentActionCard() {
         return currentActionCard;
     }
@@ -230,6 +223,10 @@ public abstract class AbstractGame {
         return diceHistory;
     }
 
+    public void startAuction() {
+
+    }
+
     public int getLastDiceRoll() {
         int roll = 0;
         for(Integer k : diceHistory.keySet()) {
@@ -237,4 +234,7 @@ public abstract class AbstractGame {
         }
         return roll;
     }
+
+    public boolean getEvenBuildingRule(){return evenBuildingRule;}
+    public boolean getFreeParkingRule(){return freeParkingRule;}
 }
