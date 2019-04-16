@@ -51,10 +51,17 @@ public class Bank implements Transfer{
         if(ownedPropsMap.containsKey(property)){
             ownedPropsMap.put(property, newOwner);
         }
-        else if(unOwnedProps.contains(property)){
+        if(unOwnedProps.contains(property)){
             System.out.println("here");
             ownedPropsMap.put(property, newOwner);
             unOwnedProps.remove(property);
+        }
+        ownedPropsMap.put(property, newOwner);
+        for (Map.Entry<Property,AbstractPlayer> k : ownedPropsMap.entrySet()){
+            System.out.println("Just Purchased by "+ k.getKey().getName() + " " + k.getValue().getName());
+        }
+        for (Property k : unOwnedProps){
+            System.out.println("Unowned "+ k.getName());
         }
     }
 

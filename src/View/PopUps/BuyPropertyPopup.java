@@ -35,8 +35,9 @@ public class BuyPropertyPopup extends Popup {
     private String name;
     private Controller myController;
     List<AbstractSpace> allSpaces;
+    List<Property> allProps;
     private AbstractSpace mySpace;
-
+    private Property myProp;
 
     public BuyPropertyPopup(int propLocation, Controller controller) {
         super();
@@ -44,7 +45,14 @@ public class BuyPropertyPopup extends Popup {
         BoardConfigReader spaceInfo = new BoardConfigReader();
         colorPropInfo = spaceInfo.getColorPropInfo();
         allSpaces = spaceInfo.getSpaces();
+        allProps = spaceInfo.getProperties();
         this.myController = controller;
+        for (AbstractSpace sp : allSpaces){
+            if (sp.getMyLocation()==propLocation){
+                mySpace = sp;
+            }
+        }
+
     }
 
     public BuyPropertyPopup(int propLocation) {
@@ -113,7 +121,6 @@ public class BuyPropertyPopup extends Popup {
         Button button2= new Button("NO");
         button1.setId("button2");
         button2.setId("button2");
-//        button2.setOnAction(e -> new AuctionPopup(propLocation, name, myController).display());
         button2.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -123,19 +130,14 @@ public class BuyPropertyPopup extends Popup {
             }
         });
 
-        for (AbstractSpace sp : allSpaces){
-            if (sp.getMyLocation()==propLocation){
-                mySpace = sp;
-            }
-        }
-        button1.setOnAction(e -> mySpace.doAction(myController.getGame(),0));
-
         button1.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 mySpace.doAction(myController.getGame(),0);
                 popUpWindow.close();
+                System.out.println("CURR PLAYER PROPS " + myController.getGame().getCurrPlayer().getProperties().toString());
+
             }
         });
         buttons.getChildren().addAll(button1,button2);

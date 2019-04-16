@@ -2,6 +2,7 @@ package View;
 
 import Controller.*;
 import Model.*;
+import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import Model.spaces.ActionCardSpace;
 import Model.spaces.PropSpace;
@@ -34,6 +35,13 @@ public class Board implements PropertyChangeListener {
     private Map<String,String> nameToColor;
     private Map<String,Integer> nameToPrice;
     private List<ImageView> imagesOnBoard = new ArrayList<>();
+    private List<Property> myProps;
+    private List<AbstractSpace> allSpaces;
+    private AbstractSpace myAbstractSpace;
+    private Property myProperty;
+
+
+
 
     public Board(Pane board, Controller controller, AbstractGame myGame) {
         this.myController = controller;
@@ -65,12 +73,12 @@ public class Board implements PropertyChangeListener {
         int playerLocation = 0;
         for (AbstractPlayer pl : myController.getPlayers()){
             addTokenToIndex(pl.getCurrentLocation(),myController.getPlayerImageView(pl));
-            System.out.println(pl.getCurrentLocation());
         }
         Popup myPopup;
         playerLocation = myGame.getCurrPlayer().getCurrentLocation();
+
         if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
-            myPopup = new ActionCardPopup( playerLocation);
+            myPopup = new ActionCardPopup( playerLocation, myController);
         }
         else if (playerLocation==4 || playerLocation==38){
             myPopup = new TaxPopup(playerLocation);
@@ -80,9 +88,27 @@ public class Board implements PropertyChangeListener {
         }
         else {
             //TODO: CHECK IF THE PROPERTY IS OWNED, IF NOT DISPLAY THIS.  IF OWNED PROMPT WITH RENT(still need to make this popup!!!!)
-            myPopup = new BuyPropertyPopup(playerLocation, myController);
-//            myPopup = new PayRentPopup(playerLocation, myController);
 
+            for (AbstractSpace sp : allSpaces){
+                if (sp.getMyLocation()==playerLocation){
+                    myAbstractSpace = sp;
+                }
+            }
+            for (Property p : myProps){
+                if (myAbstractSpace.getMyName()==p.getName()){
+                    myProperty = p;
+                    System.out.println("HELLO MY PROP " + myProperty.getName());
+                }
+            }
+
+            System.out.println("IS PROP OWNED " + myController.getGame().getBank().propertyOwnedBy(myProperty));
+            if (myController.getGame().getBank().propertyOwnedBy(myProperty)!=null){
+                myPopup = new PayRentPopup(playerLocation, myController);
+            }
+            else{
+                myPopup = new BuyPropertyPopup(playerLocation, myController);
+
+            }
         }
         myPopup.display();
     }
@@ -102,7 +128,6 @@ public class Board implements PropertyChangeListener {
             if (entry.getValue() instanceof PropSpace) {
                 String price = nameToPrice.get(name).toString();
                 String color = nameToColor.get(name);
-                System.out.println(color);
                 if (entry.getKey().getY() == 10) {
                     BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(name, price, color, myBoardPane, "#c7edc9");
                     myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 10);
@@ -197,6 +222,8 @@ public class Board implements PropertyChangeListener {
         indexToName = configs.getIndexToName();
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
+        allSpaces = configs.getSpaces();
+        myProps = configs.getProperties();
     }
 
     public Pane getGridPane() {
