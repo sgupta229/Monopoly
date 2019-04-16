@@ -7,39 +7,41 @@ Sprint 2 Presentation
 * Test dice roll input
 * Display funds
 * Property Space
-    * Buy (deduct money, show in hand) or Pass
+    * Buy (deduct money, show in hand) or Pass -- make 1 player buy and build
     * Pay Rent (deduct money and pay to player - if building can work)
-* Tax Space
-    * Choose fixed or %
 * Action Space
     * Displays card and does action on click
 * Go To Jail
-* ~~Pass Go -- collect 200???~~
+* Tax Space choose which to do 
+* Pass Go -- collect 200
 * ~~Forfeit?????~~
-* Building on monopolized properties
+* ~~Building on monopolized properties~~
 * ~~Roll/pay to get out of jail??~~
-
-### Data Files
-* Map of name to color???
-* Same XML file as before (added tags for property group)
-    * New Tags Property Group
-    * New Rules (EvenBuildings, FreeParking, JailRolls)
-* Property files to write to for saved/loaded games
 
 ### Work Related to Demo
 * Front end -- all the popups we decided to show after landing on each space before doing each action
 * ActionCard methods are set up and working (holdable or not)
 * Building and buying properties 
 
+### Data Files
+* Map of name to color???
+* Same XML file as before (added tags for property group)
+    * New Tags Property Group
+    * New Rules (EvenBuildings, FreeParking, JailRolls)
+    * Buildings 
+* Property files to write to for saved/loaded games (player states/funds/assets)
+
 ### As Flexible/Open as Thought
 * Not as flexible with respect to...
     * Housing types - been struggling to figure out best way to make this flexible if other game types dont use hotels and houses
         * Led to the use of enums for buildings
         * In data file - list which building types are for this game - more closed 
+        * Building is not flexible right now but can/will be
     * Right now game is abstract so adding new game would need to add a whole new game class
         * Could change because through discussion we found most game methods are going to be common amongst all games
     * Colors mapped to property names from data file to fill front end
-        * Not very flexible because need new map with new property names -- thinking about how to just get the color straight from the file  
+        * Not very flexible because need new map with new property names -- thinking about how to just get the color straight from the data file  
+    * Reflections: not used yet - will use when parsing data for initializing concrete classes
 * Is as flexible as expected with respect to...
     * Added more rules to data file in the "rules" tag
         * Starting funds; jail bail; pass go winnings; even building?; Free parking?
@@ -52,12 +54,12 @@ Sprint 2 Presentation
             * Most likely fall under one of the five existing categories
             * If there is a new one simply create one new subclass
        
-
 ### 2 APIs 
 1. API from first presentation - Transfer.java
     1. implemented by any class that makes transfers (players, banks) 
     2. Allows transactions to be made without having to specify bank or player in method parameter
     3. Extension -- if another type of instance can make transactions (CPU player, old west version = barterer)
+    4. How support others -- Method headers don't need to specify Bank or Player - can call for a Transfer object
 2. New API - AbstractActionCard.java
     1. One main method other than getters and setters - doCardAction()
     2. Executes the action of each card when called (linked to front end popup display)
