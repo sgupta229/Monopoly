@@ -21,37 +21,27 @@ public abstract class AbstractPlayer implements Transfer {
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
-    private Map<String, ObservableList<Property>> properties;
+    private ObservableList<Property> properties;
     private List<AbstractActionCard> actionCards;
     private int currentLocation;
 
 
     public AbstractPlayer() {
         this.inJail = false;
-        properties = new HashMap<>();
+        properties = FXCollections.observableArrayList();
         actionCards = new ArrayList<>();
     }
 
     public AbstractPlayer(String name) {
         this.name = name;
         this.inJail = false;
-        properties = new HashMap<>();
+        properties = FXCollections.observableArrayList();
         actionCards = new ArrayList<>();
     }
 
     public void addProperty(Property property) {
-        String group = property.getGroup().toLowerCase();
-        if(!properties.containsKey(group)) {
-            properties.get(group).add(property);
-        }
-        else {
-            ObservableList<Property> list = FXCollections.observableArrayList();
-            list.add(property);
-            properties.put(group, list);
-        }
+        properties.add(property);
     }
-
-
 
     @Override
     public void makePayment(double amount, Transfer receiver) {
@@ -68,13 +58,18 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public boolean checkMonopoly(Property property) {
+        int count = 0;
         String group = property.getGroup().toLowerCase();
         int groupSize = property.getMyGroupSize();
-        List<Property> check = properties.get(group);
-        if(check.size() != groupSize) {
-            return false;
+        for(Property p : properties) {
+            if(p.getGroup().toLowerCase().equals(group)) {
+                count++;
+            }
         }
-        return true;
+        if(count == groupSize) {
+            return true;
+        }
+        return false;
     }
 
     public double getFunds() {
