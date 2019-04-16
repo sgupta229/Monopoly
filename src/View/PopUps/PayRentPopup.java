@@ -1,6 +1,11 @@
 package View.PopUps;
 
 import Controller.Controller;
+import Model.properties.Property;
+import Model.spaces.AbstractSpace;
+import View.BoardConfigReader;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,8 +15,27 @@ import javafx.stage.Stage;
 
 public class PayRentPopup extends BuyPropertyPopup {
 
+    private AbstractSpace mySpace;
+    private Controller myController;
+    private Property myProp;
+
+
     public PayRentPopup(int propLocation, Controller controller) {
         super(propLocation, controller);
+        this.myController = controller;
+        BoardConfigReader spaceInfo = new BoardConfigReader();
+        allSpaces = spaceInfo.getSpaces();
+        allProps = spaceInfo.getProperties();
+        for (AbstractSpace sp : allSpaces) {
+            if (sp.getMyLocation() == propLocation) {
+                mySpace = sp;
+            }
+        }
+        for (Property p : allProps) {
+            if (p.getName() == mySpace.getMyName()) {
+                myProp = p;
+            }
+        }
 
     }
 
@@ -27,6 +51,14 @@ public class PayRentPopup extends BuyPropertyPopup {
         button2.setId("button2");
         button2.setOnAction(e -> window.close());
 
+        button2.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                mySpace.doAction(myController.getGame(),0);
+                window.close();
+            }
+        });
         buttons.getChildren().addAll(button2);
 
         return buttons;
@@ -34,7 +66,7 @@ public class PayRentPopup extends BuyPropertyPopup {
 
     @Override
     protected String createMessage() {
-        String myMessage = "Oops this property is owned by ____. Rent is ???.";
+        String myMessage = "Oops this property is owned by " + myController.getGame().getBank().propertyOwnedBy(myProp).getName() + ". Rent is" + myProp.calculateRent(myController.getGame().getBank().propertyOwnedBy(myProp), myController.getGame().getLastDiceRoll());
         return myMessage;
     }
 

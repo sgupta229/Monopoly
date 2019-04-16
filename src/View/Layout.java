@@ -43,7 +43,6 @@ public class Layout {
         myLayout = new HBox();
         myLayout.setMaxSize(Controller.WIDTH, Controller.HEIGHT);
         myLayout.getChildren().addAll(createBoardPane(),createPlayersTabs());
-
     }
 
     private Pane createBoardPane(){

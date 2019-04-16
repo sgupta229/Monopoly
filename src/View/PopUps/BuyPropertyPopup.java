@@ -37,7 +37,6 @@ public class BuyPropertyPopup extends Popup {
     List<AbstractSpace> allSpaces;
     List<Property> allProps;
     private AbstractSpace mySpace;
-    private Property myProp;
 
     public BuyPropertyPopup(int propLocation, Controller controller) {
         super();
@@ -73,7 +72,6 @@ public class BuyPropertyPopup extends Popup {
         for (Map.Entry<Integer,ArrayList> key : colorPropInfo.entrySet()) {
             if ((key.getKey()).equals(propLocation)){
                 for (Object item : key.getValue()){
-                    System.out.println(item);
                     propDetails.add(item);
                 }
             }
@@ -163,13 +161,15 @@ public class BuyPropertyPopup extends Popup {
             rent2House = new Text("Rent if 3 owned: $" + propDetails.get(3));
             rent3House = new Text("Rent if 4 owned: $" + propDetails.get(4));
             mortgage = new Text("Mortgage: $" + propDetails.get(5));
+            textPane.setVgap(2);
             textPane.getChildren().addAll(priceProp, rent,rent1House,rent2House,rent3House,mortgage);
         }
         else if (name.toLowerCase().contains("works") || name.toLowerCase().contains("company")){
             priceProp.getChildren().add(new Text("Price: $" + propDetails.get(0)));
-            rent = new Text("If one utility is owned, rent is " + propDetails.get(1) + " times amount shown on dice.");
-            rent2House = new Text("If both utilities are owned, rent is " + propDetails.get(2) + " times amount shown on dice.");
+            rent = new Text("If 1 owned, \nrent is " + propDetails.get(1).toString().replace(".0","") + "x dice");
+            rent2House = new Text("If both owned, \nrent is " + propDetails.get(2).toString().replace(".0","") + "x dice.");
             mortgage = new Text("Mortgage: $" + propDetails.get(3));
+            textPane.setVgap(3);
             textPane.getChildren().addAll(priceProp, rent,rent2House,mortgage);
         }
         else{
@@ -182,11 +182,11 @@ public class BuyPropertyPopup extends Popup {
             Text rentHotel = new Text("Rent w/ Hotel: $" + propDetails.get(7));
             Text costHouse = new Text("Cost of 1 House: $" + propDetails.get(8));
             mortgage = new Text("Mortgage: $" + propDetails.get(9));
+            textPane.setVgap(2);
             textPane.getChildren().addAll(priceProp, rent,rent1House,rent2House,rent3House,rent4Houses,rentHotel,costHouse,mortgage);
         }
-        textPane.setPrefWrapLength(scene.getWidth()/2.5);
         textPane.setAlignment(Pos.BOTTOM_CENTER);
-        textPane.setVgap(2);
+        textPane.setPrefWrapLength(scene.getWidth()/2.5);
         textPane.setId("propPopUp");
         textPane.setPadding(new Insets(0,0,10,0));
         return textPane;
