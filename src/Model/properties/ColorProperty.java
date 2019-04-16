@@ -11,13 +11,7 @@ public class ColorProperty extends Property {
     private int numHouse;
     private int numHotel;
     private String myColor;
-    private String myGroup;
-    private double rent;
-    private double rentOneHouse;
-    private double rentTwoHouse;
-    private double rentThreeHouse;
-    private double rentFourHouse;
-    private double rentHotel;
+
     private List<Double> rentNumbers;
     private double pricePerHouse;
     private double pricePerHotel;
@@ -30,7 +24,6 @@ public class ColorProperty extends Property {
         myColor=color;
         setMyColor(color);
         setGroup(color);
-        myGroup=color;
     }
 
     @Deprecated
@@ -39,21 +32,14 @@ public class ColorProperty extends Property {
         myColor=color;
         setMyColor(color);
         setGroup(color);
-        myGroup=color;
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException{
         if(paymentInformation.size()>=INFO_NUM)   {
-            rent = paymentInformation.get(0);
-            rentOneHouse = paymentInformation.get(1);
-            rentTwoHouse = paymentInformation.get(2);
-            rentThreeHouse = paymentInformation.get(3);
-            rentFourHouse = paymentInformation.get(4);
-            rentHotel = paymentInformation.get(5);
             pricePerHouse = paymentInformation.get(6);
             pricePerHotel = paymentInformation.get(7);
             setMortgageAmount(paymentInformation.get(8));
-            rentNumbers = paymentInformation.subList(0, 5);
+            rentNumbers = paymentInformation.subList(0, 6);
             buildingPrices = new HashMap<>();
             /////buildingPrices.put(something);
         }
@@ -82,11 +68,12 @@ public class ColorProperty extends Property {
             return 0.0;
         }
         double rentTotal = 0.0;
+        numHotel = getNumBuilding(BuildingType.valueOf("HOTEL"));
         if(numHotel>0){
-            rentTotal+= numHotel*pricePerHotel;
+            rentTotal+= numHotel*rentNumbers.get(5);
         }
         else{
-            rentTotal+= rentNumbers.get(numHouse);
+            rentTotal+= rentNumbers.get(getNumBuilding(BuildingType.valueOf("HOUSE")));
         }
         return rentTotal;
     }
@@ -97,6 +84,8 @@ public class ColorProperty extends Property {
             buildingMap.put(building, 0);
         }
         buildingMap.put(building, buildingMap.get(building)+1);
+        System.out.println(building );
+        System.out.println(buildingMap.get(building));
     }
 
     @Override

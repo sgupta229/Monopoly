@@ -30,6 +30,7 @@ public abstract class Property {
            ///// and also buildingprices that is already populated, and just set these
 
     public Property(double price, String propName,  List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
+        isMortgaged = false;
         myPrice=price;
         myName = propName;
         allPaymentInfo = paymentInfo;
