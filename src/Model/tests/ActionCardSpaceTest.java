@@ -6,8 +6,6 @@ import Model.actioncards.DeckType;
 import Model.spaces.AbstractSpace;
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
-
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
