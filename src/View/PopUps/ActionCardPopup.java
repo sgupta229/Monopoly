@@ -1,8 +1,11 @@
 package View.PopUps;
 
 import Controller.ConfigReader;
+import Controller.Controller;
 import Model.spaces.AbstractSpace;
 import View.BoardConfigReader;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,18 +27,29 @@ public class ActionCardPopup extends Popup {
     private int propLocation;
     private String name;
     private String title;
+    private AbstractSpace mySpace;
+    private Controller myController;
+    private String myMessage;
 
 //message needs to be myGame.getCurrActionCard().getMessage();
     //actionCard.doAction() when ok is pressed
 
-    public ActionCardPopup(String title, String message, int propLocation){
-        super(title, message);
+    public ActionCardPopup(int propLocation, Controller controller){
+        super();
         this.propLocation = propLocation;
+        this.myController = controller;
         ConfigReader spaceInfo = new ConfigReader(BoardConfigReader.CONFIG_PATH);
         actionCards = spaceInfo.parseActionCards();
         BoardConfigReader indexToName = new BoardConfigReader();
         spaces = indexToName.getSpaces();
         myIndexToName = indexToName.getIndexToName();
+        for (AbstractSpace sp : spaces){
+            if (sp.getMyLocation()==propLocation){
+                mySpace = sp;
+            }
+        }
+        mySpace.doAction(myController.getGame(),0);
+        myMessage = myController.getGame().getCurrentActionCard().getMyMessage();
     }
 
     @Override
@@ -60,19 +74,33 @@ public class ActionCardPopup extends Popup {
     }
 
     @Override
+    protected String createMessage() {
+        return myMessage;
+    }
+
+    @Override
+    protected String createTitle() {
+        String myTitle = "Pay Rent";
+        return myTitle;
+    }
+
+    @Override
     protected Pane createButtons(Stage window) {
         HBox buttons = new HBox(10);
         Button button1= new Button("OK");
         button1.setId("button1");
-        button1.setOnAction(e -> window.close());
+
+        button1.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                myController.getGame().getCurrentActionCard().doCardAction(myController.getGame());
+                window.close();
+            }
+        });
         buttons.getChildren().add(button1);
         return buttons;
     }
-
-//    @Override
-//    protected Scene setSizeOfPopup(BorderPane layout) {
-//        return new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/2);
-//    }
 
     @Override
     protected Label createHeader() {

@@ -42,7 +42,7 @@ public class DiceRoller {
         return myHBox;
     }
     private void createDiceView(){
-        Text diceValue = new Text("->");
+        Text diceValue = new Text("");
         diceValue.setId("header2");
         myHBox.getChildren().add(diceValue);
     }

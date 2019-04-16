@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.Token;
+import Model.properties.Property;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
 import Model.properties.Property;
@@ -10,7 +12,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,37 +22,28 @@ public abstract class AbstractPlayer implements Transfer {
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
-    private Map<String, ObservableList<Property>> properties;
+    private Token token;
+    private String tokenImage;
+    private ObservableList<Property> properties;
     private List<AbstractActionCard> actionCards;
     private int currentLocation;
 
 
     public AbstractPlayer() {
         this.inJail = false;
-        properties = new HashMap<>();
+        properties = FXCollections.observableArrayList();
         actionCards = new ArrayList<>();
+
     }
 
     public AbstractPlayer(String name) {
+        this();
         this.name = name;
-        this.inJail = false;
-        properties = new HashMap<>();
-        actionCards = new ArrayList<>();
     }
 
     public void addProperty(Property property) {
-        String group = property.getGroup().toLowerCase();
-        if(!properties.containsKey(group)) {
-            properties.get(group).add(property);
-        }
-        else {
-            ObservableList<Property> list = FXCollections.observableArrayList();
-            list.add(property);
-            properties.put(group, list);
-        }
+        properties.add(property);
     }
-
-
 
     @Override
     public void makePayment(double amount, Transfer receiver) {
@@ -68,21 +60,36 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public boolean checkMonopoly(Property property) {
+        int count = 0;
         String group = property.getGroup().toLowerCase();
         int groupSize = property.getMyGroupSize();
-        List<Property> check = properties.get(group);
-        if(check.size() != groupSize) {
-            return false;
+        for(Property p : properties) {
+            if(p.getGroup().toLowerCase().equals(group)) {
+                count++;
+            }
         }
-        return true;
+        if(count == groupSize) {
+            return true;
+        }
+        return false;
     }
 
     public double getFunds() {
         return funds;
     }
 
+    @Deprecated
+    public Token getToken() {
+        return token;
+    }
+
     public int getCurrentLocation(){
         return currentLocation;
+    }
+
+    @Deprecated
+    public void setCurrentLocation(int newLocation) {
+        currentLocation = newLocation;
     }
 
     public int moveTo(int newLocation) {
@@ -103,13 +110,19 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public void setFunds(double newFunds) {
-        myPCS.firePropertyChange("funds",this.funds,newFunds);
+        double oldFunds = this.funds;
         this.funds = newFunds;
+        myPCS.firePropertyChange("funds",oldFunds,this.funds);
         System.out.println(this.getName() + "'s funds updated. new funds: " + funds);
     }
 
-    public void addFunds(double funds) {
-        this.funds += funds;
+    @Deprecated
+    public void setToken(Token token) {
+        this.token = token;
+    }
+
+    public void addFunds(double addAmount) {
+        setFunds(this.funds + addAmount);
     }
 
     public boolean isInJail() {
@@ -120,8 +133,9 @@ public abstract class AbstractPlayer implements Transfer {
         return this.name;
     }
 
-    public void setCurrentLocation(int newLocation) {
-        currentLocation = newLocation;
+    @Deprecated
+    public String getTokenImage() {
+        return this.tokenImage;
     }
 
     public void addActionCard(AbstractActionCard c) {
@@ -139,10 +153,17 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public int getPropertiesOfType(String type) {
-        return properties.get(type.toLowerCase()).size();
+        int count = 0;
+        String checkType = type.toLowerCase();
+        for(Property p : properties) {
+            if(p.getGroup().toLowerCase().equals(checkType)) {
+                count++;
+            }
+        }
+        return count;
     }
 
-    public Map<String, ObservableList<Property>> getProperties() {
+    public ObservableList<Property> getProperties() {
         return properties;
     }
 

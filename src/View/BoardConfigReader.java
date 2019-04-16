@@ -22,13 +22,12 @@ public class BoardConfigReader {
     Map<Integer, ArrayList> colorPropInfo;
 
 
-
     public BoardConfigReader(){
         mySpaceConfigs = new ConfigReader(CONFIG_PATH);
         List<List> allSpacesAndProps = mySpaceConfigs.parseSpaces();
         spaces = allSpacesAndProps.get(0);
         properties = allSpacesAndProps.get(1);
-        colorPropInfo= mySpaceConfigs.parseColorPropInfo();
+        colorPropInfo = mySpaceConfigs.parseColorPropInfo();
         indexToName = new HashMap<Point2D.Double, AbstractSpace>();
         setUpMapping();
         setIndexToName();
@@ -84,6 +83,9 @@ public class BoardConfigReader {
     public List<AbstractSpace> getSpaces() {
         return spaces;
     }
+
+    public List<Property> getProperties() { return properties; }
+
 
 
 

@@ -4,6 +4,7 @@ import Model.AbstractPlayer;
 import Model.properties.Property;
 
 import java.util.List;
+import java.util.Map;
 
 public class UtilityProperty extends Property {
 
@@ -13,9 +14,16 @@ public class UtilityProperty extends Property {
     private double mortgage;
     private final double INFO_NUM = 3;
 
+    public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
+        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
+        setGroup(myGroup);
 
+    }
+
+    @Deprecated
     public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
         super(price, propName, paymentInfo, groupSize);
+        setGroup(myGroup);
 
     }
 
@@ -23,7 +31,7 @@ public class UtilityProperty extends Property {
         if(paymentInformation.size()>=INFO_NUM){
             rentMult = paymentInformation.get(0);
             rentMult2 = paymentInformation.get(1);
-            mortgage = paymentInformation.get(2);
+            setMortgageAmount(paymentInformation.get(2));
         }
         else{
             throw new IndexOutOfBoundsException("Bad data");
@@ -54,4 +62,16 @@ public class UtilityProperty extends Property {
         }
         return rentTotal;
     }
+
+    public void addBuilding(BuildingType building){
+    }
+
+    public void removeBuilding(BuildingType building){
+    }
+
+    public int getNumBuilding(BuildingType building){
+        return 0;
+    }
+
+
 }
