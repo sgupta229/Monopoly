@@ -49,9 +49,13 @@ public class ConfigReader {
         double bankFunds = Double.parseDouble(doc.getElementsByTagName("BankFunds").item(0).getTextContent());
         double numHouses = Double.parseDouble(doc.getElementsByTagName("Houses").item(0).getTextContent());
         double numHotels = Double.parseDouble(doc.getElementsByTagName("Hotels").item(0).getTextContent());
+        double maxNumHouses = Double.parseDouble(doc.getElementsByTagName("MaxHouses").item(0).getTextContent());
+
         bankInfo.add(bankFunds);
         bankInfo.add(numHouses);
         bankInfo.add(numHotels);
+        bankInfo.add(maxNumHouses);
+        System.out.println(maxNumHouses);
         return bankInfo;
     }
 
@@ -222,9 +226,9 @@ public class ConfigReader {
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("COLOR_PROPERTY")) {
-                    AbstractSpace newSpace = new PropSpace(index, spaceName);
-                    allSpaces.add(newSpace);
+
                     String colorGroup = space.getElementsByTagName("ColorGroup").item(0).getTextContent();
+                    int groupSize = Integer.parseInt(space.getElementsByTagName("GroupSize").item(0).getTextContent());
                     double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
                     double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
                     double rentOneHouse = Double.parseDouble(space.getElementsByTagName("Rent1House").item(0).getTextContent());
@@ -246,15 +250,17 @@ public class ConfigReader {
                     rentAmounts.add(pricePerHouse);
                     rentAmounts.add(pricePerHotel);
                     rentAmounts.add(mortgage);
-                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts);
-                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize);
+                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    allSpaces.add(newSpace);
+                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("RAILROAD_PROPERTY")) {
-                    AbstractSpace newSpace = new PropSpace(index, spaceName);
-                    allSpaces.add(newSpace);
+
+                    int groupSize = Integer.parseInt(space.getElementsByTagName("GroupSize").item(0).getTextContent());
                     double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
                     double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
                     double rent2 = Double.parseDouble(space.getElementsByTagName("Rent2").item(0).getTextContent());
@@ -267,25 +273,29 @@ public class ConfigReader {
                     rentAmounts.add(rent3);
                     rentAmounts.add(rent4);
                     rentAmounts.add(mortgage);
-                    Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts);
-                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts, groupSize);
+                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    allSpaces.add(newSpace);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("UTILITY_PROPERTY")) {
-                    AbstractSpace newSpace = new PropSpace(index, spaceName);
-                    allSpaces.add(newSpace);
+
                     double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
                     double rentMult = Double.parseDouble(space.getElementsByTagName("RentMultiplier").item(0).getTextContent());
                     double rentMult2 = Double.parseDouble(space.getElementsByTagName("Rent2Multiplier").item(0).getTextContent());
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
+                    int groupSize = Integer.parseInt(space.getElementsByTagName("GroupSize").item(0).getTextContent());
                     ArrayList<Double> rentAmounts = new ArrayList<>();
                     rentAmounts.add(rentMult);
                     rentAmounts.add(rentMult2);
                     rentAmounts.add(mortgage);
-                    Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts);
-                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts, groupSize);
+                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    allSpaces.add(newSpace);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
                 }
@@ -296,6 +306,8 @@ public class ConfigReader {
         }
         allSpacesAndProps.add(allSpaces);
         allSpacesAndProps.add(allProps);
+
+
         return allSpacesAndProps;
     }
 
@@ -387,6 +399,17 @@ public class ConfigReader {
         return -1;
     }
 
+    public boolean getRuleBool(String attribute){
+        NodeList list = doc.getElementsByTagName(attribute);
+        Node node = list.item(0);
+        if(node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+            String stringValue = element.getTextContent();
+            return Boolean.parseBoolean(stringValue);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         ConfigReader c = new ConfigReader("Normal_Config.xml");
         try{
@@ -399,7 +422,6 @@ public class ConfigReader {
             c.parseTokens();
         }
         catch(XmlTagException e){
-
         }
     }
 
