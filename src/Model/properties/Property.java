@@ -82,6 +82,10 @@ public abstract class Property {
         return myGroupSize;
     }
 
+    public void setMyColor(String color){
+       myColor=color;
+    }
+
 
     /***
      * A method that utilizes the member variables to calculate how
