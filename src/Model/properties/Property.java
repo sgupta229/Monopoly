@@ -74,6 +74,10 @@ public abstract class Property {
         return myGroup;
     }
 
+    public void setGroup(String group){
+        myGroup = group;
+    }
+
     public int getMyGroupSize(){
         return myGroupSize;
     }
