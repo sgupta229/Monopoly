@@ -12,7 +12,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +22,7 @@ public abstract class AbstractPlayer implements Transfer {
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
-//    private Map<String, ObservableList<Property>> properties;
-//    private ArrayList<AbstractActionCard> actionCards;
+
     private Token token;
     private String tokenImage;
 
@@ -37,9 +35,11 @@ public abstract class AbstractPlayer implements Transfer {
         this.inJail = false;
         properties = FXCollections.observableArrayList();
         actionCards = new ArrayList<>();
+
     }
 
     public AbstractPlayer(String name) {
+        this();
         this.name = name;
         this.inJail = false;
         properties = FXCollections.observableArrayList();

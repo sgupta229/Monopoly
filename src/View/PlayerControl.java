@@ -76,9 +76,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         Button move = new Button("MOVE");
         moveBox.getChildren().addAll(moveTo,move);
 
-        move.setOnAction(e -> myController.getGame().movePlayer(myPlayer.getCurrentLocation(), Integer.parseInt(moveTo.getText())));
-
-        //TODO game.movePlayer(curr.getcurrentloc, new ind)
+        move.setOnAction(e -> myController.getGame().movePlayer(myPlayer.getCurrentLocation(),Integer.parseInt(moveTo.getText())));
 
         myVBox.setId("playerControlBox");
         HBox nameAndEnd = new HBox(20);
@@ -91,6 +89,9 @@ public abstract class PlayerControl implements PropertyChangeListener {
     }
 
     private ListView createAssetsListView(){
+
+
+
         ArrayList<Property> temp = new ArrayList<>();
         ArrayList<Double> fakeVals = new ArrayList<>();
         for (int i=0;i<10;i++){
@@ -98,7 +99,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         }
         temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals,3));
 
-        ObservableList<Property> assetsList = FXCollections.observableArrayList(temp);
+        ObservableList<Property> assetsList = FXCollections.observableList(temp);
         ListView<Property> assetsListView = new ListView<>(assetsList);
 
         assetsListView.setCellFactory(new Callback<ListView<Property>, ListCell<Property>>() {
@@ -126,5 +127,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
 //        myFunds = new Text("$ "+newFunds);
         myVBox.getChildren().set(1,createBalanceText());
     }
+
+
 
 }
