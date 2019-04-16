@@ -2,17 +2,15 @@ package Controller;
 
 public class ClassicGame extends AbstractGame {
 
-    private int numHouses;
-    private int numHotels;
-    private int maxHouses;
+    private int rollsInJail;
     private int passGoAmount;
 
     public ClassicGame(String filename) {
         super(filename);
         ConfigReader configReader = new ConfigReader(filename);
 
-
         passGoAmount = (int) configReader.getRuleDouble("PassGo");
+        rollsInJail = (int) configReader.getRuleDouble("RollsInJail");
     }
 
     @Override
@@ -24,10 +22,10 @@ public class ClassicGame extends AbstractGame {
             this.movePlayer(oldIndex, newIndex);
         }
         else {
-            incrementNumRollsinJail();
-            if(getNumRollsInJail() == 3) {
+            getCurrPlayer().incrementNumRollsinJail();
+            if(getCurrPlayer().getNumRollsInJail() == rollsInJail) {
                 this.movePlayer(oldIndex, newIndex);
-                resetNumRollsInJail();
+                getCurrPlayer().resetNumRollsInJail();
             }
         }
         checkPassGo(oldIndex, newIndex);

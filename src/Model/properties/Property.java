@@ -74,6 +74,10 @@ public abstract class Property {
         return myGroup;
     }
 
+    public void setGroup(String group){
+        myGroup = group;
+    }
+
     public int getMyGroupSize(){
         return myGroupSize;
     }
@@ -85,8 +89,6 @@ public abstract class Property {
      * @return the total rent value to be paid
      */
     public abstract double calculateRent(AbstractPlayer propOwner, int lastDiceRoll);
-
-    public abstract void build(BuildingType type, Property property);
 
     public void setIsMortgaged(boolean mortgageVal){
         isMortgaged = mortgageVal;

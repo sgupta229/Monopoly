@@ -20,40 +20,34 @@ public abstract class AbstractPlayer implements Transfer {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
     private String name;
-
+    private int numRollsInJail = 0;
+    private boolean inJail;
     private double funds;
-    private Map<String, ObservableList<Property>> properties;
-    private ArrayList<AbstractActionCard> actionCards;
+//    private Map<String, ObservableList<Property>> properties;
+//    private ArrayList<AbstractActionCard> actionCards;
     private Token token;
     private String tokenImage;
 
+    private ObservableList<Property> properties;
+    private List<AbstractActionCard> actionCards;
     private int currentLocation;
 
-    private boolean inJail;
 
     public AbstractPlayer() {
         this.inJail = false;
-        properties = new HashMap<>();
+        properties = FXCollections.observableArrayList();
         actionCards = new ArrayList<>();
     }
 
     public AbstractPlayer(String name) {
         this.name = name;
         this.inJail = false;
-        properties = new HashMap<>();
+        properties = FXCollections.observableArrayList();
         actionCards = new ArrayList<>();
     }
 
     public void addProperty(Property property) {
-        String group = property.getGroup().toLowerCase();
-        if(!properties.containsKey(group)) {
-            properties.get(group).add(property);
-        }
-        else {
-            ObservableList<Property> list = FXCollections.observableArrayList();
-            list.add(property);
-            properties.put(group, list);
-        }
+        properties.add(property);
     }
 
     @Override
@@ -70,7 +64,18 @@ public abstract class AbstractPlayer implements Transfer {
         setFunds(this.funds + amount);
     }
 
-    public boolean checkMonopoly() {
+    public boolean checkMonopoly(Property property) {
+        int count = 0;
+        String group = property.getGroup().toLowerCase();
+        int groupSize = property.getMyGroupSize();
+        for(Property p : properties) {
+            if(p.getGroup().toLowerCase().equals(group)) {
+                count++;
+            }
+        }
+        if(count == groupSize) {
+            return true;
+        }
         return false;
     }
 
@@ -99,12 +104,7 @@ public abstract class AbstractPlayer implements Transfer {
         return currentLocation;
     }
 
-    public void proposeTrade(AbstractPlayer other) {
-
-    }
-
-    public void build(BuildingType type) {
-
+    public void executeTrade(AbstractPlayer other, List<Property> currProp, List<Property> otherProp) {
 
     }
 
@@ -158,7 +158,34 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public int getPropertiesOfType(String type) {
-        return properties.get(type.toLowerCase()).size();
+        int count = 0;
+        String checkType = type.toLowerCase();
+        for(Property p : properties) {
+            if(p.getGroup().toLowerCase().equals(checkType)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public ObservableList<Property> getProperties() {
+        return properties;
+    }
+
+    public void incrementNumRollsinJail() {
+        numRollsInJail++;
+    }
+
+    public void resetNumRollsInJail() {
+        numRollsInJail = 0;
+    }
+
+    public int getNumRollsInJail() {
+        return numRollsInJail;
+    }
+
+    public List<AbstractActionCard> getActionsCards() {
+        return actionCards;
     }
 
     public List<AbstractActionCard> getActionCards(){return actionCards;}

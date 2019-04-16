@@ -38,8 +38,6 @@ public class BoardConfigReader {
         nameToPrice = new HashMap<String, Integer>();
         nameToColor = new HashMap<String, String>();
         for (Property p: properties){
-            System.out.print(p.getName());
-
             nameToPrice.put(p.getName().replace("_"," "),(int)p.getPrice());
             nameToColor.put(p.getName().replace("_"," "),p.getColor());
         }

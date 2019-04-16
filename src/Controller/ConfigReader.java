@@ -396,6 +396,17 @@ public class ConfigReader {
         return -1;
     }
 
+    public boolean getRuleBool(String attribute){
+        NodeList list = doc.getElementsByTagName(attribute);
+        Node node = list.item(0);
+        if(node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+            String stringValue = element.getTextContent();
+            return Boolean.parseBoolean(stringValue);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         ConfigReader c = new ConfigReader("Normal_Config.xml");
         try{
