@@ -17,8 +17,8 @@ public class RailRoadProperty extends Property {
     private final double INFO_NUM = 5;
 
 
-    public RailRoadProperty(double price, String propName, List<Double> paymentInfo){
-        super(price, propName, paymentInfo);
+    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
+        super(price, propName, paymentInfo, groupSize);
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation){
@@ -38,12 +38,6 @@ public class RailRoadProperty extends Property {
 
     @Deprecated
     public void build(){}
-
-    public void build(BuildingType type, Property property){
-
-    }
-
-
 
     /***
      * A method that utilizes the member variables to calculate how

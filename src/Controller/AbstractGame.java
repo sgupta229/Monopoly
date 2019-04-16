@@ -33,7 +33,7 @@ public abstract class AbstractGame {
 
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
     private List<String> possibleTokens;
-    private int numRollsInJail = 0;
+    private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
 
@@ -67,6 +67,7 @@ public abstract class AbstractGame {
             passGo = configReader.getRuleDouble("PassGo");
             evenBuildingRule = configReader.getRuleBool("EvenBuilding");
             freeParkingRule = configReader.getRuleBool("FreeParking");
+            rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -180,18 +181,6 @@ public abstract class AbstractGame {
 
     }
 
-    public void incrementNumRollsinJail() {
-        numRollsInJail++;
-    }
-
-    public void resetNumRollsInJail() {
-        numRollsInJail = 0;
-    }
-
-    public int getNumRollsInJail() {
-        return numRollsInJail;
-    }
-
     public AbstractActionCard getCurrentActionCard() {
         return currentActionCard;
     }
@@ -232,6 +221,10 @@ public abstract class AbstractGame {
 
     public HashMap<Integer, ArrayList<Integer>> getDiceHistory() {
         return diceHistory;
+    }
+
+    public void startAuction() {
+
     }
 
     public int getLastDiceRoll() {

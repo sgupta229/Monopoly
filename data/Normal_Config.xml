@@ -722,5 +722,6 @@
         <MaxHouses>4</MaxHouses>
         <EvenBuilding>false</EvenBuilding>
         <FreeParking>false</FreeParking>
+        <RollsInJail>3</RollsInJail>
     </Rules>
 </Game>
