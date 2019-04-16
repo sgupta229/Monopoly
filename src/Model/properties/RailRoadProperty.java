@@ -19,6 +19,7 @@ public class RailRoadProperty extends Property {
 
     public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
         super(price, propName, paymentInfo, groupSize);
+        setGroup(myGroup);
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation){
