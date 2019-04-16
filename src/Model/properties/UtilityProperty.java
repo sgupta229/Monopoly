@@ -16,6 +16,7 @@ public class UtilityProperty extends Property {
 
     public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
         super(price, propName, paymentInfo, groupSize);
+        setGroup(myGroup);
 
     }
 
