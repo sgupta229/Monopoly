@@ -57,4 +57,6 @@ public class RailRoadProperty extends Property {
         }
         return rentTotal;
     }
+
+
 }

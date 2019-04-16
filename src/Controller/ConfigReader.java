@@ -238,7 +238,6 @@ public class ConfigReader {
                     double rentHotel = Double.parseDouble(space.getElementsByTagName("RentHotel").item(0).getTextContent());
                     double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
                     double pricePerHotel = Double.parseDouble(space.getElementsByTagName("PricePerHotel").item(0).getTextContent());
-
                     double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
                     ArrayList<Double> rentAmounts = new ArrayList<>();
                     rentAmounts.add(rent);

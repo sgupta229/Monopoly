@@ -24,8 +24,8 @@ public class TaxPopup extends Popup {
     private Map<Integer, ArrayList> taxSpaces;
 
 
-    public TaxPopup(String title, String message, int propLocation) {
-        super(title, message);
+    public TaxPopup(int propLocation) {
+        super();
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         spaces = spaceInfo.getSpaces();
@@ -49,16 +49,21 @@ public class TaxPopup extends Popup {
     }
 
     @Override
+    protected String createMessage() {
+        String myMessage = "Time to pay your taxes!";
+        return myMessage;
+    }
+
+    @Override
+    protected String createTitle() {
+        String myTitle = "Tax";
+        return myTitle;
+    }
+
+    @Override
     protected Pane createButtons(Stage window) {
         VBox buttons = new VBox(10);
         ArrayList details = new ArrayList();
-//        for (Map.Entry<Integer,ArrayList> key : taxSpaces.entrySet()) {
-//            if (key.getKey().equals(index)) {
-//                String dollar = key.getValue().get(0).toString();
-//                String percentage = key.getValue().get(1).toString();
-//                details.addAll(Arrays.asList(dollar, percentage));
-//            }
-//        }
 
         Button button1= new Button("Pay $200");
         Button button2= new Button("Pay 10%");
@@ -70,11 +75,6 @@ public class TaxPopup extends Popup {
         buttons.setPadding(new Insets(0,0,50,0));
         return buttons;
     }
-
-//    @Override
-//    protected Scene setSizeOfPopup(BorderPane layout) {
-//        return null;
-//    }
 
     @Override
     protected Label createHeader() {
