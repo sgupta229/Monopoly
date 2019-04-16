@@ -1,0 +1,69 @@
+package Model.properties;
+
+import Controller.ClassicGame;
+import Controller.ConfigReader;
+import Model.Bank;
+import Model.ClassicPlayer;
+import Model.XmlTagException;
+import Model.spaces.AbstractSpace;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class UtilityPropertyTest {
+
+    ConfigReader conf = new ConfigReader("Normal_Config.xml");
+    ClassicGame gameClass;
+    ClassicPlayer player1;
+    ClassicPlayer player2;
+    List<AbstractSpace> spaceList;
+    List<Property> propsList;
+    Bank gameBank;
+    int lastDiceRoll;
+
+
+    @BeforeEach
+    void setUp() throws XmlTagException {
+        gameClass = new ClassicGame("Normal_Config.xml");
+        propsList = conf.parseSpaces().get(1);
+        player1 = new ClassicPlayer();
+        gameBank = gameClass.getBank();
+
+    }
+
+    @Test
+    void calculateRentOnly1Utility() {
+        lastDiceRoll = 2;
+        Property utilProp = propsList.get(7);
+        player1.addProperty(propsList.get(7));
+        var actualRent = utilProp.calculateRent(player1, lastDiceRoll);
+        var expectedRent = 8;
+        assertEquals(actualRent, expectedRent);
+    }
+
+    @Test
+    void calculateRent2Utilities() {
+        lastDiceRoll = 3;
+        Property utilProp = propsList.get(7);
+        Property utilProp2 = propsList.get(20);
+        player1.addProperty(propsList.get(7));
+        player1.addProperty(utilProp2);
+        var actualRent = utilProp.calculateRent(player1, lastDiceRoll);
+        var expectedRent = 30;
+        assertEquals(actualRent, expectedRent);
+    }
+
+    @Test
+    void calculateRentMortgaged() {
+        lastDiceRoll = 2;
+        Property utilProp = propsList.get(7);
+        player1.addProperty(propsList.get(7));
+        utilProp.setIsMortgaged(true);
+        var actualRent = utilProp.calculateRent(player1, lastDiceRoll);
+        var expectedRent = 0;
+        assertEquals(actualRent, expectedRent);
+    }
+}

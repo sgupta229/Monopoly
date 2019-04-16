@@ -7,10 +7,7 @@ import javax.xml.parsers.DocumentBuilder;
 
 import Model.*;
 
-import Model.properties.ColorProperty;
-import Model.properties.Property;
-import Model.properties.RailRoadProperty;
-import Model.properties.UtilityProperty;
+import Model.properties.*;
 import Model.spaces.*;
 
 import Model.actioncards.*;
@@ -179,6 +176,8 @@ public class ConfigReader {
         List<AbstractSpace> allSpaces = new ArrayList<>();
         List<Property> allProps = new ArrayList<>();
         Map<String, ArrayList> propInfo = new HashMap<String, ArrayList>();
+        TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
+
         NodeList spaceList = doc.getElementsByTagName("Space");
         for(int i = 0; i < spaceList.getLength(); i++) {
             Node s = spaceList.item(i);
@@ -249,7 +248,12 @@ public class ConfigReader {
                     rentAmounts.add(pricePerHouse);
                     rentAmounts.add(pricePerHotel);
                     rentAmounts.add(mortgage);
-                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize);
+
+                    buildingPriceMap.put(BuildingType.valueOf("HOUSE"), pricePerHouse);
+                    buildingPriceMap.put(BuildingType.valueOf("HOTEL"), pricePerHotel);
+
+
+                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize, buildingPriceMap);
                     AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
                     //((PropSpace) newSpace).linkSpaceToProperty(newProp);
@@ -272,7 +276,7 @@ public class ConfigReader {
                     rentAmounts.add(rent3);
                     rentAmounts.add(rent4);
                     rentAmounts.add(mortgage);
-                    Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts, groupSize);
+                    Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts, groupSize, buildingPriceMap);
                     //((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
@@ -291,7 +295,7 @@ public class ConfigReader {
                     rentAmounts.add(rentMult);
                     rentAmounts.add(rentMult2);
                     rentAmounts.add(mortgage);
-                    Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts, groupSize);
+                    Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts, groupSize, buildingPriceMap);
                     //((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
@@ -408,6 +412,30 @@ public class ConfigReader {
         return false;
     }
 
+    public List<Map<BuildingType, Integer>> getBuildingProperties() {
+        List<Map<BuildingType, Integer>> buildingProperties = new ArrayList<>();
+        Map<BuildingType, Integer> buildingTotalAmount = new TreeMap<>();
+        Map<BuildingType, Integer> buildingMaxAmount = new TreeMap<>();
+
+
+        NodeList buildingList = doc.getElementsByTagName("BuildingType");
+        for (int x = 0; x < buildingList.getLength(); x++) {
+            Node bL = buildingList.item(x);
+            if (bL.getNodeType() == Node.ELEMENT_NODE) {
+                Element building = (Element) bL;
+                BuildingType bType = BuildingType.valueOf(building.getAttribute("type"));
+                int total = Integer.parseInt(building.getElementsByTagName("TotalAmount").item(0).getTextContent());
+                buildingTotalAmount.put(bType, total);
+                int max = Integer.parseInt(building.getElementsByTagName("MaxAmount").item(0).getTextContent());
+                buildingMaxAmount.put(bType, max);
+            }
+        }
+
+        buildingProperties.add(buildingTotalAmount);
+        buildingProperties.add(buildingMaxAmount);
+        return buildingProperties;
+    }
+
     public static void main(String[] args) {
         ConfigReader c = new ConfigReader("Normal_Config.xml");
         try{
@@ -418,9 +446,12 @@ public class ConfigReader {
             c.parseBoard();
             c.parseDice();
             c.parseTokens();
+            c.getBuildingProperties();
         }
         catch(XmlTagException e){
         }
     }
 
 }
+
+

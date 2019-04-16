@@ -3,14 +3,13 @@ package Controller;
 import Model.*;
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
+import Model.properties.BuildingType;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public abstract class AbstractGame {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
@@ -61,7 +60,10 @@ public abstract class AbstractGame {
             List<List> spaceProps= configReader.parseSpaces();
             spaces = spaceProps.get(0);
             properties = spaceProps.get(1);
-            bank = new Bank(funds, properties);
+            List<Map<BuildingType, Integer>> buildingInfo = configReader.getBuildingProperties();
+            //Map<BuildingType, Integer> buildingTotalAmount = buildingInfo.get(0);
+            //Map<BuildingType, Integer> buildingMaxAmount = buildingInfo.get(1);
+            bank = new Bank(funds, properties, buildingInfo);
             board = new Board(boardSize, spaceProps.get(0));
 
             startFunds = configReader.getRuleDouble("StartFunds");
