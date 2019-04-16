@@ -33,7 +33,8 @@ public class ClassicGame extends AbstractGame {
     }
 
     public void checkPassGo(int oldIndex, int newIndex) {
-        if(0 <= newIndex && 0>= oldIndex) {
+        if(newIndex < oldIndex) {
+//        if(0 <= newIndex && 0>= oldIndex) {
             getCurrPlayer().addFunds(passGoAmount);
         }
     }
