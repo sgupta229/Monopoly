@@ -28,7 +28,7 @@ public class BoardConfigReader {
         List<List> allSpacesAndProps = mySpaceConfigs.parseSpaces();
         spaces = allSpacesAndProps.get(0);
         properties = allSpacesAndProps.get(1);
-        colorPropInfo= mySpaceConfigs.parseColorPropInfo();
+        colorPropInfo = mySpaceConfigs.parseColorPropInfo();
         indexToName = new HashMap<Point2D.Double, AbstractSpace>();
         setUpMapping();
         setIndexToName();
@@ -38,6 +38,8 @@ public class BoardConfigReader {
         nameToPrice = new HashMap<String, Integer>();
         nameToColor = new HashMap<String, String>();
         for (Property p: properties){
+            System.out.print(p.getName());
+
             nameToPrice.put(p.getName().replace("_"," "),(int)p.getPrice());
             nameToColor.put(p.getName().replace("_"," "),p.getColor());
         }

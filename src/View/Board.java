@@ -102,6 +102,7 @@ public class Board implements PropertyChangeListener {
             if (entry.getValue() instanceof PropSpace) {
                 String price = nameToPrice.get(name).toString();
                 String color = nameToColor.get(name);
+                System.out.println(color);
                 if (entry.getKey().getY() == 10) {
                     BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(name, price, color, myBoardPane, "#c7edc9");
                     myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 10);

@@ -2,6 +2,7 @@ package View.PopUps;
 
 import Controller.Controller;
 import Model.AbstractPlayer;
+import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import Model.spaces.PropSpace;
 import View.BoardConfigReader;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class BuyPropertyPopup extends Popup {
@@ -32,6 +34,7 @@ public class BuyPropertyPopup extends Popup {
     private ArrayList propDetails;
     private String name;
     private Controller myController;
+    List<AbstractSpace> allSpaces;
     private AbstractSpace mySpace;
 
 
@@ -40,9 +43,8 @@ public class BuyPropertyPopup extends Popup {
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         colorPropInfo = spaceInfo.getColorPropInfo();
-        ArrayList details = colorPropInfo.get(propLocation);
+        allSpaces = spaceInfo.getSpaces();
         this.myController = controller;
-        mySpace = new PropSpace(propLocation, details.get(details.size()-1).toString());
     }
 
     public BuyPropertyPopup(int propLocation) {
@@ -120,6 +122,12 @@ public class BuyPropertyPopup extends Popup {
                 myPopup.display();
             }
         });
+
+        for (AbstractSpace sp : allSpaces){
+            if (sp.getMyLocation()==propLocation){
+                mySpace = sp;
+            }
+        }
         button1.setOnAction(e -> mySpace.doAction(myController.getGame(),0));
 //        button1.setOnAction(e -> popUpWindow.close());
         buttons.getChildren().addAll(button1,button2);

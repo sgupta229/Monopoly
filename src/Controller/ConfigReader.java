@@ -226,8 +226,7 @@ public class ConfigReader {
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("COLOR_PROPERTY")) {
-                    AbstractSpace newSpace = new PropSpace(index, spaceName);
-                    allSpaces.add(newSpace);
+
                     String colorGroup = space.getElementsByTagName("ColorGroup").item(0).getTextContent();
                     int groupSize = Integer.parseInt(space.getElementsByTagName("GroupSize").item(0).getTextContent());
                     double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
@@ -251,14 +250,15 @@ public class ConfigReader {
                     rentAmounts.add(pricePerHotel);
                     rentAmounts.add(mortgage);
                     Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize);
-                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    allSpaces.add(newSpace);
+                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("RAILROAD_PROPERTY")) {
-                    AbstractSpace newSpace = new PropSpace(index, spaceName);
-                    allSpaces.add(newSpace);
+
                     int groupSize = Integer.parseInt(space.getElementsByTagName("GroupSize").item(0).getTextContent());
                     double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
                     double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
@@ -273,14 +273,15 @@ public class ConfigReader {
                     rentAmounts.add(rent4);
                     rentAmounts.add(mortgage);
                     Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts, groupSize);
-                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    allSpaces.add(newSpace);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
 
                 }
                 else if(space.getAttribute("type").equalsIgnoreCase("UTILITY_PROPERTY")) {
-                    AbstractSpace newSpace = new PropSpace(index, spaceName);
-                    allSpaces.add(newSpace);
+
                     double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
                     double rentMult = Double.parseDouble(space.getElementsByTagName("RentMultiplier").item(0).getTextContent());
                     double rentMult2 = Double.parseDouble(space.getElementsByTagName("Rent2Multiplier").item(0).getTextContent());
@@ -291,7 +292,9 @@ public class ConfigReader {
                     rentAmounts.add(rentMult2);
                     rentAmounts.add(mortgage);
                     Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts, groupSize);
-                    ((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    allSpaces.add(newSpace);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
                 }
