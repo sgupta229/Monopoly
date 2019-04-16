@@ -52,7 +52,6 @@ public class Bank implements Transfer{
             ownedPropsMap.put(property, newOwner);
         }
         else if(unOwnedProps.contains(property)){
-            System.out.println("here");
             ownedPropsMap.put(property, newOwner);
             unOwnedProps.remove(property);
         }
