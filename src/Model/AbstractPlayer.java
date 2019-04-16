@@ -35,7 +35,6 @@ public abstract class AbstractPlayer implements Transfer {
         this.inJail = false;
         properties = FXCollections.observableArrayList();
         actionCards = new ArrayList<>();
-
     }
 
     public AbstractPlayer(String name) {

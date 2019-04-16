@@ -48,7 +48,7 @@ public abstract class AbstractGame {
         ConfigReader configReader = new ConfigReader(filename);
         try {
             decks = configReader.parseActionDecks();
-            List<AbstractActionCard>  allCards = configReader.parseActionCards();
+            List<AbstractActionCard> allCards = configReader.parseActionCards();
             for(ActionDeck d : decks) {
                 d.fillLiveDeck(allCards);
             }
