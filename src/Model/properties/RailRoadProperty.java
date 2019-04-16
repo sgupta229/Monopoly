@@ -4,6 +4,7 @@ package Model.properties;
 import Model.AbstractPlayer;
 
 import java.util.List;
+import java.util.Map;
 
 public class RailRoadProperty extends Property {
 
@@ -17,6 +18,12 @@ public class RailRoadProperty extends Property {
     private final double INFO_NUM = 5;
 
 
+    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
+        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
+        setGroup(myGroup);
+    }
+
+    @Deprecated
     public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
         super(price, propName, paymentInfo, groupSize);
         setGroup(myGroup);
@@ -28,7 +35,7 @@ public class RailRoadProperty extends Property {
             rent2 = paymentInformation.get(1);
             rent3 = paymentInformation.get(2);
             rent4 = paymentInformation.get(3);
-            mortgage = paymentInformation.get(4);
+            setMortgageAmount(paymentInformation.get(4));
             rentNumbers = paymentInformation;
         }
         else{
@@ -56,6 +63,19 @@ public class RailRoadProperty extends Property {
 
         }
         return rentTotal;
+    }
+
+    @Override
+    public void addBuilding(BuildingType building){
+    }
+
+    @Override
+    public void removeBuilding(BuildingType building){
+    }
+
+    @Override
+    public int getNumBuilding(BuildingType building){
+        return 0;
     }
 
 

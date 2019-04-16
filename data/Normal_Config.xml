@@ -705,6 +705,16 @@
         <Houses>50</Houses>
         <Hotels>25</Hotels>
     </Bank>
+    <Buildings>
+        <BuildingType type="HOUSE">
+            <TotalAmount>50</TotalAmount>
+            <MaxAmount>4</MaxAmount>
+        </BuildingType>
+        <BuildingType type="HOTEL">
+            <TotalAmount>25</TotalAmount>
+            <MaxAmount>1</MaxAmount>
+        </BuildingType>
+    </Buildings>
     <Tokens>
         <Token>battleship.png</Token>
         <Token>boot.png</Token>

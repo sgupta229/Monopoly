@@ -3,14 +3,13 @@ package Controller;
 import Model.*;
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
+import Model.properties.BuildingType;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public abstract class AbstractGame {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
@@ -22,21 +21,22 @@ public abstract class AbstractGame {
     private double passGo;
     private AbstractActionCard currentActionCard;
 
-    private List<AbstractPlayer> players;
-    private Bank bank;
-    private Board board;
-    private List<AbstractSpace> spaces;
-    private List<Property> properties;
-    private AbstractPlayer currPlayer;
-    private List<Die> dice;
-    private List<ActionDeck> decks;
+    public static List<AbstractPlayer> players;
+    public static Bank bank;
+    public static Board board;
+    public static List<AbstractSpace> spaces;
+    public static List<Property> properties;
+    public static AbstractPlayer currPlayer;
+    public static List<Die> dice;
+    public static List<ActionDeck> decks;
+    public static HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
+    public static List<String> possibleTokens;
+    public static int numRollsInJail = 0;
 
-    private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
-    private List<String> possibleTokens;
     private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
-
+    
     public AbstractGame(String filename) {
         parseXMLFile(filename);
         for(int i = 0; i < dice.size(); i++) {
@@ -60,8 +60,12 @@ public abstract class AbstractGame {
             List<List> spaceProps= configReader.parseSpaces();
             spaces = spaceProps.get(0);
             properties = spaceProps.get(1);
-            bank = new Bank(funds, properties);
+            List<Map<BuildingType, Integer>> buildingInfo = configReader.getBuildingProperties();
+            //Map<BuildingType, Integer> buildingTotalAmount = buildingInfo.get(0);
+            //Map<BuildingType, Integer> buildingMaxAmount = buildingInfo.get(1);
+            bank = new Bank(funds, properties, buildingInfo);
             board = new Board(boardSize, spaceProps.get(0));
+
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
@@ -242,6 +246,45 @@ public abstract class AbstractGame {
         return value;
     }
 
-    public boolean getEvenBuildingRule(){return evenBuildingRule;}
-    public boolean getFreeParkingRule(){return freeParkingRule;}
+    //Getters and setters for rules to be changed by user
+    public boolean getEvenBuildingRule(){
+        return evenBuildingRule;
+    }
+    public void setEvenBuildingRule(boolean bool){
+        this.evenBuildingRule = bool;
+    }
+    public boolean getFreeParkingRule(){
+        return freeParkingRule;
+    }
+    public void setFreeParkingRule(boolean bool){
+        this.freeParkingRule = bool;
+    }
+    public int getRollsInJailRule() {
+        return rollsInJailRule;
+    }
+    public void setRollsInJailRule(int rollsInJailRule) {
+        this.rollsInJailRule = rollsInJailRule;
+    }
+    public double getStartFunds() {
+        return startFunds;
+    }
+    public void setStartFunds(double startFunds) {
+        this.startFunds = startFunds;
+    }
+
+    public double getJailBail() {
+        return jailBail;
+    }
+
+    public void setJailBail(double jailBail) {
+        this.jailBail = jailBail;
+    }
+
+    public double getPassGo() {
+        return passGo;
+    }
+
+    public void setPassGo(double passGo) {
+        this.passGo = passGo;
+    }
 }

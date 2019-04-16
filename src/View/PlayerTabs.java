@@ -15,6 +15,7 @@ public class PlayerTabs implements PropertyChangeListener {
     private Tab playTab;
     private Tab statsTab;
     private Tab rulesTab;
+    private StatsTab stats;
     private AbstractPlayer currPlayer;
 
     public PlayerTabs(Controller controller){
@@ -52,7 +53,7 @@ public class PlayerTabs implements PropertyChangeListener {
         playTab.setContent(new ClassicPlayerControl(currPlayer,myController).getPlayerControlView());
     }
     private void setStatsTab(){
-        statsTab.setContent(new Label("stats"));
+        statsTab.setContent(new StatsTab(myController.getGame().getBank()).getView());
     }
     private void setRulesTab(){
         rulesTab.setContent(new Label("rules"));

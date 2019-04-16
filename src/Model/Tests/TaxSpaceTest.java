@@ -1,4 +1,4 @@
-package Model.tests;
+package Model.Tests;
 
 import Controller.ClassicGame;
 import Model.*;
@@ -32,22 +32,36 @@ class TaxSpaceTest {
         player1 = new ClassicPlayer();
         List<AbstractPlayer> playerList = new ArrayList<>();
         playerList.add(player1);
-        player1.receivePayment(100);
+        //player1.receivePayment(100);
         gameClass.setPlayers(playerList);
         gameBank = gameClass.getBank();
     }
 
     @Test
     void doActionRemovesPlayerFunds() {
-        var newFunds =player1.getFunds()-10;
+        var newFunds =player1.getFunds()-200;
         taxSpace.doAction(gameClass,0);
         assertEquals(newFunds, player1.getFunds());
     }
 
     @Test
     void doActionAddsBankFunds() {
-        var newFunds =gameBank.getBankBalance()+10.0;
+        var newFunds =gameBank.getBankBalance()+200.0;
         taxSpace.doAction(gameClass,0);
+        assertEquals(newFunds, gameBank.getBankBalance());
+    }
+
+    @Test
+    void doActionRemovesPlayerFundsPercent() {
+        var newFunds =player1.getFunds()-250;
+        taxSpace.doAction(gameClass,1);
+        assertEquals(newFunds, player1.getFunds());
+    }
+
+    @Test
+    void doActionAddsBankFundsPercent() {
+        var newFunds =gameBank.getBankBalance()+250.0;
+        taxSpace.doAction(gameClass,1);
         assertEquals(newFunds, gameBank.getBankBalance());
     }
 }
