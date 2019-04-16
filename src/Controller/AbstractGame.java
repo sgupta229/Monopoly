@@ -64,6 +64,7 @@ public abstract class AbstractGame {
             //Map<BuildingType, Integer> buildingMaxAmount = buildingInfo.get(1);
             bank = new Bank(funds, properties, buildingInfo);
             board = new Board(boardSize, spaceProps.get(0));
+
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
@@ -244,6 +245,45 @@ public abstract class AbstractGame {
         return value;
     }
 
-    public boolean getEvenBuildingRule(){return evenBuildingRule;}
-    public boolean getFreeParkingRule(){return freeParkingRule;}
+    //Getters and setters for rules to be changed by user
+    public boolean getEvenBuildingRule(){
+        return evenBuildingRule;
+    }
+    public void setEvenBuildingRule(boolean bool){
+        this.evenBuildingRule = bool;
+    }
+    public boolean getFreeParkingRule(){
+        return freeParkingRule;
+    }
+    public void setFreeParkingRule(boolean bool){
+        this.freeParkingRule = bool;
+    }
+    public int getRollsInJailRule() {
+        return rollsInJailRule;
+    }
+    public void setRollsInJailRule(int rollsInJailRule) {
+        this.rollsInJailRule = rollsInJailRule;
+    }
+    public double getStartFunds() {
+        return startFunds;
+    }
+    public void setStartFunds(double startFunds) {
+        this.startFunds = startFunds;
+    }
+
+    public double getJailBail() {
+        return jailBail;
+    }
+
+    public void setJailBail(double jailBail) {
+        this.jailBail = jailBail;
+    }
+
+    public double getPassGo() {
+        return passGo;
+    }
+
+    public void setPassGo(double passGo) {
+        this.passGo = passGo;
+    }
 }

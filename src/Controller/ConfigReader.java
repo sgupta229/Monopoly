@@ -314,7 +314,6 @@ public class ConfigReader {
         return allSpacesAndProps;
     }
 
-
     public Map<Integer, ArrayList> parseColorPropInfo() {
         Map<Integer, ArrayList> propInfo = new HashMap<Integer, ArrayList>();
         NodeList spaceList = doc.getElementsByTagName("Space");

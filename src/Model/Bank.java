@@ -50,12 +50,14 @@ public class Bank implements Transfer{
      */
     public AbstractPlayer propertyOwnedBy(Property property){
         if(ownedPropsMap.containsKey(property)){
+            System.out.println("PROPERTY IN OWNED MAP");
+            System.out.println("MY OWNER IS: " + ownedPropsMap.get(property));
             return ownedPropsMap.get(property);
         }
         else if (unOwnedProps.contains(property)){
             return null;
         }
-        //need to turn this into a try catch
+        //TODO: need to turn this into a try catch
         return null;
     }
 
@@ -64,7 +66,6 @@ public class Bank implements Transfer{
             ownedPropsMap.put(property, newOwner);
         }
         else if(unOwnedProps.contains(property)){
-            System.out.println("here");
             ownedPropsMap.put(property, newOwner);
             unOwnedProps.remove(property);
         }
@@ -141,5 +142,11 @@ public class Bank implements Transfer{
         return myBalance;
     }
 
+
+
+
+    public Set<Property> getUnOwnedProps(){
+        return unOwnedProps;
+    }
 
 }

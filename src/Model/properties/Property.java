@@ -5,6 +5,7 @@ import Model.AbstractPlayer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.Objects;
 
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,
@@ -49,6 +50,7 @@ public abstract class Property {
         myName = propName;
         allPaymentInfo = paymentInfo;
         myGroupSize = groupSize;
+        isMortgaged = false;
         initializePaymentInfo(allPaymentInfo);
         //////buildingMap = new HashMap<>();
         /////for(BuildingType buildingType : buildingMap.keySet()){
@@ -141,6 +143,7 @@ public abstract class Property {
         return mortgageAmount;
     }
 
+
     public void setMortgageAmount(Double amount){
         mortgageAmount = amount;
     }
@@ -150,4 +153,20 @@ public abstract class Property {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Property property = (Property) o;
+        return Double.compare(property.myPrice, myPrice) == 0 &&
+                myGroup.equals(property.myGroup) &&
+                myName.equals(property.myName); //&&
+                //myColor.equals(property.myColor);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(myGroup, myName, myColor);
+    }
 }
