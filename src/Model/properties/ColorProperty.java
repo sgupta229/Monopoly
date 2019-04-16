@@ -1,11 +1,13 @@
 package Model.properties;
 
+import Model.AbstractPlayer;
+
 import java.util.List;
 
 public class ColorProperty extends Property {
 
-    private double numHouse;
-    private double numHotel;
+    private int numHouse;
+    private int numHotel;
     private String myColor;
     private String myGroup;
     private double rent;
@@ -14,14 +16,18 @@ public class ColorProperty extends Property {
     private double rentThreeHouse;
     private double rentFourHouse;
     private double rentHotel;
+    private List<Double> rentNumbers;
     private double pricePerHouse;
+    private double pricePerHotel;
     private double mortgage;
     private final double INFO_NUM = 8;
 
 
-    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo){
-        super(price, propName,color, paymentInfo);
+    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize){
+        super(price, propName, paymentInfo, groupSize);
         myColor=color;
+        setMyColor(color);
+        setGroup(color);
         myGroup=color;
     }
 
@@ -34,13 +40,13 @@ public class ColorProperty extends Property {
             rentFourHouse = paymentInformation.get(4);
             rentHotel = paymentInformation.get(5);
             pricePerHouse = paymentInformation.get(6);
-            mortgage = paymentInformation.get(7);
+            pricePerHotel = paymentInformation.get(7);
+            mortgage = paymentInformation.get(8);
+            rentNumbers = paymentInformation.subList(0, 5);
         }
         else{
             throw new IndexOutOfBoundsException("Bad data") ;
         }
-
-
     }
 
     /***
@@ -56,7 +62,7 @@ public class ColorProperty extends Property {
      * @return the cost to place a hotel on this property
      */
     public double getCostofHotel(){
-        return 0.0;
+        return pricePerHotel;
     }
 
     /***
@@ -72,16 +78,18 @@ public class ColorProperty extends Property {
      * much it costs when someone lands on this property
      * @return the total rent value to be paid
      */
-    public double calculateRent(){
+    public double calculateRent(AbstractPlayer propOwner, int lastDiceRoll){
         if(this.getIsMortgaged()){
             return 0.0;
         }
-
-        return 0.0;
-    }
-
-    public void build(){
-
+        double rentTotal = 0.0;
+        if(numHotel>0){
+            rentTotal+= numHotel*pricePerHotel;
+        }
+        else{
+            rentTotal+= rentNumbers.get(numHouse);
+        }
+        return rentTotal;
     }
 
     public void addHouse(){
@@ -97,10 +105,10 @@ public class ColorProperty extends Property {
     public void removeHotel(){
         numHotel--;
     }
-    public double getNumHouse(){
+    public int getNumHouse(){
         return numHouse;
     }
-    public double getNumHotel(){
+    public int getNumHotel(){
         return numHotel;
     }
 

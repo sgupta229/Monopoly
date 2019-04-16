@@ -21,8 +21,8 @@ public class CornerPopup extends Popup {
     private List<AbstractSpace> spaces;
 
 
-    public CornerPopup(String title, int propLocation) {
-        super(title);
+    public CornerPopup(int propLocation) {
+        super();
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         spaces = spaceInfo.getSpaces();
@@ -39,6 +39,18 @@ public class CornerPopup extends Popup {
         StackPane messagePane = new StackPane();
         messagePane.getChildren().add(message);
         return messagePane;
+    }
+
+    @Override
+    protected String createMessage() {
+        String message = "";
+        return message;
+    }
+
+    @Override
+    protected String createTitle() {
+        String myTitle = "Other Space";
+        return myTitle;
     }
 
     @Override

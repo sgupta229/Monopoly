@@ -34,6 +34,10 @@ public abstract class AbstractGame {
     public static List<String> possibleTokens;
     public static int numRollsInJail = 0;
 
+    private int rollsInJailRule;
+    private boolean evenBuildingRule;
+    private boolean freeParkingRule;
+    
     public AbstractGame(String filename) {
         parseXMLFile(filename);
         for(int i = 0; i < dice.size(); i++) {
@@ -62,6 +66,9 @@ public abstract class AbstractGame {
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
+            evenBuildingRule = configReader.getRuleBool("EvenBuilding");
+            freeParkingRule = configReader.getRuleBool("FreeParking");
+            rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -122,12 +129,6 @@ public abstract class AbstractGame {
             value += roll;
             diceHistory.get(i).add(roll);
         }
-
-                            //debug
-                            for (AbstractPlayer p: players) {
-                                System.out.println(p.getCurrentLocation());
-                            }
-
         return value;
     }
 
@@ -181,18 +182,6 @@ public abstract class AbstractGame {
 
     }
 
-    public void incrementNumRollsinJail() {
-        numRollsInJail++;
-    }
-
-    public void resetNumRollsInJail() {
-        numRollsInJail = 0;
-    }
-
-    public int getNumRollsInJail() {
-        return numRollsInJail;
-    }
-
     public AbstractActionCard getCurrentActionCard() {
         return currentActionCard;
     }
@@ -219,10 +208,41 @@ public abstract class AbstractGame {
         oldSpace.removeOccupant(getCurrPlayer());
         AbstractSpace newSpace = getBoard().getSpaceAt(newIndex);
         newSpace.addOccupant(getCurrPlayer());
-        newSpace.doAction(this);
     }
 
-    public void callAction() {
-        int currentLocation = currPlayer.getCurrentLocation();
+    public void displayPopup() {
+
     }
+
+    public void callAction(int userChoice) {
+        int currentLocation = currPlayer.getCurrentLocation();
+        AbstractSpace currSpace = getBoard().getSpaceAt(currentLocation);
+        currSpace.doAction(this, userChoice);
+    }
+
+    public HashMap<Integer, ArrayList<Integer>> getDiceHistory() {
+        return diceHistory;
+    }
+
+    public void startAuction() {
+
+    }
+
+    public int getLastDiceRoll() {
+        int value = 0;
+
+        for(int i = 0; i < dice.size(); i++) {
+            ArrayList<Integer> rollList = diceHistory.get(i);
+            if(rollList.size() == 0) {
+                throw new IllegalArgumentException("The dice has not been rolled");
+            }
+            else {
+                value += rollList.get(rollList.size() - 1);
+            }
+        }
+        return value;
+    }
+
+    public boolean getEvenBuildingRule(){return evenBuildingRule;}
+    public boolean getFreeParkingRule(){return freeParkingRule;}
 }

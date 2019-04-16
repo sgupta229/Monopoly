@@ -28,7 +28,7 @@ public class BoardConfigReader {
         List<List> allSpacesAndProps = mySpaceConfigs.parseSpaces();
         spaces = allSpacesAndProps.get(0);
         properties = allSpacesAndProps.get(1);
-        colorPropInfo= mySpaceConfigs.parseColorPropInfo();
+        colorPropInfo = mySpaceConfigs.parseColorPropInfo();
         indexToName = new HashMap<Point2D.Double, AbstractSpace>();
         setUpMapping();
         setIndexToName();

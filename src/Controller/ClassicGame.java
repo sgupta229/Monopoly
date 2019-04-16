@@ -1,40 +1,31 @@
 package Controller;
 
-import Model.spaces.AbstractSpace;
-
 public class ClassicGame extends AbstractGame {
 
-    private int numHouses;
-    private int numHotels;
-    private int maxHouses;
+    private int rollsInJail;
     private int passGoAmount;
 
     public ClassicGame(String filename) {
         super(filename);
         ConfigReader configReader = new ConfigReader(filename);
 
-        numHouses = (int) configReader.getRuleDouble("Houses");
-        numHotels = (int) configReader.getRuleDouble("Hotels");
-        maxHouses = (int) configReader.getRuleDouble("MaxHouses");
         passGoAmount = (int) configReader.getRuleDouble("PassGo");
+        rollsInJail = (int) configReader.getRuleDouble("RollsInJail");
     }
 
     @Override
     public int rollDice() {
         int oldIndex = getCurrPlayer().getCurrentLocation();
-        AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
-        oldSpace.removeOccupant(getCurrPlayer());
-        int roll = rollDice();
+        int roll = super.rollDice();
         int newIndex = getNewIndex(oldIndex, roll);
-
         if(!getCurrPlayer().isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }
         else {
-            incrementNumRollsinJail();
-            if(getNumRollsInJail() == 3) {
+            getCurrPlayer().incrementNumRollsinJail();
+            if(getCurrPlayer().getNumRollsInJail() == rollsInJail) {
                 this.movePlayer(oldIndex, newIndex);
-                resetNumRollsInJail();
+                getCurrPlayer().resetNumRollsInJail();
             }
         }
         checkPassGo(oldIndex, newIndex);
@@ -42,7 +33,8 @@ public class ClassicGame extends AbstractGame {
     }
 
     public void checkPassGo(int oldIndex, int newIndex) {
-        if(0 <= newIndex && 0>= oldIndex) {
+        if(newIndex < oldIndex) {
+//        if(0 <= newIndex && 0>= oldIndex) {
             getCurrPlayer().addFunds(passGoAmount);
         }
     }

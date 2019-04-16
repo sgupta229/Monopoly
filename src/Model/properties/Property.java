@@ -1,5 +1,7 @@
 package Model.properties;
 
+import Model.AbstractPlayer;
+
 import java.util.List;
 
 /***
@@ -16,16 +18,18 @@ public abstract class Property {
     private String myColor;
     private Boolean isMortgaged;
     private List allPaymentInfo;
+    private int myGroupSize;
 
 
-    public Property(double price, String propName,  List<Double> paymentInfo){
+    public Property(double price, String propName,  List<Double> paymentInfo, int groupSize){
         myPrice=price;
         myName = propName;
         allPaymentInfo = paymentInfo;
+        myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
     }
 
-
+    @Deprecated
     public Property(double price, String propName, String color, List<Double> paymentInfo){
         myPrice=price;
         myName = propName;
@@ -70,19 +74,30 @@ public abstract class Property {
         return myGroup;
     }
 
+    public void setGroup(String group){
+        myGroup = group;
+    }
+
+    public int getMyGroupSize(){
+        return myGroupSize;
+    }
+
+    public void setMyColor(String color){
+       myColor=color;
+    }
+
 
     /***
      * A method that utilizes the member variables to calculate how
      * much it costs when someone lands on this property
      * @return the total rent value to be paid
      */
-    public abstract double calculateRent();
-
-    public abstract void build();
+    public abstract double calculateRent(AbstractPlayer propOwner, int lastDiceRoll);
 
     public void setIsMortgaged(boolean mortgageVal){
         isMortgaged = mortgageVal;
     }
+
     public boolean getIsMortgaged(){
         return isMortgaged;
     }

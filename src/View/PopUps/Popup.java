@@ -19,20 +19,20 @@ public abstract class Popup {
     private String myMessage;
     private ImageView myImageView;
 
-    public Popup(String title, String message){
-        this.myTitle = title;
-        this.myMessage = message;
+    public Popup(){
+//        this.myTitle = title;
+//        this.myMessage = message;
     }
 
-    public Popup(String title){
-        this.myTitle = title;
-    }
+//    public Popup(String title){
+//        this.myTitle = title;
+//    }
 
 
     public void display() {
         Stage popUpWindow =new Stage();
         popUpWindow.initModality(Modality.APPLICATION_MODAL);
-        popUpWindow.setTitle(myTitle);
+        popUpWindow.setTitle(createTitle());
 
         BorderPane layout = new BorderPane();
         HBox all = new HBox(40);
@@ -40,7 +40,7 @@ public abstract class Popup {
         Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
         scene1.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
 
-        Label label1= new Label(myMessage);
+        Label label1= new Label(createMessage());
         label1.setWrapText(true);
         label1.setId("popupMessage");
         label1.setPrefSize(Controller.WIDTH/4, Controller.HEIGHT/2.25 );
@@ -76,6 +76,10 @@ public abstract class Popup {
     }
 
     protected abstract Pane createImage(Scene scene, Stage popUpWindow);
+
+    protected abstract String createMessage();
+
+    protected abstract String createTitle();
 
     protected abstract Pane createButtons(Stage window);
 
