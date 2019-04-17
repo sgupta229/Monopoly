@@ -233,7 +233,6 @@ public abstract class AbstractGame {
 
     public int getLastDiceRoll() {
         int value = 0;
-
         for(int i = 0; i < dice.size(); i++) {
             ArrayList<Integer> rollList = diceHistory.get(i);
             if(rollList.size() == 0) {
