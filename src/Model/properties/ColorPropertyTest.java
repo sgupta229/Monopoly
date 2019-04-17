@@ -96,14 +96,37 @@ class ColorPropertyTest {
     }
 
     @Test
-    void addBuilding() {
+    void addBuildingANDgetNum() {
+        Property lightBlueProp = propsList.get(3);
+        player1.addProperty(lightBlueProp);
+        lightBlueProp.addBuilding(BuildingType.valueOf("HOUSE"));
+        var actualNumHouses = lightBlueProp.getNumBuilding(BuildingType.valueOf("HOUSE"));
+        var expectedNumHouses = 1;
+        assertEquals(expectedNumHouses, actualNumHouses);
     }
 
     @Test
-    void removeBuilding() {
+    void removeBuildingANDgetNum() {
+        Property lightBlueProp = propsList.get(3);
+        Property lightBlueProp2 = propsList.get(4);
+        Property lightBlueProp3 = propsList.get(5);
+        player1.addProperty(lightBlueProp);
+        player1.addProperty(lightBlueProp2);
+        player1.addProperty(lightBlueProp3);
+        lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.removeBuilding(BuildingType.valueOf("HOUSE"));
+        var actualNumHouses = lightBlueProp2.getNumBuilding(BuildingType.valueOf("HOUSE"));
+        var expectedNumHouses = 1;
+        assertEquals(expectedNumHouses, actualNumHouses);
     }
 
     @Test
-    void getNumBuilding() {
+    void getNumBuildingNoBuildings() {
+        Property lightBlueProp3 = propsList.get(5);
+        player1.addProperty(lightBlueProp3);
+        var actualNumHouses = lightBlueProp3.getNumBuilding(BuildingType.valueOf("HOUSE"));
+        var expectedNumHouses = 0;
+        assertEquals(expectedNumHouses, actualNumHouses);
     }
 }
