@@ -102,10 +102,10 @@ public abstract class PropertyDisplay {
 
 //    public Text createPropNameText(){
 //        Text t = new Text(myPropName);
-//        t.setWrappingWidth((int)myBoardPane.getPrefWidth()/13);
-//        t.setTextAlignment(TextAlignment.CENTER);
-//        return t;
-//    }
+////        t.setWrappingWidth((int)myBoardPane.getPrefWidth()/13);
+////        t.setTextAlignment(TextAlignment.CENTER);
+////        return t;
+////    }
 
     public abstract void propColorLocation(HBox propColor);
 
