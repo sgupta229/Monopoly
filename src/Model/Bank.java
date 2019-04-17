@@ -29,7 +29,7 @@ public class Bank implements Transfer{
     @Deprecated
     public Bank(double startingBalance, List<Property> properties){
         myBalance=startingBalance;
-        unOwnedProps = new HashSet<Property>(properties);
+        unOwnedProps = new HashSet<>(properties);
     }
 
     ////need to take in atotalBuildingmap and maxbuilingPerPropmap
