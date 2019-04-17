@@ -277,7 +277,7 @@ public class ConfigReader {
                     rentAmounts.add(rent4);
                     rentAmounts.add(mortgage);
                     TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
-                    Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts, groupSize, buildingPriceMap);
+                    Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts, groupSize);
                     //((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
@@ -297,7 +297,7 @@ public class ConfigReader {
                     rentAmounts.add(rentMult2);
                     rentAmounts.add(mortgage);
                     TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
-                    Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts, groupSize, buildingPriceMap);
+                    Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts, groupSize);
                     //((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
