@@ -44,22 +44,9 @@ public class PropertyCell extends ListCell<Property> {
 
         if (item != null && !empty) {
             label.setText(item.getName());
-            if (item instanceof ColorProperty){
-                color.setWidth(60);
-                color.setHeight(20);
-                color.setFill(Paint.valueOf(item.getColor()));
-
-            }
-            if (item instanceof RailRoadProperty){
-                color.setWidth(60);
-                color.setHeight(20);
-                color.setFill(Paint.valueOf("black"));
-            }
-            if (item instanceof UtilityProperty){
-                color.setWidth(60);
-                color.setHeight(20);
-                color.setFill(Paint.valueOf("white"));
-            }
+            color.setWidth(60);
+            color.setHeight(20);
+            color.setFill(Paint.valueOf(item.getColor()));
             setGraphic(myHBox);
         }
     }

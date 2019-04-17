@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class AuctionPopup extends BuyPropertyPopup {
 
     private String name;
-
+    private int prefWidthTextBox=125;
 
     public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow) {
         super(propLocation, controller);
@@ -27,15 +27,14 @@ public class AuctionPopup extends BuyPropertyPopup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        HBox buttons = new HBox(10);
+        HBox buttons = new HBox(HBoxSpacing);
         Button button2= new Button("OK");
         button2.setId("button2");
-//        button2.setOnAction(e -> new AuctionPopup("Auction", "Player #, Enter your bid amount.", propLocation));
         button2.setOnAction(e -> window.close());
 
         TextField searchInput = new TextField();
         searchInput.setPromptText("Enter Amount");
-        searchInput.setPrefWidth(125);
+        searchInput.setPrefWidth(prefWidthTextBox);
 
         buttons.getChildren().addAll(searchInput,button2);
 
