@@ -90,7 +90,9 @@ public class ColorProperty extends Property {
 
     @Override
     public void removeBuilding(BuildingType building){
-        buildingMap.put(building, buildingMap.get(building)-1);
+        if(buildingMap.get(building)>0){
+            buildingMap.put(building, buildingMap.get(building)-1);
+        }
     }
 
     @Override

@@ -176,7 +176,7 @@ public class ConfigReader {
         List<AbstractSpace> allSpaces = new ArrayList<>();
         List<Property> allProps = new ArrayList<>();
         Map<String, ArrayList> propInfo = new HashMap<String, ArrayList>();
-        TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
+
 
         NodeList spaceList = doc.getElementsByTagName("Space");
         for(int i = 0; i < spaceList.getLength(); i++) {
@@ -248,7 +248,7 @@ public class ConfigReader {
                     rentAmounts.add(pricePerHouse);
                     rentAmounts.add(pricePerHotel);
                     rentAmounts.add(mortgage);
-
+                    TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
                     buildingPriceMap.put(BuildingType.valueOf("HOUSE"), pricePerHouse);
                     buildingPriceMap.put(BuildingType.valueOf("HOTEL"), pricePerHotel);
 
@@ -276,6 +276,7 @@ public class ConfigReader {
                     rentAmounts.add(rent3);
                     rentAmounts.add(rent4);
                     rentAmounts.add(mortgage);
+                    TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
                     Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts, groupSize, buildingPriceMap);
                     //((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
@@ -295,6 +296,7 @@ public class ConfigReader {
                     rentAmounts.add(rentMult);
                     rentAmounts.add(rentMult2);
                     rentAmounts.add(mortgage);
+                    TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
                     Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts, groupSize, buildingPriceMap);
                     //((PropSpace) newSpace).linkSpaceToProperty(newProp);
                     AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);

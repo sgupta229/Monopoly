@@ -53,6 +53,10 @@ public class PropSpace extends AbstractSpace {
         //else()
     }
 
+    public Property getMyProperty(){
+        return myProperty;
+    }
+
 
 
 }
