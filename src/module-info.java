@@ -6,7 +6,6 @@ module monopoly.team04 {
     requires java.desktop;
     requires java.naming;
     requires org.junit.jupiter.api;
-//    requires javafx.swing;
     requires org.testfx;
     requires org.testfx.junit5;
 

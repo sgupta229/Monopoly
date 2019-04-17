@@ -19,6 +19,12 @@ public class WinMoneyAC extends AbstractActionCard {
         amountWin = amount;
     }
 
+    public WinMoneyAC(DeckType deckType, String message, Boolean holdable, String extraString, List<Double> extraDoubles){
+        super(deckType, message, holdable);
+        winMoneyFrom = extraString.toUpperCase();
+        amountWin = extraDoubles.get(0);
+    };
+
     @Override
     public void doCardAction(AbstractGame game) {
         AbstractPlayer curr = game.getCurrPlayer();

@@ -19,12 +19,6 @@ public class RailRoadProperty extends Property {
     private final int FOUR = 4;
 
 
-    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
-        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
-        setGroup(myGroup);
-    }
-
-    @Deprecated
     public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
         super(price, propName, paymentInfo, groupSize);
         setGroup(myGroup);
@@ -66,19 +60,5 @@ public class RailRoadProperty extends Property {
         }
         return rentTotal;
     }
-
-    @Override
-    public void addBuilding(BuildingType building){
-    }
-
-    @Override
-    public void removeBuilding(BuildingType building){
-    }
-
-    @Override
-    public int getNumBuilding(BuildingType building){
-        return 0;
-    }
-
 
 }
