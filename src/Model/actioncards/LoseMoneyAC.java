@@ -27,6 +27,8 @@ public class LoseMoneyAC extends AbstractActionCard {
         amountLose = amount;
     }
 
+    //public LoseMoneyAC(DeckType deckType, String message, Boolean holdable, String extraString, List<Double> extraDoubles){}
+
     @Override
     public void doCardAction(AbstractGame game) {
         if(amountLose.size() == 1){

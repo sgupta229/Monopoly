@@ -6,40 +6,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ColorProperty extends Property {
+public class ColorProperty extends Property implements Buildable {
 
-    private int numHouse;
+    //private int numHouse;
     private int numHotel;
     private String myColor;
 
     private List<Double> rentNumbers;
-    private double pricePerHouse;
-    private double pricePerHotel;
-    private double mortgage;
-    private final double INFO_NUM = 8;
+    private static final int INFO_NUM = 8;
+    private static final int SIX = 6;
+    private static final int HOTEL_RENT_INDEX = 5;
+
+    protected Map<BuildingType, Integer> buildingMap;
+    protected Map<BuildingType, Double> buildingPrices;
 
 
     public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
-        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
-        myColor=color;
-        setMyColor(color);
-        setGroup(color);
-    }
-
-    @Deprecated
-    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize){
         super(price, propName, paymentInfo, groupSize);
+        buildingPrices = buildingPricesMap;
+        buildingMap = new HashMap<>();
         myColor=color;
         setMyColor(color);
         setGroup(color);
+
+        for(BuildingType buildingType : buildingPrices.keySet()){
+            buildingMap.put(buildingType, 0);
+        }
+
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException{
-        if(paymentInformation.size()>=INFO_NUM)   {
-            pricePerHouse = paymentInformation.get(6);
-            pricePerHotel = paymentInformation.get(7);
-            setMortgageAmount(paymentInformation.get(8));
-            rentNumbers = paymentInformation.subList(0, 6);
+        List<Double> paymentInformationCopy = paymentInformation;
+        if(paymentInformationCopy.size()>=INFO_NUM)   {
+            //pricePerHouse = paymentInformation.get(6);
+            //pricePerHotel = paymentInformation.get(7);
+            setMortgageAmount(paymentInformationCopy.get(INFO_NUM));
+            rentNumbers = paymentInformationCopy.subList(0, SIX);
             buildingPrices = new HashMap<>();
             /////buildingPrices.put(something);
         }
@@ -70,7 +72,7 @@ public class ColorProperty extends Property {
         double rentTotal = 0.0;
         numHotel = getNumBuilding(BuildingType.valueOf("HOTEL"));
         if(numHotel>0){
-            rentTotal+= numHotel*rentNumbers.get(5);
+            rentTotal+= numHotel*rentNumbers.get(HOTEL_RENT_INDEX);
         }
         else{
             rentTotal+= rentNumbers.get(getNumBuilding(BuildingType.valueOf("HOUSE")));
@@ -78,7 +80,6 @@ public class ColorProperty extends Property {
         return rentTotal;
     }
 
-    @Override
     public void addBuilding(BuildingType building){
         if(!buildingMap.containsKey(building)){
             buildingMap.put(building, 0);
@@ -88,14 +89,12 @@ public class ColorProperty extends Property {
         System.out.println(buildingMap.get(building));
     }
 
-    @Override
     public void removeBuilding(BuildingType building){
         if(buildingMap.get(building)>0){
             buildingMap.put(building, buildingMap.get(building)-1);
         }
     }
 
-    @Override
     public int getNumBuilding(BuildingType building){
         if(!buildingMap.containsKey(building)){
             buildingMap.put(building, 0);
@@ -103,7 +102,8 @@ public class ColorProperty extends Property {
         return buildingMap.get(building);
     }
 
-
-
+    public double getBuildingPrice(BuildingType building){
+        return buildingPrices.get(building);
+    }
 
 }

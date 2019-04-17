@@ -1,7 +1,6 @@
 package Model.properties;
 
 import Model.AbstractPlayer;
-import Model.properties.Property;
 
 import java.util.List;
 import java.util.Map;
@@ -11,8 +10,8 @@ public class UtilityProperty extends Property {
     private String myGroup = "UTILITY";
     private double rentMult;
     private double rentMult2;
-    private double mortgage;
-    private final double INFO_NUM = 3;
+    //private double mortgage;
+    private static final double INFO_NUM = 3;
 
     public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
         super(price, propName, paymentInfo, groupSize, buildingPricesMap);
