@@ -87,7 +87,6 @@ public class Board implements PropertyChangeListener {
             myPopup = new CornerPopup(playerLocation);
         }
         else {
-            //TODO: CHECK IF THE PROPERTY IS OWNED, IF NOT DISPLAY THIS.  IF OWNED PROMPT WITH RENT(still need to make this popup!!!!)
 
             for (AbstractSpace sp : allSpaces){
                 if (sp.getMyLocation()==playerLocation){
@@ -97,11 +96,11 @@ public class Board implements PropertyChangeListener {
             for (Property p : myProps){
                 if (myAbstractSpace.getMyName().equalsIgnoreCase(p.getName())){
                     myProperty = p;
-                    System.out.println("HELLO MY PROP " + myProperty.getName() + " " + p);
+//                    System.out.println("HELLO MY PROP " + myProperty.getName() + " " + p);
                 }
             }
 
-            System.out.println("PROP IS OWNED BY: " + myController.getGame().getBank().propertyOwnedBy(myProperty));
+//            System.out.println("PROP IS OWNED BY: " + myController.getGame().getBank().propertyOwnedBy(myProperty));
             System.out.println(myController.getGame().getBank().propertyOwnedBy(myProperty));
             if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
                 myPopup = new PayRentPopup(playerLocation, myController);
