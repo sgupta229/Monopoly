@@ -72,7 +72,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         });
 
         Button manageProperty = new Button("Manage Property");
-        manageProperty.setOnAction(e -> new BuildOrSellPopup( 39, myController).display());
+        manageProperty.setOnAction(e -> new BuildOrSellPopup(39,myController).display());
 
         HBox moveBox = new HBox();
         TextField moveTo = new TextField();
@@ -80,13 +80,21 @@ public abstract class PlayerControl implements PropertyChangeListener {
         moveBox.getChildren().addAll(moveTo,move);
         move.setOnAction(e -> myController.getGame().movePlayer(myPlayer.getCurrentLocation(),Integer.parseInt(moveTo.getText())));
 
+        Button forfeit = new Button("FORFEIT");
+        forfeit.setId("button1");
+        forfeit.setOnAction(e-> {
+            myController.getGame().getPlayers().remove(myController.getGame().getCurrPlayer());
+            myController.getGame().startNextTurn();
+            myDiceRoller.setDisable(false);
+        });
+
         myVBox.setId("playerControlBox");
         HBox nameAndEnd = new HBox(20);
         nameAndEnd.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(myPlayer.getName());
         ImageView playerIcon = myController.getPlayerImageView(myPlayer);
         nameAndEnd.getChildren().addAll(playerIcon,playerName,endTurnButton);
-        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(), moveBox,manageProperty,createAssetsListView());
+        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(), moveBox,manageProperty,createAssetsListView(),forfeit);
         return myVBox;
     }
 

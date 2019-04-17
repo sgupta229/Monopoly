@@ -1,6 +1,7 @@
 package View.PopUps;
 
 import Controller.Controller;
+import Model.properties.Property;
 import View.BoardConfigReader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -66,8 +67,10 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         ComboBox props = new ComboBox();
         props.setOnAction(e -> this.property =  props.getSelectionModel().getSelectedItem().toString());
 
+        for (Property p : myController.getGame().getCurrPlayer().getProperties()){
+            props.getItems().add(p.getName());
 
-        props.getItems().add("BOARDWALK");
+        }
         props.setPromptText("Choose Your Property");
         pane.setTop(props);
         pane.setAlignment(props,Pos.CENTER);

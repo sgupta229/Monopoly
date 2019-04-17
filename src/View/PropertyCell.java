@@ -3,6 +3,8 @@ package View;
 import Model.AbstractPlayer;
 import Model.properties.ColorProperty;
 import Model.properties.Property;
+import Model.properties.RailRoadProperty;
+import Model.properties.UtilityProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,6 +48,17 @@ public class PropertyCell extends ListCell<Property> {
                 color.setWidth(60);
                 color.setHeight(20);
                 color.setFill(Paint.valueOf(item.getColor()));
+
+            }
+            if (item instanceof RailRoadProperty){
+                color.setWidth(60);
+                color.setHeight(20);
+                color.setFill(Paint.valueOf("black"));
+            }
+            if (item instanceof UtilityProperty){
+                color.setWidth(60);
+                color.setHeight(20);
+                color.setFill(Paint.valueOf("white"));
             }
             setGraphic(myHBox);
         }

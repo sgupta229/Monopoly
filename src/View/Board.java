@@ -81,7 +81,7 @@ public class Board implements PropertyChangeListener {
             myPopup = new ActionCardPopup( playerLocation, myController);
         }
         else if (playerLocation==4 || playerLocation==38){
-            myPopup = new TaxPopup(playerLocation);
+            myPopup = new TaxPopup(playerLocation,myController);
         }
         else if (playerLocation==0 || playerLocation==10 || playerLocation==20 || playerLocation==30){
             myPopup = new CornerPopup(playerLocation);
@@ -103,15 +103,19 @@ public class Board implements PropertyChangeListener {
 
             System.out.println("PROP IS OWNED BY: " + myController.getGame().getBank().propertyOwnedBy(myProperty));
             System.out.println(myController.getGame().getBank().propertyOwnedBy(myProperty));
-            if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null){
+            if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
                 myPopup = new PayRentPopup(playerLocation, myController);
+            }
+            else if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)==myGame.getCurrPlayer()) {
+                myPopup = null;
             }
             else{
                 myPopup = new BuyPropertyPopup(playerLocation, myController);
-
             }
         }
-        myPopup.display();
+        if (myPopup!=null){
+            myPopup.display();
+        }
     }
 
 
