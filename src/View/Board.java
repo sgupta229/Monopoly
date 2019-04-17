@@ -101,12 +101,12 @@ public class Board implements PropertyChangeListener {
                 }
             }
 
-            System.out.println("PROP IS OWNED BY: " + myController.getGame().getBank().propertyOwnedBy(myProperty));
-            System.out.println(myController.getGame().getBank().propertyOwnedBy(myProperty));
-            if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
+            System.out.println("PROP IS OWNED BY: " + myGame.getBank().propertyOwnedBy(myProperty));
+            System.out.println(myGame.getBank().propertyOwnedBy(myProperty));
+            if (myGame.getBank().propertyOwnedBy(myProperty)!= null && myGame.getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
                 myPopup = new PayRentPopup(playerLocation, myController);
             }
-            else if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)==myGame.getCurrPlayer()) {
+            else if (myGame.getBank().propertyOwnedBy(myProperty)!= null && myGame.getBank().propertyOwnedBy(myProperty)==myGame.getCurrPlayer()) {
                 myPopup = null;
             }
             else{
@@ -229,7 +229,7 @@ public class Board implements PropertyChangeListener {
         nameToPrice = configs.getNameToPrice();
         allSpaces = configs.getSpaces();
 //        myProps = configs.getProperties();
-        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
+        myProps = new ArrayList<>(myGame.getBank().getUnOwnedProps());
     }
 
     public Pane getGridPane() {

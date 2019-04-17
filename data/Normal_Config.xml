@@ -505,7 +505,7 @@
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TO ST.CHARLES PLACE. IF YOU PASS GO, COLLECT $200</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>ST.CHARLES_PLACE</TargetSpace>
+            <TargetSpace>ST._CHARLES_PLACE</TargetSpace>
         </ActionCardType>
         <ActionCardType type="MOVE_TO">
             <DeckType>CHANCE</DeckType>

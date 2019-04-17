@@ -43,7 +43,8 @@ public class PropertyCell extends ListCell<Property> {
         setGraphic(null);
 
         if (item != null && !empty) {
-            label.setText(item.getName());
+            String name = item.getName();
+            label.setText(name);
             if (item instanceof ColorProperty){
                 color.setWidth(60);
                 color.setHeight(20);

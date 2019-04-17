@@ -3,6 +3,8 @@ package View;
 import Controller.Controller;
 import Model.AbstractPlayer;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableListValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,6 +37,9 @@ public class AddPlayersScreen {
     private Controller myController;
     private ObservableList<AbstractPlayer> myPlayers;
     private ObservableList<String> availableTokensStrings;
+    private ObservableList<Image> availableTokensImages;
+    private ObservableList<Image> chosenTokensImages;
+    private SimpleObjectProperty<Image> chosenTokenImage;
     private AnchorPane anchorPane = new AnchorPane();
 
     private ComboBox myIconMenu;
@@ -84,8 +89,7 @@ public class AddPlayersScreen {
     }
 
     private HBox createBottomButtons(){
-        HBox box = new HBox();
-        box.setSpacing(30);
+        HBox box = new HBox(30);
 
         Button rules = new Button(messages.getString("edit-rules"));
         rules.setOnAction(e -> new RulesPopup(myController.getGame()).display());
