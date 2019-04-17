@@ -3,6 +3,8 @@ package View;
 import Model.AbstractPlayer;
 import Model.properties.ColorProperty;
 import Model.properties.Property;
+import Model.properties.RailRoadProperty;
+import Model.properties.UtilityProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,7 +22,7 @@ public class PropertyCell extends ListCell<Property> {
     private Rectangle color;
     private Label label = new Label("");
     private Pane pane = new Pane();
-    private Button button = new Button("...");
+//    private Button button = new Button("...");
 
     public PropertyCell() {
         super();
@@ -29,9 +31,9 @@ public class PropertyCell extends ListCell<Property> {
         myHBox = new HBox();
         myHBox.setSpacing(10);
         myHBox.setAlignment(Pos.CENTER_LEFT);
-        myHBox.getChildren().addAll(label, pane, color, button);
+        myHBox.getChildren().addAll(label, pane, color);
         HBox.setHgrow(pane, Priority.ALWAYS);
-        button.setOnAction(event -> getListView().getItems());  //TODO: set to show more info?
+//        button.setOnAction(event -> getListView().getItems());  //TODO: set to show more info?
     }
 
     @Override
@@ -46,6 +48,17 @@ public class PropertyCell extends ListCell<Property> {
                 color.setWidth(60);
                 color.setHeight(20);
                 color.setFill(Paint.valueOf(item.getColor()));
+
+            }
+            if (item instanceof RailRoadProperty){
+                color.setWidth(60);
+                color.setHeight(20);
+                color.setFill(Paint.valueOf("black"));
+            }
+            if (item instanceof UtilityProperty){
+                color.setWidth(60);
+                color.setHeight(20);
+                color.setFill(Paint.valueOf("white"));
             }
             setGraphic(myHBox);
         }

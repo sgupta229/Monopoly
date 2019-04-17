@@ -5,10 +5,8 @@ import Model.AbstractPlayer;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -76,19 +74,30 @@ public class AddPlayersScreen {
 
         screenContent.getChildren().addAll(createNewPlayerBox(),createEditPlayerListBox());
 
+        HBox bottomButtons = createBottomButtons();
+
+        anchorPane.getChildren().addAll(title,screenContent,bottomButtons);
+        AnchorPane.setTopAnchor(title,76.0);
+        AnchorPane.setTopAnchor(screenContent,163.0);
+        AnchorPane.setBottomAnchor(bottomButtons,60.0);
+        AnchorPane.setRightAnchor(bottomButtons,60.0);
+    }
+
+    private HBox createBottomButtons(){
+        HBox box = new HBox();
+        box.setSpacing(30);
+
+        Button rules = new Button(messages.getString("edit-rules"));
+        rules.setOnAction(e -> new RulesPopup(myController.getGame()).display());
+
         Button startGame = new Button(messages.getString("start-game"));
         startGame.setOnAction(new StartButtonHandler());
         startGame.disableProperty().bind(Bindings.size(myPlayers).lessThan(1));
 
-        anchorPane.getChildren().addAll(title,screenContent,startGame);
-        AnchorPane.setTopAnchor(title,76.0);
-        AnchorPane.setTopAnchor(screenContent,163.0);
-        AnchorPane.setBottomAnchor(startGame,60.0);
-        AnchorPane.setRightAnchor(startGame,60.0);
+        box.getChildren().addAll(rules,startGame);
+        return box;
     }
 
-    //TODO: refactor
-    //TODO: add dynamic ness
     private VBox createNewPlayerBox(){
         VBox newPlayer = new VBox();
         newPlayer.setId("box");
@@ -175,7 +184,6 @@ public class AddPlayersScreen {
             System.out.println("added player");
         }
     }
-
 
     class ImageListCell extends ListCell<Image> {
         private final ImageView view;

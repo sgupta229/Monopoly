@@ -26,10 +26,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public abstract class PlayerControl implements PropertyChangeListener {
     protected Controller myController;
     protected AbstractPlayer myPlayer;
+    protected ResourceBundle messages;
 
     protected AnchorPane myAnchorPane;
     protected VBox myVBox;
@@ -41,6 +43,8 @@ public abstract class PlayerControl implements PropertyChangeListener {
         myPlayer = player;
         myController = controller;
         myPlayer.addPropertyChangeListener("funds",this);
+
+        messages = ResourceBundle.getBundle("Messages");
 
         setUpLayout();
     }
@@ -59,8 +63,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
     private VBox createVBox(){
         myVBox = new VBox();
 
-        //TODO: move magic val to properties
-        Button endTurnButton = new Button("END TURN");
+        Button endTurnButton = new Button(messages.getString("end-turn"));
         endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 myController.getGame().startNextTurn();
@@ -69,14 +72,21 @@ public abstract class PlayerControl implements PropertyChangeListener {
         });
 
         Button manageProperty = new Button("Manage Property");
-        manageProperty.setOnAction(e -> new BuildOrSellPopup( 39, myController).display());
+        manageProperty.setOnAction(e -> new BuildOrSellPopup(39,myController).display());
 
         HBox moveBox = new HBox();
         TextField moveTo = new TextField();
         Button move = new Button("MOVE");
         moveBox.getChildren().addAll(moveTo,move);
-
         move.setOnAction(e -> myController.getGame().movePlayer(myPlayer.getCurrentLocation(),Integer.parseInt(moveTo.getText())));
+
+        Button forfeit = new Button("FORFEIT");
+        forfeit.setId("button1");
+        forfeit.setOnAction(e-> {
+            myController.getGame().getPlayers().remove(myController.getGame().getCurrPlayer());
+            myController.getGame().startNextTurn();
+            myDiceRoller.setDisable(false);
+        });
 
         myVBox.setId("playerControlBox");
         HBox nameAndEnd = new HBox(20);
@@ -84,23 +94,20 @@ public abstract class PlayerControl implements PropertyChangeListener {
         Text playerName = new Text(myPlayer.getName());
         ImageView playerIcon = myController.getPlayerImageView(myPlayer);
         nameAndEnd.getChildren().addAll(playerIcon,playerName,endTurnButton);
-        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(), moveBox,manageProperty,createAssetsListView());
+        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(), moveBox,manageProperty,createAssetsListView(),forfeit);
         return myVBox;
     }
 
     private ListView createAssetsListView(){
 
+//        ArrayList<Property> temp = new ArrayList<>();
+//        ArrayList<Double> fakeVals = new ArrayList<>();
+//        for (int i=0;i<10;i++){
+//            fakeVals.add(i+0.5);
+//        }
+//        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals,3));
 
-
-        ArrayList<Property> temp = new ArrayList<>();
-        ArrayList<Double> fakeVals = new ArrayList<>();
-        for (int i=0;i<10;i++){
-            fakeVals.add(i+0.5);
-        }
-        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals,3));
-
-        ObservableList<Property> assetsList = FXCollections.observableList(temp);
-        ListView<Property> assetsListView = new ListView<>(assetsList);
+        ListView<Property> assetsListView = new ListView<>(myPlayer.getProperties());
 
         assetsListView.setCellFactory(new Callback<ListView<Property>, ListCell<Property>>() {
             @Override

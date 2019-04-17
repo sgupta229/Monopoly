@@ -22,7 +22,6 @@ public class BoardConfigReader {
     Map<Integer, ArrayList> colorPropInfo;
 
 
-
     public BoardConfigReader(){
         mySpaceConfigs = new ConfigReader(CONFIG_PATH);
         List<List> allSpacesAndProps = mySpaceConfigs.parseSpaces();
@@ -84,6 +83,9 @@ public class BoardConfigReader {
     public List<AbstractSpace> getSpaces() {
         return spaces;
     }
+
+    public List<Property> getProperties() { return properties; }
+
 
 
 

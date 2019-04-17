@@ -22,10 +22,8 @@ public abstract class AbstractPlayer implements Transfer {
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
-
     private Token token;
     private String tokenImage;
-
     private ObservableList<Property> properties;
     private List<AbstractActionCard> actionCards;
     private int currentLocation;
@@ -40,9 +38,6 @@ public abstract class AbstractPlayer implements Transfer {
     public AbstractPlayer(String name) {
         this();
         this.name = name;
-        this.inJail = false;
-        properties = FXCollections.observableArrayList();
-        actionCards = new ArrayList<>();
     }
 
     public void addProperty(Property property) {
