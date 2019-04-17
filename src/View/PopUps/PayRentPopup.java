@@ -66,7 +66,7 @@ public class PayRentPopup extends BuyPropertyPopup {
 
     @Override
     protected String createMessage() {
-        String myMessage = "Oops this property is owned by " + myController.getGame().getBank().propertyOwnedBy(myProp).getName() + ". Rent is" + myProp.calculateRent(myController.getGame().getBank().propertyOwnedBy(myProp), myController.getGame().getLastDiceRoll());
+        String myMessage = "Oops this property is owned by " + myController.getGame().getBank().propertyOwnedBy(myProp).getName() + ". Rent is $" + myProp.calculateRent(myController.getGame().getBank().propertyOwnedBy(myProp), myController.getGame().getLastDiceRoll()) + "0.";
         return myMessage;
     }
 
