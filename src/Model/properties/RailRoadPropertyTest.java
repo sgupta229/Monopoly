@@ -5,6 +5,7 @@ import Controller.ConfigReader;
 import Model.Bank;
 import Model.ClassicPlayer;
 import Model.XmlTagException;
+import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

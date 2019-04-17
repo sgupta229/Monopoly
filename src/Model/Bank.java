@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.ConfigReader;
+import Model.properties.Buildable;
 import Model.properties.BuildingType;
 import Model.properties.ColorProperty;
 import Model.properties.Property;
@@ -108,24 +109,35 @@ public class Bank implements Transfer{
         property.setIsMortgaged(true);
     }
 
-    public void build(Property property, BuildingType building){
-        if(maxBuildingsPerProp.get(building) > property.getNumBuilding(building)){
-            AbstractPlayer propOwner = propertyOwnedBy(property);
-            totalBuildingMap.put(building, totalBuildingMap.get(building)-1);
+    public void build(Buildable property, BuildingType building){
+        if(!(property instanceof Property)) {
+            throw new IllegalArgumentException("the Buildable is not a property");
+        }
+        if (maxBuildingsPerProp.get(building) > property.getNumBuilding(building)) {
+            AbstractPlayer propOwner = propertyOwnedBy((Property) property);
+            totalBuildingMap.put(building, totalBuildingMap.get(building) - 1);
             property.addBuilding(building);
             propOwner.makePayment(property.getBuildingPrice(building), this);
         }
     }
 
-    public void sellBackBuildings(Property property, BuildingType building){
-        AbstractPlayer propOwner = propertyOwnedBy(property);
+    public void sellBackBuildings(Buildable property, BuildingType building){
+        if(!(property instanceof Property)) {
+            throw new IllegalArgumentException("the Buildable is not a property");
+        }
+
+        AbstractPlayer propOwner = propertyOwnedBy((Property) property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
         property.removeBuilding(building);
         this.makePayment(property.getBuildingPrice(building)/2, propOwner);
     }
 
-    public void unbuildForUpgrade(Property property, BuildingType building){
-        AbstractPlayer propOwner = propertyOwnedBy(property);
+    public void unbuildForUpgrade(Buildable property, BuildingType building){
+        if(!(property instanceof Property)) {
+            throw new IllegalArgumentException("the Buildable is not a property");
+        }
+
+        AbstractPlayer propOwner = propertyOwnedBy((Property) property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
         property.removeBuilding(building);
     }
@@ -140,9 +152,6 @@ public class Bank implements Transfer{
     public double getBankBalance(){
         return myBalance;
     }
-
-
-
 
     public Set<Property> getUnOwnedProps(){
         return unOwnedProps;

@@ -14,13 +14,6 @@ public class UtilityProperty extends Property {
     private double mortgage;
     private final double INFO_NUM = 3;
 
-    public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
-        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
-        setGroup(myGroup);
-
-    }
-
-    @Deprecated
     public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
         super(price, propName, paymentInfo, groupSize);
         setGroup(myGroup);

@@ -5,13 +5,22 @@ import Controller.AbstractGame;
 import Model.AbstractPlayer;
 import Model.spaces.SpaceGroup;
 
+import java.util.List;
+
 public class MoveToAC extends AbstractActionCard {
     private String myTargetSpace;
+    private Double passGo;
 
     public MoveToAC(DeckType deckType, String message, Boolean holdable, String targetSpace) {
         super(deckType, message, holdable);
         myTargetSpace = targetSpace;
     }
+
+    public MoveToAC(DeckType deckType, String message, Boolean holdable, String extraString, List<Double> extraDoubles){
+        super(deckType, message, holdable);
+        myTargetSpace = extraString;
+        passGo = extraDoubles.get(0);
+    };
 
     @Override
     public void doCardAction(AbstractGame game) {
@@ -49,6 +58,9 @@ public class MoveToAC extends AbstractActionCard {
             }
             if(game.getBoard().getSpaceAt(i).getMyGroup() == group){
                 game.movePlayer(prevLocation, i);
+                if(prevLocation > i){
+                    game.getBank().makePayment(passGo, curr);
+                }
                 return;
             }
         }
@@ -65,6 +77,10 @@ public class MoveToAC extends AbstractActionCard {
         AbstractPlayer curr = game.getCurrPlayer();
         int prevLocation = curr.getCurrentLocation();
         int newLocation = game.getBoard().getLocationOfSpace(myTargetSpace);
+        if(myTargetSpace.equalsIgnoreCase("GO") || (prevLocation > newLocation)){
+            game.getBank().makePayment(passGo, curr);
+        }
+
         game.movePlayer(prevLocation, newLocation);
     }
 
