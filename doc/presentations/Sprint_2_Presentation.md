@@ -2,7 +2,7 @@ Sprint 2 Presentation
 ===
 
 ### Program Demo
-* ~~Rule changes?
+* Rule changes 
 * Add players - with name showing
 * Test dice roll input
 * Display funds
@@ -17,6 +17,9 @@ Sprint 2 Presentation
 * Forfeit
 * ~~Building on monopolized properties~~
 * Roll/pay to get out of jail
+* Building on monopolized properties
+    * Back end works
+* Roll to get out of jail
 
 ### Work Related to Demo
 * Front end -- all the popups we decided to show after landing on each space before doing each action
