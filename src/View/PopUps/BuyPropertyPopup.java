@@ -1,10 +1,8 @@
 package View.PopUps;
 
 import Controller.Controller;
-import Model.AbstractPlayer;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
-import Model.spaces.PropSpace;
 import View.BoardConfigReader;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,13 +13,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +29,6 @@ import java.util.Map;
 public class BuyPropertyPopup extends Popup {
 
     private Map<Integer, ArrayList> colorPropInfo;
-    private Map<Point2D.Double, AbstractSpace> indexToName;
     private int propLocation;
     private ArrayList propDetails;
     private String name;
@@ -60,7 +59,6 @@ public class BuyPropertyPopup extends Popup {
         BoardConfigReader spaceInfo = new BoardConfigReader();
         colorPropInfo = spaceInfo.getColorPropInfo();
     }
-
 
     @Override
     protected Pane createImage(Scene scene, Stage popUpWindow) {
@@ -93,9 +91,7 @@ public class BuyPropertyPopup extends Popup {
             name = propDetails.get(10).toString().replace("_", " ");
 
         }
-        StackPane fullImage = new StackPane(imagePane, propertyInfo(scene));
-
-        return fullImage;
+        return new StackPane(imagePane, propertyInfo(scene));
     }
 
     @Override
@@ -112,7 +108,7 @@ public class BuyPropertyPopup extends Popup {
 
     @Override
     protected Pane createButtons(Stage popUpWindow) {
-        HBox buttons = new HBox(10);
+        HBox buttons = new HBox(HBoxSpacing);
         Button button1 = new Button("YES");
         Button button2 = new Button("NO");
         button1.setId("button2");
@@ -130,7 +126,7 @@ public class BuyPropertyPopup extends Popup {
 
             @Override
             public void handle(ActionEvent event) {
-                mySpace.doAction(myController.getGame(), 0);
+                mySpace.doAction(myController.getGame(), OK);
                 popUpWindow.close();
                 System.out.println("CURR PLAYER PROPS " + myController.getGame().getCurrPlayer().getProperties().toString());
 
@@ -184,7 +180,7 @@ public class BuyPropertyPopup extends Popup {
         textPane.setAlignment(Pos.BOTTOM_CENTER);
         textPane.setPrefWrapLength(scene.getWidth() / 2.5);
         textPane.setId("propPopUp");
-        textPane.setPadding(new Insets(0, 0, 10, 0));
+        textPane.setPadding(new Insets(OK, OK, HBoxSpacing, OK));
         return textPane;
     }
 

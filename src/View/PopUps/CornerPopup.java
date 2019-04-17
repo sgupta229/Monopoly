@@ -55,7 +55,7 @@ public class CornerPopup extends Popup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        HBox buttons = new HBox(10);
+        HBox buttons = new HBox(HBoxSpacing);
         Button button1= new Button("OK");
         button1.setId("button1");
         button1.setOnAction(e -> window.close());
