@@ -2,10 +2,7 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,
@@ -13,12 +10,13 @@ import java.util.Objects;
  * with every specific  number of houses, cost of rent with a hotel, and the mortgage cost
  */
 public abstract class Property {
+    protected ResourceBundle general;
 
     private double myPrice;
     private double mortgageAmount;
     private String myGroup;
     private String myName;
-    private String myColor;
+    protected String myColor;
     private Boolean isMortgaged;
     private List allPaymentInfo;
     private int myGroupSize;
@@ -42,6 +40,7 @@ public abstract class Property {
         for(BuildingType buildingType : buildingPrices.keySet()){
             buildingMap.put(buildingType, 0);
         }
+        general = ResourceBundle.getBundle("GeneralInfo");
     }
 
     @Deprecated
