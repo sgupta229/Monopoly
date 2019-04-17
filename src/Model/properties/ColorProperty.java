@@ -8,15 +8,17 @@ import java.util.Map;
 
 public class ColorProperty extends Property {
 
-    private int numHouse;
+    //private int numHouse;
     private int numHotel;
     private String myColor;
 
     private List<Double> rentNumbers;
-    private double pricePerHouse;
-    private double pricePerHotel;
-    private double mortgage;
-    private final double INFO_NUM = 8;
+    //private double pricePerHouse;
+    //private double pricePerHotel;
+    //private double mortgage;
+    private static final int INFO_NUM = 8;
+    private static final int SIX = 6;
+    private static final int HOTEL_RENT_INDEX = 5;
 
 
     public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
@@ -35,11 +37,12 @@ public class ColorProperty extends Property {
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException{
-        if(paymentInformation.size()>=INFO_NUM)   {
-            pricePerHouse = paymentInformation.get(6);
-            pricePerHotel = paymentInformation.get(7);
-            setMortgageAmount(paymentInformation.get(8));
-            rentNumbers = paymentInformation.subList(0, 6);
+        List<Double> paymentInformationCopy = paymentInformation;
+        if(paymentInformationCopy.size()>=INFO_NUM)   {
+            //pricePerHouse = paymentInformation.get(6);
+            //pricePerHotel = paymentInformation.get(7);
+            setMortgageAmount(paymentInformationCopy.get(INFO_NUM));
+            rentNumbers = paymentInformationCopy.subList(0, SIX);
             buildingPrices = new HashMap<>();
             /////buildingPrices.put(something);
         }
@@ -70,7 +73,7 @@ public class ColorProperty extends Property {
         double rentTotal = 0.0;
         numHotel = getNumBuilding(BuildingType.valueOf("HOTEL"));
         if(numHotel>0){
-            rentTotal+= numHotel*rentNumbers.get(5);
+            rentTotal+= numHotel*rentNumbers.get(HOTEL_RENT_INDEX);
         }
         else{
             rentTotal+= rentNumbers.get(getNumBuilding(BuildingType.valueOf("HOUSE")));
