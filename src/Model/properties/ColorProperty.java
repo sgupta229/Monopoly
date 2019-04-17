@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ColorProperty extends Property {
+public class ColorProperty extends Property implements Buildable {
 
     private int numHouse;
     private int numHotel;
@@ -17,21 +17,21 @@ public class ColorProperty extends Property {
     private double pricePerHotel;
     private double mortgage;
     private final double INFO_NUM = 8;
-
+    protected Map<BuildingType, Integer> buildingMap;
+    protected Map<BuildingType, Double> buildingPrices;
 
     public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
-        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
-        myColor=color;
-        setMyColor(color);
-        setGroup(color);
-    }
-
-    @Deprecated
-    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize){
         super(price, propName, paymentInfo, groupSize);
+        buildingPrices = buildingPricesMap;
+        buildingMap = new HashMap<>();
         myColor=color;
         setMyColor(color);
         setGroup(color);
+
+        for(BuildingType buildingType : buildingPrices.keySet()){
+            buildingMap.put(buildingType, 0);
+        }
+
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException{
@@ -78,7 +78,6 @@ public class ColorProperty extends Property {
         return rentTotal;
     }
 
-    @Override
     public void addBuilding(BuildingType building){
         if(!buildingMap.containsKey(building)){
             buildingMap.put(building, 0);
@@ -88,14 +87,12 @@ public class ColorProperty extends Property {
         System.out.println(buildingMap.get(building));
     }
 
-    @Override
     public void removeBuilding(BuildingType building){
         if(buildingMap.get(building)>0){
             buildingMap.put(building, buildingMap.get(building)-1);
         }
     }
 
-    @Override
     public int getNumBuilding(BuildingType building){
         if(!buildingMap.containsKey(building)){
             buildingMap.put(building, 0);
@@ -103,7 +100,8 @@ public class ColorProperty extends Property {
         return buildingMap.get(building);
     }
 
-
-
+    public double getBuildingPrice(BuildingType building){
+        return buildingPrices.get(building);
+    }
 
 }

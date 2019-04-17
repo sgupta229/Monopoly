@@ -3,6 +3,7 @@ package Model.tests;
 import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Model.*;
+import Model.properties.Buildable;
 import Model.properties.BuildingType;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
@@ -123,13 +124,13 @@ class BankTest {
     void buildHouse(){
         player1.receivePayment(1000);
         gameBank.setPropertyOwner(prop1, player1);
-        gameBank.build(prop1, BuildingType.valueOf("HOUSE"));
+        gameBank.build((Buildable) prop1, BuildingType.valueOf("HOUSE"));
     }
 
     @Test
     void buildHouseIncreasesPropsHouseNum(){
         buildHouse();
-        int numHouses = prop1.getNumBuilding(BuildingType.valueOf("HOUSE"));
+        int numHouses = ((Buildable) prop1).getNumBuilding(BuildingType.valueOf("HOUSE"));
         var expectedhouses = 1;
         assertEquals(expectedhouses, numHouses);
     }
@@ -145,8 +146,8 @@ class BankTest {
     @Test
     void sellBackBuildingsDecreasesPropsHouseNum(){
         buildHouse();
-        gameBank.sellBackBuildings(prop1, BuildingType.valueOf("HOUSE"));
-        int numHouses = prop1.getNumBuilding(BuildingType.valueOf("HOUSE"));
+        gameBank.sellBackBuildings((Buildable) prop1, BuildingType.valueOf("HOUSE"));
+        int numHouses = ((Buildable) prop1).getNumBuilding(BuildingType.valueOf("HOUSE"));
         var expectedhouses = 0;
         assertEquals(expectedhouses, numHouses);
     }
@@ -155,7 +156,7 @@ class BankTest {
     void sellBackBuildingGetMoneyBack(){
         buildHouse();
         double playerOldFunds = player1.getFunds();
-        gameBank.sellBackBuildings(prop1, BuildingType.valueOf("HOUSE"));
+        gameBank.sellBackBuildings((Buildable) prop1, BuildingType.valueOf("HOUSE"));
         double playerNewFunds = player1.getFunds();
         assertEquals(playerOldFunds, playerNewFunds-25);
     }
