@@ -18,7 +18,7 @@ public abstract class AbstractGame {
     //RULES
     private double startFunds;
     private double jailBail;
-    private double passGo;
+    protected double passGo;
     private AbstractActionCard currentActionCard;
 
     public static List<AbstractPlayer> players;
@@ -33,7 +33,7 @@ public abstract class AbstractGame {
     public static List<String> possibleTokens;
     public static int numRollsInJail = 0;
 
-    private int rollsInJailRule;
+    protected int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
     
