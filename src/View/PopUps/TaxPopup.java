@@ -15,26 +15,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class TaxPopup extends Popup {
     private List<AbstractSpace> spaces;
     private String name;
-    private Integer index;
     private int propLocation;
-    private Map<Integer, ArrayList> taxSpaces;
     private Controller myController;
     private AbstractSpace mySpace;
+    private int bottomPadding = 50;
 
     public TaxPopup(int propLocation, Controller controller) {
         super();
         this.propLocation = propLocation;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         spaces = spaceInfo.getSpaces();
-        ConfigReader spaces1 = new ConfigReader(BoardConfigReader.CONFIG_PATH);
-        taxSpaces = spaces1.parseColorPropInfo();
         this.myController = controller;
         for (AbstractSpace sp : spaces) {
             if (sp.getMyLocation() == propLocation) {
@@ -48,7 +43,6 @@ public class TaxPopup extends Popup {
         for (AbstractSpace sp : spaces) {
             if (sp.getMyLocation() == propLocation) {
                 name = sp.getMyName();
-                index = sp.getMyLocation();
             }
         }
         var imageFile = new Image(this.getClass().getClassLoader().getResourceAsStream("taxCard.png"));
@@ -72,9 +66,7 @@ public class TaxPopup extends Popup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        VBox buttons = new VBox(10);
-        ArrayList details = new ArrayList();
-
+        VBox buttons = new VBox(HBoxSpacing);
         Button button1= new Button("Pay $200");
         Button button2= new Button("Pay 10%");
 
@@ -85,7 +77,7 @@ public class TaxPopup extends Popup {
 
             @Override
             public void handle(ActionEvent event) {
-                mySpace.doAction(myController.getGame(),0);
+                mySpace.doAction(myController.getGame(),OK);
                 window.close();
             }
         });
@@ -93,12 +85,12 @@ public class TaxPopup extends Popup {
 
             @Override
             public void handle(ActionEvent event) {
-                mySpace.doAction(myController.getGame(),1);
+                mySpace.doAction(myController.getGame(),NO);
                 window.close();
             }
         });
         buttons.getChildren().addAll(button1,button2);
-        buttons.setPadding(new Insets(0,0,50,0));
+        buttons.setPadding(new Insets(OK,OK,bottomPadding,OK));
         return buttons;
     }
 
