@@ -93,12 +93,9 @@ public class Board implements PropertyChangeListener {
             for (Property p : myProps){
                 if (myAbstractSpace.getMyName().equalsIgnoreCase(p.getName())){
                     myProperty = p;
-//                    System.out.println("HELLO MY PROP " + myProperty.getName() + " " + p);
                 }
             }
 
-//            System.out.println("PROP IS OWNED BY: " + myController.getGame().getBank().propertyOwnedBy(myProperty));
-            System.out.println(myController.getGame().getBank().propertyOwnedBy(myProperty));
             if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
                 myPopup = new PayRentPopup(playerLocation, myController);
             }
@@ -217,7 +214,6 @@ public class Board implements PropertyChangeListener {
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
         allSpaces = configs.getSpaces();
-//        myProps = configs.getProperties();
         myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
     }
 
