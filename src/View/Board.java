@@ -40,9 +40,6 @@ public class Board implements PropertyChangeListener {
     private AbstractSpace myAbstractSpace;
     private Property myProperty;
 
-
-
-
     public Board(Pane board, Controller controller, AbstractGame myGame) {
         this.myController = controller;
         this.myBoardPane = board;
@@ -60,9 +57,9 @@ public class Board implements PropertyChangeListener {
     }
 
     public void addTokenToIndex(int i, ImageView image){
-        int[] coord = indexToCoord(i);
-//        System.out.println(coord[0] + " " + coord[1]);
-        myGridPane.add(image,coord[0],coord[1]);
+        BoardConfigReader reader = new BoardConfigReader();
+        Map<Integer, Point2D.Double> myPoint = reader.getIndexToCoord();
+        myGridPane.add(image,(int)myPoint.get(i).getX(),(int)myPoint.get(i).getY());
         imagesOnBoard.add(image);
     }
 
@@ -197,15 +194,6 @@ public class Board implements PropertyChangeListener {
 
             }
         }
-    }
-
-    private int[] indexToCoord(int i){
-        if (i>=0 && i<=10) return new int[]{10-i,10};
-        if (i>=11 && i<=19) return new int[]{0,20-i};
-        if (i>=19 && i<=30) return new int[]{i-20,0};
-        if (i>=31 && i<= 39) return new int[]{10,i-30};
-        else ; //throw some error
-        return null;
     }
 
     private void setUpGridConstraints(){
