@@ -88,7 +88,7 @@ public class AddPlayersScreen {
         box.setSpacing(30);
 
         Button rules = new Button(messages.getString("edit-rules"));
-//        rules.setOnAction();
+        rules.setOnAction(e -> new RulesPopup(myController.getGame()).display());
 
         Button startGame = new Button(messages.getString("start-game"));
         startGame.setOnAction(new StartButtonHandler());

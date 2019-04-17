@@ -37,7 +37,6 @@ public class BuyPropertyPopup extends Popup {
     List<AbstractSpace> allSpaces;
     List<Property> allProps;
     private AbstractSpace mySpace;
-    private Property myProp;
 
     public BuyPropertyPopup(int propLocation, Controller controller) {
         super();
@@ -47,8 +46,8 @@ public class BuyPropertyPopup extends Popup {
         allSpaces = spaceInfo.getSpaces();
         allProps = spaceInfo.getProperties();
         this.myController = controller;
-        for (AbstractSpace sp : allSpaces){
-            if (sp.getMyLocation()==propLocation){
+        for (AbstractSpace sp : allSpaces) {
+            if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;
             }
         }
@@ -67,34 +66,31 @@ public class BuyPropertyPopup extends Popup {
     protected Pane createImage(Scene scene, Stage popUpWindow) {
         propDetails = new ArrayList();
         Pane imagePane = new Pane();
-        Rectangle rectangle = new Rectangle(scene.getWidth()/2.5, scene.getHeight()/1.5);
+        Rectangle rectangle = new Rectangle(scene.getWidth() / 2.5, scene.getHeight() / 1.5);
         rectangle.setFill(Color.WHITE);
         rectangle.setStroke(Color.BLACK);
-        for (Map.Entry<Integer,ArrayList> key : colorPropInfo.entrySet()) {
-            if ((key.getKey()).equals(propLocation)){
-                for (Object item : key.getValue()){
-                    System.out.println(item);
+        for (Map.Entry<Integer, ArrayList> key : colorPropInfo.entrySet()) {
+            if ((key.getKey()).equals(propLocation)) {
+                for (Object item : key.getValue()) {
                     propDetails.add(item);
                 }
             }
         }
 
-        if (propLocation==5 || propLocation==15 || propLocation==25 || propLocation==35){
+        if (propLocation == 5 || propLocation == 15 || propLocation == 25 || propLocation == 35) {
             var imageFile = new Image(this.getClass().getClassLoader().getResourceAsStream("railroad.png"));
             ImageView image = new ImageView(imageFile);
             imagePane = new Pane(rectangle, image);
             name = propDetails.get(6).toString().replace("_", " ");
-        }
-        else if (propLocation==12 || propLocation==28){
+        } else if (propLocation == 12 || propLocation == 28) {
             imagePane = new Pane(rectangle);
             name = propDetails.get(4).toString().replace("_", " ");
-        }
-        else{
-            Rectangle propColor = new Rectangle(scene.getWidth()/2.5, scene.getHeight()/7);
+        } else {
+            Rectangle propColor = new Rectangle(scene.getWidth() / 2.5, scene.getHeight() / 7);
             propColor.setStroke(Color.BLACK);
             propColor.setFill(Color.web(propDetails.get(0).toString()));
-            imagePane = new Pane( rectangle, propColor );
-            name = propDetails.get(10).toString().replace("_"," ");
+            imagePane = new Pane(rectangle, propColor);
+            name = propDetails.get(10).toString().replace("_", " ");
 
         }
         StackPane fullImage = new StackPane(imagePane, propertyInfo(scene));
@@ -117,8 +113,8 @@ public class BuyPropertyPopup extends Popup {
     @Override
     protected Pane createButtons(Stage popUpWindow) {
         HBox buttons = new HBox(10);
-        Button button1= new Button("YES");
-        Button button2= new Button("NO");
+        Button button1 = new Button("YES");
+        Button button2 = new Button("NO");
         button1.setId("button2");
         button2.setId("button2");
         button2.setOnAction(new EventHandler<ActionEvent>() {
@@ -134,45 +130,45 @@ public class BuyPropertyPopup extends Popup {
 
             @Override
             public void handle(ActionEvent event) {
-                mySpace.doAction(myController.getGame(),0);
+                mySpace.doAction(myController.getGame(), 0);
                 popUpWindow.close();
                 System.out.println("CURR PLAYER PROPS " + myController.getGame().getCurrPlayer().getProperties().toString());
 
             }
         });
-        buttons.getChildren().addAll(button1,button2);
+        buttons.getChildren().addAll(button1, button2);
 
         return buttons;
     }
 
 
-    private FlowPane propertyInfo(Scene scene){
+    private FlowPane propertyInfo(Scene scene) {
         FlowPane textPane = new FlowPane();
         HBox priceProp = new HBox();
-        priceProp.setPrefWidth(scene.getWidth()/2.5);
+        priceProp.setPrefWidth(scene.getWidth() / 2.5);
         priceProp.setAlignment(Pos.CENTER);
         Text rent;
         Text mortgage;
         Text rent1House;
         Text rent2House;
         Text rent3House;
-        if (name.toLowerCase().contains("railroad")){
+        if (name.toLowerCase().contains("railroad")) {
             priceProp.getChildren().add(new Text("Price: $" + propDetails.get(0)));
             rent = new Text("Rent: $" + propDetails.get(1));
             rent1House = new Text("Rent if 2 owned: $" + propDetails.get(2));
             rent2House = new Text("Rent if 3 owned: $" + propDetails.get(3));
             rent3House = new Text("Rent if 4 owned: $" + propDetails.get(4));
             mortgage = new Text("Mortgage: $" + propDetails.get(5));
-            textPane.getChildren().addAll(priceProp, rent,rent1House,rent2House,rent3House,mortgage);
-        }
-        else if (name.toLowerCase().contains("works") || name.toLowerCase().contains("company")){
+            textPane.setVgap(2);
+            textPane.getChildren().addAll(priceProp, rent, rent1House, rent2House, rent3House, mortgage);
+        } else if (name.toLowerCase().contains("works") || name.toLowerCase().contains("company")) {
             priceProp.getChildren().add(new Text("Price: $" + propDetails.get(0)));
-            rent = new Text("If one utility is owned, rent is " + propDetails.get(1) + " times amount shown on dice.");
-            rent2House = new Text("If both utilities are owned, rent is " + propDetails.get(2) + " times amount shown on dice.");
+            rent = new Text("If 1 owned, \nrent is " + propDetails.get(1).toString().replace(".0", "") + "x dice");
+            rent2House = new Text("If both owned, \nrent is " + propDetails.get(2).toString().replace(".0", "") + "x dice.");
             mortgage = new Text("Mortgage: $" + propDetails.get(3));
-            textPane.getChildren().addAll(priceProp, rent,rent2House,mortgage);
-        }
-        else{
+            textPane.setVgap(3);
+            textPane.getChildren().addAll(priceProp, rent, rent2House, mortgage);
+        } else {
             priceProp.getChildren().add(new Text("Price: $" + propDetails.get(1)));
             rent = new Text("Rent: $" + propDetails.get(2));
             rent1House = new Text("Rent w/ 1 House: $" + propDetails.get(3));
@@ -182,13 +178,13 @@ public class BuyPropertyPopup extends Popup {
             Text rentHotel = new Text("Rent w/ Hotel: $" + propDetails.get(7));
             Text costHouse = new Text("Cost of 1 House: $" + propDetails.get(8));
             mortgage = new Text("Mortgage: $" + propDetails.get(9));
-            textPane.getChildren().addAll(priceProp, rent,rent1House,rent2House,rent3House,rent4Houses,rentHotel,costHouse,mortgage);
+            textPane.setVgap(2);
+            textPane.getChildren().addAll(priceProp, rent, rent1House, rent2House, rent3House, rent4Houses, rentHotel, costHouse, mortgage);
         }
-        textPane.setPrefWrapLength(scene.getWidth()/2.5);
         textPane.setAlignment(Pos.BOTTOM_CENTER);
-        textPane.setVgap(2);
+        textPane.setPrefWrapLength(scene.getWidth() / 2.5);
         textPane.setId("propPopUp");
-        textPane.setPadding(new Insets(0,0,10,0));
+        textPane.setPadding(new Insets(0, 0, 10, 0));
         return textPane;
     }
 
