@@ -34,9 +34,9 @@ public class AIPlayer extends AbstractPlayer {
         return false;
     }
 
-    public Property wantsToMortgage() {
-
-    }
+//    public Property wantsToMortgage() {
+//
+//    }
 
 
 }

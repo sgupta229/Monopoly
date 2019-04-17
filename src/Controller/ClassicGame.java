@@ -26,6 +26,7 @@ public class ClassicGame extends AbstractGame {
             if(getCurrPlayer().getNumRollsInJail() == rollsInJail) {
                 this.movePlayer(oldIndex, newIndex);
                 getCurrPlayer().resetNumRollsInJail();
+                getCurrPlayer().setJail(false);
             }
         }
         checkPassGo(oldIndex, newIndex);
