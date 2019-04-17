@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,6 +17,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+
+import static javax.xml.datatype.DatatypeFactory.newInstance;
 
 public class ConfigReader {
 
@@ -73,27 +76,6 @@ public class ConfigReader {
             }
         }
         return dice;
-/*MIGHT NEED THIS IF DIFFERENT TYPES OF DICE BUT NOT RIGHT NOW
-        NodeList diceList = doc.getElementsByTagName("Dice");
-
-        for(int i=0; i<diceList.getLength(); i++){
-            Node d = diceList.item(i);
-            if(d.getNodeType() == Node.ELEMENT_NODE){
-                Element die = (Element) d;
-                int numberOfDice = Integer.parseInt(die.getElementsByTagName("Number").item(0).getTextContent());
-                for(int j=0; j<numberOfDice; j++){
-                    int numSides = Integer.parseInt(die.getElementsByTagName("Sides").item(0).getTextContent());
-                    int[] sideValues = new int[numSides]
-                    for(int k=0; k<numSides; k++){
-                        sideValues[k] = k+1;
-                        if(k == numSides-1){
-                            Die newDie = new Die(numSides, sideValues);
-                            dice.add(newDie);
-                        }
-                    }
-                }
-            }
-        }*/
     }
 
     public List<ActionDeck> parseActionDecks() throws XmlTagException{
@@ -130,42 +112,30 @@ public class ConfigReader {
                 String msg = card.getElementsByTagName("Message").item(0).getTextContent();
                 //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
                 Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName("Holdable").item(0).getTextContent());
-                //Specialized fields below
-                if(card.getAttribute("type").equalsIgnoreCase("MOVE_TO")){
-                    String targetSpace = card.getElementsByTagName("TargetSpace").item(0).getTextContent();
-                    AbstractActionCard newCard = new MoveToAC(dt, msg, holdable, targetSpace);
-                    allActionCards.add(newCard);
+                String extraString = card.getElementsByTagName("ExtraString").item(0).getTextContent();
+                //Get list of doubles
+                String[] extraDubTemp = card.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
+                List<Double> extraDubs = new ArrayList<>();
+                for(String n:extraDubTemp){
+                    extraDubs.add(Double.parseDouble(n));
                 }
-                else if(card.getAttribute("type").equalsIgnoreCase("GO_TO_JAIL")){
-                    AbstractActionCard newCard = new GoToJailAC(dt, msg, holdable);
-                    allActionCards.add(newCard);
-                }
-                else if(card.getAttribute("type").equalsIgnoreCase("GET_OUT_OF_JAIL")){
-                    AbstractActionCard newCard = new GetOutJailAC(dt, msg, holdable);
-                    allActionCards.add(newCard);
-                }
-                else if(card.getAttribute("type").equalsIgnoreCase("WIN_MONEY")){
-                    String winFrom = card.getElementsByTagName("From").item(0).getTextContent();
-                    double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
-                    AbstractActionCard newCard = new WinMoneyAC(dt, msg, holdable, winFrom, amnt);
-                    allActionCards.add(newCard);
-                }
-                else if(card.getAttribute("type").equalsIgnoreCase("LOSE_MONEY")){
-                    String loseTo = card.getElementsByTagName("To").item(0).getTextContent();
-                    String[] amntTemp = card.getElementsByTagName("Amount").item(0).getTextContent().split(",");
-                    List<Double> resAmnt = new ArrayList<>();
 
-                    for(String n:amntTemp){
-                        resAmnt.add(Double.parseDouble(n));
-                    }
-
-                    //double amnt = Double.parseDouble(card.getElementsByTagName("Amount").item(0).getTextContent());
-                    AbstractActionCard newCard = new LoseMoneyAC(dt, msg, holdable, loseTo, resAmnt);
-                    allActionCards.add(newCard);
+                String className = card.getAttribute("type");
+                //Reflection to create action cards
+                try {
+                    AbstractActionCard newAC = (AbstractActionCard) Class.forName("Model.actioncards." + className).getConstructor(DeckType.class, String.class, Boolean.class, String.class, List.class).newInstance(dt, msg, holdable, extraString, extraDubs);
+                    allActionCards.add(newAC);
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
-//                else{
-//                    throw new XmlTagException(card.getAttribute("type"));
-//                }
             }
         }
         return allActionCards;
