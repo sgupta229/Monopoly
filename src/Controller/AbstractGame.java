@@ -217,6 +217,7 @@ public abstract class AbstractGame {
 
     }
 
+    @Deprecated
     public void callAction(int userChoice) {
         int currentLocation = currPlayer.getCurrentLocation();
         AbstractSpace currSpace = getBoard().getSpaceAt(currentLocation);
