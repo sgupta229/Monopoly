@@ -9,14 +9,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
+
 public class AuctionPopup extends BuyPropertyPopup {
 
     private String name;
     private int prefWidthTextBox=125;
+    private ResourceBundle myText;
 
     public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow) {
         super(propLocation, controller);
         this.name = name;
+        this.myText = super.getMessages();
         popUpWindow.close();
     }
 
@@ -28,12 +32,12 @@ public class AuctionPopup extends BuyPropertyPopup {
     @Override
     protected Pane createButtons(Stage window) {
         HBox buttons = new HBox(HBoxSpacing);
-        Button button2= new Button("OK");
+        Button button2= new Button(myText.getString("okButton"));
         button2.setId("button2");
         button2.setOnAction(e -> window.close());
 
         TextField searchInput = new TextField();
-        searchInput.setPromptText("Enter Amount");
+        searchInput.setPromptText(myText.getString("auctionText"));
         searchInput.setPrefWidth(prefWidthTextBox);
 
         buttons.getChildren().addAll(searchInput,button2);
@@ -41,22 +45,18 @@ public class AuctionPopup extends BuyPropertyPopup {
         return buttons;
     }
 
-
     @Override
     protected String createMessage() {
-        String myMessage = "Player #, would you like to purchase this property?";
-        return myMessage;
+        return myText.getString("auctionMessage");
     }
 
     @Override
     protected String createTitle() {
-        String myTitle =  "Auction";
-        return myTitle;
+        return myText.getString("auctionTitle");
     }
 
     @Override
     protected Label createHeader() {
-        Label title = new Label("Auction for " + name + "!");
-        return title;
+        return new Label(myText.getString("auctionHeader") + name + "!");
     }
 }

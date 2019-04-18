@@ -81,7 +81,7 @@ public class Board implements PropertyChangeListener {
             myPopup = new TaxPopup(playerLocation,myController);
         }
         else if (playerLocation==0 || playerLocation==10 || playerLocation==20 || playerLocation==30){
-            myPopup = new CornerPopup(playerLocation);
+            myPopup = new CornerPopup(playerLocation, myController);
         }
         else {
 
