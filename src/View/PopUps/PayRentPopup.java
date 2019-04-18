@@ -46,7 +46,7 @@ public class PayRentPopup extends BuyPropertyPopup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        HBox buttons = new HBox(10);
+        HBox buttons = new HBox(HBoxSpacing);
         Button button2= new Button("PAY");
         button2.setId("button2");
         button2.setOnAction(e -> window.close());
@@ -55,7 +55,7 @@ public class PayRentPopup extends BuyPropertyPopup {
 
             @Override
             public void handle(ActionEvent event) {
-                mySpace.doAction(myController.getGame(),0);
+                mySpace.doAction(myController.getGame(),OK);
                 window.close();
             }
         });

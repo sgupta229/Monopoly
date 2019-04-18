@@ -5,19 +5,28 @@ import Model.AbstractPlayer;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class RailRoadProperty extends Property {
 
     private String myGroup= "RAILROAD";
-    private double rent;
-    private double rent2;
-    private double rent3;
-    private double rent4;
-    private double mortgage;
+    //private double rent;
+    //private double rent2;
+    //private double rent3;
+    //private double rent4;
+    //private double mortgage;
     private List<Double> rentNumbers;
     private final double INFO_NUM = 5;
+    private final int FOUR = 4;
 
 
+    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
+        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
+//        myColor = general.getString("railroadColor");
+        setGroup(myGroup);
+    }
+
+    @Deprecated
     public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
         super(price, propName, paymentInfo, groupSize);
         setGroup(myGroup);
@@ -30,18 +39,34 @@ public class RailRoadProperty extends Property {
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation){
+        List<Double> paymentInformationCopy = paymentInformation;
         if(paymentInformation.size()>=INFO_NUM){
-            rent = paymentInformation.get(0);
-            rent2 = paymentInformation.get(1);
-            rent3 = paymentInformation.get(2);
-            rent4 = paymentInformation.get(3);
-            setMortgageAmount(paymentInformation.get(4));
-            rentNumbers = paymentInformation;
+            //rent = paymentInformationCopy.get(0);
+            //rent2 = paymentInformationCopy.get(1);
+            //rent3 = paymentInformationCopy.get(2);
+            //rent4 = paymentInformationCopy.get(3);
+            setMortgageAmount(paymentInformationCopy.get(FOUR));
+            rentNumbers = paymentInformationCopy;
         }
         else{
             throw new IndexOutOfBoundsException("Bad data");
         }
 
+    }
+
+    @Override
+    public void addBuilding(BuildingType building) {
+
+    }
+
+    @Override
+    public void removeBuilding(BuildingType building) {
+
+    }
+
+    @Override
+    public int getNumBuilding(BuildingType building) {
+        return 0;
     }
 
     @Deprecated
