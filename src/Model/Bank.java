@@ -1,9 +1,9 @@
 package Model;
 
-import Controller.ConfigReader;
+
 import Model.properties.Buildable;
+
 import Model.properties.BuildingType;
-import Model.properties.ColorProperty;
 import Model.properties.Property;
 
 import java.util.*;

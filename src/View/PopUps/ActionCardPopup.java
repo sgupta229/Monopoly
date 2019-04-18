@@ -1,6 +1,5 @@
 package View.PopUps;
 
-import Controller.ConfigReader;
 import Controller.Controller;
 import Model.spaces.AbstractSpace;
 import View.BoardConfigReader;
@@ -14,15 +13,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.awt.geom.Point2D;
 import java.util.List;
-import java.util.Map;
 
 public class ActionCardPopup extends Popup {
 
-    private List actionCards;
-    private Map<Point2D.Double, AbstractSpace> myIndexToName;
     private List<AbstractSpace> spaces;
     private int propLocation;
     private String name;
@@ -31,24 +25,18 @@ public class ActionCardPopup extends Popup {
     private Controller myController;
     private String myMessage;
 
-//message needs to be myGame.getCurrActionCard().getMessage();
-    //actionCard.doAction() when ok is pressed
-
     public ActionCardPopup(int propLocation, Controller controller){
         super();
         this.propLocation = propLocation;
         this.myController = controller;
-        ConfigReader spaceInfo = new ConfigReader(BoardConfigReader.CONFIG_PATH);
-        actionCards = spaceInfo.parseActionCards();
         BoardConfigReader indexToName = new BoardConfigReader();
         spaces = indexToName.getSpaces();
-        myIndexToName = indexToName.getIndexToName();
         for (AbstractSpace sp : spaces){
             if (sp.getMyLocation()==propLocation){
                 mySpace = sp;
             }
         }
-        mySpace.doAction(myController.getGame(),0);
+        mySpace.doAction(myController.getGame(),OK);
         myMessage = myController.getGame().getCurrentActionCard().getMyMessage();
     }
 
@@ -86,7 +74,7 @@ public class ActionCardPopup extends Popup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        HBox buttons = new HBox(10);
+        HBox buttons = new HBox(HBoxSpacing);
         Button button1= new Button("OK");
         button1.setId("button1");
 
