@@ -20,14 +20,14 @@ public class RailRoadProperty extends Property {
     private final int FOUR = 4;
 
 
-    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
-        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
+    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
+        super(price, propName, paymentInfo, groupSize);
 //        myColor = general.getString("railroadColor");
         setGroup(myGroup);
     }
 
     @Deprecated
-    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
+    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
         super(price, propName, paymentInfo, groupSize);
         setGroup(myGroup);
     }

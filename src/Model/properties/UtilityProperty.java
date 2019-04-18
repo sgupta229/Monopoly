@@ -13,14 +13,14 @@ public class UtilityProperty extends Property {
     //private double mortgage;
     private static final double INFO_NUM = 3;
 
-    public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
-        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
+    public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
+        super(price, propName, paymentInfo, groupSize);
 //        myColor = general.getString("utilitiesColor");
         setGroup(myGroup);
     }
 
     @Deprecated
-    public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
+    public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
         super(price, propName, paymentInfo, groupSize);
         setGroup(myGroup);
 
