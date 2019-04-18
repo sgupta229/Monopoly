@@ -98,21 +98,25 @@ public class PropertyCell extends ListCell<Property> {
         if (item != null && !empty) {
             String name = item.getName();
             label.setText(name);
-            if (item instanceof ColorProperty){
-                color.setWidth(60);
-                color.setHeight(20);
-                color.setFill(Paint.valueOf(item.getColor()));
-            }
-            if (item instanceof RailRoadProperty){
-                color.setWidth(60);
-                color.setHeight(20);
-                color.setFill(Paint.valueOf("black"));
-            }
-            if (item instanceof UtilityProperty){
-                color.setWidth(60);
-                color.setHeight(20);
-                color.setFill(Paint.valueOf("white"));
-            }
+            color.setHeight(20);
+            color.setWidth(60);
+            System.out.println(item.getColor());
+            color.setFill(Paint.valueOf(item.getColor()));
+//            if (item instanceof ColorProperty){
+//                color.setWidth(60);
+//                color.setHeight(20);
+//                color.setFill(Paint.valueOf(item.getColor()));
+//            }
+//            if (item instanceof RailRoadProperty){
+//                color.setWidth(60);
+//                color.setHeight(20);
+//                color.setFill(Paint.valueOf("black"));
+//            }
+//            if (item instanceof UtilityProperty){
+//                color.setWidth(60);
+//                color.setHeight(20);
+//                color.setFill(Paint.valueOf("white"));
+//            }
             setGraphic(myHBox);
         }
     }

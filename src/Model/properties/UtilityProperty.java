@@ -15,7 +15,7 @@ public class UtilityProperty extends Property {
 
     public UtilityProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
         super(price, propName, paymentInfo, groupSize, buildingPricesMap);
-//        myColor = general.getString("utilitiesColor");
+        myColor = general.getString("utilitiesColor");
         setGroup(myGroup);
     }
 

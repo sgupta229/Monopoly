@@ -22,7 +22,7 @@ public class RailRoadProperty extends Property {
 
     public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
         super(price, propName, paymentInfo, groupSize, buildingPricesMap);
-//        myColor = general.getString("railroadColor");
+        myColor = general.getString("railroadColor");
         setGroup(myGroup);
     }
 
