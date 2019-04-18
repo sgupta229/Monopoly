@@ -22,7 +22,7 @@ public class RailRoadProperty extends Property {
 
     public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
         super(price, propName, paymentInfo, groupSize, buildingPricesMap);
-        myColor = general.getString("railroadColor");
+//        myColor = general.getString("railroadColor");
         setGroup(myGroup);
     }
 
@@ -46,6 +46,21 @@ public class RailRoadProperty extends Property {
             throw new IndexOutOfBoundsException("Bad data");
         }
 
+    }
+
+    @Override
+    public void addBuilding(BuildingType building) {
+
+    }
+
+    @Override
+    public void removeBuilding(BuildingType building) {
+
+    }
+
+    @Override
+    public int getNumBuilding(BuildingType building) {
+        return 0;
     }
 
     @Deprecated
