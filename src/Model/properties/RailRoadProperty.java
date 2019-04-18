@@ -23,6 +23,12 @@ public class RailRoadProperty extends Property {
         setGroup(myGroup);
     }
 
+    @Deprecated
+    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
+        super(price, propName, paymentInfo, groupSize);
+        setGroup(myGroup);
+    }
+
     protected void initializePaymentInfo(List<Double> paymentInformation){
         if(paymentInformation.size()>=INFO_NUM){
             rent = paymentInformation.get(0);
