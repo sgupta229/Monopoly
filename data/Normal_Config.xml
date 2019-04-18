@@ -124,7 +124,7 @@
         </Space>
         <Space type="COLOR_PROPERTY">
             <Index>11</Index>
-            <SpaceName>ST._CHARLES_AVE</SpaceName>
+            <SpaceName>ST._CHARLES_PLACE</SpaceName>
             <ColorGroup>PINK</ColorGroup>
             <GroupSize>3</GroupSize>
             <BuyPrice>140</BuyPrice>
@@ -265,7 +265,6 @@
         <Space type="ACTION">
             <Index>22</Index>
             <SpaceName>CHANCE</SpaceName>
-
         </Space>
         <Space type="COLOR_PROPERTY">
             <Index>23</Index>
@@ -301,7 +300,7 @@
         </Space>
         <Space type="RAILROAD_PROPERTY">
             <Index>25</Index>
-            <SpaceName>B.&amp;O._RAILROAD</SpaceName>
+            <SpaceName>B._&amp;_O._RAILROAD</SpaceName>
             <GroupSize>4</GroupSize>
             <BuyPrice>200</BuyPrice>
             <Rent>25</Rent>
@@ -483,221 +482,238 @@
         <ActionDeck>COMMUNITY_CHEST</ActionDeck>
     </ActionDecks>
     <ActionCards>
-        <ActionCardType type="MOVE_TO">
+        <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TO "GO"(COLLECT $200)</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>GO</TargetSpace>
+            <ExtraString>GO</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MOVE_TO">
+        <ActionCardType type="MoveToAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>ADVANCE TO "GO"(COLLECT $200)</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>GO</TargetSpace>
+            <ExtraString>GO</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MOVE_TO">
+        <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TO ILLINOIS AVE. IF YOU PASS GO, COLLECT $200</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>ILLINOIS_AVE</TargetSpace>
+            <ExtraString>ILLINOIS_AVE</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MOVE_TO">
+        <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
-            <Message>ADVANCE TO ST.CHARLES PLACE. IF YOU PASS GO, COLLECT $200</Message>
+            <Message>ADVANCE TO ST. CHARLES PLACE. IF YOU PASS GO, COLLECT $200</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>ST._CHARLES_PLACE</TargetSpace>
+            <ExtraString>ST._CHARLES_PLACE</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MOVE_TO">
+        <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TOKEN TO NEAREST UTILITY. IF UNOWNED, YOU MAY BUY IT FROM THE BANK.
                 IF OWNED, THROW DICE AND PAY OWNER 10 TIMES THE AMOUNT THROWN</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>UTILITY</TargetSpace>
+            <ExtraString>UTILITY</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MOVE_TO">
+        <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TOKEN TO NEAREST RAILROAD PAY OWNER TWICE THE RENTAL TO WHICH HE/SHE IS
             OTHERWISE ENTITLED. IF RAILROAD IS UNOWNED, YOU MAY BUY IT FROM THE BANK</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>RAILROAD</TargetSpace>
+            <ExtraString>RAILROAD</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MOVE_TO">
+        <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
             <Message>GO BACK THREE SPACES</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>-3</TargetSpace>
+            <ExtraString>-3</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MOVE_TO">
+        <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
             <Message>TAKE A TRIP TO READING RAILROAD. IF YOU PASS GO, COLLECT $200</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>READING_RAILROAD</TargetSpace>
+            <ExtraString>READING_RAILROAD</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MOVE_TO">
+        <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
             <Message>TAKE A WALK ON THE BOARDWALK. ADVANCE TOKEN TO BOARDWALK</Message>
             <Holdable>FALSE</Holdable>
-            <TargetSpace>BOARDWALK</TargetSpace>
+            <ExtraString>BOARDWALK</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="GO_TO_JAIL">
+        <ActionCardType type="GoToJailAC">
             <DeckType>CHANCE</DeckType>
             <Message>GO TO JAIL. GO DIRECTLY TO JAIL. DO NOT PASS GO, DO NOT COLLECT $200</Message>
             <Holdable>False</Holdable>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="GO_TO_JAIL">
+        <ActionCardType type="GoToJailAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>GO TO JAIL. GO DIRECTLY TO JAIL. DO NOT PASS GO, DO NOT COLLECT $200</Message>
             <Holdable>False</Holdable>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="GET_OUT_OF_JAIL">
+        <ActionCardType type="GetOutJailAC">
             <DeckType>CHANCE</DeckType>
             <Message>GET OUT OF JAIL FREE. THIS CARD MAY BE KEPT UNTIL NEEDED, TRADED/SOLD</Message>
             <Holdable>TRUE</Holdable>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="GET_OUT_OF_JAIL">
+        <ActionCardType type="GetOutJailAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>GET OUT OF JAIL FREE. THIS CARD MAY BE KEPT UNTIL NEEDED, TRADED/SOLD</Message>
             <Holdable>TRUE</Holdable>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>CHANCE</DeckType>
             <Message>BANK PAYS YOU DIVIDEND OF $50</Message>
             <Holdable>False</Holdable>
-            <Amount>50</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>CHANCE</DeckType>
             <Message>YOUR BUILDING LOAN MATURES.RECEIVE $150</Message>
             <Holdable>False</Holdable>
-            <Amount>150</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>150</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>CHANCE</DeckType>
             <Message>YOU HAVE WON A CROSSWORD COMPETITION. COLLECT $100</Message>
             <Holdable>False</Holdable>
-            <Amount>150</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>150</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>FOM SALE OF STOCK YOU GET $50</Message>
             <Holdable>False</Holdable>
-            <Amount>50</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>BANK ERROR IN YOUR FAVOR. COLLECT $200</Message>
             <Holdable>False</Holdable>
-            <Amount>200</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>200</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>GRAND OPERA NIGHT. COLLECT $50 FROM EVERY PLAYER FOR OPENING NIGHT SEATS</Message>
             <Holdable>False</Holdable>
-            <Amount>50</Amount>
-            <From>ALL</From>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>ALL</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>HOLIDAY FUND MATURES. RECEIVE $100</Message>
             <Holdable>False</Holdable>
-            <Amount>100</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>100</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>INCOME TAX REFUND. COLLECT $20</Message>
             <Holdable>False</Holdable>
-            <Amount>20</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>20</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>IT IS YOUR BIRTHDAY. COLLECT $10 FROM EVERY PLAYER</Message>
             <Holdable>False</Holdable>
-            <Amount>10</Amount>
-            <From>ALL</From>
+            <ExtraDoubles>10</ExtraDoubles>
+            <ExtraString>ALL</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>LIFE INSURANCE MATURES. COLLECT $100</Message>
             <Holdable>False</Holdable>
-            <Amount>100</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>100</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>RECEIVE $25 CONSULTANCY FEE</Message>
             <Holdable>False</Holdable>
-            <Amount>25</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>25</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>YOU HAVE WON SECOND PRIZE IN A BEAUTY CONTEST. COLLECT $10</Message>
             <Holdable>False</Holdable>
-            <Amount>10</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>10</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="WIN_MONEY">
+        <ActionCardType type="WinMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>YOU INHERIT $100</Message>
             <Holdable>False</Holdable>
-            <Amount>100</Amount>
-            <From>BANK</From>
+            <ExtraDoubles>100</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="LOSE_MONEY">
+        <ActionCardType type="LoseMoneyAC">
             <DeckType>CHANCE</DeckType>
             <Message>MAKE GENERAL REPAIRS ON ALL YOUR PROPERTY: FOR EACH HOUSE PAY $25, FOR EACH HOTEL $100</Message>
             <Holdable>False</Holdable>
-            <Amount>25,100</Amount>
-            <To>BANK</To>
+            <ExtraDoubles>25,100</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="LOSE_MONEY">
+        <ActionCardType type="LoseMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>DOCTOR'S FEES. PAY $50</Message>
             <Holdable>False</Holdable>
-            <Amount>50</Amount>
-            <To>BANK</To>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="LOSE_MONEY">
+        <ActionCardType type="LoseMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>YOU ARE ASSESSED FOR STREET REPAIRS: PAY $40 PER HOUSE AND $115 PER HOTEL YOU OWN</Message>
             <Holdable>False</Holdable>
-            <Amount>40,115</Amount>
-            <To>BANK</To>
+            <ExtraDoubles>40,115</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="LOSE_MONEY">
+        <ActionCardType type="LoseMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>HOSPITAL FEES. PAY $50</Message>
             <Holdable>False</Holdable>
-            <Amount>50</Amount>
-            <To>BANK</To>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="LOSE_MONEY">
+        <ActionCardType type="LoseMoneyAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>SCHOOL FEES. PAY $50</Message>
             <Holdable>False</Holdable>
-            <Amount>50</Amount>
-            <To>BANK</To>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
-        <ActionCardType type="LOSE_MONEY">
+        <ActionCardType type="LoseMoneyAC">
             <DeckType>CHANCE</DeckType>
             <Message>YOU HAVE BEEN ELECTED CHAIRMAN OF THE BOARD. PAY EACH PLAYER $50</Message>
             <Holdable>False</Holdable>
-            <Amount>50</Amount>
-            <To>ALL</To>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>ALL</ExtraString>
         </ActionCardType>
-        <ActionCardType type="LOSE_MONEY">
+        <ActionCardType type="LoseMoneyAC">
             <DeckType>CHANCE</DeckType>
             <Message>PAY POOR TAX OF $15</Message>
             <Holdable>False</Holdable>
-            <Amount>15</Amount>
-            <To>BANK</To>
+            <ExtraDoubles>15</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
         </ActionCardType>
     </ActionCards>
     <Bank>

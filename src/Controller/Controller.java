@@ -51,7 +51,8 @@ public class Controller {
         myGameType = gameType;
 
         //TODO: make gameFactory or use reflection to create concrete Game class based on gameType
-
+        //gameType = ClassicGame, MegaGame
+        // AbstractGame myGame = (AbstractGame) Class
         if(myGameType.equalsIgnoreCase("classic")){
             myGame = new ClassicGame("Normal_Config.xml");
             gameStyle = fileToStylesheetString(new File("data/GUI.css"));

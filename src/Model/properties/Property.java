@@ -2,10 +2,7 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,
@@ -13,12 +10,13 @@ import java.util.Objects;
  * with every specific  number of houses, cost of rent with a hotel, and the mortgage cost
  */
 public abstract class Property {
+    protected ResourceBundle general;
 
     private double myPrice;
     private double mortgageAmount;
     private String myGroup;
     private String myName;
-    private String myColor;
+    protected String myColor;
     private Boolean isMortgaged;
     private List allPaymentInfo;
     private int myGroupSize;
@@ -28,7 +26,7 @@ public abstract class Property {
 
 
     /////need property to take in building map with buildingtypes as keys already
-           ///// and also buildingprices that is already populated, and just set these
+    ///// and also buildingprices that is already populated, and just set these
 
     public Property(double price, String propName,  List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
         isMortgaged = false;
@@ -42,6 +40,7 @@ public abstract class Property {
         for(BuildingType buildingType : buildingPrices.keySet()){
             buildingMap.put(buildingType, 0);
         }
+        general = ResourceBundle.getBundle("GeneralInfo");
     }
 
     @Deprecated
@@ -54,7 +53,7 @@ public abstract class Property {
         initializePaymentInfo(allPaymentInfo);
         //////buildingMap = new HashMap<>();
         /////for(BuildingType buildingType : buildingMap.keySet()){
-            /////buildingMap.put(buildingType, 0);
+        /////buildingMap.put(buildingType, 0);
         ////}
     }
 
@@ -120,7 +119,7 @@ public abstract class Property {
     }
 
     public void setMyColor(String color){
-       myColor=color;
+        myColor=color;
     }
 
 
@@ -161,7 +160,7 @@ public abstract class Property {
         return Double.compare(property.myPrice, myPrice) == 0 &&
                 myGroup.equals(property.myGroup) &&
                 myName.equals(property.myName); //&&
-                //myColor.equals(property.myColor);
+        //myColor.equals(property.myColor);
     }
 
 
