@@ -115,10 +115,12 @@ public class ConfigReader {
                 String extraString = card.getElementsByTagName("ExtraString").item(0).getTextContent();
                 //Get list of doubles
                 String[] extraDubTemp = card.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
-                List<Double> extraDubs = new ArrayList<>();
+/*                List<Double> extraDubs = new ArrayList<>();
                 for(String n:extraDubTemp){
                     extraDubs.add(Double.parseDouble(n));
-                }
+                }*/
+                List<Double> extraDubs = listDoubleConverter(extraDubTemp);
+
 
                 String className = card.getAttribute("type");
                 //Reflection to create action cards
@@ -234,13 +236,12 @@ public class ConfigReader {
                 SpaceGroup spaceGroup = SpaceGroup.valueOf(spaceGroupString);
                 String spaceName = space.getElementsByTagName("SpaceName").item(0).getTextContent().strip();
                 String extraString = space.getElementsByTagName("ExtraString").item(0).getTextContent().strip();
-
                 String[] extraDubTemp = space.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
-                List<Double> extraDubs = new ArrayList<>();
+/*                List<Double> extraDubs = new ArrayList<>();
                 for(String n:extraDubTemp){
                     extraDubs.add(Double.parseDouble(n));
-                }
-
+                }*/
+                List<Double> extraDubs = listDoubleConverter(extraDubTemp);
 
                 Property myProp = findLinkedProperty(propsList, spaceName);
 
@@ -548,6 +549,14 @@ public class ConfigReader {
         buildingProperties.add(buildingTotalAmount);
         buildingProperties.add(buildingMaxAmount);
         return buildingProperties;
+    }
+
+    private List<Double> listDoubleConverter(String[] stringList){
+        List<Double> doubleList = new ArrayList<>();
+        for(String n:stringList){
+            doubleList.add(Double.parseDouble(n));
+        }
+        return doubleList;
     }
 
     public static void main(String[] args) {
