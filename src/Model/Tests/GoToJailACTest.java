@@ -1,4 +1,4 @@
-package Model.Tests;
+package Model.tests;
 
 import Controller.AbstractGame;
 import Controller.ClassicGame;
@@ -25,7 +25,7 @@ class GoToJailACTest {
     void setUp(){
         p1 = new ClassicPlayer("boot.png");
         p2 = new ClassicPlayer("battleship.png");
-        game = new ClassicGame("Normal_Config_Old.xml");
+        game = new ClassicGame("Normal_Config_Rework.xml");
         game.setPlayers(List.of(p1, p2));
         game.setCurrPlayer(1);
 

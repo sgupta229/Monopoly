@@ -1,4 +1,4 @@
-package Model.Tests;
+package Model.tests;
 
 import Controller.AbstractGame;
 import Controller.ClassicGame;
@@ -26,12 +26,12 @@ class WinMoneyACTest {
         p1 = new ClassicPlayer("boot.png");
         p2 = new ClassicPlayer("battleship.png");
         p3 = new ClassicPlayer("chest.png");
-        game = new ClassicGame("Normal_Config_Old.xml");
+        game = new ClassicGame("Junior_Config.xml");
         game.setPlayers(List.of(p1, p2, p3));
         game.setCurrPlayer(0);
 
-        ac1 = new WinMoneyAC(DeckType.CHANCE, "Bank pays dividend of $75!", false, "BANK", 75.0);
-        ac2 = new WinMoneyAC(DeckType.COMMUNITY_CHEST, "Each player pays you $20!", false, "ALL", 20.0);
+        ac1 = new WinMoneyAC(DeckType.CHANCE, "Bank pays dividend of $75!", false, List.of("BANK"), List.of(75.0));
+        ac2 = new WinMoneyAC(DeckType.CHANCE, "Each player pays you $20!", false, List.of("ALL"), List.of(20.0));
 
         for(ActionDeck d : game.getMyActionDecks()){
             if(d.getMyDeckType() == DeckType.CHANCE){

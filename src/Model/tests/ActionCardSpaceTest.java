@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ActionCardSpaceTest {
-    ConfigReader conf = new ConfigReader("Normal_Config_Old.xml");
+    ConfigReader conf = new ConfigReader("Normal_Config_Rework.xml");
     List<AbstractActionCard> actionCardList;
     ActionDeck chanceDeck = new ActionDeck(DeckType.CHANCE);
     ActionDeck communityChestDeck = new ActionDeck(DeckType.COMMUNITY_CHEST);
@@ -26,7 +26,7 @@ public class ActionCardSpaceTest {
 
     @BeforeEach
     void setUp() throws XmlTagException {
-        gameClass = new ClassicGame("Normal_Config_Old.xml");
+        gameClass = new ClassicGame("Normal_Config_Rework.xml");
         actionCardList = conf.parseActionCards();
         spaceList = conf.parseSpaces().get(0);
         chanceDeck.fillLiveDeck(actionCardList);
