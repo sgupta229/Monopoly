@@ -1,4 +1,4 @@
-package Model.Tests;
+package Model.actioncards.Tests;
 
 import Controller.ClassicGame;
 import Controller.Token;

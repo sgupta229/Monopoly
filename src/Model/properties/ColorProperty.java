@@ -2,40 +2,24 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class ColorProperty extends Property implements Buildable {
+public class ColorProperty extends Property {
 
     //private int numHouse;
     private int numHotel;
-    private String myColor;
-
     private List<Double> rentNumbers;
     private static final int INFO_NUM = 7;
     private static final int SIX = 6;
     private static final int HOTEL_RENT_INDEX = 5;
 
-    protected Map<BuildingType, Integer> buildingMap;
-    protected Map<BuildingType, Double> buildingPrices;
 
-
-
-    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
-        super(price, propName, color, paymentInfo, groupSize, buildingPricesMap);
-        buildingPrices = buildingPricesMap;
-        buildingMap = new HashMap<>();
-        myColor=color;
+    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
+        super(price, propName, color, paymentInfo, groupSize, buildingPriceMap);
         setGroup(color);
-        //setMyColor(color);
-        //setGroup(color);
-        for(BuildingType buildingType : buildingPrices.keySet()){
-            buildingMap.put(buildingType, 0);
-        }
-
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException{
@@ -57,7 +41,7 @@ public class ColorProperty extends Property implements Buildable {
         for(double num:rentNumbers){
             ret.add(num);
         }
-        ret.add(buildingPrices.get(BuildingType.valueOf("HOUSE")));
+        ret.add(getBuildingPrices().get(BuildingType.valueOf("HOUSE")));
         ret.add(this.getMortgageAmount());
         ret.add(this.getName());
         return ret;
@@ -94,29 +78,24 @@ public class ColorProperty extends Property implements Buildable {
     }
 
     public void addBuilding(BuildingType building){
-        if(!buildingMap.containsKey(building)){
-            buildingMap.put(building, 0);
+        if(!getBuildingMap().containsKey(building)){
+            getBuildingMap().put(building, 0);
         }
-        buildingMap.put(building, buildingMap.get(building)+1);
+        getBuildingMap().put(building, getBuildingMap().get(building)+1);
         System.out.println(building );
-        System.out.println(buildingMap.get(building));
+        System.out.println(getBuildingMap().get(building));
     }
 
     public void removeBuilding(BuildingType building){
-        if(buildingMap.get(building)>0){
-            buildingMap.put(building, buildingMap.get(building)-1);
+        if(getBuildingMap().get(building)>0){
+            getBuildingMap().put(building, getBuildingMap().get(building)-1);
         }
     }
 
     public int getNumBuilding(BuildingType building){
-        if(!buildingMap.containsKey(building)){
-            buildingMap.put(building, 0);
+        if(!getBuildingMap().containsKey(building)){
+            getBuildingMap().put(building, 0);
         }
-        return buildingMap.get(building);
+        return getBuildingMap().get(building);
     }
-
-    public double getBuildingPrice(BuildingType building){
-        return buildingPrices.get(building);
-    }
-
 }

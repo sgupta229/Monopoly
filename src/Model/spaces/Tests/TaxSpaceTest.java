@@ -1,4 +1,4 @@
-package Model.Tests;
+package Model.spaces.Tests;
 
 import Controller.ClassicGame;
 import Model.*;
