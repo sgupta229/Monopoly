@@ -37,13 +37,11 @@ public class Controller {
     public void goToChooseGameScreen() {
         window.setTitle(TITLE);
         String style = fileToStylesheetString(new File("data/GUI.css"));
-        window.setScene(new ChooseGameScreen(WIDTH,HEIGHT,style,this).getScene());
+        window.setScene(new ChooseGameScreen(WIDTH,HEIGHT,style,this,window).getScene());
         window.show();
     }
 
-    //TODO possibly should refactor into two methods
-    public void setGameAndGoToAddPlayers(String gameType){
-        Scene nextScene;
+    public void setGame(String gameType){
         myGameType = gameType;
 
         //TODO: make gameFactory or use reflection to create concrete Game class based on gameType
@@ -53,19 +51,22 @@ public class Controller {
             myGame = new ClassicGame("Normal_Config_Rework.xml");
             gameStyle = fileToStylesheetString(new File("data/GUI.css"));
             availableTokens = FXCollections.observableList(myGame.getPossibleTokens());
-            nextScene = new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers,availableTokens).getScene();
         }
-        else{
-            nextScene = new Scene(new Group(),WIDTH,HEIGHT);
-        }
+    }
+    public void setGame(AbstractGame game){
+        myGame = game;
+    }
 
-        window.setScene(nextScene);
+    public void goToAddPlayersScreen(){
+        window.setScene(new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers,availableTokens).getScene());
     }
 
     public void startGame(){
-        myGame.setPlayers(newPlayers);
         window.setScene(new Layout(WIDTH,HEIGHT,gameStyle,this,myGame).getScene());
-        System.out.println("current player:" + myGame.getCurrPlayer().getName());
+    }
+
+    public void initializePlayers(){
+        myGame.setPlayers(newPlayers);
     }
 
     public void addPlayer(String name, Image icon){

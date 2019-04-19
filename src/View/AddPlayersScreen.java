@@ -172,6 +172,7 @@ public class AddPlayersScreen {
     class StartButtonHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
+            myController.initializePlayers();
             myController.startGame();
         }
     }
