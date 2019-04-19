@@ -1,4 +1,4 @@
-package Model.actioncards.Tests;
+package Model.tests;
 
 import Controller.ClassicGame;
 import Controller.Token;
@@ -33,7 +33,7 @@ class GoToSpaceTest {
 
     @BeforeEach
     void setUp() throws XmlTagException {
-        gameClass = new ClassicGame("Normal_Config_Old.xml");
+        gameClass = new ClassicGame("Normal_Config_Rework.xml");
         goToJail = gameClass.getBoard().getSpaceAt(30);
         player1 = new ClassicPlayer();
         player1.setToken(new Token(0));

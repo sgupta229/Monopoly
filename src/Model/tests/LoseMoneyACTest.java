@@ -1,4 +1,4 @@
-package Model.actioncards.Tests;
+package Model.tests;
 
 import Controller.AbstractGame;
 import Controller.ClassicGame;
@@ -32,8 +32,8 @@ class LoseMoneyACTest {
         game.setPlayers(List.of(p1, p2, p3));
         game.setCurrPlayer(0);
 
-        ac1 = new LoseMoneyAC(DeckType.CHANCE, "Pay $40 per house and $100 per hotel you own", false, "BANK", List.of(40.0, 100.0));
-        ac2 = new LoseMoneyAC(DeckType.COMMUNITY_CHEST, "Pay $50 to each player", false, "ALL", List.of(50.0));
+        ac1 = new LoseMoneyAC(DeckType.CHANCE, "Pay $40 per house and $100 per hotel you own", false, List.of("BANK"), List.of(40.0, 100.0));
+        ac2 = new LoseMoneyAC(DeckType.COMMUNITY_CHEST, "Pay $50 to each player", false, List.of("ALL"), List.of(50.0));
 
         for(ActionDeck d : game.getMyActionDecks()){
             if(d.getMyDeckType() == DeckType.CHANCE){
@@ -76,7 +76,4 @@ class LoseMoneyACTest {
         assertEquals(expected2, actual2P1, actual2P2);
     }
 
-    @Test
-    void multiPay() {
-    }
 }

@@ -1,4 +1,4 @@
-package Model.actioncards.Tests;
+package Model.tests;
 
 import Controller.ConfigReader;
 import Model.actioncards.AbstractActionCard;
@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ActionDeckTest {
-    ConfigReader cr = new ConfigReader("Normal_Config_Old.xml");
+    ConfigReader cr = new ConfigReader("Normal_Config_Rework.xml");
     ActionDeck chanceDeck;
     ActionDeck communityChestDeck;
     List<AbstractActionCard> actionCardList;

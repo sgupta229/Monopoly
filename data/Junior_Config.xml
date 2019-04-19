@@ -444,7 +444,7 @@
         <ActionCardType type="MoveNumberAC">
             <DeckType>CHANCE</DeckType>
             <Message>MOVE FORWARD 5 SPACES.</Message>
-            <Holdable>FALSE</Holdable>
+            <Holdable>False</Holdable>
             <ExtraString>5</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>

@@ -19,7 +19,7 @@ public class MoveToOpenAC extends AbstractActionCard {
         myTargetSpaces = extraStrings;
         passGo = extraDoubles.get(0);
         myPossibleSpaces = new ArrayList<>();
-    };
+    }
 
     @Override
     public void doCardAction(AbstractGame game) {
