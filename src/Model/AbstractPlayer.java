@@ -4,7 +4,6 @@ import Controller.Token;
 import Model.properties.Property;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
-import Model.properties.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -100,6 +99,11 @@ public abstract class AbstractPlayer implements Transfer {
 
     public void executeTrade(AbstractPlayer other, List<Property> currProp, List<Property> otherProp) {
 
+    }
+
+    public void payBail(Bank b) {
+        this.makePayment(50, b);
+        this.inJail = false;
     }
 
     public abstract void doSpecialMove();

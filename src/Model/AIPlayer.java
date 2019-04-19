@@ -20,17 +20,13 @@ public class AIPlayer extends AbstractPlayer {
     }
 
     public boolean wantsToBuy(Property property) {
-        if(property.getPrice() < getFunds() * 3) {
+        if(property.getPrice() < getFunds()) {
             return true;
         }
         return false;
     }
 
     public boolean wantsToBuild() {
-        return false;
-    }
-
-    public boolean wantsTo() {
         return false;
     }
 

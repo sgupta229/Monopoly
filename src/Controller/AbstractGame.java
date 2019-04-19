@@ -29,13 +29,15 @@ public abstract class AbstractGame {
     public static AbstractPlayer currPlayer;
     public static List<Die> dice;
     public static List<ActionDeck> decks;
-    public static HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
+    public static HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     public static List<String> possibleTokens;
     public static int numRollsInJail = 0;
 
     protected int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
+
+    public AbstractGame(Bank bank, Board board, AbstractSpace spaces, List<AbstractPlayer> players, Property properties, Deck decks, )
     
     public AbstractGame(String filename) {
         parseXMLFile(filename);

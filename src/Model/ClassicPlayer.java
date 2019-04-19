@@ -1,6 +1,8 @@
 package Model;
 
+import Model.properties.Buildable;
 import Model.properties.BuildingType;
+import Model.properties.Property;
 
 import java.util.HashMap;
 import java.util.Map;
