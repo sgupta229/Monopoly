@@ -7,6 +7,7 @@
     </Dice>
     <Board>
         <BoardSize>40</BoardSize>
+        <Dimension>11</Dimension>
     </Board>
     <!--Space type; index; name-->
     <!--Properties - property, name, colorgroup, group size, buyprice, rent-->
