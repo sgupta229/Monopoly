@@ -1,19 +1,20 @@
-package Model.properties;
+package Model.tests;
 
 import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Model.Bank;
 import Model.ClassicPlayer;
 import Model.XmlTagException;
+import Model.properties.BuildingType;
+import Model.properties.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ColorPropertyTest {
+class ClassicColorPropertyTest {
 
     ConfigReader conf = new ConfigReader("Normal_Config_Rework.xml");
     ClassicGame gameClass;
@@ -59,7 +60,7 @@ class ColorPropertyTest {
         player1.addProperty(lightBlueProp);
         player1.addProperty(lightBlueProp2);
         player1.addProperty(lightBlueProp3);
-        ((Buildable) lightBlueProp).addBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp.addBuilding(BuildingType.valueOf("HOUSE"));
         var actualRent = lightBlueProp.calculateRent(player1, lastDiceRoll);
         var expectedRent = 30;
         assertEquals(actualRent, expectedRent);
@@ -73,8 +74,8 @@ class ColorPropertyTest {
         player1.addProperty(lightBlueProp);
         player1.addProperty(lightBlueProp2);
         player1.addProperty(lightBlueProp3);
-        ((Buildable) lightBlueProp2).addBuilding(BuildingType.valueOf("HOUSE"));
-        ((Buildable) lightBlueProp2).addBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
         var actualRent = lightBlueProp2.calculateRent(player1, lastDiceRoll);
         var expectedRent = 90;
         assertEquals(actualRent, expectedRent);
@@ -88,7 +89,7 @@ class ColorPropertyTest {
         player1.addProperty(lightBlueProp);
         player1.addProperty(lightBlueProp2);
         player1.addProperty(lightBlueProp3);
-        ((Buildable) lightBlueProp2).addBuilding(BuildingType.valueOf("HOTEL"));
+        lightBlueProp2.addBuilding(BuildingType.valueOf("HOTEL"));
         var actualRent = lightBlueProp2.calculateRent(player1, lastDiceRoll);
         var expectedRent = 550;
         assertEquals(actualRent, expectedRent);
@@ -98,8 +99,8 @@ class ColorPropertyTest {
     void addBuildingANDgetNum() {
         Property lightBlueProp = propsList.get(3);
         player1.addProperty(lightBlueProp);
-        ((Buildable) lightBlueProp).addBuilding(BuildingType.valueOf("HOUSE"));
-        var actualNumHouses = ((Buildable) lightBlueProp).getNumBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp.addBuilding(BuildingType.valueOf("HOUSE"));
+        var actualNumHouses = lightBlueProp.getNumBuilding(BuildingType.valueOf("HOUSE"));
         var expectedNumHouses = 1;
         assertEquals(expectedNumHouses, actualNumHouses);
     }
@@ -112,10 +113,10 @@ class ColorPropertyTest {
         player1.addProperty(lightBlueProp);
         player1.addProperty(lightBlueProp2);
         player1.addProperty(lightBlueProp3);
-        ((Buildable) lightBlueProp2).addBuilding(BuildingType.valueOf("HOUSE"));
-        ((Buildable) lightBlueProp2).addBuilding(BuildingType.valueOf("HOUSE"));
-        ((Buildable) lightBlueProp2).removeBuilding(BuildingType.valueOf("HOUSE"));
-        var actualNumHouses = ((Buildable) lightBlueProp2).getNumBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.removeBuilding(BuildingType.valueOf("HOUSE"));
+        var actualNumHouses = lightBlueProp2.getNumBuilding(BuildingType.valueOf("HOUSE"));
         var expectedNumHouses = 1;
         assertEquals(expectedNumHouses, actualNumHouses);
     }
@@ -124,7 +125,7 @@ class ColorPropertyTest {
     void getNumBuildingNoBuildings() {
         Property lightBlueProp3 = propsList.get(5);
         player1.addProperty(lightBlueProp3);
-        var actualNumHouses = ((Buildable) lightBlueProp3).getNumBuilding(BuildingType.valueOf("HOUSE"));
+        var actualNumHouses = lightBlueProp3.getNumBuilding(BuildingType.valueOf("HOUSE"));
         var expectedNumHouses = 0;
         assertEquals(expectedNumHouses, actualNumHouses);
     }

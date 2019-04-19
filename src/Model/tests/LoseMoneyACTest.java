@@ -76,7 +76,4 @@ class LoseMoneyACTest {
         assertEquals(expected2, actual2P1, actual2P2);
     }
 
-    @Test
-    void multiPay() {
-    }
 }

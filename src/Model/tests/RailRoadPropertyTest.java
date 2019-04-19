@@ -1,4 +1,4 @@
-package Model.properties;
+package Model.tests;
 
 import Controller.ClassicGame;
 import Controller.ConfigReader;

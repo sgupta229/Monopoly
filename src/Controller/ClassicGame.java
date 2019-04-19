@@ -23,9 +23,10 @@ public class ClassicGame extends AbstractGame {
         }
         else {
             getCurrPlayer().incrementNumRollsinJail();
-            if(getCurrPlayer().getNumRollsInJail() == rollsInJailRule) {
+            if(getCurrPlayer().getNumRollsInJail() == getRollsInJailRule()) {
                 this.movePlayer(oldIndex, newIndex);
                 getCurrPlayer().resetNumRollsInJail();
+                getCurrPlayer().setJail(false);
             }
         }
         checkPassGo(oldIndex, newIndex);
@@ -35,7 +36,7 @@ public class ClassicGame extends AbstractGame {
     public void checkPassGo(int oldIndex, int newIndex) {
         if(newIndex < oldIndex) {
 //        if(0 <= newIndex && 0>= oldIndex) {
-            getCurrPlayer().addFunds(passGo);
+            getCurrPlayer().addFunds(getPassGo());
         }
     }
 }

@@ -10,7 +10,7 @@
         <Dimension>7</Dimension>
     </Board>
     <Properties>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>BURGER_JOINT</PropertyName>
             <ColorGroup>BROWN</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -21,7 +21,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>PIZZA_HOUSE</PropertyName>
             <ColorGroup>BROWN</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -32,7 +32,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>CANDY_STORE</PropertyName>
             <ColorGroup>LIGHTBLUE</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -43,7 +43,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>ICE_CREAM_PARLOR</PropertyName>
             <ColorGroup>LIGHTBLUE</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -54,7 +54,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>MUSEUM</PropertyName>
             <ColorGroup>PINK</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -65,7 +65,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>LIBRARY</PropertyName>
             <ColorGroup>PINK</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -76,7 +76,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>SKATE_PARK</PropertyName>
             <ColorGroup>ORANGE</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -87,7 +87,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>SWIMMING_POOL</PropertyName>
             <ColorGroup>ORANGE</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -98,7 +98,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>VIDEO_GAME_ARCADE</PropertyName>
             <ColorGroup>RED</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -109,7 +109,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>CINEMA</PropertyName>
             <ColorGroup>RED</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -120,7 +120,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>TOY_STORE</PropertyName>
             <ColorGroup>YELLOW</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -131,7 +131,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>PET_STORE</PropertyName>
             <ColorGroup>YELLOW</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -142,7 +142,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>BOWLING_ALLEY</PropertyName>
             <ColorGroup>GREEN</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -153,7 +153,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>ZOO</PropertyName>
             <ColorGroup>GREEN</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -164,7 +164,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>PARK_PLACE</PropertyName>
             <ColorGroup>DARKBLUE</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -175,7 +175,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="JuniorColorProperty">
             <PropertyName>BOARDWALK</PropertyName>
             <ColorGroup>DARKBLUE</ColorGroup>
             <GroupSize>2</GroupSize>

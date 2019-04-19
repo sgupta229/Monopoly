@@ -1,7 +1,7 @@
 //package View;
 //
 //import Model.AbstractPlayer;
-//import Model.properties.ColorProperty;
+//import Model.properties.ClassicColorProperty;
 //import Model.properties.Property;
 //import Model.properties.RailRoadProperty;
 //import Model.properties.UtilityProperty;
@@ -53,16 +53,13 @@
 //}
 package View;
 
-import Model.AbstractPlayer;
-import Model.properties.ColorProperty;
+import Model.properties.ClassicColorProperty;
 import Model.properties.Property;
 import Model.properties.RailRoadProperty;
 import Model.properties.UtilityProperty;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -97,7 +94,7 @@ public class PropertyCell extends ListCell<Property> {
 
         if (item != null && !empty) {
             label.setText(item.getName());
-            if (item instanceof ColorProperty){
+            if (item instanceof ClassicColorProperty){
                 color.setWidth(60);
                 color.setHeight(20);
                 color.setFill(Paint.valueOf(item.getColor()));

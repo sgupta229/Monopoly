@@ -9,31 +9,35 @@ import Model.spaces.AbstractSpace;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.*;
 
-public abstract class AbstractGame {
+public abstract class AbstractGame implements Serializable {
+
+    private String name;
+
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
     private int boardSize = 0;
 
     //RULES
     private double startFunds;
     private double jailBail;
-    protected double passGo;
+    private double passGo;
     private AbstractActionCard currentActionCard;
 
-    public static List<AbstractPlayer> players;
-    public static Bank bank;
-    public static Board board;
-    public static List<AbstractSpace> spaces;
-    public static List<Property> properties;
-    public static AbstractPlayer currPlayer;
-    public static List<Die> dice;
-    public static List<ActionDeck> decks;
-    public static HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
-    public static List<String> possibleTokens;
-    public static int numRollsInJail = 0;
+    private List<AbstractPlayer> players;
+    private Bank bank;
+    private Board board;
+    private List<AbstractSpace> spaces;
+    private List<Property> properties;
+    private AbstractPlayer currPlayer;
+    private List<Die> dice;
+    private List<ActionDeck> decks;
+    private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
+    private List<String> possibleTokens;
+    private int numRollsInJail = 0;
 
-    protected int rollsInJailRule;
+    private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
     
@@ -48,7 +52,7 @@ public abstract class AbstractGame {
         ConfigReader configReader = new ConfigReader(filename);
         try {
             decks = configReader.parseActionDecks();
-            List<AbstractActionCard>  allCards = configReader.parseActionCards();
+            List<AbstractActionCard> allCards = configReader.parseActionCards();
             for(ActionDeck d : decks) {
                 d.fillLiveDeck(allCards);
             }
@@ -217,6 +221,7 @@ public abstract class AbstractGame {
 
     }
 
+    @Deprecated
     public void callAction(int userChoice) {
         int currentLocation = currPlayer.getCurrentLocation();
         AbstractSpace currSpace = getBoard().getSpaceAt(currentLocation);
@@ -285,5 +290,9 @@ public abstract class AbstractGame {
 
     public void setPassGo(double passGo) {
         this.passGo = passGo;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

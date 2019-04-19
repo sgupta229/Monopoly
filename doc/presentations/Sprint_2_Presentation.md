@@ -15,6 +15,8 @@ Sprint 2 Presentation
 * Tax Space choose which to do 
 * Pass Go -- collect 200
 * Forfeit
+* ~~Building on monopolized properties~~
+* Roll/pay to get out of jail
 * Building on monopolized properties
     * Back end works
 * Roll to get out of jail
