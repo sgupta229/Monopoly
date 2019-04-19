@@ -1,6 +1,7 @@
 package Model.spaces;
 import Controller.*;
 import Model.AbstractPlayer;
+import Model.properties.Property;
 
 import java.util.*;
 
@@ -15,6 +16,14 @@ public abstract class AbstractSpace {
     private String myName;
     List<AbstractPlayer> myOccupants = new ArrayList<>();
     private SpaceGroup myGroup;
+    private Property myProp;
+
+    public AbstractSpace(int locationIndex, String spaceName, String spaceGroup,
+    String jumpToSpace, List<Double> taxNums, Property myProp){
+        myLocation = locationIndex;
+        myName = spaceName;
+        myGroup = SpaceGroup.valueOf(spaceGroup);
+    }
 
     public AbstractSpace(int locationIndex, String spaceName){
         myLocation = locationIndex;
@@ -37,6 +46,8 @@ public abstract class AbstractSpace {
     public List<AbstractPlayer> getOccupants(){
         return myOccupants;
     }
+
+    public abstract ArrayList getInfo(); 
 
     /***
      * adds a player to the list of players on the space
@@ -68,6 +79,10 @@ public abstract class AbstractSpace {
 
     public SpaceGroup getMyGroup(){
         return myGroup;
+    }
+
+    public void setMyProp(Property prop){
+        myProp = prop;
     }
 
     public void setMyGroup(SpaceGroup group){

@@ -5,6 +5,7 @@ import Controller.AbstractGame;
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
 import Model.actioncards.DeckType;
+import Model.properties.Property;
 
 
 import java.util.List;
@@ -12,6 +13,12 @@ import java.util.List;
 public class ActionCardSpace extends AbstractSpace {
 
     private DeckType myDeckType;
+
+    public ActionCardSpace(int locationIndex, String spaceName, String spaceGroup,
+                           String jumpToSpace, List<Double> taxNums, Property myProp){
+        super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
+        myDeckType = DeckType.valueOf(spaceName);
+    }
 
     public ActionCardSpace(int locationIndex, String deckType){
         super(locationIndex, deckType);

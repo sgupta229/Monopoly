@@ -24,6 +24,17 @@ public abstract class Property {
     /////need property to take in building map with buildingtypes as keys already
     ///// and also buildingprices that is already populated, and just set these
 
+    public Property(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
+        isMortgaged = false;
+        myPrice=price;
+        myName = propName;
+        myColor = color;
+        allPaymentInfo = paymentInfo;
+        myGroupSize = groupSize;
+        initializePaymentInfo(allPaymentInfo);
+        general = ResourceBundle.getBundle("GeneralInfo");
+    }
+
     public Property(double price, String propName,  List<Double> paymentInfo, int groupSize){
         isMortgaged = false;
         myPrice=price;

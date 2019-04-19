@@ -13,7 +13,7 @@ public class ColorProperty extends Property implements Buildable {
     private String myColor;
 
     private List<Double> rentNumbers;
-    private static final int INFO_NUM = 8;
+    private static final int INFO_NUM = 7;
     private static final int SIX = 6;
     private static final int HOTEL_RENT_INDEX = 5;
 
@@ -21,14 +21,14 @@ public class ColorProperty extends Property implements Buildable {
     protected Map<BuildingType, Double> buildingPrices;
 
 
+
     public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
-        super(price, propName, paymentInfo, groupSize);
+        super(price, propName, color, paymentInfo, groupSize, buildingPricesMap);
         buildingPrices = buildingPricesMap;
         buildingMap = new HashMap<>();
         myColor=color;
-        setMyColor(color);
-        setGroup(color);
-
+        //setMyColor(color);
+        //setGroup(color);
         for(BuildingType buildingType : buildingPrices.keySet()){
             buildingMap.put(buildingType, 0);
         }
@@ -40,10 +40,8 @@ public class ColorProperty extends Property implements Buildable {
         if(paymentInformationCopy.size()>=INFO_NUM)   {
             //pricePerHouse = paymentInformation.get(6);
             //pricePerHotel = paymentInformation.get(7);
-            setMortgageAmount(paymentInformationCopy.get(INFO_NUM));
+            setMortgageAmount(paymentInformationCopy.get(SIX));
             rentNumbers = paymentInformationCopy.subList(0, SIX);
-            buildingPrices = new HashMap<>();
-            /////buildingPrices.put(something);
         }
         else{
             throw new IndexOutOfBoundsException("Bad data") ;

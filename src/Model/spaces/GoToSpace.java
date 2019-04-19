@@ -3,13 +3,21 @@ package Model.spaces;
 
 import Controller.AbstractGame;
 import Model.AbstractPlayer;
-import Model.spaces.AbstractSpace;
+import Model.properties.Property;
+
+import java.util.List;
 
 
 public class GoToSpace extends AbstractSpace {
 
     private String spaceToMoveTo;
     private int spacesLocation;
+
+    public GoToSpace(int locationIndex, String spaceName, String spaceGroup,
+                     String jumpToSpace, List<Double> taxNums, Property myProp){
+        super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
+        spaceToMoveTo = jumpToSpace;
+    }
 
     public GoToSpace(int locationIndex, String spaceName, String jumpToSpace){
         super(locationIndex, spaceName);

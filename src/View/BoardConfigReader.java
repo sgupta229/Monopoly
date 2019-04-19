@@ -1,9 +1,11 @@
 package View;
 
 import Controller.ConfigReader;
+import Model.XmlTagException;
 import Model.spaces.AbstractSpace;
 import Model.properties.Property;
 
+import javax.xml.stream.XMLStreamException;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class BoardConfigReader {
     private ResourceBundle myResourceBundle;
 
 
-    public BoardConfigReader(){
+    public BoardConfigReader() {
         myResourceBundle = ResourceBundle.getBundle("IndexToCoordinate");
         mySpaceConfigs = new ConfigReader(CONFIG_PATH);
         List<List> allSpacesAndProps = mySpaceConfigs.parseSpaces();

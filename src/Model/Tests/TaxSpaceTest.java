@@ -27,7 +27,7 @@ class TaxSpaceTest {
 
     @BeforeEach
     void setUp() throws XmlTagException {
-        gameClass = new ClassicGame("Normal_Config.xml");
+        gameClass = new ClassicGame("Normal_Config_Rework.xml");
         taxSpace = gameClass.getBoard().getSpaceAt(38);
         player1 = new ClassicPlayer();
         List<AbstractPlayer> playerList = new ArrayList<>();

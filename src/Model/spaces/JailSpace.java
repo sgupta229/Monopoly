@@ -1,9 +1,17 @@
 package Model.spaces;
 
 import Controller.AbstractGame;
-import Model.spaces.AbstractSpace;
+import Model.properties.Property;
+
+import java.util.List;
 
 public class JailSpace extends AbstractSpace {
+
+    public JailSpace(int locationIndex, String spaceName, String spaceGroup,
+                     String jumpToSpace, List<Double> taxNums, Property myProp){
+
+        super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
+    }
 
     public JailSpace(int locationIndex, String spaceName){
         super(locationIndex, spaceName);
