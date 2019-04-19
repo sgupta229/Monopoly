@@ -76,18 +76,8 @@ public abstract class AbstractPlayer implements Transfer {
         return funds;
     }
 
-    @Deprecated
-    public Token getToken() {
-        return token;
-    }
-
     public int getCurrentLocation(){
         return currentLocation;
-    }
-
-    @Deprecated
-    public void setCurrentLocation(int newLocation) {
-        currentLocation = newLocation;
     }
 
     public int moveTo(int newLocation) {
@@ -106,8 +96,6 @@ public abstract class AbstractPlayer implements Transfer {
         this.inJail = false;
     }
 
-    public abstract void doSpecialMove();
-
     public void setJail(boolean set) {
         inJail = set;
     }
@@ -117,11 +105,6 @@ public abstract class AbstractPlayer implements Transfer {
         this.funds = newFunds;
         myPCS.firePropertyChange("funds",oldFunds,this.funds);
         System.out.println(this.getName() + "'s funds updated. new funds: " + funds);
-    }
-
-    @Deprecated
-    public void setToken(Token token) {
-        this.token = token;
     }
 
     public void addFunds(double addAmount) {
@@ -134,11 +117,6 @@ public abstract class AbstractPlayer implements Transfer {
 
     public String getName() {
         return this.name;
-    }
-
-    @Deprecated
-    public String getTokenImage() {
-        return this.tokenImage;
     }
 
     public void addActionCard(AbstractActionCard c) {
@@ -188,4 +166,24 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public List<AbstractActionCard> getActionCards(){return actionCards;}
+
+    @Deprecated
+    public void setToken(Token token) {
+        this.token = token;
+    }
+
+    @Deprecated
+    public String getTokenImage() {
+        return this.tokenImage;
+    }
+
+    @Deprecated
+    public void setCurrentLocation(int newLocation) {
+        currentLocation = newLocation;
+    }
+
+    @Deprecated
+    public Token getToken() {
+        return token;
+    }
 }

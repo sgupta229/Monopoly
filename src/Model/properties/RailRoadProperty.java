@@ -62,21 +62,6 @@ public class RailRoadProperty extends Property {
 
     }
 
-    @Override
-    public void addBuilding(BuildingType building) {
-
-    }
-
-    @Override
-    public void removeBuilding(BuildingType building) {
-
-    }
-
-    @Override
-    public int getNumBuilding(BuildingType building) {
-        return 0;
-    }
-
     @Deprecated
     public void build(){}
 

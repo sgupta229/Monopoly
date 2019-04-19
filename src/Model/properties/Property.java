@@ -21,6 +21,7 @@ public abstract class Property {
     private List allPaymentInfo;
     private int myGroupSize;
     private Map<BuildingType, Double> buildingPrices;
+    private Map<BuildingType, Integer> buildingMap;
 
     /////need property to take in building map with buildingtypes as keys already
     ///// and also buildingprices that is already populated, and just set these
@@ -34,7 +35,13 @@ public abstract class Property {
         myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
         buildingPrices = buildingPriceMap;
+        this.buildingMap = new HashMap<>();
         general = ResourceBundle.getBundle("GeneralInfo");
+
+        for(BuildingType buildingType : buildingPrices.keySet()){
+            buildingMap.put(buildingType, 0);
+        }
+
     }
 
     public Property(double price, String propName,  List<Double> paymentInfo, int groupSize){
@@ -67,11 +74,17 @@ public abstract class Property {
 
     protected abstract void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException;
 
-    public abstract void addBuilding(BuildingType building);
+    public void addBuilding(BuildingType building) {
 
-    public abstract void removeBuilding(BuildingType building);
+    }
 
-    public abstract int getNumBuilding(BuildingType building);
+    public void removeBuilding(BuildingType building) {
+
+    }
+
+    public int getNumBuilding(BuildingType building) {
+        return 0;
+    }
 
     /***
      * A getter method that returns the name of this property
@@ -158,5 +171,13 @@ public abstract class Property {
 
     public double getBuildingPrice(BuildingType building){
         return buildingPrices.get(building);
+    }
+
+    public Map<BuildingType, Integer> getBuildingMap() {
+        return buildingMap;
+    }
+
+    public Map<BuildingType, Double> getBuildingPrices() {
+        return buildingPrices;
     }
 }

@@ -16,10 +16,6 @@ public class ClassicPlayer extends AbstractPlayer {
         super();
     }
 
-    public void doSpecialMove() {
-
-    }
-
     public Map<BuildingType, Integer> getNumBuildings() {
         Map<BuildingType, Integer> buildingInventory = new HashMap<>();
         return buildingInventory;
