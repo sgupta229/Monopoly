@@ -10,7 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,13 +29,16 @@ public class ChooseGameScreen {
     private Scene myScene;
     private BorderPane myLogoPane;
     private ResourceBundle myResourceBundle;
+    private ResourceBundle messages;
     private List<String> gameTypeButtons;
     private Group myRoot;
     private FlowPane myFlowPane;
+    private Button loadButton;
 
 
     public ChooseGameScreen(double width, double height, String style, Controller controller) {
         myResourceBundle = ResourceBundle.getBundle("GameTypes");
+        messages = ResourceBundle.getBundle("Messages");
         this.myRoot = new Group();
         this.myController = controller;
 
@@ -40,6 +47,7 @@ public class ChooseGameScreen {
 
         createMonopolyLogo();
         addFlowPane();
+//        createLoadButton();
         myRoot.getChildren().addAll(myLogoPane, myFlowPane);
     }
     public Scene getScene(){

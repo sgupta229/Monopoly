@@ -21,43 +21,29 @@ public abstract class Property {
     private List allPaymentInfo;
     private int myGroupSize;
 
-    protected Map<BuildingType, Integer> buildingMap;
-    protected Map<BuildingType, Double> buildingPrices;
-
-
     /////need property to take in building map with buildingtypes as keys already
     ///// and also buildingprices that is already populated, and just set these
 
-    public Property(double price, String propName,  List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
+    public Property(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
         isMortgaged = false;
         myPrice=price;
         myName = propName;
+        myColor = color;
         allPaymentInfo = paymentInfo;
         myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
-        buildingPrices=buildingPricesMap;
-        buildingMap = new HashMap<>();
-        for(BuildingType buildingType : buildingPrices.keySet()){
-            buildingMap.put(buildingType, 0);
-        }
         general = ResourceBundle.getBundle("GeneralInfo");
     }
 
-    @Deprecated
     public Property(double price, String propName,  List<Double> paymentInfo, int groupSize){
+        isMortgaged = false;
         myPrice=price;
         myName = propName;
         allPaymentInfo = paymentInfo;
         myGroupSize = groupSize;
-        isMortgaged = false;
         initializePaymentInfo(allPaymentInfo);
-        //////buildingMap = new HashMap<>();
-        /////for(BuildingType buildingType : buildingMap.keySet()){
-        /////buildingMap.put(buildingType, 0);
-        ////}
+        general = ResourceBundle.getBundle("GeneralInfo");
     }
-
-
 
     @Deprecated
     public Property(double price, String propName, String color, List<Double> paymentInfo){
@@ -101,6 +87,11 @@ public abstract class Property {
         return myPrice;
     }
 
+    public abstract List getInfo();
+
+    public String getMyName(){
+        return myName;
+    }
 
     public String getColor(){
         return myColor;
@@ -146,11 +137,6 @@ public abstract class Property {
     public void setMortgageAmount(Double amount){
         mortgageAmount = amount;
     }
-
-    public double getBuildingPrice(BuildingType building){
-        return buildingPrices.get(building);
-    }
-
 
     @Override
     public boolean equals(Object o) {

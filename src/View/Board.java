@@ -96,10 +96,10 @@ public class Board implements PropertyChangeListener {
                 }
             }
 
-            if (myGame.getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
+            if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
                 myPopup = new PayRentPopup(playerLocation, myController);
             }
-            else if (myGame.getBank().propertyOwnedBy(myProperty)!= null && myGame.getBank().propertyOwnedBy(myProperty)==myGame.getCurrPlayer()) {
+            else if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)==myGame.getCurrPlayer()) {
                 myPopup = null;
             }
             else{
@@ -121,9 +121,75 @@ public class Board implements PropertyChangeListener {
     }
 
     private void createSpaces(){
+        String baseColor = "#c7edc9";
+
         for (Map.Entry<Point2D.Double, AbstractSpace> entry : indexToName.entrySet()) {
-            SpaceDisplayFactory factory = new SpaceDisplayFactory();
-            myGridPane.add(factory.getSpaceDisplay(entry,myBoardPane).getMyPropertyStackPane(),(int)entry.getKey().getX(),(int)entry.getKey().getY());
+            String name = entry.getValue().getMyName().replace("_", " ");
+            if (entry.getValue() instanceof PropSpace) {
+                String price = nameToPrice.get(name).toString();
+                String color = nameToColor.get(name);
+                if (entry.getKey().getY() == 10) {
+                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(name, price, color, myBoardPane, baseColor);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 10);
+                }
+                if (entry.getKey().getX() == 0) {
+                    LeftPropertyDisplay propSpaces = new LeftPropertyDisplay(name, price, color, myBoardPane, baseColor);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), 0, (int) entry.getKey().getY());
+                }
+                if (entry.getKey().getY() == 0) {
+                    System.out.println((int) entry.getKey().getX());
+                    TopPropertyDisplay propSpaces = new TopPropertyDisplay(name, price, color, myBoardPane, baseColor);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 0);
+                }
+                if (entry.getKey().getX() == 10) {
+                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(name, price, color, myBoardPane, baseColor);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), 10, (int) entry.getKey().getY());
+                }
+            }
+            if (entry.getValue() instanceof TaxSpace) {
+                if (entry.getKey().getY() == 10) {
+                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(myBoardPane, baseColor, "tax.png");
+                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 10);
+                }
+                if (entry.getKey().getX() == 10) {
+                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(myBoardPane, baseColor, "tax.png");
+                    myGridPane.add(propSpaces.getMyPropStackPane(), 10, (int) entry.getKey().getY());
+                }
+            }
+            if (entry.getValue() instanceof ActionCardSpace) {
+                String image;
+                if (name.equals("COMMUNITY CHEST")) {
+                    image = "chest.png";
+                } else {
+                    image = "chance.png";
+                }
+                if (entry.getKey().getY() == 10) {
+                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(myBoardPane, baseColor, image);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 10);
+                }
+                if (entry.getKey().getX() == 10) {
+                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(myBoardPane, baseColor, image);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), 10, (int) entry.getKey().getY());
+                }
+                if (entry.getKey().getX() == 0) {
+                    LeftPropertyDisplay propSpaces = new LeftPropertyDisplay(myBoardPane, baseColor, image);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), 0, (int) entry.getKey().getY());
+                }
+                if (entry.getKey().getY() == 0) {
+                    TopPropertyDisplay propSpaces = new TopPropertyDisplay(myBoardPane, baseColor, image);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 0);
+                }
+            } else {
+                CornerDisplay goSpace = new CornerDisplay(baseColor, myBoardPane, "go.png");
+                myGridPane.add(goSpace.getMyPropertyStackPane(), 10, 10);
+                CornerDisplay parkingSpace = new CornerDisplay(baseColor, myBoardPane, "freeParking.png");
+                myGridPane.add(parkingSpace.getMyPropertyStackPane(), 0, 0);
+                CornerDisplay jailSpace = new CornerDisplay(baseColor, myBoardPane, "jail.png");
+                myGridPane.add(jailSpace.getMyPropertyStackPane(), 0, 10);
+                CornerDisplay goToJail = new CornerDisplay(baseColor, myBoardPane, "goToJail.png");
+                myGridPane.add(goToJail.getMyPropertyStackPane(), 10, 0);
+
+            }
         }
     }
 
@@ -148,7 +214,7 @@ public class Board implements PropertyChangeListener {
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
         allSpaces = configs.getSpaces();
-        myProps = new ArrayList<>(myGame.getBank().getUnOwnedProps());
+        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
     }
 
     public Pane getGridPane() {

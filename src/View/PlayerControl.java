@@ -100,13 +100,6 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
     private ListView createAssetsListView(){
 
-//        ArrayList<Property> temp = new ArrayList<>();
-//        ArrayList<Double> fakeVals = new ArrayList<>();
-//        for (int i=0;i<10;i++){
-//            fakeVals.add(i+0.5);
-//        }
-//        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals,3));
-
         ListView<Property> assetsListView = new ListView<>(myPlayer.getProperties());
 
         assetsListView.setCellFactory(new Callback<ListView<Property>, ListCell<Property>>() {
@@ -132,7 +125,5 @@ public abstract class PlayerControl implements PropertyChangeListener {
 //        System.out.println("funds event received");
         myVBox.getChildren().set(1,createBalanceText());
     }
-
-
 
 }

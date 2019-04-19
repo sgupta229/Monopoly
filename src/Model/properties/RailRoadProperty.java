@@ -3,9 +3,7 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class RailRoadProperty extends Property {
 
@@ -19,17 +17,32 @@ public class RailRoadProperty extends Property {
     private final double INFO_NUM = 5;
     private final int FOUR = 4;
 
+    public RailRoadProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
+        super(price, propName, color, paymentInfo, groupSize, buildingPriceMap);
+        setGroup(myGroup);
+    }
 
-    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
-        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
-        myColor = general.getString("railroadColor");
+
+    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
+        super(price, propName, paymentInfo, groupSize);
+//        myColor = general.getString("railroadColor");
         setGroup(myGroup);
     }
 
     @Deprecated
-    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize){
+    public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
         super(price, propName, paymentInfo, groupSize);
         setGroup(myGroup);
+    }
+
+    public List getInfo(){
+        ArrayList ret = new ArrayList();
+        ret.addAll(Arrays.asList(this.getPrice()));
+        for(double num:rentNumbers){
+            ret.add(num);
+        }
+        ret.add(this.getName());
+        return ret;
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation){

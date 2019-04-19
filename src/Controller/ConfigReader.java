@@ -55,7 +55,7 @@ public class ConfigReader {
         bankInfo.add(numHouses);
         bankInfo.add(numHotels);
         bankInfo.add(maxNumHouses);
-        System.out.println(maxNumHouses);
+        //System.out.println(maxNumHouses);
         return bankInfo;
     }
 
@@ -115,10 +115,12 @@ public class ConfigReader {
                 String extraString = card.getElementsByTagName("ExtraString").item(0).getTextContent();
                 //Get list of doubles
                 String[] extraDubTemp = card.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
-                List<Double> extraDubs = new ArrayList<>();
+/*                List<Double> extraDubs = new ArrayList<>();
                 for(String n:extraDubTemp){
                     extraDubs.add(Double.parseDouble(n));
-                }
+                }*/
+                List<Double> extraDubs = listDoubleConverter(extraDubTemp);
+
 
                 String className = card.getAttribute("type");
                 //Reflection to create action cards
@@ -141,11 +143,152 @@ public class ConfigReader {
         return allActionCards;
     }
 
+/*    private List<Integer> loopThroughChildren(String tag, int index){
+        ArrayList<Integer> numbers = new ArrayList<>();
+        NodeList rentList = doc.getElementsByTagName(tag);
+        Node thisValue = rentList.item(index);
+        NodeList nodeNums = thisValue.getChildNodes();
+        for(int x=0; x<nodeNums.getLength(); x++){
+            Node currNum = nodeNums.item(x);
+            int rentVal = Integer.parseInt(currNum.getTextContent());
+            numbers.add(rentVal);
+        }
+        return numbers;
+    }*/
+
+    public List<Property> parseAllProps(){
+        List<Property> propsList = new ArrayList<>();
+        NodeList propTypeList = doc.getElementsByTagName("Property");
+        for(int i = 0; i<propTypeList.getLength(); i++){
+            Node ac = propTypeList.item(i);
+            if(ac.getNodeType() == Node.ELEMENT_NODE){
+                Element prop = (Element) ac;
+                String name = prop.getElementsByTagName("PropertyName").item(0).getTextContent();
+                //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
+                String color = prop.getElementsByTagName("ColorGroup").item(0).getTextContent();
+                int groupSize = Integer.parseInt(prop.getElementsByTagName("GroupSize").item(0).getTextContent());
+                double buyPrice = Double.parseDouble(prop.getElementsByTagName("BuyPrice").item(0).getTextContent());
+
+                //get all rent numbers
+                //Node rentNode = doc.getDocumentElement();
+                ArrayList<Double> rentNumbers = new ArrayList<>();
+                NodeList rentList = doc.getElementsByTagName("Rent");
+                //System.out.println(rentList.getLength());
+                Node thisRent1 = rentList.item(i);
+                Element thisRent = (Element) thisRent1;
+                NodeList rentNums = thisRent.getChildNodes();
+                //System.out.println(rentNums.getLength());
+                //System.out.println(name);
+                for(int x=1; x<rentNums.getLength(); x=x+2){
+                    Node currRentNum = rentNums.item(x);
+                    //System.out.println(currRentNum.getNodeName());
+                    //System.out.println(currRentNum.getTextContent());
+                    Double rentVal = Double.parseDouble(currRentNum.getTextContent());
+                    //System.out.println("RentVal is " + rentVal);
+                    rentNumbers.add(rentVal);
+                }
+
+                //get all building numbers
+                Map<BuildingType, Double> BuildingPrices = new TreeMap<>();
+                NodeList priceList = doc.getElementsByTagName("BuildingPrices");
+                Node thisPrice = priceList.item(i);
+                NodeList priceNums = thisPrice.getChildNodes();
+                for(int x=1; x<priceNums.getLength(); x=x+2){
+                    Node currPriceNum = priceNums.item(x);
+                    Element c = (Element) currPriceNum;
+                    BuildingType bType = (BuildingType.valueOf(c.getAttribute("type")));
+                    double priceVal = Double.parseDouble(currPriceNum.getTextContent());
+                    BuildingPrices.put(bType, priceVal);
+                }
+
+                String className = prop.getAttribute("type");
+                //Reflection to create properties
+                try {
+                    Property newProp = (Property) Class.forName("Model.properties." + className).getConstructor(double.class, String.class, String.class, List.class, int.class, Map.class).newInstance(buyPrice,
+                            name, color, rentNumbers, groupSize, BuildingPrices);
+                    propsList.add(newProp);
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return propsList;
+    }
+
+    public List<AbstractSpace> parseNewSpaces(List<Property> propsList){
+        List<AbstractSpace> allSpaces = new ArrayList<>();
+
+        NodeList spaceList = doc.getElementsByTagName("Space");
+        for(int i = 0; i < spaceList.getLength(); i++) {
+            Node s = spaceList.item(i);
+            if (s.getNodeType() == Node.ELEMENT_NODE) {
+                Element space = (Element) s;
+                int index = Integer.parseInt(space.getElementsByTagName("Index").item(0).getTextContent());
+                String spaceGroupString = space.getElementsByTagName("SpaceGroup").item(0).getTextContent().strip();
+                SpaceGroup spaceGroup = SpaceGroup.valueOf(spaceGroupString);
+                String spaceName = space.getElementsByTagName("SpaceName").item(0).getTextContent().strip();
+                String extraString = space.getElementsByTagName("ExtraString").item(0).getTextContent().strip();
+                String[] extraDubTemp = space.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
+/*                List<Double> extraDubs = new ArrayList<>();
+                for(String n:extraDubTemp){
+                    extraDubs.add(Double.parseDouble(n));
+                }*/
+                List<Double> extraDubs = listDoubleConverter(extraDubTemp);
+
+                Property myProp = findLinkedProperty(propsList, spaceName);
+
+                String className = space.getAttribute("type");
+                //System.out.println(className);
+                //Reflection to create properties
+                try {
+                    AbstractSpace newSpace = (AbstractSpace) Class.forName("Model.spaces." + className).getConstructor(int.class, String.class, String.class, String.class, List.class, Property.class).newInstance(index,
+                            spaceName, spaceGroupString, extraString, extraDubs, myProp);
+                    //newSpace.setMyProp(myProp);
+                    allSpaces.add(newSpace);
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        return allSpaces;
+    }
+
+    private Property findLinkedProperty(List<Property> allProperties, String name){
+        HashMap<String, Property> allPropsAndNames = new HashMap<>();
+        for(Property prop:allProperties){
+            allPropsAndNames.put(prop.getName(), prop);
+        }
+        if(allPropsAndNames.containsKey(name)){
+            return allPropsAndNames.get(name);
+        }
+        else{
+            return null;
+        }
+    }
+
     public List<List> parseSpaces(){
         List<List> allSpacesAndProps = new ArrayList<>();
-        List<AbstractSpace> allSpaces = new ArrayList<>();
-        List<Property> allProps = new ArrayList<>();
-        Map<String, ArrayList> propInfo = new HashMap<String, ArrayList>();
+        List<Property> allProps = parseAllProps();
+        List<AbstractSpace> allSpaces = parseNewSpaces(allProps);
+
+        /*Map<String, ArrayList> propInfo = new HashMap<String, ArrayList>();
 
 
         NodeList spaceList = doc.getElementsByTagName("Space");
@@ -278,7 +421,7 @@ public class ConfigReader {
 //                    throw new XmlTagException(space.getAttribute("type"));
 //                }
             }
-        }
+        }*/
         allSpacesAndProps.add(allSpaces);
         allSpacesAndProps.add(allProps);
 
@@ -286,7 +429,7 @@ public class ConfigReader {
         return allSpacesAndProps;
     }
 
-    public Map<Integer, ArrayList> parseColorPropInfo() {
+    /*public Map<Integer, ArrayList> parseColorPropInfo() {
         Map<Integer, ArrayList> propInfo = new HashMap<Integer, ArrayList>();
         NodeList spaceList = doc.getElementsByTagName("Space");
         for (int i = 0; i < spaceList.getLength(); i++) {
@@ -338,7 +481,7 @@ public class ConfigReader {
             }
         }
         return propInfo;
-    }
+    }*/
 
 
     public List<String> parseTokens() throws XmlTagException{
@@ -408,17 +551,25 @@ public class ConfigReader {
         return buildingProperties;
     }
 
+    private List<Double> listDoubleConverter(String[] stringList){
+        List<Double> doubleList = new ArrayList<>();
+        for(String n:stringList){
+            doubleList.add(Double.parseDouble(n));
+        }
+        return doubleList;
+    }
+
     public static void main(String[] args) {
-        ConfigReader c = new ConfigReader("Normal_Config.xml");
+        ConfigReader c = new ConfigReader("Normal_Config_Rework.xml");
         try{
             c.parseSpaces();
             c.parseActionCards();
             c.parseActionDecks();
-            c.parseBank();
+            /*c.parseBank();
             c.parseBoard();
             c.parseDice();
             c.parseTokens();
-            c.getBuildingProperties();
+            c.getBuildingProperties();*/
         }
         catch(XmlTagException e){
         }
