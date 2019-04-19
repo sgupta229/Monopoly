@@ -23,6 +23,7 @@ public abstract class AbstractActionCard {
         isHoldable = holdable;
     }
 
+    //New constructor to work with refactoring
     public AbstractActionCard(DeckType deckType, String message, Boolean holdable, String extraString, List<Double> extraDouble){
         myDeckType = deckType;
         myMessage = message;
