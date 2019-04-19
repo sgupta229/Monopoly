@@ -3,9 +3,9 @@ import java.io.*;
 
 public class GameSaver<T> {
 
-    public void saveGame(T game) {
+    public void saveGame(T game, File file) {
         try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("Game.ser"));
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
             os.writeObject(game);
             os.close();
         }
