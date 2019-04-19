@@ -28,6 +28,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     private ObservableList<Property> properties;
     private List<AbstractActionCard> actionCards;
     private int currentLocation;
+    private String image;
 
 
     public AbstractPlayer() {
@@ -182,6 +183,10 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
     public List<AbstractActionCard> getActionCards(){return actionCards;}
+
+    public void setImage(String img) {
+        image = img;
+    }
 
     @Deprecated
     public void setToken(Token token) {

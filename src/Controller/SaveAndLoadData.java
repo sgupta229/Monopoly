@@ -10,7 +10,7 @@
 //import java.io.ObjectOutputStream;
 //import javafx.concurrent.Task;
 //
-//
+//@Deprecated
 //public class SaveAndLoadData {
 //
 //
@@ -32,11 +32,12 @@
 //    /**
 //     * Can be called in order to create a save game
 //     */
-//    public void createSaveSlot() {
-//        SaveData data = new SaveData(AbstractGame.players, AbstractGame.bank, AbstractGame.board, AbstractGame.spaces, AbstractGame.properties, AbstractGame.currPlayer, AbstractGame.dice, AbstractGame.decks, AbstractGame.diceHistory, AbstractGame.possibleTokens, AbstractGame.numRollsInJail);
-//        saveGame(data);
 //
-//    }
+////    public void createSaveSlot() {
+////        SaveData data = new SaveData(AbstractGame.players, AbstractGame.bank, AbstractGame.board, AbstractGame.spaces, AbstractGame.properties, AbstractGame.currPlayer, AbstractGame.dice, AbstractGame.decks, AbstractGame.diceHistory, AbstractGame.possibleTokens, AbstractGame.numRollsInJail);
+////        saveGame(data);
+////
+////    }
 //
 //    /**
 //     * Method which when called will attempt to save a SaveSlot
@@ -120,19 +121,19 @@
 //        thread.start();
 //
 //    }
-//    private void processSavedData(SaveData data){
-//        AbstractGame.players = data.getPlayers();
-//        AbstractGame.bank = data.getBank();
-//        AbstractGame.board = data.getBoard();
-//        AbstractGame.bank = data.getBank();
-//        AbstractGame.spaces = data.getSpaces();
-//        AbstractGame.properties = data.getProperties();
-//        AbstractGame.currPlayer = data.getCurrPlayer();
-//        AbstractGame.decks = data.getDecks();
-//        AbstractGame.diceHistory = data.getDiceHistory();
-//        AbstractGame.possibleTokens = data.getPossibleTokens();
-//        AbstractGame.numRollsInJail = data.getNumRollsInJail();
-//    }
+////    private void processSavedData(SaveData data){
+////        AbstractGame.players = data.getPlayers();
+////        AbstractGame.bank = data.getBank();
+////        AbstractGame.board = data.getBoard();
+////        AbstractGame.bank = data.getBank();
+////        AbstractGame.spaces = data.getSpaces();
+////        AbstractGame.properties = data.getProperties();
+////        AbstractGame.currPlayer = data.getCurrPlayer();
+////        AbstractGame.decks = data.getDecks();
+////        AbstractGame.diceHistory = data.getDiceHistory();
+////        AbstractGame.possibleTokens = data.getPossibleTokens();
+////        AbstractGame.numRollsInJail = data.getNumRollsInJail();
+////    }
 //
 //    private String logState(String log){
 //        System.out.println("Game Saver: " + log);
