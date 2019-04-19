@@ -90,6 +90,8 @@ public abstract class AbstractSpace implements Serializable {
         myGroup = group;
     }
 
+    public Property getMyProp(){return myProp;}
+
     @Override
     public int hashCode() {
         return Objects.hash(myLocation, myName);
