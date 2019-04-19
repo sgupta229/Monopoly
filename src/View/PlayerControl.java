@@ -10,10 +10,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -92,7 +94,8 @@ public abstract class PlayerControl implements PropertyChangeListener {
         HBox nameAndEnd = new HBox(20);
         nameAndEnd.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(myPlayer.getName());
-        ImageView playerIcon = myController.getPlayerImageView(myPlayer);
+        Node playerIcon = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(myPlayer.getImage()),
+                40.0,40.0,false,true));
         nameAndEnd.getChildren().addAll(playerIcon,playerName,endTurnButton);
         myVBox.getChildren().addAll(nameAndEnd,createBalanceText(), moveBox,manageProperty,createAssetsListView(),forfeit);
         return myVBox;

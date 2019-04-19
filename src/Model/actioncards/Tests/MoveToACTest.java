@@ -26,7 +26,7 @@ class MoveToACTest {
 
     @BeforeEach
     void setUp() {
-        p1 = new ClassicPlayer("boot.png");
+        p1 = new ClassicPlayer();
         game = new ClassicGame("Normal_Config_Rework.xml");
         game.setPlayers(List.of(p1));
         game.setCurrPlayer(0);

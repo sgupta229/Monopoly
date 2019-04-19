@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.ComboBox;
@@ -36,10 +37,7 @@ public class AddPlayersScreen {
     private Group myRoot;
     private Controller myController;
     private ObservableList<AbstractPlayer> myPlayers;
-    private ObservableList<String> availableTokensStrings;
-    private ObservableList<Image> availableTokensImages;
-    private ObservableList<Image> chosenTokensImages;
-    private SimpleObjectProperty<Image> chosenTokenImage;
+    private ObservableList<String> availableTokens;
     private AnchorPane anchorPane = new AnchorPane();
 
     private ComboBox myIconMenu;
@@ -48,7 +46,7 @@ public class AddPlayersScreen {
     public AddPlayersScreen(double width, double height, String style, Controller controller, ObservableList<AbstractPlayer> players, ObservableList<String> tokens) {
         this.myController = controller;
         this.myPlayers = players;
-        this.availableTokensStrings = tokens;
+        this.availableTokens = tokens;
         this.myWidth = width;
         this.myHeight = height;
         this.myRoot = new Group();
@@ -127,7 +125,8 @@ public class AddPlayersScreen {
     }
 
     private ComboBox createNewIconMenu(){
-        ComboBox icon = new ComboBox(makeImagesFromStrings(availableTokensStrings));
+//        ComboBox icon = new ComboBox(makeImagesFromStrings(availableTokensStrings));
+        ComboBox icon = new ComboBox(availableTokens);
         icon.setButtonCell(new ImageListCell());
         icon.setCellFactory(listView -> new ImageListCell());
         icon.setPrefSize(100,60);
@@ -152,21 +151,12 @@ public class AddPlayersScreen {
         playerList.setCellFactory(new Callback<ListView<AbstractPlayer>,ListCell<AbstractPlayer>>() {
             @Override
             public ListCell<AbstractPlayer> call(ListView<AbstractPlayer> list) {
-                return new AbstractPlayerCell();
+                return new AbstractPlayerCell(availableTokens);
             }
         });
 
         editPlayerList.getChildren().addAll(editPlayerListTitle,playerList);
         return editPlayerList;
-    }
-
-    private ObservableList<Image> makeImagesFromStrings(ObservableList<String> strings){
-        List<Image> images = new ArrayList<>();
-        for(String s:strings){
-            images.add(new Image(this.getClass().getClassLoader().getResourceAsStream(s),
-                    40,40,false,false));
-        }
-        return FXCollections.observableList(images);
     }
 
     class StartButtonHandler implements EventHandler<ActionEvent> {
@@ -182,32 +172,53 @@ public class AddPlayersScreen {
         public void handle(ActionEvent event) {
             String name = myPlayerNameField.getText();
             myPlayerNameField.clear();
-            Image icon = (Image) myIconMenu.getValue();
-            //remove icon from observablelist
-            //reset combobox
+            String icon = (String) myIconMenu.getValue();
             myController.addPlayer(name,icon);
             System.out.println("added player");
+            //remove icon from observablelist
+            availableTokens.remove(myIconMenu.getValue());
         }
     }
 
-    class ImageListCell extends ListCell<Image> {
-        private final ImageView view;
+//    class ImageListCell extends ListCell<Image> {
+//        private final ImageView view;
+//
+//        ImageListCell() {
+//            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+//            view = new ImageView();
+//        }
+//
+//        @Override protected void updateItem(Image item, boolean empty) {
+//            super.updateItem(item, empty);
+//
+//            if (item == null || empty) {
+//                setGraphic(null);
+//            } else {
+//                view.setImage(item);
+//                setGraphic(view);
+//            }
+//        }
+//    }
+    class ImageListCell extends ListCell<String> {
+        private ImageView view;
 
         ImageListCell() {
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             view = new ImageView();
         }
 
-        @Override protected void updateItem(Image item, boolean empty) {
+        @Override protected void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
 
             if (item == null || empty) {
                 setGraphic(null);
             } else {
-                view.setImage(item);
+                view.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(item),
+                        40.0,40.0,false,true));
                 setGraphic(view);
             }
         }
     }
+
 
 }

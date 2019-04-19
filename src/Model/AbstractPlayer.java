@@ -6,6 +6,9 @@ import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -28,7 +31,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     private ObservableList<Property> properties;
     private List<AbstractActionCard> actionCards;
     private int currentLocation;
-    private String image;
 
 
     public AbstractPlayer() {
@@ -37,9 +39,10 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         actionCards = new ArrayList<>();
     }
 
-    public AbstractPlayer(String name) {
+    public AbstractPlayer(String name, String image) {
         this();
         this.name = name;
+        this.setImage(image);
     }
 
     public void addProperty(Property property) {
@@ -185,24 +188,22 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     public List<AbstractActionCard> getActionCards(){return actionCards;}
 
     public void setImage(String img) {
-        image = img;
+        tokenImage = img;
     }
+    public String getImage() {
+        return this.tokenImage;
+    }
+
+
 
     @Deprecated
     public void setToken(Token token) {
         this.token = token;
     }
-
-    @Deprecated
-    public String getTokenImage() {
-        return this.tokenImage;
-    }
-
     @Deprecated
     public void setCurrentLocation(int newLocation) {
         currentLocation = newLocation;
     }
-
     @Deprecated
     public Token getToken() {
         return token;

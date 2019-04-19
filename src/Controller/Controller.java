@@ -7,6 +7,7 @@ import View.Layout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,7 +15,9 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Controller {
@@ -27,7 +30,7 @@ public class Controller {
     private String gameStyle;
     private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
     private ObservableList<String> availableTokens;
-    private Map<AbstractPlayer, Image> playersToImages = new HashMap<>();
+//    private Map<AbstractPlayer, Image> playersToImages = new HashMap<>();
 
     private Stage window;
 
@@ -73,24 +76,25 @@ public class Controller {
         return window;
     }
 
-    public void addPlayer(String name, Image icon){
+    public void addPlayer(String name, String image){
         //create player depending on game type
         AbstractPlayer newP;
         if (myGameType.equalsIgnoreCase("classic")){
-            newP = new ClassicPlayer(name);
+            newP = new ClassicPlayer(name,image);
         }
         else{
-            newP = new ClassicPlayer(name);
+            newP = new ClassicPlayer(name,image);   //TODO
         }
         //add image to map
-        playersToImages.put(newP,icon);
+//        playersToImages.put(newP,icon);
         //add player to arraylist
         newPlayers.add(newP);
         // on startgame, initialize players in game with setPlayers
     }
 
+    @Deprecated
     public ImageView getPlayerImageView(AbstractPlayer p){
-        return new ImageView(playersToImages.get(p));
+        return null; //new ImageView(playersToImages.get(p));
     }
 
     //maybe should pass game directly in constructors? to make dependency clearer?
@@ -103,6 +107,15 @@ public class Controller {
         } catch ( MalformedURLException e ) {
             return null;
         }
+    }
+
+    private ObservableList<Node> stringListToObservableList(List<String> strings){
+        List<Node> nodes = new ArrayList<>();
+        for (String s : strings) {
+            nodes.add(new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(s),
+                    40,40,false,false)));
+        }
+        return FXCollections.observableList(nodes);
     }
 
 

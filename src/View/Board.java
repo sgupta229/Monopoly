@@ -10,6 +10,7 @@ import Model.spaces.TaxSpace;
 import View.PopUps.*;
 import View.SpaceDisplay.*;
 import View.SpaceDisplay.CornerDisplay;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -34,7 +35,7 @@ public class Board implements PropertyChangeListener {
     private Map<Point2D.Double, AbstractSpace> indexToName;
     private Map<String,String> nameToColor;
     private Map<String,Integer> nameToPrice;
-    private List<ImageView> imagesOnBoard = new ArrayList<>();
+    private List<Node> imagesOnBoard = new ArrayList<>();
     private List<Property> myProps;
     private List<AbstractSpace> allSpaces;
     private AbstractSpace myAbstractSpace;
@@ -56,7 +57,7 @@ public class Board implements PropertyChangeListener {
         addTokensToGo();
     }
 
-    public void addTokenToIndex(int i, ImageView image){
+    public void addTokenToIndex(int i, Node image){
         BoardConfigReader reader = new BoardConfigReader();
         Map<Integer, Point2D.Double> myPoint = reader.getIndexToCoord();
         myGridPane.add(image,(int)myPoint.get(i).getX(),(int)myPoint.get(i).getY());
@@ -64,12 +65,13 @@ public class Board implements PropertyChangeListener {
     }
 
     public void renderPlayers(){
-        for (ImageView i : imagesOnBoard){
+        for (Node i : imagesOnBoard){
             myGridPane.getChildren().remove(i);
         }
         int playerLocation = 0;
         for (AbstractPlayer pl : myController.getPlayers()){
-            addTokenToIndex(pl.getCurrentLocation(),myController.getPlayerImageView(pl));
+            addTokenToIndex(pl.getCurrentLocation(),new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(pl.getImage()),
+                    40.0,40.0,false,true)));
         }
         Popup myPopup;
         playerLocation = myGame.getCurrPlayer().getCurrentLocation();
@@ -114,7 +116,8 @@ public class Board implements PropertyChangeListener {
 
     private void addTokensToGo(){
         for (AbstractPlayer p : myController.getPlayers()){
-            ImageView img = myController.getPlayerImageView(p);
+            Node img = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(p.getImage()),
+                    40.0,40.0,false,true));
             addTokenToIndex(0,img);
             imagesOnBoard.add(img);
         }

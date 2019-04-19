@@ -1,10 +1,13 @@
 package View;
 
 import Model.AbstractPlayer;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -13,18 +16,25 @@ import javafx.scene.layout.Priority;
 
 public class AbstractPlayerCell extends ListCell<AbstractPlayer> {
         private HBox myHBox;
+        private ImageView myImage;
         private Label label = new Label("");
         private Pane pane = new Pane();
         private Button button = new Button("X");
+        private ObservableList<String> availableTokens;
 
-        public AbstractPlayerCell() {
+        public AbstractPlayerCell(ObservableList<String> tokens) {
             super();
+            availableTokens = tokens;
+            myImage = new ImageView();
 
-            myHBox = new HBox();
+            myHBox = new HBox(4);
             myHBox.setAlignment(Pos.CENTER_LEFT);
-            myHBox.getChildren().addAll(label, pane, button);
+            myHBox.getChildren().addAll(myImage, label, pane, button);
             HBox.setHgrow(pane, Priority.ALWAYS);
-            button.setOnAction(event -> getListView().getItems().remove(getItem()));
+            button.setOnAction(event -> {
+                availableTokens.add(getItem().getImage());
+                getListView().getItems().remove(getItem());
+            });
         }
 
         @Override
@@ -35,7 +45,13 @@ public class AbstractPlayerCell extends ListCell<AbstractPlayer> {
 
             if (item != null && !empty) {
                 label.setText(item.getName());
+                myImage.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(item.getImage()),
+                        40.0,40.0,false,true));
+//                myImage.getChildren().set(0,item.getImage());
+//                myHBox.getChildren().set(0,item.getImage());
                 setGraphic(myHBox);
             }
         }
+
+
     }
