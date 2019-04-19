@@ -28,7 +28,7 @@ class LoseMoneyACTest {
         p1 = new ClassicPlayer("boot.png");
         p2 = new ClassicPlayer("battleship.png");
         p3 = new ClassicPlayer("chest.png");
-        game = new ClassicGame("Normal_Config.xml");
+        game = new ClassicGame("Normal_Config_Old.xml");
         game.setPlayers(List.of(p1, p2, p3));
         game.setCurrPlayer(0);
 

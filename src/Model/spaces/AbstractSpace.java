@@ -47,7 +47,7 @@ public abstract class AbstractSpace {
         return myOccupants;
     }
 
-    public abstract ArrayList getInfo(); 
+    public abstract List getInfo();
 
     /***
      * adds a player to the list of players on the space

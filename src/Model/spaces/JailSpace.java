@@ -3,6 +3,7 @@ package Model.spaces;
 import Controller.AbstractGame;
 import Model.properties.Property;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JailSpace extends AbstractSpace {
@@ -18,6 +19,9 @@ public class JailSpace extends AbstractSpace {
     }
 
 
+    public List getInfo(){
+        return new ArrayList();
+    }
     /***
      * This method performs the specific action that a type of space requires.
      * It takes game in as a parameter so that it can do things such as

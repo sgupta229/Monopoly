@@ -3,9 +3,7 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class RailRoadProperty extends Property {
 
@@ -36,6 +34,16 @@ public class RailRoadProperty extends Property {
     public RailRoadProperty(double price, String propName, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
         super(price, propName, paymentInfo, groupSize);
         setGroup(myGroup);
+    }
+
+    public List getInfo(){
+        ArrayList ret = new ArrayList();
+        ret.addAll(Arrays.asList(this.getPrice()));
+        for(double num:rentNumbers){
+            ret.add(num);
+        }
+        ret.add(this.getName());
+        return ret;
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation){

@@ -87,6 +87,11 @@ public abstract class Property {
         return myPrice;
     }
 
+    public abstract List getInfo();
+
+    public String getMyName(){
+        return myName;
+    }
 
     public String getColor(){
         return myColor;

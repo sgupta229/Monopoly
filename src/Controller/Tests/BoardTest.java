@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
-    ConfigReader cr = new ConfigReader("Normal_Config.xml");
+    ConfigReader cr = new ConfigReader("Normal_Config_Old.xml");
     Board board;
 
     @BeforeEach

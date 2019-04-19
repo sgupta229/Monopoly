@@ -4,6 +4,8 @@ import Model.AbstractPlayer;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 public class ColorProperty extends Property implements Buildable {
@@ -27,6 +29,7 @@ public class ColorProperty extends Property implements Buildable {
         buildingPrices = buildingPricesMap;
         buildingMap = new HashMap<>();
         myColor=color;
+        setGroup(color);
         //setMyColor(color);
         //setGroup(color);
         for(BuildingType buildingType : buildingPrices.keySet()){
@@ -46,6 +49,18 @@ public class ColorProperty extends Property implements Buildable {
         else{
             throw new IndexOutOfBoundsException("Bad data") ;
         }
+    }
+
+    public List getInfo(){
+        ArrayList ret = new ArrayList();
+        ret.addAll(Arrays.asList(myColor, this.getPrice()));
+        for(double num:rentNumbers){
+            ret.add(num);
+        }
+        ret.add(buildingPrices.get(BuildingType.valueOf("HOUSE")));
+        ret.add(this.getMortgageAmount());
+        ret.add(this.getName());
+        return ret;
     }
 
 

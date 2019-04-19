@@ -4,21 +4,17 @@ import Model.*;
 import View.AddPlayersScreen;
 import View.ChooseGameScreen;
 import View.Layout;
-import View.SceneSetUp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Controller {
@@ -54,7 +50,7 @@ public class Controller {
         //gameType = ClassicGame, MegaGame
         // AbstractGame myGame = (AbstractGame) Class
         if(myGameType.equalsIgnoreCase("classic")){
-            myGame = new ClassicGame("Normal_Config.xml");
+            myGame = new ClassicGame("Normal_Config_Rework.xml");
             gameStyle = fileToStylesheetString(new File("data/GUI.css"));
             availableTokens = FXCollections.observableList(myGame.getPossibleTokens());
             nextScene = new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers,availableTokens).getScene();

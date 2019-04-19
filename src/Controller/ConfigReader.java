@@ -428,7 +428,7 @@ public class ConfigReader {
         return allSpacesAndProps;
     }
 
-    public Map<Integer, ArrayList> parseColorPropInfo() {
+    /*public Map<Integer, ArrayList> parseColorPropInfo() {
         Map<Integer, ArrayList> propInfo = new HashMap<Integer, ArrayList>();
         NodeList spaceList = doc.getElementsByTagName("Space");
         for (int i = 0; i < spaceList.getLength(); i++) {
@@ -480,7 +480,7 @@ public class ConfigReader {
             }
         }
         return propInfo;
-    }
+    }*/
 
 
     public List<String> parseTokens() throws XmlTagException{

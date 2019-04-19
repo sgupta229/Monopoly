@@ -6,7 +6,9 @@ import Model.Transfer;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class TaxSpace extends AbstractSpace {
 
@@ -31,6 +33,12 @@ public class TaxSpace extends AbstractSpace {
         percentageTaken = myPercentage;
         //taxReceiver = myTaxReceiver;
         //assuming that tax goes to the bank
+    }
+
+    public List getInfo(){
+        ArrayList ret = new ArrayList();
+        ret.addAll(Arrays.asList(flatRate, percentageTaken*100, percentageTaken));
+        return new ArrayList();
     }
 
 

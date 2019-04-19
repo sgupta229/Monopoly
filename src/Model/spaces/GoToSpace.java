@@ -5,6 +5,7 @@ import Controller.AbstractGame;
 import Model.AbstractPlayer;
 import Model.properties.Property;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,6 +24,10 @@ public class GoToSpace extends AbstractSpace {
         super(locationIndex, spaceName);
         spaceToMoveTo = jumpToSpace;
         //spacesLocation = spaceToMoveTo.getMyLocation();
+    }
+
+    public List getInfo(){
+        return new ArrayList();
     }
 
 

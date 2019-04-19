@@ -8,6 +8,7 @@ import Model.actioncards.DeckType;
 import Model.properties.Property;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActionCardSpace extends AbstractSpace {
@@ -23,6 +24,10 @@ public class ActionCardSpace extends AbstractSpace {
     public ActionCardSpace(int locationIndex, String deckType){
         super(locationIndex, deckType);
         myDeckType = DeckType.valueOf(deckType);
+    }
+
+    public List getInfo(){
+        return new ArrayList();
     }
 
 

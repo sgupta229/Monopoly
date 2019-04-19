@@ -2,6 +2,8 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +47,11 @@ public class UtilityProperty extends Property {
 
     }
 
+    public List getInfo(){
+        ArrayList ret = new ArrayList();
+        ret.addAll(Arrays.asList(this.getPrice(), rentMult, rentMult2, this.getMortgageAmount(), this.getName()));
+        return ret;
+    }
 
     /***
      * A method that utilizes the member variables to calculate how

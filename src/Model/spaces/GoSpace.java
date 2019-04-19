@@ -3,6 +3,7 @@ package Model.spaces;
 import Controller.AbstractGame;
 import Model.properties.Property;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GoSpace extends AbstractSpace {
@@ -14,6 +15,10 @@ public class GoSpace extends AbstractSpace {
 
     public GoSpace(int locationIndex, String spaceName){
         super(locationIndex, spaceName);
+    }
+
+    public List getInfo(){
+        return new ArrayList();
     }
 
 

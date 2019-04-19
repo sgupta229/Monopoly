@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TaxSpaceTest {
 
-    //ConfigReader conf = new ConfigReader("Normal_Config.xml");
+    //ConfigReader conf = new ConfigReader("Normal_Config_Old.xml");
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
