@@ -1,6 +1,7 @@
 package Model;
 
 
+import Controller.AbstractGame;
 import Model.properties.Buildable;
 
 import Model.properties.BuildingType;
@@ -98,16 +99,29 @@ public class Bank implements Transfer{
     }
 
     /***
-     * Sells a specific property to a player
+     * A player sells a property back
      * @param property
-     * @param purchaser
      */
-    public void sellProperty(Property property, AbstractPlayer purchaser){}
+    public void sellBackProperty(Property property, AbstractGame game){
+        AbstractPlayer propOwner = ownedPropsMap.get(property);
+        this.makePayment(property.getMortgageAmount(), propOwner);
+        ownedPropsMap.remove(property);
+        unOwnedProps.add(property);
+        propOwner.removeProperty(property);
+        game.startAuction();
+
+    }
 
     public void mortgageProperty(Property property){
         AbstractPlayer propOwner = ownedPropsMap.get(property);
         this.makePayment(property.getMortgageAmount(), propOwner);
         property.setIsMortgaged(true);
+    }
+
+    public void unMortgageProperty(Property property){
+        AbstractPlayer propOwner = ownedPropsMap.get(property);
+        propOwner.makePayment(property.getMortgageAmount()*1.1, this);
+        property.setIsMortgaged(false);
     }
 
     public void build(Buildable property, BuildingType building){
