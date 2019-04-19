@@ -113,6 +113,7 @@ public class ConfigReader {
                 //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
                 Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName("Holdable").item(0).getTextContent());
                 List<String> extraStrings = List.of(card.getElementsByTagName("ExtraString").item(0).getTextContent().split(","));
+                //System.out.println(extraStrings.get(0) + " AND " + extraStrings.get(1));
                 //Get list of doubles
                 String[] extraDubTemp = card.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
 /*                List<Double> extraDubs = new ArrayList<>();
