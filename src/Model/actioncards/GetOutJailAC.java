@@ -10,7 +10,12 @@ public class GetOutJailAC extends AbstractActionCard {
         super(deckType, message, holdable);
     }
 
+    @Deprecated
     public GetOutJailAC(DeckType deckType, String message, Boolean holdable, String extraString, List<Double> extraDoubles){
+        super(deckType, message, holdable);
+    }
+
+    public GetOutJailAC(DeckType deckType, String message, Boolean holdable, List<String> extraStrings, List<Double> extraDoubles){
         super(deckType, message, holdable);
     }
 

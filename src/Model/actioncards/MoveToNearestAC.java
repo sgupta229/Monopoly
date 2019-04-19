@@ -10,9 +10,9 @@ public class MoveToNearestAC extends AbstractActionCard {
     private String myTargetGroup;
     private double passGo;
 
-    public MoveToNearestAC(DeckType deckType, String message, Boolean holdable, String extraString, List<Double> extraDoubles){
+    public MoveToNearestAC(DeckType deckType, String message, Boolean holdable, List<String> extraStrings, List<Double> extraDoubles){
         super(deckType, message, holdable);
-        myTargetGroup = extraString;
+        myTargetGroup = extraStrings.get(0);
         passGo = extraDoubles.get(0);
     };
 
@@ -31,8 +31,8 @@ public class MoveToNearestAC extends AbstractActionCard {
                 if(prevLocation > i){
                     game.getBank().makePayment(passGo, curr);
                 }
+                break;
             }
-            break;
         }
         ActionDeck d = this.getMyDeck();
         d.discardCard(this);

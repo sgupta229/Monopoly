@@ -89,6 +89,8 @@ public abstract class AbstractSpace {
         myGroup = group;
     }
 
+    public Property getMyProp(){return myProp;}
+
     @Override
     public int hashCode() {
         return Objects.hash(myLocation, myName);
