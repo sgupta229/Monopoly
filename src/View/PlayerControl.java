@@ -122,8 +122,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-//        System.out.println("funds event received");
-        myVBox.getChildren().set(1,createBalanceText());
+        myFunds.setText("$ "+Double.toString(myPlayer.getFunds()));
     }
 
 }

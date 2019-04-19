@@ -37,7 +37,7 @@ public class Controller {
     public void goToChooseGameScreen() {
         window.setTitle(TITLE);
         String style = fileToStylesheetString(new File("data/GUI.css"));
-        window.setScene(new ChooseGameScreen(WIDTH,HEIGHT,style,this,window).getScene());
+        window.setScene(new ChooseGameScreen(WIDTH,HEIGHT,style,this).getScene());
         window.show();
     }
 
@@ -67,6 +67,10 @@ public class Controller {
 
     public void initializePlayers(){
         myGame.setPlayers(newPlayers);
+    }
+
+    public Stage getStage(){
+        return window;
     }
 
     public void addPlayer(String name, Image icon){
