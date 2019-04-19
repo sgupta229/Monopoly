@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class ColorProperty extends Property implements Buildable {
+public class ColorProperty extends Property {
 
     //private int numHouse;
     private int numHotel;
@@ -19,10 +19,8 @@ public class ColorProperty extends Property implements Buildable {
     private static final int SIX = 6;
     private static final int HOTEL_RENT_INDEX = 5;
 
-    protected Map<BuildingType, Integer> buildingMap;
-    protected Map<BuildingType, Double> buildingPrices;
-
-
+    private Map<BuildingType, Integer> buildingMap;
+    private Map<BuildingType, Double> buildingPrices;
 
     public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
         super(price, propName, color, paymentInfo, groupSize, buildingPricesMap);
@@ -35,7 +33,6 @@ public class ColorProperty extends Property implements Buildable {
         for(BuildingType buildingType : buildingPrices.keySet()){
             buildingMap.put(buildingType, 0);
         }
-
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException{
@@ -115,8 +112,6 @@ public class ColorProperty extends Property implements Buildable {
         return buildingMap.get(building);
     }
 
-    public double getBuildingPrice(BuildingType building){
-        return buildingPrices.get(building);
-    }
+
 
 }

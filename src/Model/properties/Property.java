@@ -20,6 +20,7 @@ public abstract class Property {
     private Boolean isMortgaged;
     private List allPaymentInfo;
     private int myGroupSize;
+    private Map<BuildingType, Double> buildingPrices;
 
     /////need property to take in building map with buildingtypes as keys already
     ///// and also buildingprices that is already populated, and just set these
@@ -32,6 +33,7 @@ public abstract class Property {
         allPaymentInfo = paymentInfo;
         myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
+        buildingPrices = buildingPriceMap;
         general = ResourceBundle.getBundle("GeneralInfo");
     }
 
@@ -149,9 +151,12 @@ public abstract class Property {
         //myColor.equals(property.myColor);
     }
 
-
     @Override
     public int hashCode() {
         return Objects.hash(myGroup, myName, myColor);
+    }
+
+    public double getBuildingPrice(BuildingType building){
+        return buildingPrices.get(building);
     }
 }
