@@ -13,7 +13,7 @@
 //
 //class AbstractPlayerTest {
 //
-//    ConfigReader cr = new ConfigReader("Normal_Config.xml");
+//    ConfigReader cr = new ConfigReader("Normal_Config_Old.xml");
 //    AbstractPlayer p1;
 //    AbstractPlayer p2;
 //    int boardSize;

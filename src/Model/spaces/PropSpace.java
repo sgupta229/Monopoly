@@ -6,11 +6,21 @@ import Model.spaces.AbstractSpace;
 import Model.AbstractPlayer;
 import Model.Bank;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PropSpace extends AbstractSpace {
 
 
     private Property myProperty;
 
+    public PropSpace(int locationIndex, String spaceName, String spaceGroup,
+                     String jumpToSpace, List<Double> taxNums, Property myProp){
+        super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
+
+        myProperty = myProp;
+
+    }
 
     public PropSpace(int locationIndex, String spaceName, Property prop){
         super(locationIndex, spaceName);
@@ -19,6 +29,9 @@ public class PropSpace extends AbstractSpace {
 
     }
 
+    public List getInfo(){
+        return myProperty.getInfo();
+    }
 
     /***
      * This method performs the specific action that a type of space requires.

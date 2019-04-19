@@ -159,6 +159,7 @@ public abstract class AbstractPlayer implements Transfer {
         int count = 0;
         String checkType = type.toLowerCase();
         for(Property p : properties) {
+            System.out.println(p.getGroup());
             if(p.getGroup().toLowerCase().equals(checkType)) {
                 count++;
             }

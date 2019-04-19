@@ -33,7 +33,7 @@ class PropSpaceTest {
 
     @BeforeEach
     void setUp() throws XmlTagException {
-        gameClass = new ClassicGame("Normal_Config.xml");
+        gameClass = new ClassicGame("Normal_Config_Rework.xml");
         propSpace = (PropSpace) gameClass.getBoard().getSpaceAt(1);
         player1 = new ClassicPlayer();
         player2 = new ClassicPlayer();
@@ -43,6 +43,7 @@ class PropSpaceTest {
         gameClass.setPlayers(playerList);
         player1.moveTo(1);
         gameBank = gameClass.getBank();
+        gameClass.rollDice();
         //player1.moveTo(30, gameClass.getBoardSize());
 
 
