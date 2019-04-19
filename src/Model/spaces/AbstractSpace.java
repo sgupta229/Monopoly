@@ -3,6 +3,7 @@ import Controller.*;
 import Model.AbstractPlayer;
 import Model.properties.Property;
 
+import java.io.Serializable;
 import java.util.*;
 
 /***
@@ -11,7 +12,7 @@ import java.util.*;
  * It will hold a list of which players (if any) are on itself
  */
 
-public abstract class AbstractSpace {
+public abstract class AbstractSpace implements Serializable {
     private int myLocation;
     private String myName;
     List<AbstractPlayer> myOccupants = new ArrayList<>();
@@ -88,6 +89,8 @@ public abstract class AbstractSpace {
     public void setMyGroup(SpaceGroup group){
         myGroup = group;
     }
+
+    public Property getMyProp(){return myProp;}
 
     @Override
     public int hashCode() {

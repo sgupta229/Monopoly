@@ -42,8 +42,6 @@ public class UtilityProperty extends Property {
         else{
             throw new IndexOutOfBoundsException("Bad data");
         }
-
-
     }
 
     public List getInfo(){
@@ -73,16 +71,5 @@ public class UtilityProperty extends Property {
         }
         return rentTotal;
     }
-
-    public void addBuilding(BuildingType building){
-    }
-
-    public void removeBuilding(BuildingType building){
-    }
-
-    public int getNumBuilding(BuildingType building){
-        return 0;
-    }
-
 
 }

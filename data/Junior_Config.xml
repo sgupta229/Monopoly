@@ -364,49 +364,49 @@
     </ActionDecks>
 
     <ActionCards>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveToOpenAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TO A BROWN OR YELLOW SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>BROWN,YELLOW</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveToOpenAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TO A LIGHT BLUE OR RED SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>LIGHTBLUE,RED</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveToOpenAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TO A PINK OR DARK BLUE SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>PINK,DARKBLUE</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveToOpenAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TO AN ORANGE OR GREEN SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>ORANGE,GREEN</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveToOpenAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TO AN ORANGE SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>ORANGE</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveToOpenAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TO A LIGHT BLUE SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>LIGHTBLUE</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveToOpenAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TO A RED SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
             <Holdable>FALSE</Holdable>
@@ -434,11 +434,18 @@
             <ExtraString>GO</ExtraString>
             <ExtraDoubles>2</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveNumberAC">
             <DeckType>CHANCE</DeckType>
             <Message>MOVE FORWARD 1 SPACE.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>1</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveNumberAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>MOVE FORWARD 5 SPACES.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>5</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
         <ActionCardType type="WinMoneyAC">

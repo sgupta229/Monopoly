@@ -1,6 +1,8 @@
 package Controller;
 
-public class Die {
+import java.io.Serializable;
+
+public class Die implements Serializable {
     private int numSides;
     private int[] values;
 
