@@ -36,8 +36,6 @@ public abstract class AbstractGame {
     protected int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
-
-    public AbstractGame(Bank bank, Board board, AbstractSpace spaces, List<AbstractPlayer> players, Property properties, Deck decks, )
     
     public AbstractGame(String filename) {
         parseXMLFile(filename);
