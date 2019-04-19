@@ -112,7 +112,7 @@ public class ConfigReader {
                 String msg = card.getElementsByTagName("Message").item(0).getTextContent();
                 //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
                 Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName("Holdable").item(0).getTextContent());
-                String extraString = card.getElementsByTagName("ExtraString").item(0).getTextContent();
+                List<String> extraStrings = List.of(card.getElementsByTagName("ExtraString").item(0).getTextContent().split(","));
                 //Get list of doubles
                 String[] extraDubTemp = card.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
 /*                List<Double> extraDubs = new ArrayList<>();
@@ -125,7 +125,7 @@ public class ConfigReader {
                 String className = card.getAttribute("type");
                 //Reflection to create action cards
                 try {
-                    AbstractActionCard newAC = (AbstractActionCard) Class.forName("Model.actioncards." + className).getConstructor(DeckType.class, String.class, Boolean.class, String.class, List.class).newInstance(dt, msg, holdable, extraString, extraDubs);
+                    AbstractActionCard newAC = (AbstractActionCard) Class.forName("Model.actioncards." + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
                     allActionCards.add(newAC);
                 } catch (InstantiationException e) {
                     e.printStackTrace();
