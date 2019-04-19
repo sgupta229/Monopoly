@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RailRoadPropertyTest {
 
-    ConfigReader conf = new ConfigReader("Normal_Config.xml");
+    ConfigReader conf = new ConfigReader("Normal_Config_Rework.xml");
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
@@ -28,7 +28,7 @@ class RailRoadPropertyTest {
 
     @BeforeEach
     void setUp() throws XmlTagException {
-        gameClass = new ClassicGame("Normal_Config.xml");
+        gameClass = new ClassicGame("Normal_Config_Rework.xml");
         //gameClass.get
         spaceList = conf.parseSpaces().get(0);
         propsList = conf.parseSpaces().get(1);

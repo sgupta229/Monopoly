@@ -583,7 +583,7 @@
         </Space>
         <Space type="PropSpace">
             <Index>9</Index>
-            <SpaceGroup>Color</SpaceGroup>
+            <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>CONNECTICUT_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
@@ -658,7 +658,7 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="FREE_PARKING">
+        <Space type="FreeParkingSpace">
             <Index>20</Index>
             <SpaceGroup>FREE_PARKING</SpaceGroup>
             <SpaceName>FREE_PARKING</SpaceName>

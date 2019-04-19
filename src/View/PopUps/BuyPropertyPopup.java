@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class BuyPropertyPopup extends Popup {
 
-    private Map<Integer, ArrayList> colorPropInfo;
+    private Map<Integer, List> colorPropInfo;
     private int propLocation;
     private ArrayList propDetails;
     private String name;
@@ -67,7 +67,7 @@ public class BuyPropertyPopup extends Popup {
         Rectangle rectangle = new Rectangle(scene.getWidth() / 2.5, scene.getHeight() / 1.5);
         rectangle.setFill(Color.WHITE);
         rectangle.setStroke(Color.BLACK);
-        for (Map.Entry<Integer, ArrayList> key : colorPropInfo.entrySet()) {
+        for (Map.Entry<Integer, List> key : colorPropInfo.entrySet()) {
             if ((key.getKey()).equals(propLocation)) {
                 for (Object item : key.getValue()) {
                     propDetails.add(item);

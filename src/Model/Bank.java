@@ -58,6 +58,7 @@ public class Bank implements Transfer{
         else if (unOwnedProps.contains(property)){
             return null;
         }
+        System.out.println("not in either");
         //TODO: need to turn this into a try catch
         return null;
     }
