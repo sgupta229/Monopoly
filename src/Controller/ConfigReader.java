@@ -366,7 +366,7 @@ public class ConfigReader {
                     buildingPriceMap.put(BuildingType.valueOf("HOTEL"), pricePerHotel);
 
 
-                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize, buildingPriceMap);
+                    Property newProp = new ClassicColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize, buildingPriceMap);
                     AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
                     //((PropSpace) newSpace).linkSpaceToProperty(newProp);
@@ -560,7 +560,7 @@ public class ConfigReader {
     }
 
     public static void main(String[] args) {
-        ConfigReader c = new ConfigReader("Normal_Config_Rework.xml");
+        ConfigReader c = new ConfigReader("Junior_Config.xml");
         try{
             c.parseSpaces();
             c.parseActionCards();

@@ -46,6 +46,11 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         properties.add(property);
     }
 
+    public void removeProperty(Property property) {
+        properties.remove(property);
+    }
+
+
     @Override
     public void makePayment(double amount, Transfer receiver) {
         if(this.funds < amount) {
@@ -144,6 +149,10 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
+    }
+
+    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        myPCS.removePropertyChangeListener(propertyName,listener);
     }
 
     public void startAuction() {
