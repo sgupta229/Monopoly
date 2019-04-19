@@ -2,10 +2,11 @@ package Model.actioncards;
 
 import Controller.AbstractGame;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractActionCard {
+public abstract class AbstractActionCard implements Serializable {
     private DeckType myDeckType;
     private ActionDeck myDeck;
     private String myMessage;

@@ -10,11 +10,12 @@ import javafx.collections.ObservableList;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractPlayer implements Transfer {
+public abstract class AbstractPlayer implements Transfer, Serializable {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
     private String name;

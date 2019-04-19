@@ -2,6 +2,7 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
+import java.io.Serializable;
 import java.util.*;
 
 /***
@@ -9,7 +10,7 @@ import java.util.*;
  * rent amount with monopoly, cost of placing a house, cost of placing a hotel, cost of rent
  * with every specific  number of houses, cost of rent with a hotel, and the mortgage cost
  */
-public abstract class Property {
+public abstract class Property implements Serializable {
     protected ResourceBundle general;
 
     private double myPrice;

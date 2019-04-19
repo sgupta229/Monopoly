@@ -3,9 +3,10 @@ package Model;
 import Model.properties.BuildingType;
 import Model.properties.Property;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Bank implements Transfer{
+public class Bank implements Transfer, Serializable {
 
     Map<Property, AbstractPlayer> ownedPropsMap = new HashMap<>();
     Set<Property> unOwnedProps;

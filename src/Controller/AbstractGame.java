@@ -9,9 +9,10 @@ import Model.spaces.AbstractSpace;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.*;
 
-public abstract class AbstractGame {
+public abstract class AbstractGame implements Serializable {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
     private int boardSize = 0;
 
