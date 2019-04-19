@@ -4,18 +4,19 @@ import Controller.Token;
 import Model.properties.Property;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
-import Model.properties.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractPlayer implements Transfer {
+public abstract class AbstractPlayer implements Transfer, Serializable {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
     private String name;
@@ -27,13 +28,13 @@ public abstract class AbstractPlayer implements Transfer {
     private ObservableList<Property> properties;
     private List<AbstractActionCard> actionCards;
     private int currentLocation;
+    private String image;
 
 
     public AbstractPlayer() {
         this.inJail = false;
         properties = FXCollections.observableArrayList();
         actionCards = new ArrayList<>();
-
     }
 
     public AbstractPlayer(String name) {
@@ -83,18 +84,8 @@ public abstract class AbstractPlayer implements Transfer {
         return funds;
     }
 
-    @Deprecated
-    public Token getToken() {
-        return token;
-    }
-
     public int getCurrentLocation(){
         return currentLocation;
-    }
-
-    @Deprecated
-    public void setCurrentLocation(int newLocation) {
-        currentLocation = newLocation;
     }
 
     public int moveTo(int newLocation) {
@@ -108,7 +99,10 @@ public abstract class AbstractPlayer implements Transfer {
 
     }
 
-    public abstract void doSpecialMove();
+    public void payBail(Bank b) {
+        this.makePayment(50, b);
+        this.inJail = false;
+    }
 
     public void setJail(boolean set) {
         inJail = set;
@@ -119,11 +113,6 @@ public abstract class AbstractPlayer implements Transfer {
         this.funds = newFunds;
         myPCS.firePropertyChange("funds",oldFunds,this.funds);
         System.out.println(this.getName() + "'s funds updated. new funds: " + funds);
-    }
-
-    @Deprecated
-    public void setToken(Token token) {
-        this.token = token;
     }
 
     public void addFunds(double addAmount) {
@@ -138,16 +127,25 @@ public abstract class AbstractPlayer implements Transfer {
         return this.name;
     }
 
-    @Deprecated
-    public String getTokenImage() {
-        return this.tokenImage;
-    }
-
     public void addActionCard(AbstractActionCard c) {
         actionCards.add(c);
     }
 
-    public abstract Map<BuildingType, Integer> getNumBuildings();
+    public Map<BuildingType, Integer> getNumBuildings() {
+        Map<BuildingType, Integer> buildingInventory = new HashMap<>();
+        for(Property p : getProperties()) {
+            Map<BuildingType, Integer> mapCount= p.getBuildingMap();
+            for(BuildingType b : mapCount.keySet()) {
+                if(!buildingInventory.containsKey(b)) {
+                    buildingInventory.put(b, mapCount.get(b));
+                }
+                else {
+                    buildingInventory.put(b, buildingInventory.get(b) + mapCount.get(b));
+                }
+            }
+        }
+        return buildingInventory;
+    }
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
@@ -194,4 +192,28 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public List<AbstractActionCard> getActionCards(){return actionCards;}
+
+    public void setImage(String img) {
+        image = img;
+    }
+
+    @Deprecated
+    public void setToken(Token token) {
+        this.token = token;
+    }
+
+    @Deprecated
+    public String getTokenImage() {
+        return this.tokenImage;
+    }
+
+    @Deprecated
+    public void setCurrentLocation(int newLocation) {
+        currentLocation = newLocation;
+    }
+
+    @Deprecated
+    public Token getToken() {
+        return token;
+    }
 }

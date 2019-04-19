@@ -7,6 +7,7 @@
     </Dice>
     <Board>
         <BoardSize>40</BoardSize>
+        <Dimension>11</Dimension>
     </Board>
     <!--Space type; index; name-->
     <!--Properties - property, name, colorgroup, group size, buyprice, rent-->
@@ -833,7 +834,7 @@
             <ExtraString>ST._CHARLES_PLACE</ExtraString>
             <ExtraDoubles>200</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveToNearestAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TOKEN TO NEAREST UTILITY. IF UNOWNED, YOU MAY BUY IT FROM THE BANK.
                 IF OWNED, THROW DICE AND PAY OWNER 10 TIMES THE AMOUNT THROWN</Message>
@@ -841,7 +842,7 @@
             <ExtraString>UTILITY</ExtraString>
             <ExtraDoubles>200</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveToNearestAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TOKEN TO NEAREST RAILROAD PAY OWNER TWICE THE RENTAL TO WHICH HE/SHE IS
                 OTHERWISE ENTITLED. IF RAILROAD IS UNOWNED, YOU MAY BUY IT FROM THE BANK</Message>
@@ -849,7 +850,7 @@
             <ExtraString>RAILROAD</ExtraString>
             <ExtraDoubles>200</ExtraDoubles>
         </ActionCardType>
-        <ActionCardType type="MoveToAC">
+        <ActionCardType type="MoveNumberAC">
             <DeckType>CHANCE</DeckType>
             <Message>GO BACK THREE SPACES</Message>
             <Holdable>FALSE</Holdable>

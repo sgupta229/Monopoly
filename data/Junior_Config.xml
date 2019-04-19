@@ -1,0 +1,502 @@
+<?xml version = "1.0"?>
+<Game>
+    <GameType>JuniorGame</GameType>
+    <Dice>
+        <Number>1</Number>
+        <Sides>6</Sides>
+    </Dice>
+    <Board>
+        <BoardSize>24</BoardSize>
+        <Dimension>7</Dimension>
+    </Board>
+    <Properties>
+        <Property type="ColorProperty">
+            <PropertyName>BURGER_JOINT</PropertyName>
+            <ColorGroup>BROWN</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>1</BuyPrice>
+            <Rent>
+                <InitialRent>1</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>PIZZA_HOUSE</PropertyName>
+            <ColorGroup>BROWN</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>1</BuyPrice>
+            <Rent>
+                <InitialRent>1</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>CANDY_STORE</PropertyName>
+            <ColorGroup>LIGHTBLUE</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>2</BuyPrice>
+            <Rent>
+                <InitialRent>2</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>ICE_CREAM_PARLOR</PropertyName>
+            <ColorGroup>LIGHTBLUE</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>2</BuyPrice>
+            <Rent>
+                <InitialRent>2</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>MUSEUM</PropertyName>
+            <ColorGroup>PINK</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>2</BuyPrice>
+            <Rent>
+                <InitialRent>2</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>LIBRARY</PropertyName>
+            <ColorGroup>PINK</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>2</BuyPrice>
+            <Rent>
+                <InitialRent>2</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>SKATE_PARK</PropertyName>
+            <ColorGroup>ORANGE</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>2</BuyPrice>
+            <Rent>
+                <InitialRent>2</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>SWIMMING_POOL</PropertyName>
+            <ColorGroup>ORANGE</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>2</BuyPrice>
+            <Rent>
+                <InitialRent>2</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>VIDEO_GAME_ARCADE</PropertyName>
+            <ColorGroup>RED</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>3</BuyPrice>
+            <Rent>
+                <InitialRent>3</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>CINEMA</PropertyName>
+            <ColorGroup>RED</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>3</BuyPrice>
+            <Rent>
+                <InitialRent>3</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>TOY_STORE</PropertyName>
+            <ColorGroup>YELLOW</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>3</BuyPrice>
+            <Rent>
+                <InitialRent>3</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>PET_STORE</PropertyName>
+            <ColorGroup>YELLOW</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>3</BuyPrice>
+            <Rent>
+                <InitialRent>3</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>BOWLING_ALLEY</PropertyName>
+            <ColorGroup>GREEN</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>4</BuyPrice>
+            <Rent>
+                <InitialRent>4</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>ZOO</PropertyName>
+            <ColorGroup>GREEN</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>4</BuyPrice>
+            <Rent>
+                <InitialRent>4</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>PARK_PLACE</PropertyName>
+            <ColorGroup>DARKBLUE</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>5</BuyPrice>
+            <Rent>
+                <InitialRent>5</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ColorProperty">
+            <PropertyName>BOARDWALK</PropertyName>
+            <ColorGroup>DARKBLUE</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>5</BuyPrice>
+            <Rent>
+                <InitialRent>5</InitialRent>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+    </Properties>
+
+    <Spaces>
+        <Space type="GoSpace">
+            <Index>0</Index>
+            <SpaceGroup>GO</SpaceGroup>
+            <SpaceName>GO</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>1</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>BURGER_JOINT</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>2</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>PIZZA_HOUSE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ActionCardSpace">
+            <Index>3</Index>
+            <SpaceGroup>ACTION</SpaceGroup>
+            <SpaceName>CHANCE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>4</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>CANDY_STORE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>5</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>ICE_CREAM_PARLOR</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="JailSpace">
+            <Index>6</Index>
+            <SpaceGroup>JAIL</SpaceGroup>
+            <SpaceName>JAIL</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>7</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>MUSEUM</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>8</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>LIBRARY</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ActionCardSpace">
+            <Index>9</Index>
+            <SpaceGroup>ACTION</SpaceGroup>
+            <SpaceName>CHANCE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>10</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>SKATE_PARK</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>11</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>SWIMMING_POOL</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="FreeParkingSpace">
+            <Index>12</Index>
+            <SpaceGroup>FREE_PARKING</SpaceGroup>
+            <SpaceName>FREE_PARKING</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>13</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>VIDEO_GAME_ARCADE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>14</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>CINEMA</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ActionCardSpace">
+            <Index>15</Index>
+            <SpaceGroup>ACTION</SpaceGroup>
+            <SpaceName>CHANCE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>16</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>TOY_STORE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>17</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>PET_STORE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="GoToSpace">
+            <Index>18</Index>
+            <SpaceGroup>GO_TO_JAIL</SpaceGroup>
+            <SpaceName>GO_TO_JAIL</SpaceName>
+            <ExtraString>JAIL</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>19</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>BOWLING_ALLEY</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>20</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>ZOO</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ActionCardSpace">
+            <Index>21</Index>
+            <SpaceGroup>ACTION</SpaceGroup>
+            <SpaceName>CHANCE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>22</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>PARK_PLACE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="PropSpace">
+            <Index>23</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>BOARDWALK</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+    </Spaces>
+
+    <ActionDecks>
+        <ActionDeck>CHANCE</ActionDeck>
+    </ActionDecks>
+
+    <ActionCards>
+        <ActionCardType type="MoveToOpenAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO A BROWN OR YELLOW SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>BROWN,YELLOW</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToOpenAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO A LIGHT BLUE OR RED SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>LIGHTBLUE,RED</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToOpenAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO A PINK OR DARK BLUE SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>PINK,DARKBLUE</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToOpenAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO AN ORANGE OR GREEN SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>ORANGE,GREEN</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToOpenAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO AN ORANGE SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>ORANGE</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToOpenAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO A LIGHT BLUE SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>LIGHTBLUE</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToOpenAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO A RED SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>RED</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO THE SKATE PARK. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>SKATE_PARK</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO BOARDWALK. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>BOARDWALK</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>ADVANCE TO GO. COLLECT $2!</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>GO</ExtraString>
+            <ExtraDoubles>2</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveNumberAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>MOVE FORWARD 1 SPACE.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>1</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveNumberAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>MOVE FORWARD 5 SPACES.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>5</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>COLLECT $2 FROM BANK.</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>2</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>HAPPY BIRTHDAY! EVERYONE PAYS YOU $1.</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>1</ExtraDoubles>
+            <ExtraString>ALL</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="LoseMoneyAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>PAY $2 TO THE BANK.</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>2</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="GetOutJailAC">
+            <DeckType>CHANCE</DeckType>
+            <Message>GET OUT OF JAIL FREE. THIS CARD MAY BE KEPT UNTIL NEEDED, TRADED/SOLD</Message>
+            <Holdable>TRUE</Holdable>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+    </ActionCards>
+
+    <Bank>
+        <BankFunds>1000</BankFunds>
+        <Houses>0</Houses>
+        <Hotels>0</Hotels>
+    </Bank>
+    <Buildings></Buildings>
+    <Tokens>
+        <Token>car_junior.png</Token>
+        <Token>cat_junior.png</Token>
+        <Token>dog_junior.png</Token>
+        <Token>hat_junior.png</Token>
+    </Tokens>
+    <Rules>
+        <StartFunds>20</StartFunds>
+        <JailBail>1</JailBail>
+        <PassGo>2</PassGo>
+        <MaxHouses>0</MaxHouses>
+        <EvenBuilding>false</EvenBuilding>
+        <FreeParking>false</FreeParking>
+        <RollsInJail>0</RollsInJail>
+    </Rules>
+</Game>

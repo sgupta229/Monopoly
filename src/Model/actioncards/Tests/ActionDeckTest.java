@@ -1,4 +1,4 @@
-package Model.Tests;
+package Model.actioncards.Tests;
 
 import Controller.ConfigReader;
 import Model.actioncards.AbstractActionCard;
