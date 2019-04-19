@@ -1,9 +1,9 @@
 package Controller;
 import java.io.*;
 
-public class GameSaver {
+public class GameSaver<T> {
 
-    public void save(AbstractGame game) {
+    public void saveGame(T game) {
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("Game.ser"));
             os.writeObject(game);
@@ -14,21 +14,16 @@ public class GameSaver {
         }
     }
 
-    public ClassicGame reload(File file) {
+    @SuppressWarnings("unchecked")
+    public T reload(File file) {
         try {
             ObjectInputStream is = new ObjectInputStream(new FileInputStream(file));
-            ClassicGame game = (ClassicGame) is.readObject();
+            T game = (T) is.readObject();
             return game;
         }
         catch(Exception e){
             e.printStackTrace();
             return null;
         }
-    }
-
-    public static void main(String[] args) {
-        GameSaver g = new GameSaver();
-        File f = new File("bob.txt");
-        g.reload(f);
     }
 }

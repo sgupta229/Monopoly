@@ -11,10 +11,6 @@ public class AIPlayer extends AbstractPlayer {
         super(name);
     }
 
-    public void doSpecialMove() {
-
-    }
-
     public Map<BuildingType, Integer> getNumBuildings() {
         return null;
     }
@@ -27,7 +23,7 @@ public class AIPlayer extends AbstractPlayer {
     }
 
     public boolean wantsToBuild() {
-        return false;
+        return true;
     }
 
 }

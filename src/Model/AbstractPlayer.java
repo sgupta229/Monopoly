@@ -12,6 +12,7 @@ import java.beans.PropertyChangeSupport;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -124,7 +125,21 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         actionCards.add(c);
     }
 
-    public abstract Map<BuildingType, Integer> getNumBuildings();
+    public Map<BuildingType, Integer> getNumBuildings() {
+        Map<BuildingType, Integer> buildingInventory = new HashMap<>();
+        for(Property p : getProperties()) {
+            Map<BuildingType, Integer> mapCount= p.getBuildingMap();
+            for(BuildingType b : mapCount.keySet()) {
+                if(!buildingInventory.containsKey(b)) {
+                    buildingInventory.put(b, mapCount.get(b));
+                }
+                else {
+                    buildingInventory.put(b, buildingInventory.get(b) + mapCount.get(b));
+                }
+            }
+        }
+        return buildingInventory;
+    }
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);

@@ -13,6 +13,9 @@ import java.io.Serializable;
 import java.util.*;
 
 public abstract class AbstractGame implements Serializable {
+
+    private String name;
+
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
     private int boardSize = 0;
 
@@ -287,5 +290,9 @@ public abstract class AbstractGame implements Serializable {
 
     public void setPassGo(double passGo) {
         this.passGo = passGo;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
