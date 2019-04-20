@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class ActionCardPopup extends Popup {
 
@@ -24,11 +25,13 @@ public class ActionCardPopup extends Popup {
     private AbstractSpace mySpace;
     private Controller myController;
     private String myMessage;
+    private ResourceBundle myText;
 
     public ActionCardPopup(int propLocation, Controller controller){
         super();
         this.propLocation = propLocation;
         this.myController = controller;
+        this.myText = super.getMessages();
         BoardConfigReader indexToName = new BoardConfigReader();
         spaces = indexToName.getSpaces();
         for (AbstractSpace sp : spaces){
@@ -46,19 +49,17 @@ public class ActionCardPopup extends Popup {
         for (AbstractSpace sp : spaces) {
             if (sp.getMyLocation() == propLocation) {
                 name = sp.getMyName();
-                if (name.equalsIgnoreCase("CHANCE")) {
-                    myImage = "chance.png";
-                } else if (name.equalsIgnoreCase("COMMUNITY_CHEST")) {
-                    name.replace("_"," ");
-                    myImage = "chest.png";
+                if (name.equalsIgnoreCase(myText.getString("actionSpace1"))) {
+                    myImage = myText.getString("actionSpace1Image");
+                } else  {
+                    myImage = myText.getString("actionSpace2Image");
                 }
             }
             title = name;
         }
         var imageFile = new Image(this.getClass().getClassLoader().getResourceAsStream(myImage));
         ImageView image = new ImageView(imageFile);
-        Pane imagePane= new Pane(image);
-        return imagePane;
+        return new Pane(image);
     }
 
     @Override
@@ -68,14 +69,13 @@ public class ActionCardPopup extends Popup {
 
     @Override
     protected String createTitle() {
-        String myTitle = "Pay Rent";
-        return myTitle;
+        return myText.getString("actionCard");
     }
 
     @Override
     protected Pane createButtons(Stage window) {
         HBox buttons = new HBox(HBoxSpacing);
-        Button button1= new Button("OK");
+        Button button1= new Button(myText.getString("okButton"));
         button1.setId("button1");
 
         button1.setOnAction(new EventHandler<ActionEvent>() {

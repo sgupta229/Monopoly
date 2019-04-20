@@ -36,7 +36,6 @@ public class BoardConfigReader {
                 colorPropInfo.put(sp.getMyLocation(), sp.getInfo());
             }
         }
-        //colorPropInfo = mySpaceConfigs.parseColorPropInfo();
         indexToName = new HashMap<>();
         indexToCoord= new HashMap<>();
         setUpMapping();
@@ -69,8 +68,6 @@ public class BoardConfigReader {
     public Map<Point2D.Double, AbstractSpace> getIndexToName() { return indexToName; }
 
     public Map<Integer,Point2D.Double> getIndexToCoord() { return indexToCoord; }
-
-    public Map<Integer, List> getColorPropInfo() { return colorPropInfo; }
 
     public List<AbstractSpace> getSpaces() { return spaces; }
 

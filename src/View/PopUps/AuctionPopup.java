@@ -1,23 +1,35 @@
 package View.PopUps;
 
 import Controller.Controller;
+import Model.AbstractPlayer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class AuctionPopup extends BuyPropertyPopup {
 
     private String name;
     private int prefWidthTextBox=125;
+    private ResourceBundle myText;
+    private List<AbstractPlayer> myPlayers;
+    private AbstractPlayer myCurrPlayer;
+    private Stage oldPopUp;
 
-    public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow) {
+    public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow, List<AbstractPlayer> players, AbstractPlayer currPlayer) {
         super(propLocation, controller);
         this.name = name;
-        popUpWindow.close();
+        this.myText = super.getMessages();
+        this.myPlayers = players;
+        this.oldPopUp = popUpWindow;
+        this.myCurrPlayer = currPlayer;
     }
 
     @Override
@@ -28,35 +40,38 @@ public class AuctionPopup extends BuyPropertyPopup {
     @Override
     protected Pane createButtons(Stage window) {
         HBox buttons = new HBox(HBoxSpacing);
-        Button button2= new Button("OK");
+        Button button2= new Button(myText.getString("okButton"));
         button2.setId("button2");
-        button2.setOnAction(e -> window.close());
+        button2.setOnAction(e -> {
+            window.close();
+            oldPopUp.close();
+        });
 
-        TextField searchInput = new TextField();
-        searchInput.setPromptText("Enter Amount");
-        searchInput.setPrefWidth(prefWidthTextBox);
-
-        buttons.getChildren().addAll(searchInput,button2);
-
+        VBox bids = new VBox(HBoxSpacing);
+        for (AbstractPlayer p: myPlayers){
+            if (!p.equals(myCurrPlayer)){
+                TextField searchInput = new TextField();
+                Label player = new Label(p.getName());
+                searchInput.setPrefWidth(prefWidthTextBox);
+                bids.getChildren().addAll(player,searchInput);
+            }
+        }
+        buttons.getChildren().addAll(bids,button2);
         return buttons;
     }
 
-
     @Override
     protected String createMessage() {
-        String myMessage = "Player #, would you like to purchase this property?";
-        return myMessage;
+        return myText.getString("auctionMessage");
     }
 
     @Override
     protected String createTitle() {
-        String myTitle =  "Auction";
-        return myTitle;
+        return myText.getString("auctionTitle");
     }
 
     @Override
     protected Label createHeader() {
-        Label title = new Label("Auction for " + name + "!");
-        return title;
+        return new Label(myText.getString("auctionHeader") + name + "!");
     }
 }

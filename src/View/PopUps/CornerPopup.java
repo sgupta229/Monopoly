@@ -1,7 +1,10 @@
 package View.PopUps;
 
+import Controller.Controller;
 import Model.spaces.AbstractSpace;
 import View.BoardConfigReader;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class CornerPopup extends Popup {
 
@@ -19,13 +23,22 @@ public class CornerPopup extends Popup {
     private Text message;
     private String name;
     private List<AbstractSpace> spaces;
+    private ResourceBundle myText;
+    private AbstractSpace mySpace;
+    private Controller myController;
 
-
-    public CornerPopup(int propLocation) {
+    public CornerPopup(int propLocation, Controller controller) {
         super();
         this.propLocation = propLocation;
+        this.myController = controller;
         BoardConfigReader spaceInfo = new BoardConfigReader();
         spaces = spaceInfo.getSpaces();
+        this.myText = super.getMessages();
+        for (AbstractSpace sp : spaces) {
+            if (sp.getMyLocation() == propLocation) {
+                mySpace = sp;
+            }
+        }
     }
 
     @Override
@@ -35,7 +48,7 @@ public class CornerPopup extends Popup {
                 name = sp.getMyName();
             }
         }
-        message = new Text("You landed on " + name);
+        message = new Text(myText.getString("cornerMessage") + name);
         StackPane messagePane = new StackPane();
         messagePane.getChildren().add(message);
         return messagePane;
@@ -43,14 +56,12 @@ public class CornerPopup extends Popup {
 
     @Override
     protected String createMessage() {
-        String message = "";
-        return message;
+        return "";
     }
 
     @Override
     protected String createTitle() {
-        String myTitle = "Other Space";
-        return myTitle;
+        return myText.getString("cornerTitle");
     }
 
     @Override
@@ -58,7 +69,14 @@ public class CornerPopup extends Popup {
         HBox buttons = new HBox(HBoxSpacing);
         Button button1= new Button("OK");
         button1.setId("button1");
-        button1.setOnAction(e -> window.close());
+        button1.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                mySpace.doAction(myController.getGame(), OK);
+                window.close();
+            }
+        });
         buttons.getChildren().add(button1);
         return buttons;
     }

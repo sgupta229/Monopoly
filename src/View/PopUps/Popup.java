@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Pane;
 import java.io.File;
+import java.util.ResourceBundle;
 
 
 public abstract class Popup {
@@ -19,9 +20,12 @@ public abstract class Popup {
     public static final int HBoxSpacing = 10;
     public static final int OK = 0;
     public static final int NO = 1;
+    private ResourceBundle messages;
 
 
-    public Popup(){}
+    public Popup(){
+        messages = ResourceBundle.getBundle("PopUpText");
+    }
 
     public void display() {
         Stage popUpWindow =new Stage();
@@ -79,4 +83,7 @@ public abstract class Popup {
 
     protected abstract Label createHeader();
 
+    public ResourceBundle getMessages() {
+        return messages;
+    }
 }
