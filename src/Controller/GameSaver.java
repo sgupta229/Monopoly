@@ -1,7 +1,7 @@
 package Controller;
 import java.io.*;
 
-public class GameSaver<T> {
+public class GameSaver<T extends AbstractGame> {
 
     public void saveGame(T game, File file) {
         try {

@@ -2,13 +2,14 @@ package Model;
 
 import Model.properties.BuildingType;
 import Model.properties.Property;
+import javafx.scene.Node;
 
 import java.util.Map;
 
 public class AIPlayer extends AbstractPlayer {
 
-    public AIPlayer(String name) {
-        super(name);
+    public AIPlayer(String name, String image) {
+        super(name,image);
     }
 
     public Map<BuildingType, Integer> getNumBuildings() {

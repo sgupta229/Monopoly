@@ -72,7 +72,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
 
         VBox incrementer = new VBox();
 
-        Spinner<Integer> spinner = new Spinner<Integer>();
+        Spinner<Integer> spinner = new Spinner<>();
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 4, 0);
         spinner.setValueFactory(valueFactory);
 

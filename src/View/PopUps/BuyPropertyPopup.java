@@ -128,7 +128,7 @@ public class BuyPropertyPopup extends Popup {
             public void handle(ActionEvent event) {
                 mySpace.doAction(myController.getGame(), OK);
                 popUpWindow.close();
-                System.out.println("CURR PLAYER PROPS " + myController.getGame().getCurrPlayer().getProperties().toString());
+//                System.out.println("CURR PLAYER PROPS " + myController.getGame().getCurrPlayer().getProperties().toString());
 
             }
         });

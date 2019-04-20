@@ -25,8 +25,8 @@ class MoveToOpenACTest {
 
     @BeforeEach
     void setUp() {
-        p1 = new ClassicPlayer("boot.png");
-        p2 = new ClassicPlayer("dog.png");
+        p1 = new ClassicPlayer();
+        p2 = new ClassicPlayer();
         game = new ClassicGame("Junior_Config.xml");
         game.setPlayers(List.of(p1, p2));
         game.setCurrPlayer(0);
