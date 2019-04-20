@@ -20,15 +20,14 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class Board implements PropertyChangeListener {
     //Todo: needs to be refactored but wanted to make it work, all data is read in from file
 
-    private static final String BOARD_PATH = "classic.jpg";
-
+    public static final int BOARD_HEIGHT = 700;
     private Controller myController;
     private AbstractGame myGame;
-    private Pane myBoardPane;
     private GridPane myGridPane;
     private ImageView boardLogo;
     private Map<Point2D.Double, AbstractSpace> indexToName;
@@ -39,11 +38,15 @@ public class Board implements PropertyChangeListener {
     private List<AbstractSpace> allSpaces;
     private AbstractSpace myAbstractSpace;
     private Property myProperty;
+    private ResourceBundle boardInfo;
+    private int boardDimension;
+    private String baseColor;
 
-    public Board(Pane board, Controller controller, AbstractGame myGame) {
+    public Board(Controller controller, AbstractGame myGame) {
         this.myController = controller;
-        this.myBoardPane = board;
         this.myGame = myGame;
+        boardInfo = ResourceBundle.getBundle("classicBoardDisplay");
+        boardDimension = Integer.parseInt(boardInfo.getString("dimension"));
         for (AbstractPlayer p : controller.getPlayers()) {
             p.addPropertyChangeListener("currentLocation",this);
         }
@@ -52,7 +55,8 @@ public class Board implements PropertyChangeListener {
         myGridPane.setGridLinesVisible(true);
         setUpGridConstraints();
         setUpBoardConfig();
-        createSpaces();
+        baseColor = boardInfo.getString("baseColor");
+        createSpaces(baseColor);
         addTokensToGo();
     }
 
@@ -73,6 +77,9 @@ public class Board implements PropertyChangeListener {
         }
         Popup myPopup;
         playerLocation = myGame.getCurrPlayer().getCurrentLocation();
+        //board -> get space at
+        //space.generatePopup.displa
+
 
         if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
             myPopup = new ActionCardPopup( playerLocation, myController);
@@ -111,7 +118,6 @@ public class Board implements PropertyChangeListener {
         }
     }
 
-
     private void addTokensToGo(){
         for (AbstractPlayer p : myController.getPlayers()){
             ImageView img = myController.getPlayerImageView(p);
@@ -120,40 +126,37 @@ public class Board implements PropertyChangeListener {
         }
     }
 
-    private void createSpaces(){
-        String baseColor = "#c7edc9";
-
+    private void createSpaces(String baseColor){
         for (Map.Entry<Point2D.Double, AbstractSpace> entry : indexToName.entrySet()) {
             String name = entry.getValue().getMyName().replace("_", " ");
             if (entry.getValue() instanceof PropSpace) {
                 String price = nameToPrice.get(name).toString();
                 String color = nameToColor.get(name);
-                if (entry.getKey().getY() == 10) {
-                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(name, price, color, myBoardPane, baseColor);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 10);
+                if (entry.getKey().getY() == boardDimension-1) {
+                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(name, price, color, baseColor);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), boardDimension-1);
                 }
                 if (entry.getKey().getX() == 0) {
-                    LeftPropertyDisplay propSpaces = new LeftPropertyDisplay(name, price, color, myBoardPane, baseColor);
+                    LeftPropertyDisplay propSpaces = new LeftPropertyDisplay(name, price, color,baseColor);
                     myGridPane.add(propSpaces.getMyPropStackPane(), 0, (int) entry.getKey().getY());
                 }
                 if (entry.getKey().getY() == 0) {
-                    System.out.println((int) entry.getKey().getX());
-                    TopPropertyDisplay propSpaces = new TopPropertyDisplay(name, price, color, myBoardPane, baseColor);
+                    TopPropertyDisplay propSpaces = new TopPropertyDisplay(name, price, color, baseColor);
                     myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 0);
                 }
-                if (entry.getKey().getX() == 10) {
-                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(name, price, color, myBoardPane, baseColor);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), 10, (int) entry.getKey().getY());
+                if (entry.getKey().getX() == boardDimension-1) {
+                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(name, price, color,baseColor);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), boardDimension-1, (int) entry.getKey().getY());
                 }
             }
             if (entry.getValue() instanceof TaxSpace) {
-                if (entry.getKey().getY() == 10) {
-                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(myBoardPane, baseColor, "tax.png");
-                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 10);
+                if (entry.getKey().getY() == boardDimension-1) {
+                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(baseColor, "tax.png");
+                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), boardDimension-1);
                 }
-                if (entry.getKey().getX() == 10) {
-                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(myBoardPane, baseColor, "tax.png");
-                    myGridPane.add(propSpaces.getMyPropStackPane(), 10, (int) entry.getKey().getY());
+                if (entry.getKey().getX() == boardDimension-1) {
+                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(baseColor, "tax.png");
+                    myGridPane.add(propSpaces.getMyPropStackPane(), boardDimension-1, (int) entry.getKey().getY());
                 }
             }
             if (entry.getValue() instanceof ActionCardSpace) {
@@ -163,47 +166,51 @@ public class Board implements PropertyChangeListener {
                 } else {
                     image = "chance.png";
                 }
-                if (entry.getKey().getY() == 10) {
-                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(myBoardPane, baseColor, image);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 10);
+                if (entry.getKey().getY() == boardDimension-1) {
+                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(baseColor, image);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), boardDimension-1);
                 }
-                if (entry.getKey().getX() == 10) {
-                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(myBoardPane, baseColor, image);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), 10, (int) entry.getKey().getY());
+                if (entry.getKey().getX() == boardDimension-1) {
+                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(baseColor, image);
+                    myGridPane.add(propSpaces.getMyPropStackPane(), boardDimension-1, (int) entry.getKey().getY());
                 }
                 if (entry.getKey().getX() == 0) {
-                    LeftPropertyDisplay propSpaces = new LeftPropertyDisplay(myBoardPane, baseColor, image);
+                    LeftPropertyDisplay propSpaces = new LeftPropertyDisplay(baseColor, image);
                     myGridPane.add(propSpaces.getMyPropStackPane(), 0, (int) entry.getKey().getY());
                 }
                 if (entry.getKey().getY() == 0) {
-                    TopPropertyDisplay propSpaces = new TopPropertyDisplay(myBoardPane, baseColor, image);
+                    TopPropertyDisplay propSpaces = new TopPropertyDisplay(baseColor, image);
                     myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 0);
                 }
             } else {
-                CornerDisplay goSpace = new CornerDisplay(baseColor, myBoardPane, "go.png");
-                myGridPane.add(goSpace.getMyPropertyStackPane(), 10, 10);
-                CornerDisplay parkingSpace = new CornerDisplay(baseColor, myBoardPane, "freeParking.png");
-                myGridPane.add(parkingSpace.getMyPropertyStackPane(), 0, 0);
-                CornerDisplay jailSpace = new CornerDisplay(baseColor, myBoardPane, "jail.png");
-                myGridPane.add(jailSpace.getMyPropertyStackPane(), 0, 10);
-                CornerDisplay goToJail = new CornerDisplay(baseColor, myBoardPane, "goToJail.png");
-                myGridPane.add(goToJail.getMyPropertyStackPane(), 10, 0);
-
+               createCornerSpaces();
             }
         }
     }
 
+
+    private void createCornerSpaces(){
+        CornerDisplay goSpace = new CornerDisplay(baseColor, "go.png");
+        myGridPane.add(goSpace.getMyPropertyStackPane(), boardDimension-1, boardDimension-1);
+        CornerDisplay parkingSpace = new CornerDisplay(baseColor, "freeParking.png");
+        myGridPane.add(parkingSpace.getMyPropertyStackPane(), 0, 0);
+        CornerDisplay jailSpace = new CornerDisplay(baseColor,"jail.png");
+        myGridPane.add(jailSpace.getMyPropertyStackPane(), 0, boardDimension-1);
+        CornerDisplay goToJail = new CornerDisplay(baseColor, "goToJail.png");
+        myGridPane.add(goToJail.getMyPropertyStackPane(), boardDimension-1, 0);
+    }
+
     private void setUpGridConstraints(){
-        final int numCols = 11;
-        final int numRows = 11;
+        final int numCols = boardDimension;
+        final int numRows = boardDimension;
         for (int i = 0; i < numCols; i++) {
             ColumnConstraints colConst = new ColumnConstraints();
-            colConst.setPercentWidth(myBoardPane.getPrefWidth() / numCols);
+            colConst.setPercentWidth(BOARD_HEIGHT / numCols);
             myGridPane.getColumnConstraints().add(colConst);
         }
         for (int i = 0; i < numRows; i++) {
             RowConstraints rowConst = new RowConstraints();
-            rowConst.setPercentHeight(myBoardPane.getPrefHeight() / numRows);
+            rowConst.setPercentHeight(BOARD_HEIGHT / numRows);
             myGridPane.getRowConstraints().add(rowConst);
         }
     }
@@ -217,21 +224,17 @@ public class Board implements PropertyChangeListener {
         myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
     }
 
-    public Pane getGridPane() {
-        return myGridPane;
-    }
+    public Pane getGridPane() { return myGridPane; }
 
     public ImageView getLogo() {
-        var logo = new Image(this.getClass().getClassLoader().getResourceAsStream(BOARD_PATH));
+        var logo = new Image(this.getClass().getClassLoader().getResourceAsStream(boardInfo.getString("boardLogo")));
         boardLogo = new ImageView(logo);
-        boardLogo.setFitWidth((myBoardPane.getPrefWidth() / 13) * 9);
-        boardLogo.setFitHeight((myBoardPane.getPrefWidth() / 13) * 9);
+        boardLogo.setFitWidth((705/ 13) * 9);
+        boardLogo.setFitHeight((705 / 13) * 9);
         boardLogo.setId("boardLogo");
         return boardLogo;
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        renderPlayers();
-    }
+    public void propertyChange(PropertyChangeEvent evt) { renderPlayers(); }
 }

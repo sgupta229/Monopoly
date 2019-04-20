@@ -6,15 +6,13 @@ import Model.ClassicPlayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class AbstractGameTest {
 
     ClassicGame game;
 
     @BeforeEach
     void setup() {
-        game = new ClassicGame("Normal_Config.xml");
+        game = new ClassicGame("Normal_Config_Old.xml");
         ClassicPlayer p1 = new ClassicPlayer();
         ClassicPlayer p2 = new ClassicPlayer();
         ClassicPlayer p3 = new ClassicPlayer();

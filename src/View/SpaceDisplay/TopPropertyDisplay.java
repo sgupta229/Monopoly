@@ -1,27 +1,29 @@
 package View.SpaceDisplay;
 
+import Controller.Controller;
+import View.Board;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class TopPropertyDisplay extends PropertyDisplay {
 
-    public TopPropertyDisplay(String propName, String propPrice, String propColor, Pane myBoard, String baseColor) {
-        super(propName, propPrice, propColor, myBoard, baseColor);
-        myPropStackPane.getChildren().addAll(createPropColor((int)myBoardPane.getPrefWidth()/13,(int)myBoardPane.getPrefWidth()/13), createText());
+    public TopPropertyDisplay(String propName, String propPrice, String propColor,String baseColor) {
+        super(propName, propPrice, propColor,baseColor);
+        myPropStackPane.getChildren().addAll(createPropColor(Board.BOARD_HEIGHT/13,Board.BOARD_HEIGHT/13), createText());
 
     }
 
-    public TopPropertyDisplay(Pane myBoard, String baseColor, String image) {
-        super(myBoard, baseColor, image);
-        myPropStackPane.getChildren().addAll(createImagePane((int)myBoardPane.getPrefWidth()/13,(int)myBoardPane.getPrefWidth()/13));
+    public TopPropertyDisplay(String baseColor, String image) {
+        super(baseColor, image);
+        myPropStackPane.getChildren().addAll(createImagePane(Board.BOARD_HEIGHT/13,Board.BOARD_HEIGHT/13));
     }
 
     @Override
     public void propColorLocation(HBox propColor) {
         propColor.setPrefWidth(super.myRectangle.getWidth());
         propColor.setPrefHeight(super.myRectangle.getHeight()/4);
-        propColor.setLayoutY(super.myRectangle.getHeight()-15);
+        propColor.setLayoutY(super.myRectangle.getHeight()-14);
     }
 
     @Override

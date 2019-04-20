@@ -35,11 +35,10 @@ public class PayRentPopup extends BuyPropertyPopup {
             }
         }
         for (Property p : allProps) {
-            if (p.getName() == mySpace.getMyName()) {
+            if (p.getName().equals(mySpace.getMyName())) {
                 myProp = p;
             }
         }
-
     }
 
     @Override
@@ -69,6 +68,14 @@ public class PayRentPopup extends BuyPropertyPopup {
 
     @Override
     protected String createMessage() {
+        if(myController.getGame().getBank().propertyOwnedBy(myProp)==null){
+            System.out.println("noooo null");
+        }
+        else{
+            System.out.println("the owner isn't null...");
+        }
+        System.out.println("1 " +myController.getGame().getBank().propertyOwnedBy(myProp));
+        System.out.println("2 "+ myProp.calculateRent(myController.getGame().getBank().propertyOwnedBy(myProp), myController.getGame().getLastDiceRoll()));
         return myText.getString("propOwned") + myController.getGame().getBank().propertyOwnedBy(myProp).getName() + myText.getString("rentIs") + myProp.calculateRent(myController.getGame().getBank().propertyOwnedBy(myProp), myController.getGame().getLastDiceRoll()) + "0.";
     }
 

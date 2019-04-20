@@ -3,7 +3,12 @@ package Model.spaces;
 import Controller.AbstractGame;
 import Model.AbstractPlayer;
 import Model.Transfer;
+import Model.properties.Property;
 import Model.spaces.AbstractSpace;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 
 public class TaxSpace extends AbstractSpace {
 
@@ -13,6 +18,14 @@ public class TaxSpace extends AbstractSpace {
     private final int TAKE_FIXED_AMOUNT=0;
     private final int TAKE_PERCENTAGE=1;
 
+    public TaxSpace(int locationIndex, String spaceName, String spaceGroup,
+                    String jumpToSpace, List<Double> taxNums, Property myProp){
+        super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
+        flatRate = taxNums.get(0);
+        percentageTaken = taxNums.get(1)/100;
+        //taxReceiver = myTaxReceiver;
+        //assuming that tax goes to the bank
+    }
 
     public TaxSpace(int locationIndex, String spaceName, double myRate, double myPercentage){
         super(locationIndex, spaceName);
@@ -20,6 +33,12 @@ public class TaxSpace extends AbstractSpace {
         percentageTaken = myPercentage;
         //taxReceiver = myTaxReceiver;
         //assuming that tax goes to the bank
+    }
+
+    public List getInfo(){
+        ArrayList ret = new ArrayList();
+        ret.addAll(Arrays.asList(flatRate, percentageTaken*100, percentageTaken));
+        return new ArrayList();
     }
 
 
