@@ -1,22 +1,22 @@
 package Model;
 
 
-import Model.properties.Buildable;
+
+import Controller.AbstractGame;
 
 import Model.properties.BuildingType;
 import Model.properties.Property;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Bank implements Transfer{
+public class Bank implements Transfer, Serializable {
 
     Map<Property, AbstractPlayer> ownedPropsMap = new HashMap<>();
     Set<Property> unOwnedProps;
     private double myBalance;
     private Map<BuildingType, Integer> totalBuildingMap;
     private Map<BuildingType, Integer> maxBuildingsPerProp;
-
-
 
     public Bank(List<Double> allInfo, List<Property> properties, List<Map<BuildingType, Integer>> buildingInfo){
         myBalance=allInfo.get(0);
@@ -30,7 +30,7 @@ public class Bank implements Transfer{
     @Deprecated
     public Bank(double startingBalance, List<Property> properties){
         myBalance=startingBalance;
-        unOwnedProps = new HashSet<Property>(properties);
+        unOwnedProps = new HashSet<>(properties);
     }
 
     ////need to take in atotalBuildingmap and maxbuilingPerPropmap
@@ -98,11 +98,18 @@ public class Bank implements Transfer{
     }
 
     /***
-     * Sells a specific property to a player
+     * A player sells a property back
      * @param property
-     * @param purchaser
      */
-    public void sellProperty(Property property, AbstractPlayer purchaser){}
+    public void sellBackProperty(Property property, AbstractGame game){
+        AbstractPlayer propOwner = ownedPropsMap.get(property);
+        this.makePayment(property.getMortgageAmount(), propOwner);
+        ownedPropsMap.remove(property);
+        unOwnedProps.add(property);
+        propOwner.removeProperty(property);
+        game.startAuction();
+
+    }
 
     public void mortgageProperty(Property property){
         AbstractPlayer propOwner = ownedPropsMap.get(property);
@@ -110,35 +117,36 @@ public class Bank implements Transfer{
         property.setIsMortgaged(true);
     }
 
-    public void build(Buildable property, BuildingType building){
+
+    public void unMortgageProperty(Property property){
+        AbstractPlayer propOwner = ownedPropsMap.get(property);
+        propOwner.makePayment(property.getMortgageAmount()*1.1, this);
+        property.setIsMortgaged(false);
+    }
+
+/*    public void build(Buildable property, BuildingType building){
         if(!(property instanceof Property)) {
             throw new IllegalArgumentException("the Buildable is not a property");
-        }
+        }*/
+
+    public void build(Property property, BuildingType building){
         if (maxBuildingsPerProp.get(building) > property.getNumBuilding(building)) {
-            AbstractPlayer propOwner = propertyOwnedBy((Property) property);
+            AbstractPlayer propOwner = propertyOwnedBy(property);
             totalBuildingMap.put(building, totalBuildingMap.get(building) - 1);
             property.addBuilding(building);
             propOwner.makePayment(property.getBuildingPrice(building), this);
         }
     }
 
-    public void sellBackBuildings(Buildable property, BuildingType building){
-        if(!(property instanceof Property)) {
-            throw new IllegalArgumentException("the Buildable is not a property");
-        }
-
-        AbstractPlayer propOwner = propertyOwnedBy((Property) property);
+    public void sellBackBuildings(Property property, BuildingType building){
+        AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
         property.removeBuilding(building);
         this.makePayment(property.getBuildingPrice(building)/2, propOwner);
     }
 
-    public void unbuildForUpgrade(Buildable property, BuildingType building){
-        if(!(property instanceof Property)) {
-            throw new IllegalArgumentException("the Buildable is not a property");
-        }
-
-        AbstractPlayer propOwner = propertyOwnedBy((Property) property);
+    public void unbuildForUpgrade(Property property, BuildingType building){
+        AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
         property.removeBuilding(building);
     }

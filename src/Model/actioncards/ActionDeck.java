@@ -1,8 +1,9 @@
 package Model.actioncards;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class ActionDeck {
+public class ActionDeck implements Serializable {
     private DeckType myDeckType;
     private Stack<AbstractActionCard> myLiveCards;
     private List<AbstractActionCard> myDeadCards;

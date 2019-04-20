@@ -17,7 +17,6 @@ public class RailRoadProperty extends Property {
     private final double INFO_NUM = 5;
     private final int FOUR = 4;
 
-
     public RailRoadProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
         super(price, propName, color, paymentInfo, groupSize, buildingPriceMap);
         setGroup(myGroup);
@@ -60,21 +59,6 @@ public class RailRoadProperty extends Property {
             throw new IndexOutOfBoundsException("Bad data");
         }
 
-    }
-
-    @Override
-    public void addBuilding(BuildingType building) {
-
-    }
-
-    @Override
-    public void removeBuilding(BuildingType building) {
-
-    }
-
-    @Override
-    public int getNumBuilding(BuildingType building) {
-        return 0;
     }
 
     @Deprecated

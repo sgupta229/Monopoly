@@ -7,10 +7,12 @@ import View.PopUps.BuildOrSellPopup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -86,21 +88,14 @@ public abstract class PlayerControl implements PropertyChangeListener {
         HBox nameAndEnd = new HBox(20);
         nameAndEnd.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(myPlayer.getName());
-        ImageView playerIcon = myController.getPlayerImageView(myPlayer);
+        Node playerIcon = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(myPlayer.getImage()),
+                40.0,40.0,false,true));
         nameAndEnd.getChildren().addAll(playerIcon,playerName,endTurnButton);
         myVBox.getChildren().addAll(nameAndEnd,createBalanceText(), moveBox,manageProperty,createAssetsListView(),forfeit);
         return myVBox;
     }
 
     private ListView createAssetsListView(){
-
-//        ArrayList<Property> temp = new ArrayList<>();
-//        ArrayList<Double> fakeVals = new ArrayList<>();
-//        for (int i=0;i<10;i++){
-//            fakeVals.add(i+0.5);
-//        }
-//        temp.add(new ColorProperty(10, "Color Test", "GREEN", fakeVals,3));
-
         ListView<Property> assetsListView = new ListView<>(myPlayer.getProperties());
 
         assetsListView.setCellFactory(new Callback<ListView<Property>, ListCell<Property>>() {
@@ -123,12 +118,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("funds event received");
-//        Double newFunds = (Double) evt.getNewValue();
-//        myFunds = new Text("$ "+newFunds);
-        myVBox.getChildren().set(1,createBalanceText());
+        myFunds.setText("$ "+Double.toString(myPlayer.getFunds()));
     }
-
-
 
 }

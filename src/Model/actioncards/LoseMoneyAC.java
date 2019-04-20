@@ -20,10 +20,16 @@ public class LoseMoneyAC extends AbstractActionCard {
         //loseMoneyTo = loseTo;
         //amountLose = amount;
     }
-
+    @Deprecated
     public LoseMoneyAC(DeckType deckType, String message, Boolean holdable, String loseTo, List<Double> amount) {
         super(deckType, message, holdable);
         loseMoneyTo = loseTo;
+        amountLose = amount;
+    }
+
+    public LoseMoneyAC(DeckType deckType, String message, Boolean holdable, List<String> loseTo, List<Double> amount) {
+        super(deckType, message, holdable);
+        loseMoneyTo = loseTo.get(0);
         amountLose = amount;
     }
 

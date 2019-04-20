@@ -1,16 +1,26 @@
 package View;
 import Controller.Controller;
+import Controller.AbstractGame;
+import Controller.GameSaver;
+import Controller.ClassicGame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,13 +35,20 @@ public class ChooseGameScreen {
     private Scene myScene;
     private BorderPane myLogoPane;
     private ResourceBundle myResourceBundle;
+    private ResourceBundle messages;
     private List<String> gameTypeButtons;
     private Group myRoot;
     private FlowPane myFlowPane;
+    private HBox loadHBox;
+    private Button loadButton;
+    private Button goButton;
+    private Label chosenFile;
+    private File openedFile;
 
 
     public ChooseGameScreen(double width, double height, String style, Controller controller) {
         myResourceBundle = ResourceBundle.getBundle("GameTypes");
+        messages = ResourceBundle.getBundle("Messages");
         this.myRoot = new Group();
         this.myController = controller;
 
@@ -40,7 +57,8 @@ public class ChooseGameScreen {
 
         createMonopolyLogo();
         addFlowPane();
-        myRoot.getChildren().addAll(myLogoPane, myFlowPane);
+        createLoadHBox();
+        myRoot.getChildren().addAll(myLogoPane, myFlowPane, loadHBox);
     }
     public Scene getScene(){
         return myScene;
@@ -62,7 +80,8 @@ public class ChooseGameScreen {
         @Override
         public void handle(ActionEvent event) {
             System.out.print(gameType);
-            myController.setGameAndGoToAddPlayers(gameType);
+            myController.setGame(gameType);
+            myController.goToAddPlayersScreen();
         }
     }
 
@@ -89,6 +108,45 @@ public class ChooseGameScreen {
         var logo = new Image(this.getClass().getClassLoader().getResourceAsStream(LOGO_PATH));
         myLogoPane.setCenter(new ImageView(logo));
         return myLogoPane;
+    }
+
+    private void createLoadHBox(){
+        loadHBox = new HBox(10);
+
+        loadButton = new Button(messages.getString("load"));
+        loadButton.setOnAction(new LoadButtonHandler());
+
+        goButton = new Button(messages.getString("go"));
+        goButton.setDisable(true);
+        goButton.setOnAction(new GoButtonHandler());
+
+        chosenFile = new Label("");
+
+        loadHBox.getChildren().addAll(loadButton,goButton,chosenFile);
+    }
+
+    private class LoadButtonHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle(messages.getString("choose-saved-game"));
+//            fileChooser.getExtensionFilters().addAll(
+//                    new FileChooser.ExtensionFilter("Serializable", "*.ser"));
+//            fileChooser.setInitialFileName(".properties");
+            openedFile = fileChooser.showOpenDialog(myController.getStage());
+            chosenFile.setText(openedFile.getName());
+            if (openedFile != null) goButton.setDisable(false);
+        }
+    }
+
+    private class GoButtonHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            //TODO: fix to create GameSaver of dynamic game type
+            GameSaver<ClassicGame> mySaver = new GameSaver<ClassicGame>();
+            ClassicGame newGame = mySaver.reload(openedFile);
+            myController.setGame(newGame);
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package Model.spaces;
+package Model.tests;
 
 import Controller.ClassicGame;
 import Controller.Token;
@@ -7,6 +7,7 @@ import Model.ClassicPlayer;
 import Model.Bank;
 import Model.properties.Property;
 import Model.XmlTagException;
+import Model.spaces.PropSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

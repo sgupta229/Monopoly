@@ -112,18 +112,21 @@ public class ConfigReader {
                 String msg = card.getElementsByTagName("Message").item(0).getTextContent();
                 //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
                 Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName("Holdable").item(0).getTextContent());
-                String extraString = card.getElementsByTagName("ExtraString").item(0).getTextContent();
+                List<String> extraStrings = List.of(card.getElementsByTagName("ExtraString").item(0).getTextContent().split(","));
+                //System.out.println(extraStrings.get(0) + " AND " + extraStrings.get(1));
                 //Get list of doubles
                 String[] extraDubTemp = card.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
-                List<Double> extraDubs = new ArrayList<>();
+/*                List<Double> extraDubs = new ArrayList<>();
                 for(String n:extraDubTemp){
                     extraDubs.add(Double.parseDouble(n));
-                }
+                }*/
+                List<Double> extraDubs = listDoubleConverter(extraDubTemp);
+
 
                 String className = card.getAttribute("type");
                 //Reflection to create action cards
                 try {
-                    AbstractActionCard newAC = (AbstractActionCard) Class.forName("Model.actioncards." + className).getConstructor(DeckType.class, String.class, Boolean.class, String.class, List.class).newInstance(dt, msg, holdable, extraString, extraDubs);
+                    AbstractActionCard newAC = (AbstractActionCard) Class.forName("Model.actioncards." + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
                     allActionCards.add(newAC);
                 } catch (InstantiationException e) {
                     e.printStackTrace();
@@ -234,13 +237,12 @@ public class ConfigReader {
                 SpaceGroup spaceGroup = SpaceGroup.valueOf(spaceGroupString);
                 String spaceName = space.getElementsByTagName("SpaceName").item(0).getTextContent().strip();
                 String extraString = space.getElementsByTagName("ExtraString").item(0).getTextContent().strip();
-
                 String[] extraDubTemp = space.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
-                List<Double> extraDubs = new ArrayList<>();
+/*                List<Double> extraDubs = new ArrayList<>();
                 for(String n:extraDubTemp){
                     extraDubs.add(Double.parseDouble(n));
-                }
-
+                }*/
+                List<Double> extraDubs = listDoubleConverter(extraDubTemp);
 
                 Property myProp = findLinkedProperty(propsList, spaceName);
 
@@ -275,6 +277,7 @@ public class ConfigReader {
             allPropsAndNames.put(prop.getName(), prop);
         }
         if(allPropsAndNames.containsKey(name)){
+            System.out.println("hi");
             return allPropsAndNames.get(name);
         }
         else{
@@ -365,7 +368,7 @@ public class ConfigReader {
                     buildingPriceMap.put(BuildingType.valueOf("HOTEL"), pricePerHotel);
 
 
-                    Property newProp = new ColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize, buildingPriceMap);
+                    Property newProp = new ClassicColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize, buildingPriceMap);
                     AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
                     //((PropSpace) newSpace).linkSpaceToProperty(newProp);
@@ -550,8 +553,16 @@ public class ConfigReader {
         return buildingProperties;
     }
 
+    private List<Double> listDoubleConverter(String[] stringList){
+        List<Double> doubleList = new ArrayList<>();
+        for(String n:stringList){
+            doubleList.add(Double.parseDouble(n));
+        }
+        return doubleList;
+    }
+
     public static void main(String[] args) {
-        ConfigReader c = new ConfigReader("Normal_Config_Rework.xml");
+        ConfigReader c = new ConfigReader("Junior_Config.xml");
         try{
             c.parseSpaces();
             c.parseActionCards();
