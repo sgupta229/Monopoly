@@ -159,7 +159,7 @@ public class AddPlayersScreen {
         return editPlayerList;
     }
 
-    class StartButtonHandler implements EventHandler<ActionEvent> {
+    private class StartButtonHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
             myController.initializePlayers();
@@ -167,7 +167,7 @@ public class AddPlayersScreen {
         }
     }
 
-    class AddButtonHandler implements EventHandler<ActionEvent>{
+    private class AddButtonHandler implements EventHandler<ActionEvent>{
         @Override
         public void handle(ActionEvent event) {
             String name = myPlayerNameField.getText();
@@ -180,26 +180,7 @@ public class AddPlayersScreen {
         }
     }
 
-//    class ImageListCell extends ListCell<Image> {
-//        private final ImageView view;
-//
-//        ImageListCell() {
-//            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-//            view = new ImageView();
-//        }
-//
-//        @Override protected void updateItem(Image item, boolean empty) {
-//            super.updateItem(item, empty);
-//
-//            if (item == null || empty) {
-//                setGraphic(null);
-//            } else {
-//                view.setImage(item);
-//                setGraphic(view);
-//            }
-//        }
-//    }
-    class ImageListCell extends ListCell<String> {
+    private class ImageListCell extends ListCell<String> {
         private ImageView view;
 
         ImageListCell() {

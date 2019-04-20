@@ -20,10 +20,11 @@ public abstract class AbstractSpace implements Serializable {
     private Property myProp;
 
     public AbstractSpace(int locationIndex, String spaceName, String spaceGroup,
-    String jumpToSpace, List<Double> taxNums, Property myProp){
+    String jumpToSpace, List<Double> taxNums, Property prop){
         myLocation = locationIndex;
         myName = spaceName;
         myGroup = SpaceGroup.valueOf(spaceGroup);
+        myProp = prop;
     }
 
     public AbstractSpace(int locationIndex, String spaceName){

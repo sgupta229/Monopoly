@@ -1,4 +1,4 @@
-package Model.actioncards.Tests;
+package Model.Tests;
 
 import Controller.AbstractGame;
 import Controller.ClassicGame;
@@ -27,7 +27,7 @@ class GetOutJailACTest {
         p1 = new ClassicPlayer();
         p2 = new ClassicPlayer();
         p3 = new ClassicPlayer();
-        game = new ClassicGame("Normal_Config_Old.xml");
+        game = new ClassicGame("Normal_Config_Rework.xml");
         game.setPlayers(List.of(p1, p2, p3));
         game.setCurrPlayer(0);
 

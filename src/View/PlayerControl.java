@@ -2,11 +2,8 @@ package View;
 
 import Controller.Controller;
 import Model.AbstractPlayer;
-import Model.properties.ColorProperty;
 import Model.properties.Property;
 import View.PopUps.BuildOrSellPopup;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -23,11 +20,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public abstract class PlayerControl implements PropertyChangeListener {
@@ -102,7 +96,6 @@ public abstract class PlayerControl implements PropertyChangeListener {
     }
 
     private ListView createAssetsListView(){
-
         ListView<Property> assetsListView = new ListView<>(myPlayer.getProperties());
 
         assetsListView.setCellFactory(new Callback<ListView<Property>, ListCell<Property>>() {

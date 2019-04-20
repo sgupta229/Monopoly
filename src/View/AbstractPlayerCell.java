@@ -47,8 +47,6 @@ public class AbstractPlayerCell extends ListCell<AbstractPlayer> {
                 label.setText(item.getName());
                 myImage.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(item.getImage()),
                         40.0,40.0,false,true));
-//                myImage.getChildren().set(0,item.getImage());
-//                myHBox.getChildren().set(0,item.getImage());
                 setGraphic(myHBox);
             }
         }

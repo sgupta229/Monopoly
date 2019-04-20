@@ -16,10 +16,11 @@ public class MoveToOpenAC extends AbstractActionCard {
 
     public MoveToOpenAC(DeckType deckType, String message, Boolean holdable, List<String> extraStrings, List<Double> extraDoubles){
         super(deckType, message, holdable);
+        //System.out.println(extraStrings.get(0));
         myTargetSpaces = extraStrings;
         passGo = extraDoubles.get(0);
         myPossibleSpaces = new ArrayList<>();
-    };
+    }
 
     @Override
     public void doCardAction(AbstractGame game) {
@@ -29,7 +30,9 @@ public class MoveToOpenAC extends AbstractActionCard {
         for(int i=0; i<game.getBoardSize(); i++){
             AbstractSpace tempSpace = game.getBoard().getSpaceAt(i);
             Property p = tempSpace.getMyProp();
-            if(myTargetSpaces.contains(p.getColor())){
+
+            if(p!=null && myTargetSpaces.contains(p.getColor())){
+                System.out.println("HERE");
                 //property is unowned -- move here and get property for free (junior monopoly only)
                 if(game.getBank().getUnOwnedProps().contains(p)){
                     game.movePlayer(prevLocation, i);

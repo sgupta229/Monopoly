@@ -12,7 +12,7 @@
     <!--Space type; index; name-->
     <!--Properties - property, name, colorgroup, group size, buyprice, rent-->
     <Properties>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>MEDITERRANEAN_AVE</PropertyName>
             <ColorGroup>BROWN</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -31,7 +31,7 @@
                 <PricePerHotel type="HOTEL">50</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>BALTIC_AVE</PropertyName>
             <ColorGroup>BROWN</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -65,7 +65,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>ORIENTAL_AVE</PropertyName>
             <ColorGroup>LIGHTBLUE</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -84,7 +84,7 @@
                 <PricePerHotel type="HOTEL">50</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>VERMONT_AVE</PropertyName>
             <ColorGroup>LIGHTBLUE</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -103,7 +103,7 @@
                 <PricePerHotel type="HOTEL">50</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>CONNECTICUT_AVE</PropertyName>
             <ColorGroup>LIGHTBLUE</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -122,7 +122,7 @@
                 <PricePerHotel type="HOTEL">50</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>ST._CHARLES_PLACE</PropertyName>
             <ColorGroup>PINK</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -154,7 +154,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>STATES_AVE</PropertyName>
             <ColorGroup>PINK</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -173,7 +173,7 @@
                 <PricePerHotel type="HOTEL">100</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>VIRGINIA_AVE</PropertyName>
             <ColorGroup>PINK</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -207,7 +207,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>ST._JAMES_PLACE</PropertyName>
             <ColorGroup>ORANGE</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -226,7 +226,7 @@
                 <PricePerHotel type="HOTEL">100</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>TENNESSEE_AVE</PropertyName>
             <ColorGroup>ORANGE</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -245,7 +245,7 @@
                 <PricePerHotel type="HOTEL">100</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>NEW_YORK_AVE</PropertyName>
             <ColorGroup>ORANGE</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -264,7 +264,7 @@
                 <PricePerHotel type="HOTEL">100</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>KENTUCKY_AVE</PropertyName>
             <ColorGroup>RED</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -283,7 +283,7 @@
                 <PricePerHotel type="HOTEL">150</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>INDIANA_AVE</PropertyName>
             <ColorGroup>RED</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -302,7 +302,7 @@
                 <PricePerHotel type="HOTEL">150</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>ILLINOIS_AVE</PropertyName>
             <ColorGroup>RED</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -336,7 +336,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>ATLANTIC_AVE</PropertyName>
             <ColorGroup>YELLOW</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -355,7 +355,7 @@
                 <PricePerHotel type="HOTEL">150</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>VENTNOR_AVE</PropertyName>
             <ColorGroup>YELLOW</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -387,7 +387,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>MARVIN_GARDENS</PropertyName>
             <ColorGroup>YELLOW</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -406,7 +406,7 @@
                 <PricePerHotel type="HOTEL">150</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>PACIFIC_AVE</PropertyName>
             <ColorGroup>GREEN</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -425,7 +425,7 @@
                 <PricePerHotel type="HOTEL">200</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>CAROLINA_AVE</PropertyName>
             <ColorGroup>GREEN</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -444,7 +444,7 @@
                 <PricePerHotel type="HOTEL">200</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>PENNSYLVANIA_AVE</PropertyName>
             <ColorGroup>GREEN</ColorGroup>
             <GroupSize>3</GroupSize>
@@ -478,7 +478,7 @@
             <BuildingPrices>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>PARK_PLACE</PropertyName>
             <ColorGroup>DARKBLUE</ColorGroup>
             <GroupSize>2</GroupSize>
@@ -497,7 +497,7 @@
                 <PricePerHotel type="HOTEL">200</PricePerHotel>
             </BuildingPrices>
         </Property>
-        <Property type="ColorProperty">
+        <Property type="ClassicColorProperty">
             <PropertyName>BOARDWALK</PropertyName>
             <ColorGroup>DARKBLUE</ColorGroup>
             <GroupSize>2</GroupSize>

@@ -1,4 +1,4 @@
-package Model.properties.Tests;
+package Model.tests;
 
 import Controller.ClassicGame;
 import Controller.ConfigReader;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ColorPropertyTest {
+class ClassicColorPropertyTest {
 
     ConfigReader conf = new ConfigReader("Normal_Config_Rework.xml");
     ClassicGame gameClass;
