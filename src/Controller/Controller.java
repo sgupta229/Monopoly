@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import View.AddPlayersScreen;
 import View.ChooseGameScreen;
+import View.EndGameScreen;
 import View.Layout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,6 +68,8 @@ public class Controller {
     public void startGame(){
         window.setScene(new Layout(WIDTH,HEIGHT,gameStyle,this,myGame).getScene());
     }
+
+    public void endGame(AbstractPlayer winner) { window.setScene(new EndGameScreen(WIDTH,HEIGHT,gameStyle,this,winner).getScene());}
 
     public void initializePlayers(){
         myGame.setPlayers(newPlayers);
