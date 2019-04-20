@@ -93,9 +93,12 @@ public abstract class AbstractGame implements Serializable {
         }
     }
 
+    public abstract boolean checkGameOver();
+
     public AbstractPlayer getCurrPlayer() {
         return currPlayer;
     }
+
     public void setCurrPlayer(int index){
         myPCS.firePropertyChange("currPlayer",currPlayer,players.get(index));
         currPlayer = players.get(index);
@@ -295,4 +298,5 @@ public abstract class AbstractGame implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
 }
