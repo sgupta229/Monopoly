@@ -95,6 +95,8 @@ public abstract class AbstractGame implements Serializable {
 
     public abstract boolean checkGameOver();
 
+    public abstract AbstractPlayer getWinner();
+
     public AbstractPlayer getCurrPlayer() {
         return currPlayer;
     }
