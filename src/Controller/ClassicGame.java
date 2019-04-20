@@ -1,16 +1,12 @@
 package Controller;
 
-public class ClassicGame extends AbstractGame {
+import Model.AbstractPlayer;
 
-//    private int rollsInJail;
-//    private int passGoAmount;
+public class ClassicGame extends AbstractGame {
 
     public ClassicGame(String filename) {
         super(filename);
         ConfigReader configReader = new ConfigReader(filename);
-
-//        passGoAmount = (int) configReader.getRuleDouble("PassGo");
-//        rollsInJail = (int) configReader.getRuleDouble("RollsInJail");
     }
 
     @Override
@@ -38,5 +34,19 @@ public class ClassicGame extends AbstractGame {
 //        if(0 <= newIndex && 0>= oldIndex) {
             getCurrPlayer().addFunds(getPassGo());
         }
+    }
+
+    public boolean checkGameOver() {
+        int numPlayers = getPlayers().size();
+        int numPlayersBankrupt = 0;
+        for(AbstractPlayer p : getPlayers()) {
+            if(p.getFunds() <= 0) {
+                numPlayersBankrupt++;
+            }
+        }
+        if(numPlayersBankrupt == numPlayers - 1) {
+            return true;
+        }
+        return false;
     }
 }
