@@ -1,6 +1,5 @@
 package View.PopUps;
 
-import Controller.ConfigReader;
 import Controller.Controller;
 import Model.spaces.AbstractSpace;
 import View.BoardConfigReader;
@@ -16,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class TaxPopup extends Popup {
     private List<AbstractSpace> spaces;
@@ -24,10 +24,12 @@ public class TaxPopup extends Popup {
     private Controller myController;
     private AbstractSpace mySpace;
     private int bottomPadding = 50;
+    private ResourceBundle myText;
 
     public TaxPopup(int propLocation, Controller controller) {
         super();
         this.propLocation = propLocation;
+        this.myText = super.getMessages();
         BoardConfigReader spaceInfo = new BoardConfigReader();
         spaces = spaceInfo.getSpaces();
         this.myController = controller;
@@ -47,28 +49,25 @@ public class TaxPopup extends Popup {
         }
         var imageFile = new Image(this.getClass().getClassLoader().getResourceAsStream("taxCard.png"));
         ImageView image = new ImageView(imageFile);
-        Pane imagePane= new Pane(image);
 
-        return imagePane;
+        return new Pane(image);
     }
 
     @Override
     protected String createMessage() {
-        String myMessage = "Time to pay your taxes!";
-        return myMessage;
+        return myText.getString("taxMessage");
     }
 
     @Override
     protected String createTitle() {
-        String myTitle = "Tax";
-        return myTitle;
+        return myText.getString("taxTitle");
     }
 
     @Override
     protected Pane createButtons(Stage window) {
         VBox buttons = new VBox(HBoxSpacing);
-        Button button1= new Button("Pay $200");
-        Button button2= new Button("Pay 10%");
+        Button button1= new Button(myText.getString("taxButton1"));
+        Button button2= new Button(myText.getString("taxButton2"));
 
         button1.setId("button3");
         button2.setId("button3");

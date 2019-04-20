@@ -35,7 +35,7 @@ public class PlayerTabs implements PropertyChangeListener {
         myController.getGame().addPropertyChangeListener("currPlayer",this);
 
         tabPane = new TabPane();
-        tabPane.setPrefWidth(Controller.WIDTH * .4);
+        tabPane.setPrefWidth(Controller.WIDTH * .6);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         currPlayer = controller.getGame().getCurrPlayer();

@@ -18,11 +18,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
+
 public class BuildOrSellPopup extends BuyPropertyPopup {
 
     private TabPane tabPane;
     private Controller myController;
     private double tabPaneWidth = 1.5;
+    private ResourceBundle myText;
+    private int maxNumBuildings = 4;
 
     //TODO: CHECK PLAYERS MONOPOLY WHEN MANAGE PROP IS HIT, IF FALSE THEN DISABLE ALL BUTTONS
 
@@ -31,22 +35,18 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         tabPane = new TabPane();
         tabPane.setPrefWidth(Controller.WIDTH/tabPaneWidth);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-
         this.myController = controller;
+        this.myText = super.getMessages();
     }
 
     @Override
     protected Pane createImage(Scene scene, Stage popUpWindow) {
         HBox layout = new HBox();
-        Tab buildTab = new Tab("BUILD");
+        Tab buildTab = new Tab(myText.getString("buildTab"));
         buildTab.setContent(setBuildInfo(scene, popUpWindow));
 
-        Tab sellTab = new Tab("SELL");
-        Label example2 = new Label("Hello!!!!!");
-        sellTab.setContent(example2);
-
+        Tab sellTab = new Tab(myText.getString("sellTab"));
         tabPane.getTabs().addAll(buildTab,sellTab);
-
         layout.getChildren().add(tabPane);
 
         return layout;
@@ -61,7 +61,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
             props.getItems().add(p.getName());
 
         }
-        props.setPromptText("Choose Your Property");
+        props.setPromptText(myText.getString("comboBoxText"));
         pane.setTop(props);
         pane.setAlignment(props,Pos.CENTER);
 
@@ -73,23 +73,23 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         VBox incrementer = new VBox();
 
         Spinner<Integer> spinner = new Spinner<>();
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 4, 0);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxNumBuildings, 0);
         spinner.setValueFactory(valueFactory);
 
         VBox spinnerHouses = new VBox();
-        spinnerHouses.getChildren().addAll(new Label("# of Houses:"), spinner);
+        spinnerHouses.getChildren().addAll(new Label(myText.getString("numHouse")), spinner);
 
-        Spinner<Integer> spinner2 = new Spinner<Integer>();
-        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 4, 0);
+        Spinner<Integer> spinner2 = new Spinner<>();
+        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxNumBuildings, 0);
         spinner2.setValueFactory(valueFactory2);
 
         VBox spinnerHouses2 = new VBox();
-        spinnerHouses.getChildren().addAll(new Label("# of Hotels:"), spinner2);
+        spinnerHouses.getChildren().addAll(new Label(myText.getString("numHotel")), spinner2);
 
         VBox totalAmt = new VBox();
         TextField total = new TextField();
         total.setEditable(false);
-        totalAmt.getChildren().addAll(new Label("TOTAL:"), total);
+        totalAmt.getChildren().addAll(new Label(myText.getString("total")), total);
 
         Pane buttons = createButtons(popUpWindow);
         incrementer.getChildren().addAll(spinnerHouses, spinnerHouses2, totalAmt, buttons);
@@ -103,15 +103,19 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
     }
 
     @Override
+    protected String createMessage() {
+        return "";
+    }
+
+    @Override
     protected String createTitle() {
-        String myTitle = "Manage Property";
-        return myTitle;
+        return myText.getString("managePropTitle");
     }
 
     @Override
     protected Pane createButtons(Stage window) {
         HBox buttons = new HBox(HBoxSpacing);
-        Button button1= new Button("BUY");
+        Button button1= new Button(myText.getString("buyButton"));
         button1.setId("button4");
         button1.setOnAction(e -> window.close());
         buttons.getChildren().add(button1);
