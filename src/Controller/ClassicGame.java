@@ -49,4 +49,13 @@ public class ClassicGame extends AbstractGame {
         }
         return false;
     }
+
+    public AbstractPlayer getWinner() {
+        for(AbstractPlayer p : getPlayers()) {
+            if(p.getFunds() > 0) {
+                return p;
+            }
+        }
+        throw new IllegalArgumentException("There is no winner");
+    }
 }
