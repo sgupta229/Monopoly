@@ -30,9 +30,6 @@ import java.util.ResourceBundle;
 
 public class EndGameScreen {
     private Controller myController;
-
-    private static final String LOGO_PATH = "logo.png";
-
     private Scene myScene;
     private ResourceBundle messages;
     private Group myRoot;
