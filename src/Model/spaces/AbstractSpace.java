@@ -109,4 +109,6 @@ public abstract class AbstractSpace implements Serializable {
             myOccupants.remove(occupantToRemove);
         }
     }
+
+    //public abstract PopUps generatePopUp();
 }

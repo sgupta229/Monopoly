@@ -51,7 +51,13 @@ public class TaxSpace extends AbstractSpace {
      */
     public void doAction(AbstractGame game, int userChoice){
         double amountTaxed;
-        taxReceiver = game.getBank();
+        if(game.getFreeParkingRule()){
+            taxReceiver = game.getFreeParking();
+        }
+        else{
+            taxReceiver = game.getBank();
+        }
+
         AbstractPlayer currentPlayer = game.getCurrPlayer();
         double playersWealth = currentPlayer.getFunds();
         if(userChoice==TAKE_FIXED_AMOUNT){
