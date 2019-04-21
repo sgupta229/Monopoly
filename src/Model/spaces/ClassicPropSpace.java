@@ -9,29 +9,23 @@ import Model.Bank;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PropSpace extends AbstractSpace {
+public class ClassicPropSpace extends AbstractPropSpace {
 
 
     private Property myProperty;
 
-    public PropSpace(int locationIndex, String spaceName, String spaceGroup,
-                     String jumpToSpace, List<Double> taxNums, Property myProp){
+    public ClassicPropSpace(int locationIndex, String spaceName, String spaceGroup,
+                            String jumpToSpace, List<Double> taxNums, Property myProp){
         super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
 
         myProperty = myProp;
 
     }
 
-    public PropSpace(int locationIndex, String spaceName, Property prop){
-        super(locationIndex, spaceName);
 
-        myProperty = prop;
-
-    }
-
-    public List getInfo(){
-        return myProperty.getInfo();
-    }
+    //public List getInfo(){
+        //return myProperty.getInfo();
+    //}
 
     /***
      * This method performs the specific action that a type of space requires.
@@ -66,9 +60,9 @@ public class PropSpace extends AbstractSpace {
         //else()
     }
 
-    public Property getMyProperty(){
-        return myProperty;
-    }
+    //public Property getMyProperty(){
+        //return myProperty;
+    //}
 
 
 

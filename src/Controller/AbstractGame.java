@@ -39,6 +39,7 @@ public abstract class AbstractGame implements Serializable {
     private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
+    private Transfer freeParking = new FreeParkingFunds();
     
     public AbstractGame(String filename) {
         parseXMLFile(filename);
@@ -306,6 +307,11 @@ public abstract class AbstractGame implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public Transfer getFreeParking(){
+        return freeParking;
     }
 
 

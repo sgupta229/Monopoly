@@ -1,12 +1,17 @@
 package Model.spaces;
 
 import Controller.AbstractGame;
+import Model.FreeParkingFunds;
+import Model.Transfer;
 import Model.properties.Property;
+import Model.AbstractPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FreeParkingSpace extends AbstractSpace {
+
+
 
     public FreeParkingSpace(int locationIndex, String spaceName, String spaceGroup,
                             String jumpToSpace, List<Double> taxNums, Property myProp){
@@ -32,6 +37,15 @@ public class FreeParkingSpace extends AbstractSpace {
      */
 
     public void doAction(AbstractGame game, int userChoice){
+        if(game.getFreeParkingRule()){
+            AbstractPlayer curr = game.getCurrPlayer();
+            Transfer fpFunds = game.getFreeParking();
+            fpFunds.makePayment(0, curr);
 
+        }
     }
+
+
+
+
 }

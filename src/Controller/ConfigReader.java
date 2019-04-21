@@ -368,9 +368,9 @@ public class ConfigReader {
 
 
                     Property newProp = new ClassicColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize, buildingPriceMap);
-                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    AbstractSpace newSpace = new ClassicPropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
-                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    //((ClassicPropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
 
@@ -392,8 +392,8 @@ public class ConfigReader {
                     rentAmounts.add(mortgage);
                     TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
                     Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts, groupSize);
-                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
-                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    //((ClassicPropSpace) newSpace).linkSpaceToProperty(newProp);
+                    AbstractSpace newSpace = new ClassicPropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
@@ -412,8 +412,8 @@ public class ConfigReader {
                     rentAmounts.add(mortgage);
                     TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
                     Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts, groupSize);
-                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
-                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    //((ClassicPropSpace) newSpace).linkSpaceToProperty(newProp);
+                    AbstractSpace newSpace = new ClassicPropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
