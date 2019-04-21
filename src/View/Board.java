@@ -105,8 +105,10 @@ public class Board implements PropertyChangeListener {
                     myProperty = p;
                 }
             }
+            myProperty = myAbstractSpace.getMyProp();
+            System.out.println("NEW TURN: ");
 
-//            System.out.println("CHECKING IF STILL MORTGAGED********** "+myProperty.getIsMortgaged() + " " + myProperty);
+            System.out.println("CHECKING IF " + myProperty.getName()+ " STILL MORTGAGED********** "+myProperty.getIsMortgaged() + " " + myProperty);
 //            System.out.println("CHECKING IF STILL MORTGAGED********** "+myController.getGame().getCurrPlayer().getProperties() + " " + myProperty);
             for (Property pr: myController.getGame().getCurrPlayer().getProperties()){
                 System.out.println("LOOK HERE***** "+ pr + " " + pr.getIsMortgaged());
