@@ -88,9 +88,8 @@ public abstract class AbstractGame implements Serializable {
         }
         players = p;
         setCurrPlayer(0);
-        for (AbstractPlayer pl : players){
+        for (AbstractPlayer pl : players)
             this.addPlayer(pl);
-        }
     }
 
     public abstract boolean checkGameOver();
@@ -105,9 +104,11 @@ public abstract class AbstractGame implements Serializable {
         myPCS.firePropertyChange("currPlayer",currPlayer,players.get(index));
         currPlayer = players.get(index);
     }
+
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
+
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         myPCS.removePropertyChangeListener(listener);
     }
@@ -134,14 +135,14 @@ public abstract class AbstractGame implements Serializable {
         return players;
     }
 
-    public int rollDice() {
-        int value = 0;
+    public List<Integer> rollDice() {
+        List<Integer> rolls = new ArrayList<Integer>();
         for(int i = 0; i < dice.size(); i++) {
             int roll = dice.get(i).rollDie();
-            value += roll;
+            rolls.add(roll);
             diceHistory.get(i).add(roll);
         }
-        return value;
+        return rolls;
     }
 
     public Bank getBank() {
@@ -153,21 +154,31 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public void startNextTurn() {
-        int index = players.indexOf(currPlayer) + 1;
-        if(index > (players.size() - 1)) {
-            index = 0;
-        }
+        int index = players.indexOf(this.getLeftPlayer());
         setCurrPlayer(index);
     }
 
     //checks 3 matching all dice in a row
-    public boolean checkDoubles() {
+    public boolean checkThreeDoublesInRow() {
         ArrayList<Integer> firstDie = diceHistory.get(0);
         List<Integer> check = firstDie.subList(firstDie.size() - 3, firstDie.size());
         for(Integer key : diceHistory.keySet()) {
             ArrayList<Integer> otherDie = diceHistory.get(key);
             List<Integer> other = otherDie.subList(otherDie.size() - 3, otherDie.size());
             if(!check.equals(other)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkDoubles() {
+        ArrayList<Integer> firstDie = diceHistory.get(0);
+        int check = firstDie.get(firstDie.size() - 1);
+        for(Integer key : diceHistory.keySet()) {
+            ArrayList<Integer> otherDie = diceHistory.get(key);
+            int other = otherDie.get(firstDie.size() - 1);
+            if(!(check == other)) {
                 return false;
             }
         }
@@ -188,10 +199,6 @@ public abstract class AbstractGame implements Serializable {
 
     public int getBoardSize() {
         return boardSize;
-    }
-
-    public void endTurn() {
-
     }
 
     public AbstractActionCard getCurrentActionCard() {
@@ -215,15 +222,14 @@ public abstract class AbstractGame implements Serializable {
         if(newIndex > board.getSize() - 1) {
             throw new IllegalArgumentException("The new index is outside of the board size");
         }
+        if(oldIndex != currPlayer.getCurrentLocation()) {
+            throw new IllegalArgumentException("The old index provided is not correct");
+        }
         currPlayer.moveTo(newIndex);
         AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
         oldSpace.removeOccupant(getCurrPlayer());
         AbstractSpace newSpace = getBoard().getSpaceAt(newIndex);
         newSpace.addOccupant(getCurrPlayer());
-    }
-
-    public void displayPopup() {
-
     }
 
     @Deprecated
@@ -300,5 +306,6 @@ public abstract class AbstractGame implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
 
 }

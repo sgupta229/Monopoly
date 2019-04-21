@@ -2,6 +2,8 @@ package Controller;
 
 import Model.AbstractPlayer;
 
+import java.util.List;
+
 public class ClassicGame extends AbstractGame {
 
     public ClassicGame(String filename) {
@@ -10,10 +12,11 @@ public class ClassicGame extends AbstractGame {
     }
 
     @Override
-    public int rollDice() {
+    public List<Integer> rollDice() {
         int oldIndex = getCurrPlayer().getCurrentLocation();
-        int roll = super.rollDice();
-        int newIndex = getNewIndex(oldIndex, roll);
+        List<Integer> rolls = super.rollDice();
+        int rollVal = getLastDiceRoll();
+        int newIndex = getNewIndex(oldIndex, rollVal);
         if(!getCurrPlayer().isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }
@@ -26,7 +29,7 @@ public class ClassicGame extends AbstractGame {
             }
         }
         checkPassGo(oldIndex, newIndex);
-        return roll;
+        return rolls;
     }
 
     public void checkPassGo(int oldIndex, int newIndex) {

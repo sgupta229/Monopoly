@@ -49,6 +49,5 @@ public class ActionCardSpace extends AbstractSpace {
                 game.setCurrentActionCard(cardDrawn);
             }
         }
-        game.endTurn();
     }
 }

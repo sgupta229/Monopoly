@@ -111,7 +111,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         double oldFunds = this.funds;
         this.funds = newFunds;
         myPCS.firePropertyChange("funds",oldFunds,this.funds);
-        System.out.println(this.getName() + "'s funds updated. new funds: " + funds);
     }
 
     public void addFunds(double addAmount) {
@@ -152,10 +151,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
 
     public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.removePropertyChangeListener(propertyName,listener);
-    }
-
-    public void startAuction() {
-
     }
 
     public int getPropertiesOfType(String type) {
@@ -199,27 +194,11 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         return this.tokenImage;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        AbstractPlayer that = (AbstractPlayer) o;
-        return Double.compare(that.funds, funds) == 0 &&
-                currentLocation == that.currentLocation &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(properties, that.properties) &&
-                Objects.equals(actionCards, that.actionCards);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, funds, properties, actionCards, currentLocation);
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    @Deprecated
+    //TESTING ONLY
     public void setCurrentLocation(int newLocation) {
         currentLocation = newLocation;
     }

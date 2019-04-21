@@ -7,8 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DiceRoller {
@@ -16,12 +20,13 @@ public class DiceRoller {
     protected HBox myHBox;
     protected Controller myController;
     protected  Button rollButton;
+    protected List<Label> diceValues;
 
 
     public DiceRoller(Controller controller){
         myController = controller;
         myDie = new Die(6);
-
+        diceValues = new ArrayList<>();
         myHBox = new HBox();
         myHBox.setSpacing(40.0);
         createDiceView();
@@ -41,22 +46,25 @@ public class DiceRoller {
     public HBox getDiceRollerView(){
         return myHBox;
     }
+
     private void createDiceView(){
-        Text diceValue = new Text("");
-        diceValue.setId("header2");
-        myHBox.getChildren().add(diceValue);
-    }
-    private void rollDice(){
-        int roll = myController.getGame().rollDice();
-        System.out.println("roll: " + roll);
-        updateDiceView(roll);
-        rollButton.setDisable(true);
+        for(int i = 0; i < myController.getGame().getDiceHistory().size(); i++) {
+            Label diceValue = new Label("");
+            diceValue.setId("header2");
+            diceValues.add(diceValue);
+            myHBox.getChildren().add(diceValue);
+        }
     }
 
-    private void updateDiceView(int val){
-        Text newVal = new Text(Integer.toString(val));
-        newVal.setId("header2");
-        myHBox.getChildren().set(0,newVal);
+    private void rollDice(){
+        List<Integer> rolls = myController.getGame().rollDice();
+        for(int i = 0; i < rolls.size(); i++) {
+            diceValues.get(i).setText(Integer.toString(rolls.get(i)));
+        }
+        if(!(myController.getGame().checkDoubles())) {
+            rollButton.setDisable(true);
+
+        }
     }
 
     public void setDisable(boolean bool) {rollButton.setDisable(bool);}
