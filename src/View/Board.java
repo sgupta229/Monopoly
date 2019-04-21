@@ -62,7 +62,7 @@ public class Board implements PropertyChangeListener {
     }
 
     public void addTokenToIndex(int i, Node image){
-        BoardConfigReader reader = new BoardConfigReader();
+        BoardConfigReader reader = new BoardConfigReader(myGame);
         Map<Integer, Point2D.Double> myPoint = reader.getIndexToCoord();
         myGridPane.add(image,(int)myPoint.get(i).getX(),(int)myPoint.get(i).getY());
         imagesOnBoard.add(image);
@@ -99,7 +99,6 @@ public class Board implements PropertyChangeListener {
                     myAbstractSpace = sp;
                 }
             }
-
             for (Property p : myProps){
                 if (myAbstractSpace.getMyName().equalsIgnoreCase(p.getName())){
                     myProperty = p;
@@ -107,6 +106,7 @@ public class Board implements PropertyChangeListener {
             }
             myProperty = myAbstractSpace.getMyProp();
             System.out.println("NEW TURN: ");
+
 
             System.out.println("CHECKING IF " + myProperty.getName()+ " STILL MORTGAGED********** "+myProperty.getIsMortgaged() + " " + myProperty);
 //            System.out.println("CHECKING IF STILL MORTGAGED********** "+myController.getGame().getCurrPlayer().getProperties() + " " + myProperty);
@@ -228,13 +228,13 @@ public class Board implements PropertyChangeListener {
     }
 
     private void setUpBoardConfig(){
-        BoardConfigReader configs = new BoardConfigReader();
+        BoardConfigReader configs = new BoardConfigReader(myGame);
         indexToName = configs.getIndexToName();
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
         allSpaces = configs.getSpaces();
 //        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
-        myProps = new ArrayList(configs.getProperties());
+        myProps = new ArrayList(myController.getGame().getProperties());
     }
 
     public Pane getGridPane() { return myGridPane; }

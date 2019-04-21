@@ -316,6 +316,7 @@ public abstract class AbstractGame implements Serializable {
         return freeParking;
     }
 
+<<<<<<< HEAD
     public double getBankFunds(){
         return bankFunds;
     }
@@ -324,5 +325,13 @@ public abstract class AbstractGame implements Serializable {
         bank.setFunds(amount);
     }
 
+=======
+    public List<Property> getProperties() {
+        return properties;
+    }
+>>>>>>> 717c9469073e9c6b616a7e0caddf3c019e7de933
 
+    public List<AbstractSpace> getSpaces() {
+        return spaces;
+    }
 }
