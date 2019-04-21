@@ -8,10 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.Button;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -26,7 +23,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
     private Controller myController;
     private double tabPaneWidth = 1.5;
     private ResourceBundle myText;
-    private int maxNumBuildings = 4;
+    private String myProperty;
 
     //TODO: CHECK PLAYERS MONOPOLY WHEN MANAGE PROP IS HIT, IF FALSE THEN DISABLE ALL BUTTONS
 
@@ -43,9 +40,12 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
     protected Pane createImage(Scene scene, Stage popUpWindow) {
         HBox layout = new HBox();
         Tab buildTab = new Tab(myText.getString("buildTab"));
-        buildTab.setContent(setBuildInfo(scene, popUpWindow));
+        buildTab.setContent(setBuildInfo(popUpWindow, myText.getString("buyHouse"), myText.getString("buyHotel"),myText.getString("BuildMessage")));
 
         Tab sellTab = new Tab(myText.getString("sellTab"));
+        HBox sellInfo = new HBox(10);
+        sellInfo.getChildren().addAll(setBuildInfo(popUpWindow, myText.getString("sellHouse"), myText.getString("sellHotel"),myText.getString("SellMessage")), createIndividualButton(popUpWindow,myText.getString("mortgageButton")));
+        sellTab.setContent(sellInfo);
         tabPane.getTabs().addAll(buildTab,sellTab);
         layout.getChildren().add(tabPane);
 
@@ -53,53 +53,45 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
     }
 
 
-    private Pane setBuildInfo(Scene scene, Stage popUpWindow) {
+    private Pane setBuildInfo(Stage popUpWindow, String key1, String key2, String message) {
         BorderPane pane = new BorderPane();
-        ComboBox props = new ComboBox();
-
-        for (Property p : myController.getGame().getCurrPlayer().getProperties()){
-            props.getItems().add(p.getName());
-
-        }
-        props.setPromptText(myText.getString("comboBoxText"));
+        HBox props = createPropComboBox();
         pane.setTop(props);
         pane.setAlignment(props,Pos.CENTER);
 
         HBox propDetails = new HBox(HBoxSpacing);
         VBox property = new VBox(HBoxSpacing);
-        property.getChildren().add(super.createImage(scene, popUpWindow));
         property.setId("propVBox");
 
         VBox incrementer = new VBox();
+        Pane buttons = createIndividualButton(popUpWindow,key1);
+        Pane button2 = createIndividualButton(popUpWindow,key2);
 
-        Spinner<Integer> spinner = new Spinner<>();
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxNumBuildings, 0);
-        spinner.setValueFactory(valueFactory);
-
-        VBox spinnerHouses = new VBox();
-        spinnerHouses.getChildren().addAll(new Label(myText.getString("numHouse")), spinner);
-
-        Spinner<Integer> spinner2 = new Spinner<>();
-        SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxNumBuildings, 0);
-        spinner2.setValueFactory(valueFactory2);
-
-        VBox spinnerHouses2 = new VBox();
-        spinnerHouses.getChildren().addAll(new Label(myText.getString("numHotel")), spinner2);
-
-        VBox totalAmt = new VBox();
-        TextField total = new TextField();
-        total.setEditable(false);
-        totalAmt.getChildren().addAll(new Label(myText.getString("total")), total);
-
-        Pane buttons = createButtons(popUpWindow);
-        incrementer.getChildren().addAll(spinnerHouses, spinnerHouses2, totalAmt, buttons);
+        Label mess = new Label(message);
+        incrementer.getChildren().addAll(mess,buttons, button2);
         incrementer.setAlignment(Pos.CENTER);
         incrementer.setId("buildIncrementerVBox");
-
         propDetails.getChildren().addAll(property,incrementer);
         pane.setCenter(propDetails);
 
         return pane;
+    }
+
+    private HBox createPropComboBox(){
+        HBox combo = new HBox();
+        Button button1= new Button("OK");
+        ComboBox props = new ComboBox();
+        for (Property p : myController.getGame().getCurrPlayer().getProperties()){
+            props.getItems().add(p.getName());
+        }
+        props.setPromptText(myText.getString("comboBoxText"));
+        button1.setOnAction(e -> {
+            myProperty=props.getValue().toString();
+            System.out.println("Managing this property:" + myProperty);
+        });
+
+        combo.getChildren().addAll(props,button1 );
+        return combo;
     }
 
     @Override
@@ -114,12 +106,18 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        HBox buttons = new HBox(HBoxSpacing);
-        Button button1= new Button(myText.getString("buyButton"));
-        button1.setId("button4");
-        button1.setOnAction(e -> window.close());
-        buttons.getChildren().add(button1);
+        Pane buttons = new HBox(HBoxSpacing);
         return buttons;
+    }
+
+    private Pane createIndividualButton(Stage window, String key){
+        Button button1= new Button(key);
+        button1.setId("button3");
+        button1.setOnAction(e -> window.close());
+        Pane myButtons = createButtons(window);
+
+        myButtons.getChildren().add(button1);
+        return myButtons;
     }
 
     @Override

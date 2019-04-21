@@ -235,6 +235,7 @@ public class BuyPropertyPopup extends Popup {
         for (AbstractSpace sp : allSpaces) {
             if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;
+                name = mySpace.getMyName();
                 myDetails = sp.getInfo();
             }
         }
@@ -265,7 +266,6 @@ public class BuyPropertyPopup extends Popup {
             propColor.setFill(Color.web(myDetails.get(0).toString()));
             imagePane = new Pane(rectangle, propColor);
         }
-        name = mySpace.getMyName();
         return new StackPane(imagePane, propertyInfo(scene));
     }
 
