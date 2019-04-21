@@ -53,14 +53,14 @@ public class Bank implements Transfer, Serializable {
      */
     public AbstractPlayer propertyOwnedBy(Property property){
         if(ownedPropsMap.containsKey(property)){
-            System.out.println("PROPERTY IN OWNED MAP");
-            System.out.println("MY OWNER IS: " + ownedPropsMap.get(property));
+//            System.out.println("PROPERTY IN OWNED MAP");
+//            System.out.println("MY OWNER IS: " + ownedPropsMap.get(property));
             return ownedPropsMap.get(property);
         }
         else if (unOwnedProps.contains(property)){
             return null;
         }
-        System.out.println("not in either");
+//        System.out.println("not in either");
         //TODO: need to turn this into a try catch
         return null;
     }
