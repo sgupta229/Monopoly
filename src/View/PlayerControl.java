@@ -64,6 +64,9 @@ public abstract class PlayerControl implements PropertyChangeListener {
             @Override public void handle(ActionEvent e) {
                 myController.getGame().startNextTurn();
                 myDiceRoller.setDisable(false);
+              if (myController.getGame().checkGameOver()){
+                    myController.endGame(myController.getGame().getWinner());
+                 }
             }
         });
 
