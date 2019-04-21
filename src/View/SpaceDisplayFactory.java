@@ -2,7 +2,7 @@
 //
 //import Model.spaces.AbstractSpace;
 //import Model.spaces.ActionCardSpace;
-//import Model.spaces.PropSpace;
+//import Model.spaces.ClassicPropSpace;
 //import Model.spaces.TaxSpace;
 //import View.SpaceDisplay.*;
 //import javafx.scene.layout.Pane;
@@ -26,7 +26,7 @@
 //        String baseColor = "#c7edc9";
 //
 //        String name = entry.getValue().getMyName().replace("_", " ");
-//        if (entry.getValue() instanceof PropSpace) {
+//        if (entry.getValue() instanceof ClassicPropSpace) {
 //            String price = nameToPrice.get(name).toString();
 //            String color = nameToColor.get(name);
 //            if (entry.getKey().getY() == 10) {

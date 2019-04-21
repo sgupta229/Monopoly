@@ -18,9 +18,6 @@ public class ClassicGame extends AbstractGame {
         List<Integer> rolls = super.rollDice();
         int rollVal = getLastDiceRoll();
         int newIndex = getNewIndex(oldIndex, rollVal);
-        if(!(checkDoubles())) {
-            clearDiceHistory();
-        }
         if(!getCurrPlayer().isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }
