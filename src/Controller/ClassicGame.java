@@ -1,9 +1,18 @@
 package Controller;
 
+import Model.AbstractPlayer;
+
+import java.util.List;
+
 public class ClassicGame extends AbstractGame {
 
+    private List<AbstractPlayer> players;
     private int rollsInJail;
     private int passGoAmount;
+
+    public ClassicGame() {
+
+    }
 
     public ClassicGame(String filename) {
         super(filename);
@@ -37,5 +46,15 @@ public class ClassicGame extends AbstractGame {
 //        if(0 <= newIndex && 0>= oldIndex) {
             getCurrPlayer().addFunds(passGoAmount);
         }
+    }
+
+    @Override
+    public List<AbstractPlayer> getPlayers() {
+        return players;
+    }
+
+    @Override
+    public void setPlayers(List<AbstractPlayer> players) {
+        this.players = players;
     }
 }

@@ -121,8 +121,10 @@ public class SaveAndLoadData {
 
     }
     private void processSavedData(SaveData data){
-        AbstractGame.players = data.getPlayers();
-        AbstractGame.bank = data.getBank();
+
+        ClassicGame game = new ClassicGame();
+//       Game.setPlayers(data.getPlayers()); Classic
+        ClassicGame.bank = data.getBank();
         AbstractGame.board = data.getBoard();
         AbstractGame.bank = data.getBank();
         AbstractGame.spaces = data.getSpaces();

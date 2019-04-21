@@ -12,6 +12,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.*;
 
 public abstract class AbstractGame {
+
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
     private int boardSize = 0;
 
@@ -21,21 +22,25 @@ public abstract class AbstractGame {
     private double passGo;
     private AbstractActionCard currentActionCard;
 
-    public static List<AbstractPlayer> players;
-    public static Bank bank;
-    public static Board board;
-    public static List<AbstractSpace> spaces;
-    public static List<Property> properties;
-    public static AbstractPlayer currPlayer;
-    public static List<Die> dice;
-    public static List<ActionDeck> decks;
-    public static HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
-    public static List<String> possibleTokens;
-    public static int numRollsInJail = 0;
+    private List<AbstractPlayer> players;
+    private Bank bank;
+    private Board board;
+    private List<AbstractSpace> spaces;
+    private List<Property> properties;
+    private AbstractPlayer currPlayer;
+    private List<Die> dice;
+    private List<ActionDeck> decks;
+    private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<Integer, ArrayList<Integer>>();
+    private List<String> possibleTokens;
+    private int numRollsInJail = 0;
 
     private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
+
+    public AbstractGame() {
+
+    }
     
     public AbstractGame(String filename) {
         parseXMLFile(filename);
