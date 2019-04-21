@@ -47,6 +47,7 @@ public class TradePopup extends BuyPropertyPopup {
         Button button2 = new Button("NO");
         button1.setId("button2");
         button2.setId("button2");
+        return buttons;
     }
 
     @Override
