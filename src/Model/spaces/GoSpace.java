@@ -31,6 +31,6 @@ public class GoSpace extends AbstractSpace {
      */
 
     public void doAction(AbstractGame game, int userChoice){
-        game.endTurn();
+
     }
 }

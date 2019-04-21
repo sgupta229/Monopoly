@@ -1,34 +1,27 @@
 package Model;
 
-import Controller.Token;
 import Model.properties.Property;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractPlayer implements Transfer, Serializable {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
     private String name;
+    private String tokenImage;
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
-    private Token token;
-    private String tokenImage;
     private ObservableList<Property> properties;
     private List<AbstractActionCard> actionCards;
     private int currentLocation;
-    private String image;
 
 
     public AbstractPlayer() {
@@ -37,9 +30,10 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         actionCards = new ArrayList<>();
     }
 
-    public AbstractPlayer(String name) {
+    public AbstractPlayer(String name, String image) {
         this();
         this.name = name;
+        this.setImage(image);
     }
 
     public void addProperty(Property property) {
@@ -112,7 +106,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         double oldFunds = this.funds;
         this.funds = newFunds;
         myPCS.firePropertyChange("funds",oldFunds,this.funds);
-        System.out.println(this.getName() + "'s funds updated. new funds: " + funds);
     }
 
     public void addFunds(double addAmount) {
@@ -155,10 +148,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         myPCS.removePropertyChangeListener(propertyName,listener);
     }
 
-    public void startAuction() {
-
-    }
-
     public int getPropertiesOfType(String type) {
         int count = 0;
         String checkType = type.toLowerCase();
@@ -194,26 +183,18 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     public List<AbstractActionCard> getActionCards(){return actionCards;}
 
     public void setImage(String img) {
-        image = img;
+        tokenImage = img;
     }
-
-    @Deprecated
-    public void setToken(Token token) {
-        this.token = token;
-    }
-
-    @Deprecated
-    public String getTokenImage() {
+    public String getImage() {
         return this.tokenImage;
     }
 
-    @Deprecated
-    public void setCurrentLocation(int newLocation) {
-        currentLocation = newLocation;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Deprecated
-    public Token getToken() {
-        return token;
+    //TESTING ONLY
+    public void setCurrentLocation(int newLocation) {
+        currentLocation = newLocation;
     }
 }

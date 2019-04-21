@@ -51,13 +51,12 @@ public class Layout {
         myBoardPane.setId("boardPane");
 
 
-        myBoard = new Board(myBoardPane,myController,myGame);
+        myBoard = new Board(myController,myGame);
         Pane gameBoard = myBoard.getGridPane();
 
         StackPane myGameBoard = new StackPane();
         ImageView logo = myBoard.getLogo();
         myGameBoard.getChildren().addAll(gameBoard, logo);
-
 
         gameBoard.setPadding(new Insets(10,20,10,20));
         myBoardPane.getChildren().addAll(myGameBoard);
@@ -65,11 +64,8 @@ public class Layout {
         return myBoardPane;
     }
 
-
     private TabPane createPlayersTabs(){
         myPlayersTabs = new PlayerTabs(myController);
         return myPlayersTabs.getTabPane();
     }
-
-
 }

@@ -36,7 +36,6 @@ public abstract class AbstractGame implements Serializable {
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     private List<String> possibleTokens;
     private int numRollsInJail = 0;
-
     private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
@@ -88,21 +87,27 @@ public abstract class AbstractGame implements Serializable {
         }
         players = p;
         setCurrPlayer(0);
-        for (AbstractPlayer pl : players){
+        for (AbstractPlayer pl : players)
             this.addPlayer(pl);
-        }
     }
+
+    public abstract boolean checkGameOver();
+
+    public abstract AbstractPlayer getWinner();
 
     public AbstractPlayer getCurrPlayer() {
         return currPlayer;
     }
+
     public void setCurrPlayer(int index){
         myPCS.firePropertyChange("currPlayer",currPlayer,players.get(index));
         currPlayer = players.get(index);
     }
+
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
+
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         myPCS.removePropertyChangeListener(listener);
     }
@@ -129,14 +134,14 @@ public abstract class AbstractGame implements Serializable {
         return players;
     }
 
-    public int rollDice() {
-        int value = 0;
+    public List<Integer> rollDice() {
+        List<Integer> rolls = new ArrayList<>();
         for(int i = 0; i < dice.size(); i++) {
             int roll = dice.get(i).rollDie();
-            value += roll;
+            rolls.add(roll);
             diceHistory.get(i).add(roll);
         }
-        return value;
+        return rolls;
     }
 
     public Bank getBank() {
@@ -148,26 +153,24 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public void startNextTurn() {
-        int index = players.indexOf(currPlayer) + 1;
-        if(index > (players.size() - 1)) {
-            index = 0;
-        }
+        int index = players.indexOf(this.getLeftPlayer());
         setCurrPlayer(index);
     }
 
-    //checks 3 matching all dice in a row
     public boolean checkDoubles() {
         ArrayList<Integer> firstDie = diceHistory.get(0);
-        List<Integer> check = firstDie.subList(firstDie.size() - 3, firstDie.size());
+        int check = firstDie.get(firstDie.size() - 1);
         for(Integer key : diceHistory.keySet()) {
             ArrayList<Integer> otherDie = diceHistory.get(key);
-            List<Integer> other = otherDie.subList(otherDie.size() - 3, otherDie.size());
-            if(!check.equals(other)) {
+            int other = otherDie.get(firstDie.size() - 1);
+            if(!(check == other)) {
                 return false;
             }
         }
         return true;
     }
+
+    public abstract boolean checkDoublesForJail();
 
     public List<ActionDeck> getMyActionDecks(){return decks;}
 
@@ -183,10 +186,6 @@ public abstract class AbstractGame implements Serializable {
 
     public int getBoardSize() {
         return boardSize;
-    }
-
-    public void endTurn() {
-
     }
 
     public AbstractActionCard getCurrentActionCard() {
@@ -210,6 +209,10 @@ public abstract class AbstractGame implements Serializable {
         if(newIndex > board.getSize() - 1) {
             throw new IllegalArgumentException("The new index is outside of the board size");
         }
+        if(oldIndex != currPlayer.getCurrentLocation()) {
+            throw new IllegalArgumentException("The old index provided is not correct");
+        }
+        checkPassGo(oldIndex, newIndex);
         currPlayer.moveTo(newIndex);
         AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
         oldSpace.removeOccupant(getCurrPlayer());
@@ -217,8 +220,10 @@ public abstract class AbstractGame implements Serializable {
         newSpace.addOccupant(getCurrPlayer());
     }
 
-    public void displayPopup() {
-
+    public void checkPassGo(int oldIndex, int newIndex) {
+        if(newIndex < oldIndex) {
+            getCurrPlayer().addFunds(getPassGo());
+        }
     }
 
     @Deprecated
@@ -235,6 +240,13 @@ public abstract class AbstractGame implements Serializable {
     public void startAuction() {
 
     }
+
+//    public void clearDiceHistory() {
+//        diceHistory = new HashMap<>();
+//        for(int i = 0; i < dice.size(); i++) {
+//            diceHistory.put(i, new ArrayList<>());
+//        }
+//    }
 
     public int getLastDiceRoll() {
         int value = 0;
@@ -295,4 +307,6 @@ public abstract class AbstractGame implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

@@ -111,16 +111,4 @@ public class RulesPopup {
             window.close();
         }
     }
-
-
-    //even building boolean
-    //free parking boolean
-    //jail rolls int
-    //start funds double
-    //jail bail double
-    //pass go double
-
-    //apply rules button
-    //cancel button
-
 }

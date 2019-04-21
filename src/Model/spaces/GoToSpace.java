@@ -51,6 +51,5 @@ public class GoToSpace extends AbstractSpace {
         if(spaceToMoveTo.equalsIgnoreCase("JAIL")){
             game.getCurrPlayer().setJail(true);
         }
-        game.endTurn();
     }
 }

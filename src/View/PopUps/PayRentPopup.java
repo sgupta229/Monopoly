@@ -13,12 +13,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
+
 public class PayRentPopup extends BuyPropertyPopup {
 
     private AbstractSpace mySpace;
     private Controller myController;
     private Property myProp;
-
+    private ResourceBundle myText;
 
     public PayRentPopup(int propLocation, Controller controller) {
         super(propLocation, controller);
@@ -26,6 +28,7 @@ public class PayRentPopup extends BuyPropertyPopup {
         BoardConfigReader spaceInfo = new BoardConfigReader();
         allSpaces = spaceInfo.getSpaces();
         allProps = spaceInfo.getProperties();
+        this.myText = super.getMessages();
         for (AbstractSpace sp : allSpaces) {
             if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;
@@ -36,7 +39,6 @@ public class PayRentPopup extends BuyPropertyPopup {
                 myProp = p;
             }
         }
-
     }
 
     @Override
@@ -47,7 +49,7 @@ public class PayRentPopup extends BuyPropertyPopup {
     @Override
     protected Pane createButtons(Stage window) {
         HBox buttons = new HBox(HBoxSpacing);
-        Button button2= new Button("PAY");
+        Button button2= new Button(myText.getString("payButton"));
         button2.setId("button2");
         button2.setOnAction(e -> window.close());
 
@@ -74,21 +76,18 @@ public class PayRentPopup extends BuyPropertyPopup {
         }
         System.out.println("1 " +myController.getGame().getBank().propertyOwnedBy(myProp));
         System.out.println("2 "+ myProp.calculateRent(myController.getGame().getBank().propertyOwnedBy(myProp), myController.getGame().getLastDiceRoll()));
-        String myMessage = "Oops this property is owned by " + myController.getGame().getBank().propertyOwnedBy(myProp).getName() + ". Rent is $" + myProp.calculateRent(myController.getGame().getBank().propertyOwnedBy(myProp), myController.getGame().getLastDiceRoll()) + "0.";
-        return myMessage;
+        return myText.getString("propOwned") + myController.getGame().getBank().propertyOwnedBy(myProp).getName() + myText.getString("rentIs") + myProp.calculateRent(myController.getGame().getBank().propertyOwnedBy(myProp), myController.getGame().getLastDiceRoll()) + "0.";
     }
 
     @Override
     protected String createTitle() {
-        String myTitle = "Rent";
-        return myTitle;
+        return myText.getString("rentTitle");
     }
 
 
     @Override
     protected Label createHeader() {
-        Label title = new Label("Pay rent!");
-        return title;
+        return new Label(myText.getString("rentHeader"));
     }
 }
 

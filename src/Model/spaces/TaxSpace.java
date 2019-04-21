@@ -58,11 +58,9 @@ public class TaxSpace extends AbstractSpace {
             amountTaxed = flatRate;
         }
         else{
-            amountTaxed = playersWealth*percentageTaken;
+            amountTaxed = playersWealth * percentageTaken;
         }
-
         currentPlayer.makePayment(amountTaxed, taxReceiver);
-        game.endTurn();
     }
 
 
