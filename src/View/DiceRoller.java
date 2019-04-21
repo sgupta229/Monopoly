@@ -63,7 +63,9 @@ public class DiceRoller {
         }
         if(!(myController.getGame().checkDoubles())) {
             rollButton.setDisable(true);
-
+        }
+        else {
+            myController.getGame().getCurrPlayer().setJail(false);
         }
     }
 

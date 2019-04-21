@@ -1,15 +1,10 @@
 package Model;
 
-import Controller.Token;
 import Model.properties.Property;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
