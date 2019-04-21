@@ -32,7 +32,7 @@ public class ActionCardPopup extends Popup {
         this.propLocation = propLocation;
         this.myController = controller;
         this.myText = super.getMessages();
-        BoardConfigReader indexToName = new BoardConfigReader();
+        BoardConfigReader indexToName = new BoardConfigReader(myController.getGame());
         spaces = indexToName.getSpaces();
         for (AbstractSpace sp : spaces){
             if (sp.getMyLocation()==propLocation){

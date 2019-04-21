@@ -315,5 +315,11 @@ public abstract class AbstractGame implements Serializable {
         return freeParking;
     }
 
+    public List<Property> getProperties() {
+        return properties;
+    }
 
+    public List<AbstractSpace> getSpaces() {
+        return spaces;
+    }
 }

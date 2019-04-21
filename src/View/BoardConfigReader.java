@@ -1,6 +1,7 @@
 package View;
 
 import Controller.ConfigReader;
+import Controller.AbstractGame;
 import Model.spaces.AbstractSpace;
 import Model.properties.Property;
 
@@ -24,12 +25,14 @@ public class BoardConfigReader {
     private ResourceBundle myResourceBundle;
 
 
-    public BoardConfigReader() {
+    public BoardConfigReader(AbstractGame game) {
         myResourceBundle = ResourceBundle.getBundle("IndexToCoordinate");
         mySpaceConfigs = new ConfigReader(CONFIG_PATH);
-        List<List> allSpacesAndProps = mySpaceConfigs.parseSpaces();
-        spaces = allSpacesAndProps.get(0);
-        properties = allSpacesAndProps.get(1);
+
+        spaces = game.getSpaces();
+        properties = game.getProperties();
+
+
         colorPropInfo = new HashMap<>();
         for(AbstractSpace sp:spaces){
             if(sp.getInfo().size()>=1){

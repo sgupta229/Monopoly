@@ -41,7 +41,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         this.myController = controller;
         this.myText = super.getMessages();
-        BoardConfigReader board = new BoardConfigReader();
+        BoardConfigReader board = new BoardConfigReader(myController.getGame());
         myProps = board.getProperties();
     }
 

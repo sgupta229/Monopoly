@@ -228,10 +228,10 @@ public class BuyPropertyPopup extends Popup {
     public BuyPropertyPopup(int propLocation, Controller controller) {
         super();
         this.propLocation = propLocation;
-        BoardConfigReader spaceInfo = new BoardConfigReader();
+        this.myController = controller;
+        BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         allSpaces = spaceInfo.getSpaces();
         allProps = spaceInfo.getProperties();
-        this.myController = controller;
         for (AbstractSpace sp : allSpaces) {
             if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;
@@ -239,7 +239,6 @@ public class BuyPropertyPopup extends Popup {
                 myDetails = sp.getInfo();
             }
         }
-
     }
 
     public BuyPropertyPopup(int propLocation) {
