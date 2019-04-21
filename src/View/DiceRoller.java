@@ -67,6 +67,9 @@ public class DiceRoller {
             rollButton.setDisable(true);
             myEndTurn.setDisable(false);
         }
+        else {
+            myController.getGame().getCurrPlayer().setJail(false);
+        }
     }
 
     public void setDisable(boolean bool) {rollButton.setDisable(bool);}

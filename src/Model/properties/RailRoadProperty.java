@@ -75,7 +75,7 @@ public class RailRoadProperty extends Property {
             return 0.0;
         }
         else{
-            int numberOfRailRoads = propOwner.getPropertiesOfType("RailRoad");
+            int numberOfRailRoads = propOwner.getPropertiesOfType(myGroup).size();
             rentTotal+=rentNumbers.get(numberOfRailRoads-1);
 
         }

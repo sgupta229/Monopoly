@@ -1,15 +1,10 @@
 package Model;
 
-import Controller.Token;
 import Model.properties.Property;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -149,21 +144,23 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
 
-    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-        myPCS.removePropertyChangeListener(propertyName,listener);
-    }
 
-    public int getPropertiesOfType(String type) {
-        int count = 0;
+
+    public List<Property> getPropertiesOfType(String type) {
         String checkType = type.toLowerCase();
+        List<Property> propsList = new ArrayList<>();
         for(Property p : properties) {
-            System.out.println(p.getGroup());
+            //System.out.println(p.getGroup());
             if(p.getGroup().toLowerCase().equals(checkType)) {
-                count++;
+                propsList.add(p);
             }
         }
-        return count;
+        return propsList;
     }
+
+
+
+
 
     public ObservableList<Property> getProperties() {
         return properties;

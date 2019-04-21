@@ -2,6 +2,9 @@ package View.PopUps;
 
 import Controller.Controller;
 import Model.properties.Property;
+import Model.spaces.AbstractSpace;
+import View.Board;
+import View.BoardConfigReader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -15,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class BuildOrSellPopup extends BuyPropertyPopup {
@@ -23,7 +27,10 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
     private Controller myController;
     private double tabPaneWidth = 1.5;
     private ResourceBundle myText;
-    private String myProperty;
+    private Property myProperty;
+    private List<Property> myProps;
+
+    private Button myMortgage;
 
     //TODO: CHECK PLAYERS MONOPOLY WHEN MANAGE PROP IS HIT, IF FALSE THEN DISABLE ALL BUTTONS
 
@@ -34,6 +41,8 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         this.myController = controller;
         this.myText = super.getMessages();
+        BoardConfigReader board = new BoardConfigReader();
+        myProps = board.getProperties();
     }
 
     @Override
@@ -44,7 +53,13 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
 
         Tab sellTab = new Tab(myText.getString("sellTab"));
         HBox sellInfo = new HBox(10);
-        sellInfo.getChildren().addAll(setBuildInfo(popUpWindow, myText.getString("sellHouse"), myText.getString("sellHotel"),myText.getString("SellMessage")), createIndividualButton(popUpWindow,myText.getString("mortgageButton")));
+        myMortgage = createIndividualButton(popUpWindow,myText.getString("mortgageButton"));
+        myMortgage.setOnAction(e -> {
+            myController.getGame().getBank().mortgageProperty(myProperty);
+            System.out.println("ARE YOU MORTGAGED?"+myProperty.getIsMortgaged() + " " + myProperty);
+            popUpWindow.close();
+        });
+        sellInfo.getChildren().addAll(setBuildInfo(popUpWindow, myText.getString("sellHouse"), myText.getString("sellHotel"),myText.getString("SellMessage")),myMortgage);
         sellTab.setContent(sellInfo);
         tabPane.getTabs().addAll(buildTab,sellTab);
         layout.getChildren().add(tabPane);
@@ -64,11 +79,17 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         property.setId("propVBox");
 
         VBox incrementer = new VBox();
-        Pane buttons = createIndividualButton(popUpWindow,key1);
-        Pane button2 = createIndividualButton(popUpWindow,key2);
+
+        Pane myButtons = createButtons(popUpWindow);
+
+
+        Button buttons = createIndividualButton(popUpWindow,key1);
+        Button button2 = createIndividualButton(popUpWindow,key2);
+
+        myButtons.getChildren().addAll(buttons,button2);
 
         Label mess = new Label(message);
-        incrementer.getChildren().addAll(mess,buttons, button2);
+        incrementer.getChildren().addAll(mess,myButtons);
         incrementer.setAlignment(Pos.CENTER);
         incrementer.setId("buildIncrementerVBox");
         propDetails.getChildren().addAll(property,incrementer);
@@ -86,10 +107,14 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         }
         props.setPromptText(myText.getString("comboBoxText"));
         button1.setOnAction(e -> {
-            myProperty=props.getValue().toString();
+            for (Property p : myController.getGame().getCurrPlayer().getProperties()){
+                if (p.getName().equals(props.getValue())){
+                    myProperty = p;
+                    System.out.println(myProperty);
+                }
+            }
             System.out.println("Managing this property:" + myProperty);
         });
-
         combo.getChildren().addAll(props,button1 );
         return combo;
     }
@@ -110,14 +135,11 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         return buttons;
     }
 
-    private Pane createIndividualButton(Stage window, String key){
+    private Button createIndividualButton(Stage window, String key){
         Button button1= new Button(key);
         button1.setId("button3");
-        button1.setOnAction(e -> window.close());
-        Pane myButtons = createButtons(window);
 
-        myButtons.getChildren().add(button1);
-        return myButtons;
+        return button1;
     }
 
     @Override

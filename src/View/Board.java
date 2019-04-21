@@ -5,7 +5,7 @@ import Model.*;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import Model.spaces.ActionCardSpace;
-import Model.spaces.PropSpace;
+import Model.spaces.ClassicPropSpace;
 import Model.spaces.TaxSpace;
 import View.PopUps.*;
 import View.SpaceDisplay.*;
@@ -99,10 +99,17 @@ public class Board implements PropertyChangeListener {
                     myAbstractSpace = sp;
                 }
             }
+
             for (Property p : myProps){
                 if (myAbstractSpace.getMyName().equalsIgnoreCase(p.getName())){
                     myProperty = p;
                 }
+            }
+
+//            System.out.println("CHECKING IF STILL MORTGAGED********** "+myProperty.getIsMortgaged() + " " + myProperty);
+//            System.out.println("CHECKING IF STILL MORTGAGED********** "+myController.getGame().getCurrPlayer().getProperties() + " " + myProperty);
+            for (Property pr: myController.getGame().getCurrPlayer().getProperties()){
+                System.out.println("LOOK HERE***** "+ pr + " " + pr.getIsMortgaged());
             }
 
             if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
@@ -132,7 +139,7 @@ public class Board implements PropertyChangeListener {
     private void createSpaces(String baseColor){
         for (Map.Entry<Point2D.Double, AbstractSpace> entry : indexToName.entrySet()) {
             String name = entry.getValue().getMyName().replace("_", " ");
-            if (entry.getValue() instanceof PropSpace) {
+            if (entry.getValue() instanceof ClassicPropSpace) {
                 String price = nameToPrice.get(name).toString();
                 String color = nameToColor.get(name);
                 if (entry.getKey().getY() == boardDimension-1) {
@@ -224,7 +231,8 @@ public class Board implements PropertyChangeListener {
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
         allSpaces = configs.getSpaces();
-        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
+//        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
+        myProps = new ArrayList(configs.getProperties());
     }
 
     public Pane getGridPane() { return myGridPane; }
@@ -240,4 +248,9 @@ public class Board implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) { renderPlayers(); }
+
+    public List<Property> getMyProps() {
+        return myProps;
+    }
+
 }

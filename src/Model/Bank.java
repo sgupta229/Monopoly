@@ -7,6 +7,7 @@ import Controller.AbstractGame;
 import Model.properties.BuildingType;
 import Model.properties.Property;
 
+import javax.swing.tree.TreeCellEditor;
 import java.io.Serializable;
 import java.util.*;
 
@@ -17,6 +18,7 @@ public class Bank implements Transfer, Serializable {
     private double myBalance;
     private Map<BuildingType, Integer> totalBuildingMap;
     private Map<BuildingType, Integer> maxBuildingsPerProp;
+    boolean evenBuildingRule;
 
     public Bank(List<Double> allInfo, List<Property> properties, List<Map<BuildingType, Integer>> buildingInfo){
         myBalance=allInfo.get(0);
@@ -128,13 +130,50 @@ public class Bank implements Transfer, Serializable {
         if(!(property instanceof Property)) {
             throw new IllegalArgumentException("the Buildable is not a property");
         }*/
+    public boolean checkIfCanBuild(Property property, BuildingType building){
+        ArrayList<BuildingType> typesOfBuildings = new ArrayList<>();
+        typesOfBuildings.addAll(maxBuildingsPerProp.keySet());
+
+        if(typesOfBuildings.indexOf(building)>0 && property.getNumBuilding(building)==0){
+            BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
+            if(property.getNumBuilding(bBefore)!=maxBuildingsPerProp.get(bBefore)){
+                return false;
+            }
+        }
+        if(maxBuildingsPerProp.get(building)==property.getNumBuilding(building)){
+            return false;
+        }
+        if(totalBuildingMap.get(building)==0){
+            return false;
+        }
+        if(ownedPropsMap.get(property).getFunds() < property.getBuildingPrice(building)){
+            return false;
+        }
+        if(evenBuildingRule){
+            List<Property> otherProps = propertyOwnedBy(property).getPropertiesOfType(property.getColor());
+            for(Property p: otherProps){
+                if(p.getNumBuilding(building)==property.getNumBuilding(building)-1){
+                    return false;
+                }
+            }
+        }
+        if(!propertyOwnedBy(property).checkMonopoly(property)){
+            return false;
+        }
+        return true;
+
+    }
+
 
     public void build(Property property, BuildingType building){
-        if (maxBuildingsPerProp.get(building) > property.getNumBuilding(building)) {
-            AbstractPlayer propOwner = propertyOwnedBy(property);
-            totalBuildingMap.put(building, totalBuildingMap.get(building) - 1);
-            property.addBuilding(building);
-            propOwner.makePayment(property.getBuildingPrice(building), this);
+
+        if(checkIfCanBuild(property, building)){
+            if (maxBuildingsPerProp.get(building) > property.getNumBuilding(building)) {
+                AbstractPlayer propOwner = propertyOwnedBy(property);
+                totalBuildingMap.put(building, totalBuildingMap.get(building) - 1);
+                property.addBuilding(building);
+                propOwner.makePayment(property.getBuildingPrice(building), this);
+            }
         }
     }
 
@@ -164,6 +203,10 @@ public class Bank implements Transfer, Serializable {
 
     public Set<Property> getUnOwnedProps(){
         return unOwnedProps;
+    }
+
+    public void setEvenBuildingRule(boolean bool){
+        evenBuildingRule = bool;
     }
 
 }

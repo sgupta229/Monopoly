@@ -1,13 +1,12 @@
 package Model.tests;
 
 import Controller.ClassicGame;
-import Controller.Token;
 import Model.AbstractPlayer;
 import Model.ClassicPlayer;
 import Model.Bank;
 import Model.properties.Property;
 import Model.XmlTagException;
-import Model.spaces.PropSpace;
+import Model.spaces.ClassicPropSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,12 +15,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PropSpaceTest {
+class ClassicPropSpaceTest {
 
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
-    PropSpace propSpace;
+    ClassicPropSpace classicPropSpace;
     //List<AbstractSpace> spaceList;
     //List<Property> propsList;
     Bank gameBank;
@@ -35,7 +34,7 @@ class PropSpaceTest {
     @BeforeEach
     void setUp() throws XmlTagException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
-        propSpace = (PropSpace) gameClass.getBoard().getSpaceAt(1);
+        classicPropSpace = (ClassicPropSpace) gameClass.getBoard().getSpaceAt(1);
         player1 = new ClassicPlayer();
         player2 = new ClassicPlayer();
         List<AbstractPlayer> playerList = new ArrayList<>();
@@ -52,8 +51,8 @@ class PropSpaceTest {
     }
 
     AbstractPlayer buyProperty(){
-        propSpace.doAction(gameClass, 0);
-        AbstractPlayer propOwner = gameBank.propertyOwnedBy(propSpace.getMyProperty());
+        classicPropSpace.doAction(gameClass, 0);
+        AbstractPlayer propOwner = gameBank.propertyOwnedBy(classicPropSpace.getMyProperty());
         return propOwner;
     }
 
@@ -69,7 +68,7 @@ class PropSpaceTest {
         gameClass.setCurrPlayer(1);
         double player2OldFunds= player2.getFunds();
         double player1OldFunds= player1.getFunds();
-        propSpace.doAction(gameClass, 2);
+        classicPropSpace.doAction(gameClass, 2);
         double player2NewFunds = player2.getFunds();
         double player1NewFunds = player1.getFunds();
         assertTrue(player2OldFunds>player2NewFunds);
@@ -79,7 +78,7 @@ class PropSpaceTest {
     @Test
     void getMyProperty(){
         buyProperty();
-        Property linkedProperty = propSpace.getMyProperty();
+        Property linkedProperty = classicPropSpace.getMyProperty();
         Property expectedProp = player1.getProperties().get(0);
         assertEquals(linkedProperty, expectedProp);
     }

@@ -36,10 +36,10 @@ public abstract class AbstractGame implements Serializable {
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     private List<String> possibleTokens;
     private int numRollsInJail = 0;
-
     private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
+    private Transfer freeParking = new FreeParkingFunds();
     
     public AbstractGame(String filename) {
         parseXMLFile(filename);
@@ -136,7 +136,7 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public List<Integer> rollDice() {
-        List<Integer> rolls = new ArrayList<Integer>();
+        List<Integer> rolls = new ArrayList<>();
         for(int i = 0; i < dice.size(); i++) {
             int roll = dice.get(i).rollDie();
             rolls.add(roll);
@@ -158,20 +158,6 @@ public abstract class AbstractGame implements Serializable {
         setCurrPlayer(index);
     }
 
-    //checks 3 matching all dice in a row
-    public boolean checkThreeDoublesInRow() {
-        ArrayList<Integer> firstDie = diceHistory.get(0);
-        List<Integer> check = firstDie.subList(firstDie.size() - 3, firstDie.size());
-        for(Integer key : diceHistory.keySet()) {
-            ArrayList<Integer> otherDie = diceHistory.get(key);
-            List<Integer> other = otherDie.subList(otherDie.size() - 3, otherDie.size());
-            if(!check.equals(other)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public boolean checkDoubles() {
         ArrayList<Integer> firstDie = diceHistory.get(0);
         int check = firstDie.get(firstDie.size() - 1);
@@ -184,6 +170,8 @@ public abstract class AbstractGame implements Serializable {
         }
         return true;
     }
+
+    public abstract boolean checkDoublesForJail();
 
     public List<ActionDeck> getMyActionDecks(){return decks;}
 
@@ -225,11 +213,18 @@ public abstract class AbstractGame implements Serializable {
         if(oldIndex != currPlayer.getCurrentLocation()) {
             throw new IllegalArgumentException("The old index provided is not correct");
         }
+        checkPassGo(oldIndex, newIndex);
         currPlayer.moveTo(newIndex);
         AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
         oldSpace.removeOccupant(getCurrPlayer());
         AbstractSpace newSpace = getBoard().getSpaceAt(newIndex);
         newSpace.addOccupant(getCurrPlayer());
+    }
+
+    public void checkPassGo(int oldIndex, int newIndex) {
+        if(newIndex < oldIndex) {
+            getCurrPlayer().addFunds(getPassGo());
+        }
     }
 
     @Deprecated
@@ -246,6 +241,13 @@ public abstract class AbstractGame implements Serializable {
     public void startAuction() {
 
     }
+
+//    public void clearDiceHistory() {
+//        diceHistory = new HashMap<>();
+//        for(int i = 0; i < dice.size(); i++) {
+//            diceHistory.put(i, new ArrayList<>());
+//        }
+//    }
 
     public int getLastDiceRoll() {
         int value = 0;
@@ -266,6 +268,7 @@ public abstract class AbstractGame implements Serializable {
         return evenBuildingRule;
     }
     public void setEvenBuildingRule(boolean bool){
+        bank.setEvenBuildingRule(bool);
         this.evenBuildingRule = bool;
     }
     public boolean getFreeParkingRule(){
@@ -305,6 +308,11 @@ public abstract class AbstractGame implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public Transfer getFreeParking(){
+        return freeParking;
     }
 
 
