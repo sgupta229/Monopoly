@@ -56,7 +56,6 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         myMortgage = createIndividualButton(popUpWindow,myText.getString("mortgageButton"));
         myMortgage.setOnAction(e -> {
             myController.getGame().getBank().mortgageProperty(myProperty);
-            System.out.println("ARE YOU MORTGAGED?"+myProperty.getIsMortgaged() + " " + myProperty);
             popUpWindow.close();
         });
         sellInfo.getChildren().addAll(setBuildInfo(popUpWindow, myText.getString("sellHouse"), myText.getString("sellHotel"),myText.getString("SellMessage")),myMortgage);
@@ -110,10 +109,8 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
             for (Property p : myController.getGame().getCurrPlayer().getProperties()){
                 if (p.getName().equals(props.getValue())){
                     myProperty = p;
-                    System.out.println(myProperty);
                 }
             }
-            System.out.println("Managing this property:" + myProperty);
         });
         combo.getChildren().addAll(props,button1 );
         return combo;

@@ -100,6 +100,9 @@ public class PropertyCell extends ListCell<Property> {
             System.out.println(item.getColor());
             color.setFill(Paint.valueOf(item.getColor()));
             setGraphic(myHBox);
+            if (item.getIsMortgaged()==true){
+                myHBox.setDisable(true);
+            }
         }
     }
 }
