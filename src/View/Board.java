@@ -99,10 +99,17 @@ public class Board implements PropertyChangeListener {
                     myAbstractSpace = sp;
                 }
             }
+
             for (Property p : myProps){
                 if (myAbstractSpace.getMyName().equalsIgnoreCase(p.getName())){
                     myProperty = p;
                 }
+            }
+
+//            System.out.println("CHECKING IF STILL MORTGAGED********** "+myProperty.getIsMortgaged() + " " + myProperty);
+//            System.out.println("CHECKING IF STILL MORTGAGED********** "+myController.getGame().getCurrPlayer().getProperties() + " " + myProperty);
+            for (Property pr: myController.getGame().getCurrPlayer().getProperties()){
+                System.out.println("LOOK HERE***** "+ pr + " " + pr.getIsMortgaged());
             }
 
             if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
@@ -224,7 +231,8 @@ public class Board implements PropertyChangeListener {
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
         allSpaces = configs.getSpaces();
-        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
+//        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
+        myProps = new ArrayList(configs.getProperties());
     }
 
     public Pane getGridPane() { return myGridPane; }
@@ -240,4 +248,9 @@ public class Board implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) { renderPlayers(); }
+
+    public List<Property> getMyProps() {
+        return myProps;
+    }
+
 }
