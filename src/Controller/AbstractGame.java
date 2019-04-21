@@ -135,14 +135,14 @@ public abstract class AbstractGame implements Serializable {
         return players;
     }
 
-    public int rollDice() {
-        int value = 0;
+    public List<Integer> rollDice() {
+        List<Integer> rolls = new ArrayList<Integer>();
         for(int i = 0; i < dice.size(); i++) {
             int roll = dice.get(i).rollDie();
-            value += roll;
+            rolls.add(roll);
             diceHistory.get(i).add(roll);
         }
-        return value;
+        return rolls;
     }
 
     public Bank getBank() {

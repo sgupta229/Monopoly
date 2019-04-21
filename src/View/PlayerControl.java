@@ -25,15 +25,13 @@ import java.beans.PropertyChangeListener;
 import java.util.ResourceBundle;
 
 public abstract class PlayerControl implements PropertyChangeListener {
-    protected Controller myController;
-    protected AbstractPlayer myPlayer;
-    protected ResourceBundle messages;
-
-    protected AnchorPane myAnchorPane;
-    protected VBox myVBox;
-    protected DiceRoller myDiceRoller;
-    protected Text myFunds;
-
+    private Controller myController;
+    private AbstractPlayer myPlayer;
+    private ResourceBundle messages;
+    private AnchorPane myAnchorPane;
+    private VBox myVBox;
+    private DiceRoller myDiceRoller;
+    private Text myFunds;
 
     public PlayerControl(AbstractPlayer player, Controller controller){
         myPlayer = player;
@@ -61,12 +59,13 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
         Button endTurnButton = new Button(messages.getString("end-turn"));
         endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 myController.getGame().startNextTurn();
                 myDiceRoller.setDisable(false);
-              if (myController.getGame().checkGameOver()){
+                if (myController.getGame().checkGameOver()){
                     myController.endGame(myController.getGame().getWinner());
-                 }
+                }
             }
         });
 
@@ -122,6 +121,10 @@ public abstract class PlayerControl implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         myFunds.setText("$ "+Double.toString(myPlayer.getFunds()));
+    }
+
+    public VBox getMyVBox() {
+        return myVBox;
     }
 
 }

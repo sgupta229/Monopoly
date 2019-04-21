@@ -66,9 +66,11 @@ class AbstractGameTest {
 
     @Test
     void rollDice() {
-        int value = game.rollDice();
-        assertTrue(1 < value);
-        assertTrue(value < 13);
+        List<Integer> values = game.rollDice();
+        assertTrue(0 < values.get(0));
+        assertTrue(values.get(0) < 7);
+        assertTrue(0 < values.get(1));
+        assertTrue(values.get(1) < 7);
     }
 
     @Test

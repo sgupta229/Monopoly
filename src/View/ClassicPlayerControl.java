@@ -9,7 +9,7 @@ public class ClassicPlayerControl extends PlayerControl {
     public ClassicPlayerControl(AbstractPlayer player, Controller controller){
         super(player, controller);
 
-        myVBox.getChildren().addAll();
+        getMyVBox().getChildren().addAll();
     }
 
 }
