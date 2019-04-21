@@ -2,7 +2,7 @@ Sprint 2 Presentation
 ===
 
 ### Program Demo
-* ~~Rule changes?~~ 
+* Rule changes 
 * Add players - with name showing
 * Test dice roll input
 * Display funds
@@ -14,9 +14,12 @@ Sprint 2 Presentation
 * Go To Jail
 * Tax Space choose which to do 
 * Pass Go -- collect 200
-* ~~Forfeit?????~~
+* Forfeit
 * ~~Building on monopolized properties~~
-* ~~Roll/pay to get out of jail??~~
+* Roll/pay to get out of jail
+* Building on monopolized properties
+    * Back end works
+* Roll to get out of jail
 
 ### Work Related to Demo
 * Front end -- all the popups we decided to show after landing on each space before doing each action

@@ -2,9 +2,11 @@ package Model.actioncards;
 
 import Controller.AbstractGame;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractActionCard {
+public abstract class AbstractActionCard implements Serializable {
     private DeckType myDeckType;
     private ActionDeck myDeck;
     private String myMessage;
@@ -17,6 +19,13 @@ public abstract class AbstractActionCard {
     //https://www.baeldung.com/java-string-to-enum
     //Parsing data should create List<AbstractActionCard> allActionCards with all types of action cards from xml
     public AbstractActionCard(DeckType deckType, String message, Boolean holdable){
+        myDeckType = deckType;
+        myMessage = message;
+        isHoldable = holdable;
+    }
+
+    //New constructor to work with refactoring
+    public AbstractActionCard(DeckType deckType, String message, Boolean holdable, List<String> extraString, List<Double> extraDouble){
         myDeckType = deckType;
         myMessage = message;
         isHoldable = holdable;

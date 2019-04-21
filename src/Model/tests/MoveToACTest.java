@@ -26,26 +26,18 @@ class MoveToACTest {
 
     @BeforeEach
     void setUp() {
-        p1 = new ClassicPlayer("boot.png");
-        game = new ClassicGame("Normal_Config.xml");
+        p1 = new ClassicPlayer();
+        game = new ClassicGame("Normal_Config_Rework.xml");
         game.setPlayers(List.of(p1));
         game.setCurrPlayer(0);
 
         ac1 = new MoveToAC(DeckType.CHANCE, "Move to Boardwalk! If unowned you can buy it!", false, "BOARDWALK");
-        ac2 = new MoveToAC(DeckType.COMMUNITY_CHEST, "Move to nearest railroad.", false, "RAILROAD");
-        ac3 = new MoveToAC(DeckType.COMMUNITY_CHEST, "Move to nearest utility.", false, "UTILITY");
-        ac4 = new MoveToAC(DeckType.CHANCE, "Move back 3 spaces.", false, "-3");
-        ac5 = new MoveToAC(DeckType.CHANCE, "Move forward 5 spaces.", false, "5");
+        ac2 = new MoveToAC(DeckType.CHANCE, "Take a ride on the reading railroad! If you pass go, collect $200.", false, List.of("READING_RAILROAD"), List.of(200.0));
 
         for(ActionDeck d : game.getMyActionDecks()){
             if(d.getMyDeckType() == DeckType.CHANCE){
                 ac1.setDeck(d);
-                ac4.setDeck(d);
-                ac5.setDeck(d);
-            }
-            else{
                 ac2.setDeck(d);
-                ac3.setDeck(d);
             }
         }
     }
@@ -53,13 +45,34 @@ class MoveToACTest {
     @Test
     void moveToSpecificBoardwalk() {
         AbstractPlayer curr = game.getCurrPlayer();
-        System.out.println(curr.getCurrentLocation());
+
         var expected = game.getBoard().getLocationOfSpace("BOARDWALK");
         ac1.doCardAction(game);
         var actual = curr.getCurrentLocation();
         assertEquals(expected, actual);
     }
 
+    @Test
+    void moveToSpecificReadingRailroad(){
+        AbstractPlayer curr = game.getCurrPlayer();
+
+        var expected = game.getBoard().getLocationOfSpace("READING_RAILROAD");
+        ac2.doCardAction(game);
+        var actual = curr.getCurrentLocation();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void moveToSpecificPassGo(){
+        AbstractPlayer curr = game.getCurrPlayer();
+        curr.setCurrentLocation(38);
+        var expected = curr.getFunds() + 200;
+        ac2.doCardAction(game);
+        var actual = curr.getFunds();
+        assertEquals(expected, actual);
+    }
+
+/*
     @Test
     void moveToGeneralRailroad(){
         AbstractPlayer curr = game.getCurrPlayer();
@@ -107,6 +120,6 @@ class MoveToACTest {
         var actual = curr.getCurrentLocation();
 
         assertEquals(expected, actual);
-    }
+    }*/
 
 }

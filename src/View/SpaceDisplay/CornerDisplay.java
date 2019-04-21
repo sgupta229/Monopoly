@@ -7,8 +7,8 @@ import javafx.scene.text.Text;
 
 public class CornerDisplay extends SpaceDisplay {
 
-    public CornerDisplay(String baseColor, Pane boardPane, String image) {
-        super(baseColor, boardPane, image);
+    public CornerDisplay(String baseColor,String image) {
+        super(baseColor,image);
     }
 
     @Override

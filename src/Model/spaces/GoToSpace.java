@@ -3,7 +3,10 @@ package Model.spaces;
 
 import Controller.AbstractGame;
 import Model.AbstractPlayer;
-import Model.spaces.AbstractSpace;
+import Model.properties.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GoToSpace extends AbstractSpace {
@@ -11,10 +14,20 @@ public class GoToSpace extends AbstractSpace {
     private String spaceToMoveTo;
     private int spacesLocation;
 
+    public GoToSpace(int locationIndex, String spaceName, String spaceGroup,
+                     String jumpToSpace, List<Double> taxNums, Property myProp){
+        super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
+        spaceToMoveTo = jumpToSpace;
+    }
+
     public GoToSpace(int locationIndex, String spaceName, String jumpToSpace){
         super(locationIndex, spaceName);
         spaceToMoveTo = jumpToSpace;
         //spacesLocation = spaceToMoveTo.getMyLocation();
+    }
+
+    public List getInfo(){
+        return new ArrayList();
     }
 
 
@@ -34,9 +47,9 @@ public class GoToSpace extends AbstractSpace {
         //currPlayer.moveTo(spacesLocation, game.getBoardSize());
         //game.getBoard().getSpaceAt(spacesLocation).addOccupant(currPlayer);
         game.movePlayer(oldLocation, spacesLocation);
+        System.out.println("moved to jail");
         if(spaceToMoveTo.equalsIgnoreCase("JAIL")){
             game.getCurrPlayer().setJail(true);
         }
-        game.endTurn();
     }
 }

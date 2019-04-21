@@ -2,12 +2,13 @@ package Controller;
 
 import Model.spaces.AbstractSpace;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * This class holds the game board, which is made up of spaces
  */
-public class Board {
+public class Board implements Serializable {
     private List<AbstractSpace> mySpaces;
     private int myBoardSize;
 

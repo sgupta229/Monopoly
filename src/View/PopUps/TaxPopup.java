@@ -1,8 +1,10 @@
 package View.PopUps;
 
-import Controller.ConfigReader;
+import Controller.Controller;
 import Model.spaces.AbstractSpace;
 import View.BoardConfigReader;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,25 +14,30 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.ResourceBundle;
 
 public class TaxPopup extends Popup {
     private List<AbstractSpace> spaces;
     private String name;
-    private Integer index;
     private int propLocation;
-    private Map<Integer, ArrayList> taxSpaces;
+    private Controller myController;
+    private AbstractSpace mySpace;
+    private int bottomPadding = 50;
+    private ResourceBundle myText;
 
-
-    public TaxPopup(int propLocation) {
+    public TaxPopup(int propLocation, Controller controller) {
         super();
         this.propLocation = propLocation;
+        this.myText = super.getMessages();
         BoardConfigReader spaceInfo = new BoardConfigReader();
         spaces = spaceInfo.getSpaces();
-        ConfigReader spaces = new ConfigReader(BoardConfigReader.CONFIG_PATH);
-        taxSpaces = spaces.parseColorPropInfo();
+        this.myController = controller;
+        for (AbstractSpace sp : spaces) {
+            if (sp.getMyLocation() == propLocation) {
+                mySpace = sp;
+            }
+        }
     }
 
     @Override
@@ -38,41 +45,51 @@ public class TaxPopup extends Popup {
         for (AbstractSpace sp : spaces) {
             if (sp.getMyLocation() == propLocation) {
                 name = sp.getMyName();
-                index = sp.getMyLocation();
             }
         }
         var imageFile = new Image(this.getClass().getClassLoader().getResourceAsStream("taxCard.png"));
         ImageView image = new ImageView(imageFile);
-        Pane imagePane= new Pane(image);
 
-        return imagePane;
+        return new Pane(image);
     }
 
     @Override
     protected String createMessage() {
-        String myMessage = "Time to pay your taxes!";
-        return myMessage;
+        return myText.getString("taxMessage");
     }
 
     @Override
     protected String createTitle() {
-        String myTitle = "Tax";
-        return myTitle;
+        return myText.getString("taxTitle");
     }
 
     @Override
     protected Pane createButtons(Stage window) {
-        VBox buttons = new VBox(10);
-        ArrayList details = new ArrayList();
-
-        Button button1= new Button("Pay $200");
-        Button button2= new Button("Pay 10%");
+        VBox buttons = new VBox(HBoxSpacing);
+        Button button1= new Button(myText.getString("taxButton1"));
+        Button button2= new Button(myText.getString("taxButton2"));
 
         button1.setId("button3");
         button2.setId("button3");
-        button1.setOnAction(e -> window.close());
+
+        button1.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                mySpace.doAction(myController.getGame(),OK);
+                window.close();
+            }
+        });
+        button2.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                mySpace.doAction(myController.getGame(),NO);
+                window.close();
+            }
+        });
         buttons.getChildren().addAll(button1,button2);
-        buttons.setPadding(new Insets(0,0,50,0));
+        buttons.setPadding(new Insets(OK,OK,bottomPadding,OK));
         return buttons;
     }
 

@@ -1,4 +1,4 @@
-package Model.Tests;
+package Model.tests;
 
 import Controller.ClassicGame;
 import Model.*;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TaxSpaceTest {
 
-    //ConfigReader conf = new ConfigReader("Normal_Config.xml");
+    //ConfigReader conf = new ConfigReader("Normal_Config_Old.xml");
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
@@ -27,7 +27,7 @@ class TaxSpaceTest {
 
     @BeforeEach
     void setUp() throws XmlTagException {
-        gameClass = new ClassicGame("Normal_Config.xml");
+        gameClass = new ClassicGame("Normal_Config_Rework.xml");
         taxSpace = gameClass.getBoard().getSpaceAt(38);
         player1 = new ClassicPlayer();
         List<AbstractPlayer> playerList = new ArrayList<>();

@@ -1,7 +1,9 @@
 package Model.spaces;
 import Controller.*;
 import Model.AbstractPlayer;
+import Model.properties.Property;
 
+import java.io.Serializable;
 import java.util.*;
 
 /***
@@ -10,11 +12,20 @@ import java.util.*;
  * It will hold a list of which players (if any) are on itself
  */
 
-public abstract class AbstractSpace {
+public abstract class AbstractSpace implements Serializable {
     private int myLocation;
     private String myName;
     List<AbstractPlayer> myOccupants = new ArrayList<>();
     private SpaceGroup myGroup;
+    private Property myProp;
+
+    public AbstractSpace(int locationIndex, String spaceName, String spaceGroup,
+    String jumpToSpace, List<Double> taxNums, Property prop){
+        myLocation = locationIndex;
+        myName = spaceName;
+        myGroup = SpaceGroup.valueOf(spaceGroup);
+        myProp = prop;
+    }
 
     public AbstractSpace(int locationIndex, String spaceName){
         myLocation = locationIndex;
@@ -37,6 +48,8 @@ public abstract class AbstractSpace {
     public List<AbstractPlayer> getOccupants(){
         return myOccupants;
     }
+
+    public abstract List getInfo();
 
     /***
      * adds a player to the list of players on the space
@@ -70,9 +83,15 @@ public abstract class AbstractSpace {
         return myGroup;
     }
 
+    public void setMyProp(Property prop){
+        myProp = prop;
+    }
+
     public void setMyGroup(SpaceGroup group){
         myGroup = group;
     }
+
+    public Property getMyProp(){return myProp;}
 
     @Override
     public int hashCode() {

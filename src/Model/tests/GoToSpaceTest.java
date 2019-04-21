@@ -1,4 +1,4 @@
-package Model.tests;
+package Model.Tests;
 
 import Controller.ClassicGame;
 import Controller.Token;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GoToSpaceTest {
 
-    //ConfigReader conf = new ConfigReader("Normal_Config.xml");
+    //ConfigReader conf = new ConfigReader("Normal_Config_Old.xml");
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
@@ -33,10 +33,9 @@ class GoToSpaceTest {
 
     @BeforeEach
     void setUp() throws XmlTagException {
-        gameClass = new ClassicGame("Normal_Config.xml");
+        gameClass = new ClassicGame("Normal_Config_Rework.xml");
         goToJail = gameClass.getBoard().getSpaceAt(30);
         player1 = new ClassicPlayer();
-        player1.setToken(new Token(0));
         List<AbstractPlayer> playerList = new ArrayList<>();
         playerList.add(player1);
         gameClass.setPlayers(playerList);

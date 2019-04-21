@@ -2,60 +2,40 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ColorProperty extends Property {
+public abstract class ColorProperty extends Property {
 
-    private int numHouse;
-    private int numHotel;
-    private String myColor;
-
+    //private int numHouse;
     private List<Double> rentNumbers;
-    private double pricePerHouse;
-    private double pricePerHotel;
-    private double mortgage;
-    private final double INFO_NUM = 8;
 
 
-    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
-        super(price, propName, paymentInfo, groupSize, buildingPricesMap);
-        myColor=color;
-        setMyColor(color);
-        setGroup(color);
-    }
 
-    @Deprecated
-    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize){
-        super(price, propName, paymentInfo, groupSize);
-        myColor=color;
-        setMyColor(color);
+    public ColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
+        super(price, propName, color, paymentInfo, groupSize, buildingPriceMap);
         setGroup(color);
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException{
-        if(paymentInformation.size()>=INFO_NUM)   {
-            pricePerHouse = paymentInformation.get(6);
-            pricePerHotel = paymentInformation.get(7);
-            setMortgageAmount(paymentInformation.get(8));
-            rentNumbers = paymentInformation.subList(0, 6);
-            buildingPrices = new HashMap<>();
-            /////buildingPrices.put(something);
-        }
-        else{
-            throw new IndexOutOfBoundsException("Bad data") ;
-        }
+        List<Double> paymentInformationCopy = paymentInformation;
+
+            //pricePerHouse = paymentInformation.get(6);
+            //pricePerHotel = paymentInformation.get(7);
+            setMortgageAmount(paymentInformationCopy.get(paymentInformationCopy.size()-1));
+            rentNumbers = paymentInformationCopy.subList(0, paymentInformationCopy.size()-1);
+
+    }
+
+    public abstract List getInfo();
+
+    public List<Double> getRentNumbers(){
+        return rentNumbers;
     }
 
 
-    /***
-     * Allows for users to see the color of a property which is crucial for monopolies
-     * @return the color of this property
-     */
-    public String getPropertyColor(){
-        return myColor;
-    }
 
     /***
      * A method that utilizes the member variables to calculate how
@@ -63,45 +43,11 @@ public class ColorProperty extends Property {
      * @return the total rent value to be paid
      */
     @Override
-    public double calculateRent(AbstractPlayer propOwner, int lastDiceRoll){
-        if(this.getIsMortgaged()){
-            return 0.0;
-        }
-        double rentTotal = 0.0;
-        numHotel = getNumBuilding(BuildingType.valueOf("HOTEL"));
-        if(numHotel>0){
-            rentTotal+= numHotel*rentNumbers.get(5);
-        }
-        else{
-            rentTotal+= rentNumbers.get(getNumBuilding(BuildingType.valueOf("HOUSE")));
-        }
-        return rentTotal;
-    }
+    public abstract double calculateRent(AbstractPlayer propOwner, int lastDiceRoll);
 
-    @Override
-    public void addBuilding(BuildingType building){
-        if(!buildingMap.containsKey(building)){
-            buildingMap.put(building, 0);
-        }
-        buildingMap.put(building, buildingMap.get(building)+1);
-        System.out.println(building );
-        System.out.println(buildingMap.get(building));
-    }
+    public abstract void addBuilding(BuildingType building);
 
-    @Override
-    public void removeBuilding(BuildingType building){
-        buildingMap.put(building, buildingMap.get(building)-1);
-    }
+    public abstract void removeBuilding(BuildingType building);
 
-    @Override
-    public int getNumBuilding(BuildingType building){
-        if(!buildingMap.containsKey(building)){
-            buildingMap.put(building, 0);
-        }
-        return buildingMap.get(building);
-    }
-
-
-
-
+    public abstract int getNumBuilding(BuildingType building);
 }

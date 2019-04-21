@@ -1,10 +1,11 @@
-package Model.properties;
+package Model.tests;
 
 import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Model.Bank;
 import Model.ClassicPlayer;
 import Model.XmlTagException;
+import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UtilityPropertyTest {
 
-    ConfigReader conf = new ConfigReader("Normal_Config.xml");
+    ConfigReader conf = new ConfigReader("Normal_Config_Rework.xml");
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
@@ -27,7 +28,7 @@ class UtilityPropertyTest {
 
     @BeforeEach
     void setUp() throws XmlTagException {
-        gameClass = new ClassicGame("Normal_Config.xml");
+        gameClass = new ClassicGame("Normal_Config_Rework.xml");
         propsList = conf.parseSpaces().get(1);
         player1 = new ClassicPlayer();
         gameBank = gameClass.getBank();

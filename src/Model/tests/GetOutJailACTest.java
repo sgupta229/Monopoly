@@ -1,4 +1,4 @@
-package Model.tests;
+package Model.Tests;
 
 import Controller.AbstractGame;
 import Controller.ClassicGame;
@@ -24,10 +24,10 @@ class GetOutJailACTest {
 
     @BeforeEach
     void setUp() {
-        p1 = new ClassicPlayer("boot.png");
-        p2 = new ClassicPlayer("battleship.png");
-        p3 = new ClassicPlayer("chest.png");
-        game = new ClassicGame("Normal_Config.xml");
+        p1 = new ClassicPlayer();
+        p2 = new ClassicPlayer();
+        p3 = new ClassicPlayer();
+        game = new ClassicGame("Normal_Config_Rework.xml");
         game.setPlayers(List.of(p1, p2, p3));
         game.setCurrPlayer(0);
 

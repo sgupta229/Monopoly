@@ -21,8 +21,8 @@
     -fx-background-color: #e1e1e1;
     -fx-padding: 15;
     -fx-spacing: 20;
-    -fx-pref-height: 380;
-    -fx-pref-height: 400;
+    -fx-pref-width: 400;
+    -fx-pref-height: 500;
 }
 
 #button1 {
@@ -105,8 +105,6 @@
 
 #boardPane {
     -fx-background-color: white;
-
-
 }
 
 
@@ -135,7 +133,7 @@
 
 
 #propText{
-    -fx-font-size: 6pt;
+    -fx-font-size: 5pt;
 
 }
 
@@ -148,5 +146,12 @@
     -fx-font-size: 15pt;
 }
 
+#buildIncrementerVBox{
+    -fx-padding: 0.0,20.0,0.0,40.0;
+    -fx-spacing: 15;
+}
 
+#propVBox{
+    -fx-padding: 20,10,20,10;
+}
 

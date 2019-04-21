@@ -2,63 +2,58 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.Objects;
+import java.io.Serializable;
+import java.util.*;
 
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,
  * rent amount with monopoly, cost of placing a house, cost of placing a hotel, cost of rent
  * with every specific  number of houses, cost of rent with a hotel, and the mortgage cost
  */
-public abstract class Property {
+public abstract class Property implements Serializable {
+    protected ResourceBundle general;
 
     private double myPrice;
     private double mortgageAmount;
     private String myGroup;
     private String myName;
-    private String myColor;
+    protected String myColor;
     private Boolean isMortgaged;
     private List allPaymentInfo;
     private int myGroupSize;
-
-    protected Map<BuildingType, Integer> buildingMap;
-    protected Map<BuildingType, Double> buildingPrices;
-
+    private Map<BuildingType, Double> buildingPrices;
+    private Map<BuildingType, Integer> buildingMap;
 
     /////need property to take in building map with buildingtypes as keys already
-           ///// and also buildingprices that is already populated, and just set these
+    ///// and also buildingprices that is already populated, and just set these
 
-    public Property(double price, String propName,  List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPricesMap){
+    public Property(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
         isMortgaged = false;
         myPrice=price;
         myName = propName;
+        myColor = color;
         allPaymentInfo = paymentInfo;
         myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
-        buildingPrices=buildingPricesMap;
-        buildingMap = new HashMap<>();
+        buildingPrices = buildingPriceMap;
+        this.buildingMap = new HashMap<>();
+        general = ResourceBundle.getBundle("GeneralInfo");
+
         for(BuildingType buildingType : buildingPrices.keySet()){
             buildingMap.put(buildingType, 0);
         }
+
     }
 
-    @Deprecated
     public Property(double price, String propName,  List<Double> paymentInfo, int groupSize){
+        isMortgaged = false;
         myPrice=price;
         myName = propName;
         allPaymentInfo = paymentInfo;
         myGroupSize = groupSize;
-        isMortgaged = false;
         initializePaymentInfo(allPaymentInfo);
-        //////buildingMap = new HashMap<>();
-        /////for(BuildingType buildingType : buildingMap.keySet()){
-            /////buildingMap.put(buildingType, 0);
-        ////}
+        general = ResourceBundle.getBundle("GeneralInfo");
     }
-
-
 
     @Deprecated
     public Property(double price, String propName, String color, List<Double> paymentInfo){
@@ -80,11 +75,17 @@ public abstract class Property {
 
     protected abstract void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException;
 
-    public abstract void addBuilding(BuildingType building);
+    public void addBuilding(BuildingType building) {
 
-    public abstract void removeBuilding(BuildingType building);
+    }
 
-    public abstract int getNumBuilding(BuildingType building);
+    public void removeBuilding(BuildingType building) {
+
+    }
+
+    public int getNumBuilding(BuildingType building) {
+        return 0;
+    }
 
     /***
      * A getter method that returns the name of this property
@@ -102,6 +103,11 @@ public abstract class Property {
         return myPrice;
     }
 
+    public abstract List getInfo();
+
+    public String getMyName(){
+        return myName;
+    }
 
     public String getColor(){
         return myColor;
@@ -120,7 +126,7 @@ public abstract class Property {
     }
 
     public void setMyColor(String color){
-       myColor=color;
+        myColor=color;
     }
 
 
@@ -148,11 +154,6 @@ public abstract class Property {
         mortgageAmount = amount;
     }
 
-    public double getBuildingPrice(BuildingType building){
-        return buildingPrices.get(building);
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -161,12 +162,23 @@ public abstract class Property {
         return Double.compare(property.myPrice, myPrice) == 0 &&
                 myGroup.equals(property.myGroup) &&
                 myName.equals(property.myName); //&&
-                //myColor.equals(property.myColor);
+        //myColor.equals(property.myColor);
     }
-
 
     @Override
     public int hashCode() {
         return Objects.hash(myGroup, myName, myColor);
+    }
+
+    public double getBuildingPrice(BuildingType building){
+        return buildingPrices.get(building);
+    }
+
+    public Map<BuildingType, Integer> getBuildingMap() {
+        return buildingMap;
+    }
+
+    public Map<BuildingType, Double> getBuildingPrices() {
+        return buildingPrices;
     }
 }

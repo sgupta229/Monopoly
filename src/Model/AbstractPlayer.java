@@ -1,29 +1,24 @@
 package Model;
 
-import Controller.Token;
 import Model.properties.Property;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
-import Model.properties.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.Serializable;
+import java.util.*;
 
-public abstract class AbstractPlayer implements Transfer {
+public abstract class AbstractPlayer implements Transfer, Serializable {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
     private String name;
+    private String tokenImage;
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
-    private Token token;
-    private String tokenImage;
     private ObservableList<Property> properties;
     private List<AbstractActionCard> actionCards;
     private int currentLocation;
@@ -33,17 +28,22 @@ public abstract class AbstractPlayer implements Transfer {
         this.inJail = false;
         properties = FXCollections.observableArrayList();
         actionCards = new ArrayList<>();
-
     }
 
-    public AbstractPlayer(String name) {
+    public AbstractPlayer(String name, String image) {
         this();
         this.name = name;
+        this.setImage(image);
     }
 
     public void addProperty(Property property) {
         properties.add(property);
     }
+
+    public void removeProperty(Property property) {
+        properties.remove(property);
+    }
+
 
     @Override
     public void makePayment(double amount, Transfer receiver) {
@@ -78,18 +78,8 @@ public abstract class AbstractPlayer implements Transfer {
         return funds;
     }
 
-    @Deprecated
-    public Token getToken() {
-        return token;
-    }
-
     public int getCurrentLocation(){
         return currentLocation;
-    }
-
-    @Deprecated
-    public void setCurrentLocation(int newLocation) {
-        currentLocation = newLocation;
     }
 
     public int moveTo(int newLocation) {
@@ -103,7 +93,10 @@ public abstract class AbstractPlayer implements Transfer {
 
     }
 
-    public abstract void doSpecialMove();
+    public void payBail(Bank b) {
+        this.makePayment(50, b);
+        this.inJail = false;
+    }
 
     public void setJail(boolean set) {
         inJail = set;
@@ -113,12 +106,6 @@ public abstract class AbstractPlayer implements Transfer {
         double oldFunds = this.funds;
         this.funds = newFunds;
         myPCS.firePropertyChange("funds",oldFunds,this.funds);
-        System.out.println(this.getName() + "'s funds updated. new funds: " + funds);
-    }
-
-    @Deprecated
-    public void setToken(Token token) {
-        this.token = token;
     }
 
     public void addFunds(double addAmount) {
@@ -133,29 +120,39 @@ public abstract class AbstractPlayer implements Transfer {
         return this.name;
     }
 
-    @Deprecated
-    public String getTokenImage() {
-        return this.tokenImage;
-    }
-
     public void addActionCard(AbstractActionCard c) {
         actionCards.add(c);
     }
 
-    public abstract Map<BuildingType, Integer> getNumBuildings();
+    public Map<BuildingType, Integer> getNumBuildings() {
+        Map<BuildingType, Integer> buildingInventory = new HashMap<>();
+        for(Property p : getProperties()) {
+            Map<BuildingType, Integer> mapCount= p.getBuildingMap();
+            for(BuildingType b : mapCount.keySet()) {
+                if(!buildingInventory.containsKey(b)) {
+                    buildingInventory.put(b, mapCount.get(b));
+                }
+                else {
+                    buildingInventory.put(b, buildingInventory.get(b) + mapCount.get(b));
+                }
+            }
+        }
+        return buildingInventory;
+    }
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
 
-    public void startAuction() {
-
+    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        myPCS.removePropertyChangeListener(propertyName,listener);
     }
 
     public int getPropertiesOfType(String type) {
         int count = 0;
         String checkType = type.toLowerCase();
         for(Property p : properties) {
+            System.out.println(p.getGroup());
             if(p.getGroup().toLowerCase().equals(checkType)) {
                 count++;
             }
@@ -184,4 +181,20 @@ public abstract class AbstractPlayer implements Transfer {
     }
 
     public List<AbstractActionCard> getActionCards(){return actionCards;}
+
+    public void setImage(String img) {
+        tokenImage = img;
+    }
+    public String getImage() {
+        return this.tokenImage;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    //TESTING ONLY
+    public void setCurrentLocation(int newLocation) {
+        currentLocation = newLocation;
+    }
 }

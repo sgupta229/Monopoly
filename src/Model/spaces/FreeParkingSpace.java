@@ -1,14 +1,27 @@
 package Model.spaces;
 
 import Controller.AbstractGame;
-import Model.spaces.AbstractSpace;
+import Model.properties.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FreeParkingSpace extends AbstractSpace {
+
+    public FreeParkingSpace(int locationIndex, String spaceName, String spaceGroup,
+                            String jumpToSpace, List<Double> taxNums, Property myProp){
+
+        super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
+    }
+
 
     public FreeParkingSpace(int locationIndex, String spaceName){
         super(locationIndex, spaceName);
     }
 
+    public List getInfo(){
+        return new ArrayList();
+    }
 
     /***
      * This method performs the specific action that a type of space requires.
@@ -19,6 +32,6 @@ public class FreeParkingSpace extends AbstractSpace {
      */
 
     public void doAction(AbstractGame game, int userChoice){
-        game.endTurn();
+
     }
 }

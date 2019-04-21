@@ -1,11 +1,12 @@
-package Model.properties;
+package Model.tests;
 
 import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Model.Bank;
 import Model.ClassicPlayer;
 import Model.XmlTagException;
-import Model.spaces.AbstractSpace;
+import Model.properties.BuildingType;
+import Model.properties.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +14,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ColorPropertyTest {
+class ClassicColorPropertyTest {
 
-    ConfigReader conf = new ConfigReader("Normal_Config.xml");
+    ConfigReader conf = new ConfigReader("Normal_Config_Rework.xml");
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
@@ -23,10 +24,9 @@ class ColorPropertyTest {
     Bank gameBank;
     int lastDiceRoll;
 
-
     @BeforeEach
     void setUp() throws XmlTagException {
-        gameClass = new ClassicGame("Normal_Config.xml");
+        gameClass = new ClassicGame("Normal_Config_Rework.xml");
         propsList = conf.parseSpaces().get(1);
         player1 = new ClassicPlayer();
         gameBank = gameClass.getBank();
@@ -96,14 +96,37 @@ class ColorPropertyTest {
     }
 
     @Test
-    void addBuilding() {
+    void addBuildingANDgetNum() {
+        Property lightBlueProp = propsList.get(3);
+        player1.addProperty(lightBlueProp);
+        lightBlueProp.addBuilding(BuildingType.valueOf("HOUSE"));
+        var actualNumHouses = lightBlueProp.getNumBuilding(BuildingType.valueOf("HOUSE"));
+        var expectedNumHouses = 1;
+        assertEquals(expectedNumHouses, actualNumHouses);
     }
 
     @Test
-    void removeBuilding() {
+    void removeBuildingANDgetNum() {
+        Property lightBlueProp = propsList.get(3);
+        Property lightBlueProp2 = propsList.get(4);
+        Property lightBlueProp3 = propsList.get(5);
+        player1.addProperty(lightBlueProp);
+        player1.addProperty(lightBlueProp2);
+        player1.addProperty(lightBlueProp3);
+        lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.removeBuilding(BuildingType.valueOf("HOUSE"));
+        var actualNumHouses = lightBlueProp2.getNumBuilding(BuildingType.valueOf("HOUSE"));
+        var expectedNumHouses = 1;
+        assertEquals(expectedNumHouses, actualNumHouses);
     }
 
     @Test
-    void getNumBuilding() {
+    void getNumBuildingNoBuildings() {
+        Property lightBlueProp3 = propsList.get(5);
+        player1.addProperty(lightBlueProp3);
+        var actualNumHouses = lightBlueProp3.getNumBuilding(BuildingType.valueOf("HOUSE"));
+        var expectedNumHouses = 0;
+        assertEquals(expectedNumHouses, actualNumHouses);
     }
 }
