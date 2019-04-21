@@ -241,9 +241,12 @@ public abstract class AbstractGame implements Serializable {
 
     }
 
-    public void clearDiceHistory() {
-        diceHistory = new HashMap<>();
-    }
+//    public void clearDiceHistory() {
+//        diceHistory = new HashMap<>();
+//        for(int i = 0; i < dice.size(); i++) {
+//            diceHistory.put(i, new ArrayList<>());
+//        }
+//    }
 
     public int getLastDiceRoll() {
         int value = 0;
