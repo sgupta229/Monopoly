@@ -52,9 +52,9 @@ public class ConfigReader {
         double maxNumHouses = Double.parseDouble(doc.getElementsByTagName("MaxHouses").item(0).getTextContent());
 
         bankInfo.add(bankFunds);
-        bankInfo.add(numHouses);
-        bankInfo.add(numHotels);
-        bankInfo.add(maxNumHouses);
+        //bankInfo.add(numHouses);
+        //bankInfo.add(numHotels);
+        //bankInfo.add(maxNumHouses);
         //System.out.println(maxNumHouses);
         return bankInfo;
     }
