@@ -10,11 +10,11 @@ import javafx.scene.text.Text;
 
 public abstract class SpaceDisplay {
 
-    protected String myBaseColor;
+    private String myBaseColor;
     protected String myImage;
-    protected Rectangle myRectangle;
-    protected StackPane myPropertyStackPane;
-    protected Pane myImagePane;
+    private Rectangle myRectangle;
+    private StackPane myPropertyStackPane;
+    private Pane myImagePane;
 
 
     public SpaceDisplay(String baseColor,String image) {

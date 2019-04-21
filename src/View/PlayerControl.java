@@ -4,6 +4,7 @@ import Controller.Controller;
 import Model.AbstractPlayer;
 import Model.properties.Property;
 import View.PopUps.BuildOrSellPopup;
+import View.PopUps.TradePopup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -32,6 +33,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
     private VBox myVBox;
     private DiceRoller myDiceRoller;
     private Text myFunds;
+    private Button endTurnButton;
 
     public PlayerControl(AbstractPlayer player, Controller controller){
         myPlayer = player;
@@ -39,14 +41,15 @@ public abstract class PlayerControl implements PropertyChangeListener {
         myPlayer.addPropertyChangeListener("funds",this);
 
         messages = ResourceBundle.getBundle("Messages");
-
+        endTurnButton = new Button(messages.getString("end-turn"));
+        endTurnButton.setDisable(true);
         setUpLayout();
     }
 
     private void setUpLayout(){
         myAnchorPane = new AnchorPane();
 
-        myDiceRoller = new DiceRoller(myController);
+        myDiceRoller = new DiceRoller(myController, endTurnButton);
         HBox diceRollerView = myDiceRoller.getDiceRollerView();
 
         myAnchorPane.getChildren().addAll(createVBox(),diceRollerView);
@@ -56,8 +59,6 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
     private VBox createVBox(){
         myVBox = new VBox();
-
-        Button endTurnButton = new Button(messages.getString("end-turn"));
         endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -69,8 +70,16 @@ public abstract class PlayerControl implements PropertyChangeListener {
             }
         });
 
+        HBox manageTradeBox = new HBox(10);
+
         Button manageProperty = new Button("Manage Property");
         manageProperty.setOnAction(e -> new BuildOrSellPopup(39,myController).display());
+
+        Button trade = new Button("Trade");
+//        trade.setOnAction(e -> new TradePopup().display());
+        //TODO make a trade pop up
+
+        manageTradeBox.getChildren().addAll(manageProperty,trade);
 
         HBox moveBox = new HBox();
         TextField moveTo = new TextField();
@@ -93,7 +102,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         Node playerIcon = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(myPlayer.getImage()),
                 40.0,40.0,false,true));
         nameAndEnd.getChildren().addAll(playerIcon,playerName,endTurnButton);
-        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(), moveBox,manageProperty,createAssetsListView(),forfeit);
+        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(), moveBox,manageTradeBox,createAssetsListView(),forfeit);
         return myVBox;
     }
 
@@ -127,4 +136,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         return myVBox;
     }
 
+    public Button getEndTurnButton() {
+        return endTurnButton;
+    }
 }
