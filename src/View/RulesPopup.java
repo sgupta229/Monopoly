@@ -25,6 +25,7 @@ public class RulesPopup {
     private NumberSpinner startFunds;
     private NumberSpinner jailBail;
     private NumberSpinner passGo;
+    private NumberSpinner bankFunds;
     private Button applyButton;
 
     public RulesPopup(AbstractGame game){
@@ -43,6 +44,7 @@ public class RulesPopup {
         startFunds = new NumberSpinner(500,100);
         jailBail = new NumberSpinner(800,100);
         passGo = new NumberSpinner(200,50);
+        bankFunds = new NumberSpinner((int)myGame.getBankFunds(),500);
 
         applyButton = new Button("Apply");
         applyButton.setOnAction(new ApplyButtonHandler());
@@ -53,6 +55,7 @@ public class RulesPopup {
                 makeRuleView("Starting Balance",startFunds),
                 makeRuleView("Bail jail amount",jailBail),
                 makeRuleView("Amount when passing GO",passGo),
+                makeRuleView("Starting Bank Funds",bankFunds),
                 applyButton);
 
         Scene scene1= new Scene(myLayout, Controller.WIDTH/2, Controller.HEIGHT* 0.8);
@@ -100,6 +103,7 @@ public class RulesPopup {
             int startFundsChoice = startFunds.getNumber();
             int jailBailChoice = jailBail.getNumber();
             int passGoChoice = passGo.getNumber();
+            int bankFundsChoice = bankFunds.getNumber();
 
             myGame.setEvenBuildingRule(buildingChoice);
             myGame.setFreeParkingRule(freeParkingChoice);
@@ -107,6 +111,7 @@ public class RulesPopup {
             myGame.setStartFunds(startFundsChoice);
             myGame.setJailBail(jailBailChoice);
             myGame.setPassGo(passGoChoice);
+            myGame.setBankFunds(bankFundsChoice);
 
             window.close();
         }
