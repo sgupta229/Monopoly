@@ -208,6 +208,7 @@ public class ConfigReader {
                     Property newProp = (Property) Class.forName("Model.properties." + className).getConstructor(double.class, String.class, String.class, List.class, int.class, Map.class).newInstance(buyPrice,
                             name, color, rentNumbers, groupSize, BuildingPrices);
                     propsList.add(newProp);
+                    newProp.setIsMortgaged(false);
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {

@@ -14,18 +14,21 @@ import java.util.List;
 
 
 public class DiceRoller {
+
     private Die myDie;
     private HBox myHBox;
     private Controller myController;
     private  Button rollButton;
     private List<Label> diceValues;
+    private Button myEndTurn;
 
-    public DiceRoller(Controller controller){
+    public DiceRoller(Controller controller, Button endTurn){
         myController = controller;
         myDie = new Die(6);
         diceValues = new ArrayList<>();
         myHBox = new HBox();
         myHBox.setSpacing(40.0);
+        myEndTurn = endTurn;
         createDiceView();
         rollButton = new Button("Roll");
         rollButton.setId("button1");
@@ -60,6 +63,7 @@ public class DiceRoller {
         }
         if(!(myController.getGame().checkDoubles())) {
             rollButton.setDisable(true);
+            myEndTurn.setDisable(false);
         }
     }
 
