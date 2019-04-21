@@ -170,6 +170,8 @@ public abstract class AbstractGame implements Serializable {
         return true;
     }
 
+    public abstract boolean checkDoublesForJail();
+
     public List<ActionDeck> getMyActionDecks(){return decks;}
 
     //instantiate a player and add it to the list

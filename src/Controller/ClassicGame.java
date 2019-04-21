@@ -37,7 +37,7 @@ public class ClassicGame extends AbstractGame {
     }
 
     //checks 3 matching all dice in a row
-    public boolean checkThreeDoublesInRow() {
+    public boolean checkDoublesForJail() {
         if(getDiceHistory().get(0).size() < 3) {
             return false;
         }

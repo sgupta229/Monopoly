@@ -96,7 +96,7 @@ class AbstractGameTest {
         game.getDiceHistory().get(0).add(1);
         game.getDiceHistory().get(1).add(1);
         game.getDiceHistory().get(0).add(1);
-        boolean actual = game.checkThreeDoublesInRow();
+        boolean actual = game.checkDoublesForJail();
         boolean expected = true;
         assertEquals(actual, expected);
     }
