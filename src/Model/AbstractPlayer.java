@@ -20,6 +20,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
     private String name;
+    private String tokenImage;
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
@@ -219,15 +220,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
     @Deprecated
-    public void setToken(Token token) {
-        this.token = token;
-    }
-    @Deprecated
     public void setCurrentLocation(int newLocation) {
         currentLocation = newLocation;
-    }
-    @Deprecated
-    public Token getToken() {
-        return token;
     }
 }
