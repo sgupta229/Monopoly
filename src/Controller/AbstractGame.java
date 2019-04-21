@@ -155,6 +155,7 @@ public abstract class AbstractGame implements Serializable {
     public void startNextTurn() {
         int index = players.indexOf(this.getLeftPlayer());
         setCurrPlayer(index);
+        clearDiceHistory();
     }
 
     public boolean checkDoubles() {
@@ -241,12 +242,12 @@ public abstract class AbstractGame implements Serializable {
 
     }
 
-//    public void clearDiceHistory() {
-//        diceHistory = new HashMap<>();
-//        for(int i = 0; i < dice.size(); i++) {
-//            diceHistory.put(i, new ArrayList<>());
-//        }
-//    }
+    public void clearDiceHistory() {
+        diceHistory = new HashMap<>();
+        for(int i = 0; i < dice.size(); i++) {
+            diceHistory.put(i, new ArrayList<>());
+        }
+    }
 
     public int getLastDiceRoll() {
         int value = 0;
@@ -263,27 +264,35 @@ public abstract class AbstractGame implements Serializable {
     }
 
     //Getters and setters for rules to be changed by user
+
     public boolean getEvenBuildingRule(){
         return evenBuildingRule;
     }
+
     public void setEvenBuildingRule(boolean bool){
         this.evenBuildingRule = bool;
     }
+
     public boolean getFreeParkingRule(){
         return freeParkingRule;
     }
+
     public void setFreeParkingRule(boolean bool){
         this.freeParkingRule = bool;
     }
+
     public int getRollsInJailRule() {
         return rollsInJailRule;
     }
+
     public void setRollsInJailRule(int rollsInJailRule) {
         this.rollsInJailRule = rollsInJailRule;
     }
+
     public double getStartFunds() {
         return startFunds;
     }
+
     public void setStartFunds(double startFunds) {
         this.startFunds = startFunds;
     }
@@ -307,6 +316,5 @@ public abstract class AbstractGame implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
 
 }

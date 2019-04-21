@@ -21,9 +21,13 @@ public class ClassicGame extends AbstractGame {
         if(!getCurrPlayer().isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }
-        else {
+        //FIX THIS TO ADD POPUP AT THIRD ROLL IN JAIL
+        else if(getCurrPlayer().isInJail()) {
             getCurrPlayer().incrementNumRollsinJail();
-            if(getCurrPlayer().getNumRollsInJail() == getRollsInJailRule()) {
+            if(checkDoubles()) {
+                this.movePlayer(oldIndex, newIndex);
+            }
+            else if(getCurrPlayer().getNumRollsInJail() == getRollsInJailRule()){
                 this.movePlayer(oldIndex, newIndex);
                 getCurrPlayer().resetNumRollsInJail();
                 getCurrPlayer().setJail(false);

@@ -2,26 +2,23 @@ package View;
 
 import Controller.Controller;
 import Controller.Die;
-import Model.AbstractPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class DiceRoller {
-    protected Die myDie;
-    protected HBox myHBox;
-    protected Controller myController;
-    protected  Button rollButton;
-    protected List<Label> diceValues;
-
+    private Die myDie;
+    private HBox myHBox;
+    private Controller myController;
+    private  Button rollButton;
+    private List<Label> diceValues;
 
     public DiceRoller(Controller controller){
         myController = controller;
@@ -63,9 +60,6 @@ public class DiceRoller {
         }
         if(!(myController.getGame().checkDoubles())) {
             rollButton.setDisable(true);
-        }
-        else {
-            myController.getGame().getCurrPlayer().setJail(false);
         }
     }
 
