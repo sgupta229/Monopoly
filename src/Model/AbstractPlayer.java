@@ -20,14 +20,14 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     private boolean inJail;
     private double funds;
     private ObservableList<Property> properties;
-    private List<AbstractActionCard> actionCards;
+    private ObservableList<AbstractActionCard> actionCards;
     private int currentLocation;
 
 
     public AbstractPlayer() {
         this.inJail = false;
         properties = FXCollections.observableArrayList();
-        actionCards = new ArrayList<>();
+        actionCards = FXCollections.observableArrayList();
     }
 
     public AbstractPlayer(String name, String image) {

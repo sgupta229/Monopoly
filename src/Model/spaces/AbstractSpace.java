@@ -2,6 +2,8 @@ package Model.spaces;
 import Controller.*;
 import Model.AbstractPlayer;
 import Model.properties.Property;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.*;
@@ -15,7 +17,7 @@ import java.util.*;
 public abstract class AbstractSpace implements Serializable {
     private int myLocation;
     private String myName;
-    List<AbstractPlayer> myOccupants = new ArrayList<>();
+    ObservableList<AbstractPlayer> myOccupants = FXCollections.observableArrayList();
     private SpaceGroup myGroup;
     private Property myProp;
 
