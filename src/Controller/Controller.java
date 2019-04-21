@@ -69,7 +69,7 @@ public class Controller {
         window.setScene(new Layout(WIDTH,HEIGHT,gameStyle,this,myGame).getScene());
     }
 
-    public void endGame(AbstractPlayer winner) { window.setScene(new EndGameScreen(WIDTH,HEIGHT,gameStyle,this,winner).getScene());}
+    public void endGame(AbstractPlayer winner) { window.setScene(new EndGameScreen(WIDTH,HEIGHT,gameStyle,winner,window).getScene());}
 
     public void initializePlayers(){
         myGame.setPlayers(newPlayers);

@@ -29,27 +29,25 @@ import java.util.ResourceBundle;
 
 
 public class EndGameScreen {
-    private Controller myController;
     private Scene myScene;
     private ResourceBundle messages;
     private Group myRoot;
     private FlowPane myFlowPane;
 
 
-    public EndGameScreen(double width, double height, String style, Controller controller, AbstractPlayer winner) {
+    public EndGameScreen(double width, double height, String style, AbstractPlayer winner, Stage window) {
         messages = ResourceBundle.getBundle("Messages");
         this.myRoot = new Group();
-        this.myController = controller;
         myScene = new Scene(myRoot, width, height, Color.WHITE);
         myScene.getStylesheets().add(style);
-        addFlowPane(winner.getName());
+        addFlowPane(winner.getName(),window);
         myRoot.getChildren().addAll(myFlowPane);
     }
     public Scene getScene(){
         return myScene;
     }
 
-    private FlowPane addFlowPane(String winner) {
+    private FlowPane addFlowPane(String winner,Stage window) {
         myFlowPane = new FlowPane();
         myFlowPane.setVgap(50);
         myFlowPane.setHgap(50);
@@ -58,15 +56,20 @@ public class EndGameScreen {
         myFlowPane.setPrefWrapLength(Controller.WIDTH);
         myFlowPane.setId("flowPane");
         Button button = new Button(messages.getString("newGame"));
-        button.setId("button1");
+        button.setId("button3");
         myFlowPane.getChildren().addAll(createMessage(winner),button);
-        button.setOnAction(e -> myController.goToChooseGameScreen());
+        Stage newStage = new Stage();
+        Controller newController = new Controller(newStage);
+        button.setOnAction(e -> {
+            newController.goToChooseGameScreen();
+            window.close();
+        });
 
         return myFlowPane;
     }
 
     private Label createMessage(String winner){
-        Label myLabel = new Label(messages.getString("end-game-congrats") + winner+messages.getString("end-game-message") );
+        Label myLabel = new Label(messages.getString("end-game-congrats") + " " + winner + " "+messages.getString("end-game-message") );
         return myLabel;
     }
 
