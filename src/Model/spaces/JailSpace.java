@@ -31,6 +31,6 @@ public class JailSpace extends AbstractSpace {
      */
 
     public void doAction(AbstractGame game, int userChoice){
-        game.endTurn();
+
     }
 }

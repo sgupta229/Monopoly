@@ -6,11 +6,15 @@ import Model.ClassicPlayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AbstractGameTest {
 
-    ClassicGame game;
+    AbstractGame game;
     ClassicPlayer p1;
     ClassicPlayer p2;
     ClassicPlayer p3;
@@ -35,6 +39,7 @@ class AbstractGameTest {
         p2.moveTo(2);
         p3.moveTo(3);
         p4.moveTo(4);
+        game.setPlayers(List.of(p1, p2, p3, p4));
     }
 
     @Test
@@ -45,9 +50,79 @@ class AbstractGameTest {
     }
 
     @Test
+    void rightPlayer() {
+        AbstractPlayer actual = game.getRightPlayer();
+        AbstractPlayer expected = p4;
+        assertEquals(actual, expected);
+    }
+
+    @Test
     void nextPlayer() {
-        game.getLeftPlayer();
         game.startNextTurn();
+        AbstractPlayer actual = game.getCurrPlayer();
+        AbstractPlayer expected = game.getPlayers().get(1);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void rollDice() {
+        int value = game.rollDice();
+        assertTrue(1 < value);
+        assertTrue(value < 13);
+    }
+
+    @Test
+    void checkDoubles() {
+        game.getDiceHistory().get(0).add(5);
+        game.getDiceHistory().get(1).add(4);
+        game.getDiceHistory().get(0).add(2);
+        game.getDiceHistory().get(1).add(1);
+        game.getDiceHistory().get(0).add(3);
+        game.getDiceHistory().get(1).add(3);
+        boolean actual = game.checkDoubles();
+        boolean expected = true;
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void checkThreeDoublesInRow() {
+        game.getDiceHistory().get(0).add(2);
+        game.getDiceHistory().get(1).add(3);
+        game.getDiceHistory().get(1).add(1);
+        game.getDiceHistory().get(0).add(1);
+        game.getDiceHistory().get(1).add(1);
+        game.getDiceHistory().get(0).add(1);
+        game.getDiceHistory().get(1).add(1);
+        game.getDiceHistory().get(0).add(1);
+        boolean actual = game.checkThreeDoublesInRow();
+        boolean expected = true;
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void getBoardIndexAfterRoll() {
+        int oldIndex = 39;
+        int roll = 5;
+        int actual = game.getNewIndex(oldIndex, roll);
+        int expected = 4;
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void checkMovePlayer() {
+        p1.moveTo(39);
+        game.movePlayer(39, 5);
+        int actual = p1.getCurrentLocation();
+        int expected = 5;
+    }
+
+    @Test
+    void getLastDiceRoll() {
+        game.getDiceHistory().get(0).add(2);
+        game.getDiceHistory().get(1).add(3);
+        int actual = game.getLastDiceRoll();
+        int expected = 5;
+        assertEquals(actual, expected);
     }
 
 }

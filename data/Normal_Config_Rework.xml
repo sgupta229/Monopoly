@@ -143,7 +143,7 @@
         </Property>
         <Property type="UtilityProperty">
             <PropertyName>ELECTRIC_COMPANY</PropertyName>
-            <ColorGroup>null</ColorGroup>
+            <ColorGroup>WHITE</ColorGroup>
             <GroupSize>2</GroupSize>
             <BuyPrice>150</BuyPrice>
             <Rent>
@@ -376,7 +376,7 @@
         </Property>
         <Property type="UtilityProperty">
             <PropertyName>WATER_WORKS</PropertyName>
-            <ColorGroup>null</ColorGroup>
+            <ColorGroup>WHITE</ColorGroup>
             <GroupSize>2</GroupSize>
             <BuyPrice>150</BuyPrice>
             <Rent>
