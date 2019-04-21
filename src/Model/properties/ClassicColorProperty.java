@@ -80,7 +80,7 @@ public class ClassicColorProperty extends ColorProperty {
             getBuildingMap().put(building, 0);
         }
         getBuildingMap().put(building, getBuildingMap().get(building)+1);
-        System.out.println(building );
+        System.out.println(building);
         System.out.println(getBuildingMap().get(building));
     }
 

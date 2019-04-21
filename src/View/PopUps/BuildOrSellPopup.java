@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static Model.properties.BuildingType.HOUSE;
+
 public class BuildOrSellPopup extends BuyPropertyPopup {
 
     private TabPane tabPane;
@@ -81,8 +83,10 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
 
         Pane myButtons = createButtons(popUpWindow);
 
-
         Button buttons = createIndividualButton(popUpWindow,key1);
+        buttons.setOnAction(e -> {
+            myProperty.addBuilding(HOUSE);
+        });
         Button button2 = createIndividualButton(popUpWindow,key2);
 
         myButtons.getChildren().addAll(buttons,button2);

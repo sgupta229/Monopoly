@@ -26,6 +26,7 @@ public abstract class PropertyDisplay {
     private String myImage;
     private String myPropColor;
     private String myBaseColor;
+    private HBox propColor;
     protected Rectangle myRectangle;
 
     public PropertyDisplay(String propName, String propPrice, String propColor, String baseColor){
@@ -75,7 +76,7 @@ public abstract class PropertyDisplay {
             myPropertyPane.getChildren().addAll(myRectangle);
         }
         else{
-            HBox propColor = new HBox();
+            propColor = new HBox();
             propColorLocation(propColor);
             propColor.setId("propColor");
             propColor.setStyle(  " -fx-background-color:" + myPropColor);
