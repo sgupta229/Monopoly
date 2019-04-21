@@ -50,8 +50,6 @@ public class ClassicGame extends AbstractGame {
         return true;
     }
 
-
-
     public boolean checkGameOver() {
         int numPlayers = getPlayers().size();
         int numPlayersBankrupt = 0;
