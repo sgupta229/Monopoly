@@ -32,6 +32,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
     private VBox myVBox;
     private DiceRoller myDiceRoller;
     private Text myFunds;
+    private Button endTurnButton;
 
     public PlayerControl(AbstractPlayer player, Controller controller){
         myPlayer = player;
@@ -39,14 +40,15 @@ public abstract class PlayerControl implements PropertyChangeListener {
         myPlayer.addPropertyChangeListener("funds",this);
 
         messages = ResourceBundle.getBundle("Messages");
-
+        endTurnButton = new Button(messages.getString("end-turn"));
+        endTurnButton.setDisable(true);
         setUpLayout();
     }
 
     private void setUpLayout(){
         myAnchorPane = new AnchorPane();
 
-        myDiceRoller = new DiceRoller(myController);
+        myDiceRoller = new DiceRoller(myController, endTurnButton);
         HBox diceRollerView = myDiceRoller.getDiceRollerView();
 
         myAnchorPane.getChildren().addAll(createVBox(),diceRollerView);
@@ -56,8 +58,6 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
     private VBox createVBox(){
         myVBox = new VBox();
-
-        Button endTurnButton = new Button(messages.getString("end-turn"));
         endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -127,4 +127,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         return myVBox;
     }
 
+    public Button getEndTurnButton() {
+        return endTurnButton;
+    }
 }
