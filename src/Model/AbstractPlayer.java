@@ -14,10 +14,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractPlayer implements Transfer, Serializable {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
@@ -26,8 +23,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
-    private Token token;
-    private String tokenImage;
     private ObservableList<Property> properties;
     private List<AbstractActionCard> actionCards;
     private int currentLocation;
@@ -203,7 +198,25 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         return this.tokenImage;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        AbstractPlayer that = (AbstractPlayer) o;
+        return Double.compare(that.funds, funds) == 0 &&
+                currentLocation == that.currentLocation &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(properties, that.properties) &&
+                Objects.equals(actionCards, that.actionCards);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, funds, properties, actionCards, currentLocation);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Deprecated
     public void setToken(Token token) {
