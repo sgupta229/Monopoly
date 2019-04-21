@@ -150,10 +150,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
 
-    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-        myPCS.removePropertyChangeListener(propertyName,listener);
-    }
-
     public void startAuction() {
 
     }

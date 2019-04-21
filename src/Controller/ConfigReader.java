@@ -277,7 +277,6 @@ public class ConfigReader {
             allPropsAndNames.put(prop.getName(), prop);
         }
         if(allPropsAndNames.containsKey(name)){
-            System.out.println("hi");
             return allPropsAndNames.get(name);
         }
         else{

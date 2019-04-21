@@ -294,7 +294,7 @@ public class BuyPropertyPopup extends Popup {
             public void handle(ActionEvent event) {
                 List<AbstractPlayer> players = myController.getGame().getPlayers();
                 AbstractPlayer currPlayer = myController.getGame().getCurrPlayer();
-                Popup myPopup = new AuctionPopup(propLocation, name, myController, popUpWindow, players,currPlayer);
+                AuctionPopup myPopup = new AuctionPopup(propLocation, name, myController, popUpWindow, players,currPlayer);
                 myPopup.display();
             }
         });
