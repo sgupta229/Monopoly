@@ -5,7 +5,7 @@ import Model.*;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import Model.spaces.ActionCardSpace;
-import Model.spaces.PropSpace;
+import Model.spaces.ClassicPropSpace;
 import Model.spaces.TaxSpace;
 import View.PopUps.*;
 import View.SpaceDisplay.*;
@@ -132,7 +132,7 @@ public class Board implements PropertyChangeListener {
     private void createSpaces(String baseColor){
         for (Map.Entry<Point2D.Double, AbstractSpace> entry : indexToName.entrySet()) {
             String name = entry.getValue().getMyName().replace("_", " ");
-            if (entry.getValue() instanceof PropSpace) {
+            if (entry.getValue() instanceof ClassicPropSpace) {
                 String price = nameToPrice.get(name).toString();
                 String color = nameToColor.get(name);
                 if (entry.getKey().getY() == boardDimension-1) {
