@@ -61,7 +61,7 @@ public class UtilityProperty extends Property {
             return 0.0;
         }
         else{
-            int numberOfUtilities = propOwner.getPropertiesOfType("Utility");
+            int numberOfUtilities = propOwner.getPropertiesOfType(myGroup).size();
             if(numberOfUtilities==1){
                 rentTotal+=lastDiceRoll*rentMult;
             }

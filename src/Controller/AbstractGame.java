@@ -268,6 +268,7 @@ public abstract class AbstractGame implements Serializable {
         return evenBuildingRule;
     }
     public void setEvenBuildingRule(boolean bool){
+        bank.setEvenBuildingRule(bool);
         this.evenBuildingRule = bool;
     }
     public boolean getFreeParkingRule(){
