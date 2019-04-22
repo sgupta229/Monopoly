@@ -10,6 +10,7 @@ import Model.spaces.TaxSpace;
 import View.PopUps.*;
 import View.SpaceDisplay.*;
 import View.SpaceDisplay.CornerDisplay;
+import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -81,7 +82,6 @@ public class Board implements PropertyChangeListener {
         playerLocation = myGame.getCurrPlayer().getCurrentLocation();
         //board -> get space at
         //space.generatePopup.displa
-
 
         if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
             myPopup = new ActionCardPopup( playerLocation, myController);

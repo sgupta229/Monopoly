@@ -47,7 +47,7 @@ public abstract class AbstractSpace implements Serializable {
      * Getter method that gets all the players on the given space
      * @return the list of Occupants
      */
-    public List<AbstractPlayer> getOccupants(){
+    public ObservableList<AbstractPlayer> getOccupants(){
         return myOccupants;
     }
 
