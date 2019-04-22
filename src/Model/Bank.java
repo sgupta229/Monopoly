@@ -110,7 +110,6 @@ public class Bank implements Transfer, Serializable {
         unOwnedProps.add(property);
         propOwner.removeProperty(property);
         game.startAuction();
-
     }
 
     public void mortgageProperty(Property property){

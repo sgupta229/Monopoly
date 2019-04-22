@@ -20,6 +20,7 @@ public abstract class AbstractSpace implements Serializable {
     ObservableList<AbstractPlayer> myOccupants = FXCollections.observableArrayList();
     private SpaceGroup myGroup;
     private Property myProp;
+    private String myPopString;
 
     public AbstractSpace(int locationIndex, String spaceName, String spaceGroup,
     String jumpToSpace, List<Double> taxNums, Property prop){
@@ -108,6 +109,12 @@ public abstract class AbstractSpace implements Serializable {
         if(myOccupants.contains(occupantToRemove)){
             myOccupants.remove(occupantToRemove);
         }
+    }
+
+    public abstract  String getPopString(AbstractGame game);
+
+    protected void setPopString(String popupString){
+        myPopString = popupString;
     }
 
     //public abstract PopUps generatePopUp();
