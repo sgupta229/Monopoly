@@ -40,6 +40,7 @@ public abstract class AbstractGame implements Serializable {
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
     private Transfer freeParking = new FreeParkingFunds();
+    private int lastDiceRoll = 0;
     
     public AbstractGame(String filename) {
         parseXMLFile(filename);
@@ -136,12 +137,15 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public List<Integer> rollDice() {
+        int val = 0;
         List<Integer> rolls = new ArrayList<>();
         for(int i = 0; i < dice.size(); i++) {
             int roll = dice.get(i).rollDie();
             rolls.add(roll);
+            val += roll;
             diceHistory.get(i).add(roll);
         }
+        lastDiceRoll = val;
         return rolls;
     }
 
@@ -251,17 +255,7 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public int getLastDiceRoll() {
-        int value = 0;
-        for(int i = 0; i < dice.size(); i++) {
-            ArrayList<Integer> rollList = diceHistory.get(i);
-            if(rollList.size() == 0) {
-                throw new IllegalArgumentException("The dice has not been rolled");
-            }
-            else {
-                value += rollList.get(rollList.size() - 1);
-            }
-        }
-        return value;
+        return lastDiceRoll;
     }
 
     //Getters and setters for rules to be changed by user
