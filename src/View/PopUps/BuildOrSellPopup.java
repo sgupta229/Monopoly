@@ -85,7 +85,8 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
 
         Button buttons = createIndividualButton(popUpWindow,key1);
         buttons.setOnAction(e -> {
-            myProperty.addBuilding(HOUSE);
+            myController.getGame().getBank().build(myProperty,HOUSE);
+            popUpWindow.close();
         });
         Button button2 = createIndividualButton(popUpWindow,key2);
 

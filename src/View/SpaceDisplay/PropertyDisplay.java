@@ -105,4 +105,7 @@ public abstract class PropertyDisplay {
 
     public Pane getMyPropStackPane(){ return myPropStackPane; }
 
+    public String getMyPropColor() {
+        return myPropColor;
+    }
 }
