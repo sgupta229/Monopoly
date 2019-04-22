@@ -14,11 +14,13 @@ import java.util.List;
 public class ActionCardSpace extends AbstractSpace {
 
     private DeckType myDeckType;
+    private static final String myPopString = "ActionCard";
 
     public ActionCardSpace(int locationIndex, String spaceName, String spaceGroup,
                            String jumpToSpace, List<Double> taxNums, Property myProp){
         super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
         myDeckType = DeckType.valueOf(spaceName);
+        setPopString(myPopString);
     }
 
     public ActionCardSpace(int locationIndex, String deckType){
@@ -49,6 +51,10 @@ public class ActionCardSpace extends AbstractSpace {
                 game.setCurrentActionCard(cardDrawn);
             }
         }
+    }
+
+    public String getPopString(AbstractGame game){
+        return myPopString;
     }
 
 

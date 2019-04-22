@@ -8,9 +8,12 @@ import java.util.List;
 
 public class GoSpace extends AbstractSpace {
 
+    private static final String myPopString = "Corner";
+
     public GoSpace(int locationIndex, String spaceName, String spaceGroup,
                    String jumpToSpace, List<Double> taxNums, Property myProp){
         super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
+        setPopString(myPopString);
     }
 
     public GoSpace(int locationIndex, String spaceName){
@@ -32,5 +35,9 @@ public class GoSpace extends AbstractSpace {
 
     public void doAction(AbstractGame game, int userChoice){
 
+    }
+
+    public String getPopString(AbstractGame game){
+        return myPopString;
     }
 }
