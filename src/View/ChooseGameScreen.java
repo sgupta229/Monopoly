@@ -148,5 +148,4 @@ public class ChooseGameScreen {
             myController.setGame(newGame);
         }
     }
-
 }
