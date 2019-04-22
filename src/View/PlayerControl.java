@@ -90,7 +90,8 @@ public abstract class PlayerControl implements PropertyChangeListener {
         Button forfeit = new Button("FORFEIT");
         forfeit.setId("button1");
         forfeit.setOnAction(e-> {
-            myController.getGame().getPlayers().remove(myController.getGame().getCurrPlayer());
+            myController.getGame().forfeitHandler(myController.getGame().getCurrPlayer());
+            //myController.getGame().getPlayers().remove(myController.getGame().getCurrPlayer());
             myController.getGame().startNextTurn();
             myDiceRoller.setDisable(false);
         });

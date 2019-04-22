@@ -20,7 +20,7 @@ class BoardTest {
     Board board;
 
     @BeforeEach
-    void setup() throws XmlTagException {
+    void setup() throws XmlReaderException {
         List<AbstractSpace> spaces = cr.parseSpaces().get(0);
         int numSpaces = cr.parseBoard();
         board = new Board(numSpaces, spaces);

@@ -1,12 +1,9 @@
 package Model.Tests;
 
-import Controller.AbstractGame;
-import Controller.ClassicGame;
 import Controller.ConfigReader;
-import Controller.Token;
 import Model.AbstractPlayer;
 import Model.ClassicPlayer;
-import Model.XmlTagException;
+import Model.XmlReaderException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +17,7 @@ class AbstractPlayerTest {
     int boardSize;
 
     @BeforeEach
-    void setup() throws XmlTagException {
+    void setup() throws XmlReaderException {
         boardSize = cr.parseBoard();
 
         p1 = new ClassicPlayer();
