@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import util.NumberSpinner;
 
 import java.io.File;
+import java.util.ResourceBundle;
 
 public class RulesPopup {
     private AbstractGame myGame;
@@ -28,7 +29,10 @@ public class RulesPopup {
     private NumberSpinner passGo;
     private Button applyButton;
 
+    private ResourceBundle messages;
+
     public RulesPopup(AbstractGame game){
+        messages = ResourceBundle.getBundle("Messages");
         myGame = game;
     }
 
@@ -59,12 +63,12 @@ public class RulesPopup {
         applyButton = new Button("Apply");
         applyButton.setOnAction(new ApplyButtonHandler());
 
-        myLayout.getChildren().addAll(makeRuleView("Have to build evenly",makeToggleBox(buildingToggle)),
-                makeRuleView("Get Money on Free Parking",makeToggleBox(freeParkingToggle)),
-                makeRuleView("Number of rolls to get out of jail",jailRolls),
-                makeRuleView("Starting Balance",startFunds),
-                makeRuleView("Bail jail amount",jailBail),
-                makeRuleView("Amount when passing GO",passGo),
+        myLayout.getChildren().addAll(makeRuleView(messages.getString("buildingRule"),makeToggleBox(buildingToggle)),
+                makeRuleView(messages.getString("freeParkingRule"),makeToggleBox(freeParkingToggle)),
+                makeRuleView(messages.getString("jailRollsRule"),jailRolls),
+                makeRuleView(messages.getString("startingFundsRule"),startFunds),
+                makeRuleView(messages.getString("jailBailRule"),jailBail),
+                makeRuleView(messages.getString("passGoRule"),passGo),
                 applyButton);
     }
 
