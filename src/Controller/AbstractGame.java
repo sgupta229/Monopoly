@@ -243,6 +243,9 @@ public abstract class AbstractGame implements Serializable {
         Property prop = board.getSpaceAt(propLocation).getMyProp();
         bank.setPropertyOwner(prop, p);
         p.makePayment(bid, bank);
+        p.addProperty(prop);
+        System.out.println(bank.propertyOwnedBy(prop).getName());
+
 /*        AbstractPlayer maxPlayer = null;
         double maxBid = 0;
         for(AbstractPlayer p : bidMap.keySet()){
@@ -348,9 +351,9 @@ public abstract class AbstractGame implements Serializable {
 
     public void forfeitHandler(AbstractPlayer playerOut){
         this.players.remove(playerOut);
-        List<Property> propList = playerOut.getProperties();
+        List<Property> propSet = playerOut.getProperties();
         Set<BuildingType> bTypes = bank.getTotalBuildingMap().keySet();
-        for(Property p : propList){
+        for(Property p : propSet){
             for(BuildingType bt : bTypes){
                 bank.setTotalBuildingMap(bt, p.getNumBuilding(bt));
                 //p.removeBuilding(bt, p.getNumBuilding(bt));
