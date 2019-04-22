@@ -1,7 +1,8 @@
 package View;
 
-import Controller.Controller;
 import Controller.AbstractGame;
+import Controller.Controller;
+import Controller.ConfigReader;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -36,13 +37,24 @@ public class RulesPopup {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Edit Rules");
 
+        setUpLayout();
+
+        Scene scene1= new Scene(myLayout, Controller.WIDTH/2, Controller.HEIGHT* 0.8);
+        scene1.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
+
+        window.setScene(scene1);
+        window.showAndWait();
+    }
+
+    private void setUpLayout(){
         myLayout = new VBox(10);
+
         buildingToggle = makeToggleGroup("YES","NO");
         freeParkingToggle = makeToggleGroup("YES","NO");
-        jailRolls = new NumberSpinner(3,1);
-        startFunds = new NumberSpinner(500,100);
-        jailBail = new NumberSpinner(800,100);
-        passGo = new NumberSpinner(200,50);
+        jailRolls = new NumberSpinner(myGame.getRollsInJailRule(),1);
+        startFunds = new NumberSpinner((int)myGame.getStartFunds(),100);    //TODO is it okay to cast to int
+        jailBail = new NumberSpinner((int)myGame.getJailBail(),50);
+        passGo = new NumberSpinner((int)myGame.getPassGo(),50);
 
         applyButton = new Button("Apply");
         applyButton.setOnAction(new ApplyButtonHandler());
@@ -54,12 +66,6 @@ public class RulesPopup {
                 makeRuleView("Bail jail amount",jailBail),
                 makeRuleView("Amount when passing GO",passGo),
                 applyButton);
-
-        Scene scene1= new Scene(myLayout, Controller.WIDTH/2, Controller.HEIGHT* 0.8);
-        scene1.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
-
-        window.setScene(scene1);
-        window.showAndWait();
     }
 
     private VBox makeRuleView(String rule, Node buttons){
