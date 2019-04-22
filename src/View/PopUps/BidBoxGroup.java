@@ -30,14 +30,12 @@ public class BidBoxGroup extends ToggleButton {
     }
 
     public void startAuction(){
-        highestBid = -1;
+        highestBid = 0;
         disableAll();
         if(myBids.size() > 0){
             myBids.get(0).disable(false);
             currentBid = myBids.get(0);
         }
-
-
     }
 
     public void moveCurrentBidToNext(){
@@ -49,12 +47,15 @@ public class BidBoxGroup extends ToggleButton {
         }
         else nextCurr = curr + 1;
         currentBid = myBids.get(nextCurr);
+        if (outOfAuction.contains(currentBid)){
+            if (outOfAuction.size() == myBids.size()) endAuction();
+            else moveCurrentBidToNext();
+        }
         currentBid.disable(false);
         currentBid.setInitalBidValue(getHighestBid() + 20);
-        if (outOfAuction.contains(currentBid)){
-            moveCurrentBidToNext();
+        if (myBids.size()-outOfAuction.size()<= 1 && highestBidder != null) {
+            endAuction();
         }
-        updateAuctionOver();
     }
 
     public void respondToBid(int bid, BidBox bidder){
@@ -71,6 +72,7 @@ public class BidBoxGroup extends ToggleButton {
 
     public void respondToFold(BidBox b){
         b.disable(true);
+        b.remove();
         outOfAuction.add(b);
         moveCurrentBidToNext();
     }
@@ -89,15 +91,8 @@ public class BidBoxGroup extends ToggleButton {
         }
     }
 
-    private void updateAuctionOver(){
-        System.out.println("myBids.size() "+myBids.size()+ " - outOfAuction.size()" + outOfAuction.size()+" = " + (myBids.size() - outOfAuction.size()));
-        if (myBids.size() - outOfAuction.size() <= 1){
-            endAuction();
-        }
-    }
-
     private void endAuction(){
-        myPCS.firePropertyChange("endAuction",false,true);
+            myPCS.firePropertyChange("endAuction",false,true);
     }
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {

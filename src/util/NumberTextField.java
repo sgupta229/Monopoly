@@ -93,7 +93,7 @@ public class NumberTextField extends TextField {
                 return;
             }
             Number parsedNumber = nf.parse(input);
-            int newValue = (int) parsedNumber;
+            int newValue = Math.toIntExact((long)parsedNumber);
             setNumber(newValue);
             selectAll();
         } catch (ParseException ex) {

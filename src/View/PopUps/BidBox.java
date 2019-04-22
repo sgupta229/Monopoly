@@ -9,6 +9,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import util.NumberSpinner;
 
 public class BidBox {
@@ -59,8 +60,17 @@ public class BidBox {
         foldButton.setDisable(b);
     }
 
+    public void remove(){
+        view.setStyle("-fx-background-color: #cfcfcf");
+        System.out.println("style set");
+    }
+
     public void setInitalBidValue(int value){
         spinner.setNumber(value);
+    }
+
+    public AbstractPlayer getMyPlayer(){
+        return myPlayer;
     }
 
     public Pane getView(){

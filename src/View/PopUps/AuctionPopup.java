@@ -64,6 +64,7 @@ public class AuctionPopup implements PropertyChangeListener {
         buttonBox.setSpacing(3);
 
         myBidBoxGroup = new BidBoxGroup();
+        myBidBoxGroup.addPropertyChangeListener("endAuction",this);
 
         for (AbstractPlayer p: myPlayers){
             BidBox pBid = new BidBox(p,myBidBoxGroup);
@@ -76,6 +77,27 @@ public class AuctionPopup implements PropertyChangeListener {
 
     private void endAuction(){
         System.out.println("end auction");
+        if (myBidBoxGroup.getHighestBidder() == null){
+            // No one wanted to buy the property. Do nothing, return to game
+            oldPopUp.close();
+        }
+        else {
+            AbstractPlayer winner = myBidBoxGroup.getHighestBidder().getMyPlayer();
+            // need to get the property that is being sold
+//            winner.addProperty(); TODO hi sahil add this backend stuff
+//            winner.makePayment();
+            displayWinnerOfAuction(myBidBoxGroup.getHighestBid(),myBidBoxGroup.getHighestBidder().getMyPlayer());
+        }
+    }
+
+    private void displayWinnerOfAuction(int winningBid, AbstractPlayer winningBidder){
+        myLayout = new VBox(20);
+        Label msg = new Label(winningBidder.getName() + " won the Auction");
+        Label msg2 = new Label("bought " + "NAME_OF_PROP"+ " for "+winningBid);
+        Button ok = new Button("OK");
+        ok.setOnAction(e -> oldPopUp.close());
+        myLayout.getChildren().addAll(msg,msg2,ok);
+        display();
     }
 
     private String createTitle() {
