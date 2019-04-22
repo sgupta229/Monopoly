@@ -37,6 +37,7 @@ public class MoveToOpenAC extends AbstractActionCard {
                 if(game.getBank().getUnOwnedProps().contains(p)){
                     game.movePlayer(prevLocation, i);
                     game.getBank().setPropertyOwner(p,curr);
+                    p.setIsOwned(true);
                     d.discardCard(this);
                     return;
                 }
