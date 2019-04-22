@@ -115,8 +115,12 @@ public class Bank implements Transfer, Serializable {
     }
 
     public boolean checkIfCanMortgage(Property property){
-        for()
-        if(property.getNumBuilding())
+        for(BuildingType bType:typesOfBuildings){
+            if(property.getNumBuilding(bType)!=0){
+                return false;
+            }
+        }
+
         return !property.getIsMortgaged();
     }
 
@@ -140,8 +144,6 @@ public class Bank implements Transfer, Serializable {
             throw new IllegalArgumentException("the Buildable is not a property");
         }*/
     public boolean checkIfCanBuild(Property property, BuildingType building){
-        ArrayList<BuildingType> typesOfBuildings = new ArrayList<>();
-        typesOfBuildings.addAll(maxBuildingsPerProp.keySet());
 
         if(typesOfBuildings.indexOf(building)>0 && property.getNumBuilding(building)==0){
             BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
@@ -175,8 +177,6 @@ public class Bank implements Transfer, Serializable {
 
 
     public void build(Property property, BuildingType building){
-        ArrayList<BuildingType> typesOfBuildings = new ArrayList<>();
-        typesOfBuildings.addAll(maxBuildingsPerProp.keySet());
         if(checkIfCanBuild(property, building)){
             if(typesOfBuildings.indexOf(building)>0 && property.getNumBuilding(building)==0){
                 BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
