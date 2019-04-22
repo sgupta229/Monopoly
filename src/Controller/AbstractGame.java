@@ -42,14 +42,14 @@ public abstract class AbstractGame implements Serializable {
     private boolean freeParkingRule;
     private Transfer freeParking = new FreeParkingFunds();
     
-    public AbstractGame(String filename) {
+    public AbstractGame(String filename) throws XmlReaderException {
         parseXMLFile(filename);
         for(int i = 0; i < dice.size(); i++) {
             diceHistory.put(i, new ArrayList<>());
         }
     }
 
-    private void parseXMLFile(String filename) {
+    private void parseXMLFile(String filename) throws XmlReaderException {
         ConfigReader configReader = new ConfigReader(filename);
         try {
             decks = configReader.parseActionDecks();
@@ -78,8 +78,8 @@ public abstract class AbstractGame implements Serializable {
             freeParkingRule = configReader.getRuleBool("FreeParking");
             rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (XmlReaderException e) {
+            throw new XmlReaderException(e.getMessage() + ": Check data file " + filename);
         }
     }
 
@@ -239,8 +239,22 @@ public abstract class AbstractGame implements Serializable {
         return diceHistory;
     }
 
-    public void startAuction() {
-
+    public void handleAuction(AbstractPlayer p, int bid, int propLocation) {
+        Property prop = board.getSpaceAt(propLocation).getMyProp();
+        bank.setPropertyOwner(prop, p);
+        p.makePayment(bid, bank);
+/*        AbstractPlayer maxPlayer = null;
+        double maxBid = 0;
+        for(AbstractPlayer p : bidMap.keySet()){
+            if(bidMap.get(p) > maxBid){
+                maxBid = bidMap.get(p);
+                maxPlayer = p;
+            }
+        }
+        if(maxBid > 0 && maxPlayer!=null){
+            bank.setPropertyOwner(prop, maxPlayer);
+            maxPlayer.makePayment(maxBid, bank);
+        }*/
     }
 
 //    public void clearDiceHistory() {
@@ -330,5 +344,19 @@ public abstract class AbstractGame implements Serializable {
 
     public List<AbstractSpace> getSpaces() {
         return spaces;
+    }
+
+    public void forfeitHandler(AbstractPlayer playerOut){
+        this.players.remove(playerOut);
+        List<Property> propList = playerOut.getProperties();
+        Set<BuildingType> bTypes = bank.getTotalBuildingMap().keySet();
+        for(Property p : propList){
+            for(BuildingType bt : bTypes){
+                bank.setTotalBuildingMap(bt, p.getNumBuilding(bt));
+                //p.removeBuilding(bt, p.getNumBuilding(bt));
+            }
+            bank.sellBackProperty(p, this);
+        }
+        playerOut.makePayment(playerOut.getFunds(), bank);
     }
 }
