@@ -53,6 +53,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
             throw new IllegalArgumentException("Not enough money to pay");
         }
         setFunds(this.funds - amount);
+        System.out.println("receiveer is going to get this amount: " + amount);
         receiver.receivePayment(amount);
     }
 
@@ -70,6 +71,9 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
                 count++;
             }
         }
+        System.out.println("I own :" + count + "props");
+        System.out.println("And my group has :" + groupSize + "props");
+
         if(count == groupSize) {
             return true;
         }

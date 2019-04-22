@@ -19,6 +19,7 @@ public abstract class Property implements Serializable {
     private String myName;
     protected String myColor;
     private Boolean isMortgaged;
+    private Boolean isOwned;
     private List allPaymentInfo;
     private int myGroupSize;
     private Map<BuildingType, Double> buildingPrices;
@@ -29,6 +30,7 @@ public abstract class Property implements Serializable {
 
     public Property(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
 //        isMortgaged = false;
+        isOwned = false;
         myPrice=price;
         myName = propName;
         myColor = color;
@@ -79,7 +81,7 @@ public abstract class Property implements Serializable {
 
     }
 
-    public void removeBuilding(BuildingType building) {
+    public void removeBuilding(BuildingType building, int amount) {
 
     }
 
@@ -139,6 +141,14 @@ public abstract class Property implements Serializable {
 
     public void setIsMortgaged(boolean mortgageVal){
         isMortgaged = mortgageVal;
+    }
+
+    public void setIsOwned(boolean ownedOrNot){
+        isOwned = ownedOrNot;
+    }
+
+    public boolean getIsOwned(){
+        return isOwned;
     }
 
     public boolean getIsMortgaged(){

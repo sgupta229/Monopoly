@@ -18,6 +18,7 @@ import javafx.scene.layout.*;
 import java.awt.geom.Point2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -81,9 +82,29 @@ public class Board implements PropertyChangeListener {
         playerLocation = myGame.getCurrPlayer().getCurrentLocation();
         //board -> get space at
         //space.generatePopup.displa
+        AbstractSpace playersSpace = myGame.getBoard().getSpaceAt(playerLocation);
 
+        try {
+            String popClass = playersSpace.getPopString(myController.getGame());
+            if(popClass!=null){
+                myPopup = (Popup) Class.forName("View.PopUps." + popClass+"Popup").getConstructor(int.class, Controller.class).newInstance(playerLocation,
+                        myController);
+                myPopup.display();
+            }
 
-        if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        /*if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
             myPopup = new ActionCardPopup( playerLocation, myController);
         }
         else if (playerLocation==4 || playerLocation==38){
@@ -126,7 +147,7 @@ public class Board implements PropertyChangeListener {
         }
         if (myPopup!=null){
             myPopup.display();
-        }
+        }*/
     }
 
     private void addTokensToGo(){

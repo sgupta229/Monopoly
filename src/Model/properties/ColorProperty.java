@@ -47,7 +47,7 @@ public abstract class ColorProperty extends Property {
 
     public abstract void addBuilding(BuildingType building);
 
-    public abstract void removeBuilding(BuildingType building);
+    public abstract void removeBuilding(BuildingType building, int amount);
 
     public abstract int getNumBuilding(BuildingType building);
 }
