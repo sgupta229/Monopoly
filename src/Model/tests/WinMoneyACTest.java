@@ -5,6 +5,7 @@ import Controller.ClassicGame;
 import Model.AbstractPlayer;
 import Model.Bank;
 import Model.ClassicPlayer;
+import Model.XmlReaderException;
 import Model.actioncards.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class WinMoneyACTest {
     AbstractActionCard ac2;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws XmlReaderException {
         p1 = new ClassicPlayer();
         p2 = new ClassicPlayer();
         p3 = new ClassicPlayer();

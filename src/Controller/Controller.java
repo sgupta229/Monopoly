@@ -52,7 +52,13 @@ public class Controller {
         //gameType = ClassicGame, MegaGame
         // AbstractGame myGame = (AbstractGame) Class
         if(myGameType.equalsIgnoreCase("classic")){
-            myGame = new ClassicGame("Normal_Config_Rework.xml");
+            try {
+                myGame = new ClassicGame("Normal_Config_Rework.xml");
+            } catch (XmlReaderException e) {
+                //Give popup with exception message displayed;
+                e.getMessage();
+                e.printStackTrace();
+            }
             gameStyle = fileToStylesheetString(new File("data/GUI.css"));
             availableTokens = FXCollections.observableList(myGame.getPossibleTokens());
         }

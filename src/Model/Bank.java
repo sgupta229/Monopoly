@@ -105,11 +105,11 @@ public class Bank implements Transfer, Serializable {
      */
     public void sellBackProperty(Property property, AbstractGame game){
         AbstractPlayer propOwner = ownedPropsMap.get(property);
-        this.makePayment(property.getMortgageAmount(), propOwner);
+        //this.makePayment(property.getMortgageAmount(), propOwner);
         ownedPropsMap.remove(property);
         unOwnedProps.add(property);
         propOwner.removeProperty(property);
-        game.startAuction();
+        //game.startAuction();
     }
 
     public void mortgageProperty(Property property){
@@ -220,4 +220,11 @@ public class Bank implements Transfer, Serializable {
         myBalance = amount;
     }
 
+    public Map<BuildingType, Integer> getTotalBuildingMap() {
+        return totalBuildingMap;
+    }
+
+    public void setTotalBuildingMap(BuildingType bt, Integer amnt) {
+        this.totalBuildingMap.put(bt, totalBuildingMap.get(bt)+amnt);
+    }
 }
