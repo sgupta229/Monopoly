@@ -36,6 +36,7 @@ public abstract class AbstractGame implements Serializable {
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     private List<String> possibleTokens;
     private int numRollsInJail = 0;
+    private double bankFunds;
     private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
@@ -60,7 +61,7 @@ public abstract class AbstractGame implements Serializable {
             possibleTokens = configReader.parseTokens();
             dice = configReader.parseDice();
             List<Double> funds = configReader.parseBank();
-
+            bankFunds = funds.get(0);
             boardSize = configReader.parseBoard();
             List<List> spaceProps= configReader.parseSpaces();
             spaces = spaceProps.get(0);
@@ -317,4 +318,19 @@ public abstract class AbstractGame implements Serializable {
         return freeParking;
     }
 
+    public double getBankFunds(){
+        return bankFunds;
+    }
+
+    public void setBankFunds(double amount){
+        bank.setFunds(amount);
+    }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public List<AbstractSpace> getSpaces() {
+        return spaces;
+    }
 }

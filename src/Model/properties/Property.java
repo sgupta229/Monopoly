@@ -28,7 +28,7 @@ public abstract class Property implements Serializable {
     ///// and also buildingprices that is already populated, and just set these
 
     public Property(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
-        //isMortgaged = false;
+//        isMortgaged = false;
         myPrice=price;
         myName = propName;
         myColor = color;

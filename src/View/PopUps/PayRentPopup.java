@@ -25,7 +25,7 @@ public class PayRentPopup extends BuyPropertyPopup {
     public PayRentPopup(int propLocation, Controller controller) {
         super(propLocation, controller);
         this.myController = controller;
-        BoardConfigReader spaceInfo = new BoardConfigReader();
+        BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         allSpaces = spaceInfo.getSpaces();
         allProps = spaceInfo.getProperties();
         this.myText = super.getMessages();

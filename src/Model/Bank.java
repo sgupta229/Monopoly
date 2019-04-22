@@ -53,14 +53,14 @@ public class Bank implements Transfer, Serializable {
      */
     public AbstractPlayer propertyOwnedBy(Property property){
         if(ownedPropsMap.containsKey(property)){
-            System.out.println("PROPERTY IN OWNED MAP");
-            System.out.println("MY OWNER IS: " + ownedPropsMap.get(property));
+//            System.out.println("PROPERTY IN OWNED MAP");
+//            System.out.println("MY OWNER IS: " + ownedPropsMap.get(property));
             return ownedPropsMap.get(property);
         }
         else if (unOwnedProps.contains(property)){
             return null;
         }
-        System.out.println("not in either");
+//        System.out.println("not in either");
         //TODO: need to turn this into a try catch
         return null;
     }
@@ -166,8 +166,16 @@ public class Bank implements Transfer, Serializable {
 
 
     public void build(Property property, BuildingType building){
-
+        ArrayList<BuildingType> typesOfBuildings = new ArrayList<>();
+        typesOfBuildings.addAll(maxBuildingsPerProp.keySet());
         if(checkIfCanBuild(property, building)){
+            if(typesOfBuildings.indexOf(building)>0 && property.getNumBuilding(building)==0){
+                BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
+                int numOfPrevBuildings = property.getNumBuilding(bBefore);
+                for(int x=0; x<numOfPrevBuildings; x++){
+                    unbuildForUpgrade(property, bBefore);
+                }
+            }
             if (maxBuildingsPerProp.get(building) > property.getNumBuilding(building)) {
                 AbstractPlayer propOwner = propertyOwnedBy(property);
                 totalBuildingMap.put(building, totalBuildingMap.get(building) - 1);
@@ -207,6 +215,10 @@ public class Bank implements Transfer, Serializable {
 
     public void setEvenBuildingRule(boolean bool){
         evenBuildingRule = bool;
+    }
+
+    public void setFunds(double amount){
+        myBalance = amount;
     }
 
 }
