@@ -205,6 +205,7 @@ public class Bank implements Transfer, Serializable {
         AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
         property.removeBuilding(building, 1);
+
     }
 
     /***

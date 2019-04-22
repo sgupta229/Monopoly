@@ -115,7 +115,7 @@ class ClassicColorPropertyTest {
         player1.addProperty(lightBlueProp3);
         lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
         lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
-        lightBlueProp2.removeBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.removeBuilding(BuildingType.valueOf("HOUSE"), 1);
         var actualNumHouses = lightBlueProp2.getNumBuilding(BuildingType.valueOf("HOUSE"));
         var expectedNumHouses = 1;
         assertEquals(expectedNumHouses, actualNumHouses);

@@ -60,6 +60,7 @@ public class RulesPopup {
         startFunds = new NumberSpinner((int)myGame.getStartFunds(),100);    //TODO is it okay to cast to int
         jailBail = new NumberSpinner((int)myGame.getJailBail(),50);
         passGo = new NumberSpinner((int)myGame.getPassGo(),50);
+        bankFunds = new NumberSpinner((int)myGame.getBankFunds(),500);
 
         applyButton = new Button("Apply");
         applyButton.setOnAction(new ApplyButtonHandler());
@@ -69,6 +70,7 @@ public class RulesPopup {
                 makeRuleView(messages.getString("startingFundsRule"),startFunds),
                 makeRuleView(messages.getString("jailBailRule"),jailBail),
                 makeRuleView(messages.getString("passGoRule"),passGo),
+                makeRuleView("Starting Bank Funds",bankFunds),
                 applyButton);
     }
 
