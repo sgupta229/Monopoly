@@ -18,13 +18,15 @@ public class Bank implements Transfer, Serializable {
     private double myBalance;
     private Map<BuildingType, Integer> totalBuildingMap;
     private Map<BuildingType, Integer> maxBuildingsPerProp;
-    boolean evenBuildingRule;
+    private boolean evenBuildingRule;
+    List<BuildingType> typesOfBuildings = new ArrayList<>();
 
     public Bank(List<Double> allInfo, List<Property> properties, List<Map<BuildingType, Integer>> buildingInfo){
         myBalance=allInfo.get(0);
         unOwnedProps = new HashSet<>(properties);
         totalBuildingMap = buildingInfo.get(0);
         maxBuildingsPerProp = buildingInfo.get(1);
+        typesOfBuildings.addAll(maxBuildingsPerProp.keySet());
         //////totalBuildingMap.put(something);
         //////maxBuildingsPerProp.put(something);
     }
@@ -112,10 +114,18 @@ public class Bank implements Transfer, Serializable {
         game.startAuction();
     }
 
+    public boolean checkIfCanMortgage(Property property){
+        for()
+        if(property.getNumBuilding())
+        return !property.getIsMortgaged();
+    }
+
     public void mortgageProperty(Property property){
-        AbstractPlayer propOwner = ownedPropsMap.get(property);
-        this.makePayment(property.getMortgageAmount(), propOwner);
-        property.setIsMortgaged(true);
+        if(checkIfCanMortgage(property)){
+            AbstractPlayer propOwner = ownedPropsMap.get(property);
+            this.makePayment(property.getMortgageAmount(), propOwner);
+            property.setIsMortgaged(true);
+        }
     }
 
 
@@ -187,14 +197,14 @@ public class Bank implements Transfer, Serializable {
     public void sellBackBuildings(Property property, BuildingType building){
         AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
-        property.removeBuilding(building);
+        property.removeBuilding(building, 1);
         this.makePayment(property.getBuildingPrice(building)/2, propOwner);
     }
 
     public void unbuildForUpgrade(Property property, BuildingType building){
         AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
-        property.removeBuilding(building);
+        property.removeBuilding(building, 1);
     }
 
     /***
