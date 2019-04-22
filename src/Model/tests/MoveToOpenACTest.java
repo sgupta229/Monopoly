@@ -4,6 +4,7 @@ import Controller.AbstractGame;
 import Controller.ClassicGame;
 import Model.AbstractPlayer;
 import Model.ClassicPlayer;
+import Model.XmlReaderException;
 import Model.actioncards.*;
 import Model.properties.Property;
 import Model.spaces.ClassicPropSpace;
@@ -26,7 +27,11 @@ class MoveToOpenACTest {
     void setUp() {
         p1 = new ClassicPlayer();
         p2 = new ClassicPlayer();
-        game = new ClassicGame("Junior_Config.xml");
+        try {
+            game = new ClassicGame("Junior_Config.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
         game.setPlayers(List.of(p1, p2));
         game.setCurrPlayer(0);
 

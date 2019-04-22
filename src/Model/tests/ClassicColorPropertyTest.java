@@ -4,7 +4,7 @@ import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Model.Bank;
 import Model.ClassicPlayer;
-import Model.XmlTagException;
+import Model.XmlReaderException;
 import Model.properties.BuildingType;
 import Model.properties.Property;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,7 @@ class ClassicColorPropertyTest {
     int lastDiceRoll;
 
     @BeforeEach
-    void setUp() throws XmlTagException {
+    void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         propsList = conf.parseSpaces().get(1);
         player1 = new ClassicPlayer();

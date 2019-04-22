@@ -25,7 +25,7 @@ public class ActionCardSpaceTest {
     ClassicPlayer player1;
 
     @BeforeEach
-    void setUp() throws XmlTagException {
+    void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         actionCardList = conf.parseActionCards();
         spaceList = conf.parseSpaces().get(0);

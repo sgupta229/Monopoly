@@ -148,8 +148,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
 
-
-
     public List<Property> getPropertiesOfType(String type) {
         String checkType = type.toLowerCase();
         List<Property> propsList = new ArrayList<>();

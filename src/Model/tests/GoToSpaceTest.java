@@ -1,11 +1,10 @@
 package Model.Tests;
 
 import Controller.ClassicGame;
-import Controller.Token;
 import Model.AbstractPlayer;
 import Model.spaces.AbstractSpace;
 import Model.ClassicPlayer;
-import Model.XmlTagException;
+import Model.XmlReaderException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +31,7 @@ class GoToSpaceTest {
 
 
     @BeforeEach
-    void setUp() throws XmlTagException {
+    void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         goToJail = gameClass.getBoard().getSpaceAt(30);
         player1 = new ClassicPlayer();

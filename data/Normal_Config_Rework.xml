@@ -1042,16 +1042,16 @@
     </ActionCards>
     <Bank>
         <BankFunds>10000000</BankFunds>
-        <Houses>50</Houses>
-        <Hotels>25</Hotels>
+        <Houses>32</Houses>
+        <Hotels>12</Hotels>
     </Bank>
     <Buildings>
         <BuildingType type="HOUSE">
-            <TotalAmount>50</TotalAmount>
+            <TotalAmount>32</TotalAmount>
             <MaxAmount>4</MaxAmount>
         </BuildingType>
         <BuildingType type="HOTEL">
-            <TotalAmount>25</TotalAmount>
+            <TotalAmount>12</TotalAmount>
             <MaxAmount>1</MaxAmount>
         </BuildingType>
     </Buildings>
@@ -1066,7 +1066,7 @@
         <Token>wheelbarrow.png</Token>
     </Tokens>
     <Rules>
-        <StartFunds>2500</StartFunds>
+        <StartFunds>1500</StartFunds>
         <JailBail>50</JailBail>
         <PassGo>200</PassGo>
         <MaxHouses>4</MaxHouses>
