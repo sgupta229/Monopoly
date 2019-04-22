@@ -45,9 +45,6 @@ class ClassicPropSpaceTest {
         gameBank = gameClass.getBank();
         gameClass.rollDice();
         //player1.moveTo(30, gameClass.getBoardSize());
-
-
-
     }
 
     AbstractPlayer buyProperty(){
