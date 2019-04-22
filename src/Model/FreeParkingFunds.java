@@ -6,7 +6,8 @@ public class FreeParkingFunds implements Transfer {
 
     @Override
     public void makePayment(double amount, Transfer receiver) {
-        myParkingMoney -= myParkingMoney;
+        myParkingMoney -= amount;
+        System.out.println(myParkingMoney);
         receiver.receivePayment(myParkingMoney);
     }
 
