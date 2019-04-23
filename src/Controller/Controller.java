@@ -25,8 +25,8 @@ public class Controller {
     private AbstractGame myGame;
     private String myGameType;
     private String gameStyle;
-    private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
-    private ObservableList<String> availableTokens;
+    transient private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
+    transient private ObservableList<String> availableTokens;
 //    private Map<AbstractPlayer, Image> playersToImages = new HashMap<>();
 
     private Stage window;

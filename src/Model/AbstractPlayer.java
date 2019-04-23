@@ -16,8 +16,8 @@ import java.util.Map;
 import java.util.HashMap;
 
 public abstract class AbstractPlayer implements Transfer, Serializable {
-    private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
+    private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
     private String name;
     private String tokenImage;
     private int numRollsInJail = 0;
