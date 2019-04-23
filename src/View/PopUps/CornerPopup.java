@@ -31,7 +31,7 @@ public class CornerPopup extends Popup {
         super();
         this.propLocation = propLocation;
         this.myController = controller;
-        BoardConfigReader spaceInfo = new BoardConfigReader();
+        BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         spaces = spaceInfo.getSpaces();
         this.myText = super.getMessages();
         for (AbstractSpace sp : spaces) {
@@ -74,6 +74,7 @@ public class CornerPopup extends Popup {
             @Override
             public void handle(ActionEvent event) {
                 mySpace.doAction(myController.getGame(), OK);
+                System.out.println("called do action");
                 window.close();
             }
         });

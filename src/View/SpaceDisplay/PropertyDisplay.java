@@ -17,15 +17,16 @@ import javafx.scene.text.TextAlignment;
 
 public abstract class PropertyDisplay {
 
-    protected Pane myPropertyPane;
+    private Pane myPropertyPane;
     protected Pane myPropStackPane;
-    protected Pane myImagePane;
+    private Pane myImagePane;
 
-    protected String myPropName;
-    protected String myPropPrice;
-    protected String myImage;
-    protected String myPropColor;
-    protected String myBaseColor;
+    private String myPropName;
+    private String myPropPrice;
+    private String myImage;
+    private String myPropColor;
+    private String myBaseColor;
+    private HBox propColor;
     protected Rectangle myRectangle;
 
     public PropertyDisplay(String propName, String propPrice, String propColor, String baseColor){
@@ -75,7 +76,7 @@ public abstract class PropertyDisplay {
             myPropertyPane.getChildren().addAll(myRectangle);
         }
         else{
-            HBox propColor = new HBox();
+            propColor = new HBox();
             propColorLocation(propColor);
             propColor.setId("propColor");
             propColor.setStyle(  " -fx-background-color:" + myPropColor);

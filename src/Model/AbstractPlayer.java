@@ -1,14 +1,11 @@
 package Model;
 
-import Controller.Token;
 import Model.properties.Property;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.collections.ObservableSet;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -56,6 +53,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
             throw new IllegalArgumentException("Not enough money to pay");
         }
         setFunds(this.funds - amount);
+        System.out.println("receiveer is going to get this amount: " + amount);
         receiver.receivePayment(amount);
     }
 
@@ -73,6 +71,9 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
                 count++;
             }
         }
+        System.out.println("I own :" + count + "props");
+        System.out.println("And my group has :" + groupSize + "props");
+
         if(count == groupSize) {
             return true;
         }
@@ -111,7 +112,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         double oldFunds = this.funds;
         this.funds = newFunds;
         myPCS.firePropertyChange("funds",oldFunds,this.funds);
-        System.out.println(this.getName() + "'s funds updated. new funds: " + funds);
     }
 
     public void addFunds(double addAmount) {
@@ -150,21 +150,21 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
 
-    public void startAuction() {
-
-    }
-
-    public int getPropertiesOfType(String type) {
-        int count = 0;
+    public List<Property> getPropertiesOfType(String type) {
         String checkType = type.toLowerCase();
+        List<Property> propsList = new ArrayList<>();
         for(Property p : properties) {
-            System.out.println(p.getGroup());
+            //System.out.println(p.getGroup());
             if(p.getGroup().toLowerCase().equals(checkType)) {
-                count++;
+                propsList.add(p);
             }
         }
-        return count;
+        return propsList;
     }
+
+
+
+
 
     public ObservableList<Property> getProperties() {
         return properties;
@@ -195,27 +195,11 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         return this.tokenImage;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        AbstractPlayer that = (AbstractPlayer) o;
-        return Double.compare(that.funds, funds) == 0 &&
-                currentLocation == that.currentLocation &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(properties, that.properties) &&
-                Objects.equals(actionCards, that.actionCards);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, funds, properties, actionCards, currentLocation);
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    @Deprecated
+    //TESTING ONLY
     public void setCurrentLocation(int newLocation) {
         currentLocation = newLocation;
     }

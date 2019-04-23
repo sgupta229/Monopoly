@@ -36,19 +36,20 @@ public abstract class AbstractGame implements Serializable {
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     private List<String> possibleTokens;
     private int numRollsInJail = 0;
-
+    private double bankFunds;
     private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
+    private Transfer freeParking = new FreeParkingFunds();
     
-    public AbstractGame(String filename) {
+    public AbstractGame(String filename) throws XmlReaderException {
         parseXMLFile(filename);
         for(int i = 0; i < dice.size(); i++) {
             diceHistory.put(i, new ArrayList<>());
         }
     }
 
-    private void parseXMLFile(String filename) {
+    private void parseXMLFile(String filename) throws XmlReaderException {
         ConfigReader configReader = new ConfigReader(filename);
         try {
             decks = configReader.parseActionDecks();
@@ -59,7 +60,7 @@ public abstract class AbstractGame implements Serializable {
             possibleTokens = configReader.parseTokens();
             dice = configReader.parseDice();
             List<Double> funds = configReader.parseBank();
-
+            bankFunds = funds.get(0);
             boardSize = configReader.parseBoard();
             List<List> spaceProps= configReader.parseSpaces();
             spaces = spaceProps.get(0);
@@ -77,8 +78,8 @@ public abstract class AbstractGame implements Serializable {
             freeParkingRule = configReader.getRuleBool("FreeParking");
             rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (XmlReaderException e) {
+            throw new XmlReaderException(e.getMessage() + ": Check data file " + filename);
         }
     }
 
@@ -88,9 +89,8 @@ public abstract class AbstractGame implements Serializable {
         }
         players = p;
         setCurrPlayer(0);
-        for (AbstractPlayer pl : players){
+        for (AbstractPlayer pl : players)
             this.addPlayer(pl);
-        }
     }
 
     public abstract boolean checkGameOver();
@@ -105,9 +105,11 @@ public abstract class AbstractGame implements Serializable {
         myPCS.firePropertyChange("currPlayer",currPlayer,players.get(index));
         currPlayer = players.get(index);
     }
+
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
+
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         myPCS.removePropertyChangeListener(listener);
     }
@@ -134,14 +136,14 @@ public abstract class AbstractGame implements Serializable {
         return players;
     }
 
-    public int rollDice() {
-        int value = 0;
+    public List<Integer> rollDice() {
+        List<Integer> rolls = new ArrayList<>();
         for(int i = 0; i < dice.size(); i++) {
             int roll = dice.get(i).rollDie();
-            value += roll;
+            rolls.add(roll);
             diceHistory.get(i).add(roll);
         }
-        return value;
+        return rolls;
     }
 
     public Bank getBank() {
@@ -153,26 +155,24 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public void startNextTurn() {
-        int index = players.indexOf(currPlayer) + 1;
-        if(index > (players.size() - 1)) {
-            index = 0;
-        }
+        int index = players.indexOf(this.getLeftPlayer());
         setCurrPlayer(index);
     }
 
-    //checks 3 matching all dice in a row
     public boolean checkDoubles() {
         ArrayList<Integer> firstDie = diceHistory.get(0);
-        List<Integer> check = firstDie.subList(firstDie.size() - 3, firstDie.size());
+        int check = firstDie.get(firstDie.size() - 1);
         for(Integer key : diceHistory.keySet()) {
             ArrayList<Integer> otherDie = diceHistory.get(key);
-            List<Integer> other = otherDie.subList(otherDie.size() - 3, otherDie.size());
-            if(!check.equals(other)) {
+            int other = otherDie.get(firstDie.size() - 1);
+            if(!(check == other)) {
                 return false;
             }
         }
         return true;
     }
+
+    public abstract boolean checkDoublesForJail();
 
     public List<ActionDeck> getMyActionDecks(){return decks;}
 
@@ -188,10 +188,6 @@ public abstract class AbstractGame implements Serializable {
 
     public int getBoardSize() {
         return boardSize;
-    }
-
-    public void endTurn() {
-
     }
 
     public AbstractActionCard getCurrentActionCard() {
@@ -215,6 +211,10 @@ public abstract class AbstractGame implements Serializable {
         if(newIndex > board.getSize() - 1) {
             throw new IllegalArgumentException("The new index is outside of the board size");
         }
+        if(oldIndex != currPlayer.getCurrentLocation()) {
+            throw new IllegalArgumentException("The old index provided is not correct");
+        }
+        checkPassGo(oldIndex, newIndex);
         currPlayer.moveTo(newIndex);
         AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
         oldSpace.removeOccupant(getCurrPlayer());
@@ -222,8 +222,10 @@ public abstract class AbstractGame implements Serializable {
         newSpace.addOccupant(getCurrPlayer());
     }
 
-    public void displayPopup() {
-
+    public void checkPassGo(int oldIndex, int newIndex) {
+        if(newIndex < oldIndex) {
+            getCurrPlayer().addFunds(getPassGo());
+        }
     }
 
     @Deprecated
@@ -237,9 +239,33 @@ public abstract class AbstractGame implements Serializable {
         return diceHistory;
     }
 
-    public void startAuction() {
+    public void handleAuction(AbstractPlayer p, int bid, int propLocation) {
+        Property prop = board.getSpaceAt(propLocation).getMyProp();
+        bank.setPropertyOwner(prop, p);
+        p.makePayment(bid, bank);
+        p.addProperty(prop);
+        System.out.println(bank.propertyOwnedBy(prop).getName());
 
+/*        AbstractPlayer maxPlayer = null;
+        double maxBid = 0;
+        for(AbstractPlayer p : bidMap.keySet()){
+            if(bidMap.get(p) > maxBid){
+                maxBid = bidMap.get(p);
+                maxPlayer = p;
+            }
+        }
+        if(maxBid > 0 && maxPlayer!=null){
+            bank.setPropertyOwner(prop, maxPlayer);
+            maxPlayer.makePayment(maxBid, bank);
+        }*/
     }
+
+//    public void clearDiceHistory() {
+//        diceHistory = new HashMap<>();
+//        for(int i = 0; i < dice.size(); i++) {
+//            diceHistory.put(i, new ArrayList<>());
+//        }
+//    }
 
     public int getLastDiceRoll() {
         int value = 0;
@@ -260,6 +286,7 @@ public abstract class AbstractGame implements Serializable {
         return evenBuildingRule;
     }
     public void setEvenBuildingRule(boolean bool){
+        bank.setEvenBuildingRule(bool);
         this.evenBuildingRule = bool;
     }
     public boolean getFreeParkingRule(){
@@ -301,4 +328,38 @@ public abstract class AbstractGame implements Serializable {
         this.name = name;
     }
 
+
+    public Transfer getFreeParking(){
+        return freeParking;
+    }
+
+    public double getBankFunds(){
+        return bankFunds;
+    }
+
+    public void setBankFunds(double amount){
+        bank.setFunds(amount);
+    }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public List<AbstractSpace> getSpaces() {
+        return spaces;
+    }
+
+    public void forfeitHandler(AbstractPlayer playerOut){
+        this.players.remove(playerOut);
+        List<Property> propSet = playerOut.getProperties();
+        Set<BuildingType> bTypes = bank.getTotalBuildingMap().keySet();
+        for(Property p : propSet){
+            for(BuildingType bt : bTypes){
+                bank.setTotalBuildingMap(bt, p.getNumBuilding(bt));
+                //p.removeBuilding(bt, p.getNumBuilding(bt));
+            }
+            bank.sellBackProperty(p, this);
+        }
+        playerOut.makePayment(playerOut.getFunds(), bank);
+    }
 }

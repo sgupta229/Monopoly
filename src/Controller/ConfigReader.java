@@ -39,27 +39,27 @@ public class ConfigReader {
         }
     }
 
-    public int parseBoard() throws XmlTagException{
+    public int parseBoard() throws XmlReaderException {
         int boardSize = Integer.parseInt(doc.getElementsByTagName("BoardSize").item(0).getTextContent());
         return boardSize;
     }
 
-    public List<Double> parseBank() throws XmlTagException{
+    public List<Double> parseBank() throws XmlReaderException {
         List<Double> bankInfo = new ArrayList<>();
         double bankFunds = Double.parseDouble(doc.getElementsByTagName("BankFunds").item(0).getTextContent());
-        double numHouses = Double.parseDouble(doc.getElementsByTagName("Houses").item(0).getTextContent());
-        double numHotels = Double.parseDouble(doc.getElementsByTagName("Hotels").item(0).getTextContent());
-        double maxNumHouses = Double.parseDouble(doc.getElementsByTagName("MaxHouses").item(0).getTextContent());
+        //double numHouses = Double.parseDouble(doc.getElementsByTagName("Houses").item(0).getTextContent());
+        //double numHotels = Double.parseDouble(doc.getElementsByTagName("Hotels").item(0).getTextContent());
+        //double maxNumHouses = Double.parseDouble(doc.getElementsByTagName("MaxHouses").item(0).getTextContent());
 
         bankInfo.add(bankFunds);
-        bankInfo.add(numHouses);
-        bankInfo.add(numHotels);
-        bankInfo.add(maxNumHouses);
+        //bankInfo.add(numHouses);
+        //bankInfo.add(numHotels);
+        //bankInfo.add(maxNumHouses);
         //System.out.println(maxNumHouses);
         return bankInfo;
     }
 
-    public List<Die> parseDice() throws XmlTagException{
+    public List<Die> parseDice() throws XmlReaderException {
         List<Die> dice = new ArrayList<>();
 
         int numberOfDice = Integer.parseInt(doc.getElementsByTagName("Number").item(0).getTextContent());
@@ -78,7 +78,7 @@ public class ConfigReader {
         return dice;
     }
 
-    public List<ActionDeck> parseActionDecks() throws XmlTagException{
+    public List<ActionDeck> parseActionDecks() throws XmlReaderException {
         List<ActionDeck> decks = new ArrayList<>();
 
         NodeList actionDeckList = doc.getElementsByTagName("ActionDeck");
@@ -89,16 +89,22 @@ public class ConfigReader {
                 Element deck = (Element) ad;
                 //String deckName = deck.getElementsByTagName("ActionDeck").item(0).getTextContent();
                 String deckName = deck.getTextContent();
-                DeckType dt = DeckType.valueOf(deckName);
-                ActionDeck tempDeck = new ActionDeck(dt);
-                decks.add(tempDeck);
+                //Check if deckName in DeckType enum before getting enum
+                if(!checkDeckType(deckName)){
+                    throw new XmlReaderException(deckName + "not a valid action deck. Please check the data file.");
+                }
+                else{
+                    DeckType dt = DeckType.valueOf(deckName);
+                    ActionDeck tempDeck = new ActionDeck(dt);
+                    decks.add(tempDeck);
+                }
             }
         }
         return decks;
     }
 
-//    public List<AbstractActionCard> parseActionCards() throws XmlTagException{
-    public List<AbstractActionCard> parseActionCards(){
+//    public List<AbstractActionCard> parseActionCards() throws XmlReaderException{
+    public List<AbstractActionCard> parseActionCards() throws XmlReaderException {
         //Feed this allActionCards list into fillLiveDeck() in deck class after initializing empty decks
         List<AbstractActionCard> allActionCards = new ArrayList<>();
 
@@ -107,6 +113,11 @@ public class ConfigReader {
             Node ac = actionCardList.item(i);
             if(ac.getNodeType() == Node.ELEMENT_NODE){
                 Element card = (Element) ac;
+                String deckName = card.getElementsByTagName("DeckType").item(0).getTextContent();
+                if(!checkDeckType(deckName)){
+                    throw new XmlReaderException(deckName + "not a valid action deck. Please check the data file.");
+                }
+
                 //All types of action cards have these fields
                 DeckType dt = DeckType.valueOf(card.getElementsByTagName("DeckType").item(0).getTextContent());
                 String msg = card.getElementsByTagName("Message").item(0).getTextContent();
@@ -208,6 +219,7 @@ public class ConfigReader {
                     Property newProp = (Property) Class.forName("Model.properties." + className).getConstructor(double.class, String.class, String.class, List.class, int.class, Map.class).newInstance(buyPrice,
                             name, color, rentNumbers, groupSize, BuildingPrices);
                     propsList.add(newProp);
+                    newProp.setIsMortgaged(false);
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
@@ -282,6 +294,16 @@ public class ConfigReader {
         else{
             return null;
         }
+    }
+
+    private boolean checkDeckType(String deckName){
+        int counter = DeckType.values().length;
+        for(DeckType dtype : DeckType.values()) {
+            if (dtype.name().equalsIgnoreCase(deckName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<List> parseSpaces(){
@@ -368,9 +390,9 @@ public class ConfigReader {
 
 
                     Property newProp = new ClassicColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize, buildingPriceMap);
-                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    AbstractSpace newSpace = new ClassicPropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
-                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
+                    //((ClassicPropSpace) newSpace).linkSpaceToProperty(newProp);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
 
@@ -392,8 +414,8 @@ public class ConfigReader {
                     rentAmounts.add(mortgage);
                     TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
                     Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts, groupSize);
-                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
-                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    //((ClassicPropSpace) newSpace).linkSpaceToProperty(newProp);
+                    AbstractSpace newSpace = new ClassicPropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
@@ -412,14 +434,14 @@ public class ConfigReader {
                     rentAmounts.add(mortgage);
                     TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
                     Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts, groupSize);
-                    //((PropSpace) newSpace).linkSpaceToProperty(newProp);
-                    AbstractSpace newSpace = new PropSpace(index, spaceName, newProp);
+                    //((ClassicPropSpace) newSpace).linkSpaceToProperty(newProp);
+                    AbstractSpace newSpace = new ClassicPropSpace(index, spaceName, newProp);
                     allSpaces.add(newSpace);
                     allProps.add(newProp);
                     newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
                 }
 //                else{
-//                    throw new XmlTagException(space.getAttribute("type"));
+//                    throw new XmlReaderException(space.getAttribute("type"));
 //                }
             }
         }*/
@@ -485,7 +507,7 @@ public class ConfigReader {
     }*/
 
 
-    public List<String> parseTokens() throws XmlTagException{
+    public List<String> parseTokens() throws XmlReaderException {
         List<String> allTokens = new ArrayList<>();
 
         NodeList tokenList = doc.getElementsByTagName("Token");
@@ -502,7 +524,7 @@ public class ConfigReader {
             return allTokens;
         }
         else{
-            throw new XmlTagException("BadTag");
+            throw new XmlReaderException("BadTag");
         }
     }
 
@@ -572,7 +594,7 @@ public class ConfigReader {
             c.parseTokens();
             c.getBuildingProperties();*/
         }
-        catch(XmlTagException e){
+        catch(XmlReaderException e){
         }
     }
 

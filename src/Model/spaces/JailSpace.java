@@ -8,10 +8,13 @@ import java.util.List;
 
 public class JailSpace extends AbstractSpace {
 
+    private static final String myPopString = "Corner";
+
     public JailSpace(int locationIndex, String spaceName, String spaceGroup,
                      String jumpToSpace, List<Double> taxNums, Property myProp){
 
         super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
+        setPopString(myPopString);
     }
 
     public JailSpace(int locationIndex, String spaceName){
@@ -31,6 +34,10 @@ public class JailSpace extends AbstractSpace {
      */
 
     public void doAction(AbstractGame game, int userChoice){
-        game.endTurn();
+
+    }
+
+    public String getPopString(AbstractGame game){
+        return myPopString;
     }
 }

@@ -5,7 +5,7 @@ import Model.*;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import Model.spaces.ActionCardSpace;
-import Model.spaces.PropSpace;
+import Model.spaces.ClassicPropSpace;
 import Model.spaces.TaxSpace;
 import View.PopUps.*;
 import View.SpaceDisplay.*;
@@ -18,6 +18,7 @@ import javafx.scene.layout.*;
 import java.awt.geom.Point2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +63,7 @@ public class Board implements PropertyChangeListener {
     }
 
     public void addTokenToIndex(int i, Node image){
-        BoardConfigReader reader = new BoardConfigReader();
+        BoardConfigReader reader = new BoardConfigReader(myGame);
         Map<Integer, Point2D.Double> myPoint = reader.getIndexToCoord();
         myGridPane.add(image,(int)myPoint.get(i).getX(),(int)myPoint.get(i).getY());
         imagesOnBoard.add(image);
@@ -81,9 +82,29 @@ public class Board implements PropertyChangeListener {
         playerLocation = myGame.getCurrPlayer().getCurrentLocation();
         //board -> get space at
         //space.generatePopup.displa
+        AbstractSpace playersSpace = myGame.getBoard().getSpaceAt(playerLocation);
 
+        try {
+            String popClass = playersSpace.getPopString(myController.getGame());
+            if(popClass!=null){
+                myPopup = (Popup) Class.forName("View.PopUps." + popClass+"Popup").getConstructor(int.class, Controller.class).newInstance(playerLocation,
+                        myController);
+                myPopup.display();
+            }
 
-        if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        /*if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
             myPopup = new ActionCardPopup( playerLocation, myController);
         }
         else if (playerLocation==4 || playerLocation==38){
@@ -104,6 +125,15 @@ public class Board implements PropertyChangeListener {
                     myProperty = p;
                 }
             }
+            myProperty = myAbstractSpace.getMyProp();
+            System.out.println("NEW TURN: ");
+
+
+            System.out.println("CHECKING IF " + myProperty.getName()+ " STILL MORTGAGED********** "+myProperty.getIsMortgaged() + " " + myProperty);
+//            System.out.println("CHECKING IF STILL MORTGAGED********** "+myController.getGame().getCurrPlayer().getProperties() + " " + myProperty);
+            for (Property pr: myController.getGame().getCurrPlayer().getProperties()){
+                System.out.println("LOOK HERE***** "+ pr + " " + pr.getIsMortgaged());
+            }
 
             if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
                 myPopup = new PayRentPopup(playerLocation, myController);
@@ -117,7 +147,7 @@ public class Board implements PropertyChangeListener {
         }
         if (myPopup!=null){
             myPopup.display();
-        }
+        }*/
     }
 
     private void addTokensToGo(){
@@ -132,7 +162,7 @@ public class Board implements PropertyChangeListener {
     private void createSpaces(String baseColor){
         for (Map.Entry<Point2D.Double, AbstractSpace> entry : indexToName.entrySet()) {
             String name = entry.getValue().getMyName().replace("_", " ");
-            if (entry.getValue() instanceof PropSpace) {
+            if (entry.getValue() instanceof ClassicPropSpace) {
                 String price = nameToPrice.get(name).toString();
                 String color = nameToColor.get(name);
                 if (entry.getKey().getY() == boardDimension-1) {
@@ -219,12 +249,13 @@ public class Board implements PropertyChangeListener {
     }
 
     private void setUpBoardConfig(){
-        BoardConfigReader configs = new BoardConfigReader();
+        BoardConfigReader configs = new BoardConfigReader(myGame);
         indexToName = configs.getIndexToName();
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
         allSpaces = configs.getSpaces();
-        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
+//        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
+        myProps = new ArrayList(myController.getGame().getProperties());
     }
 
     public Pane getGridPane() { return myGridPane; }
@@ -240,4 +271,9 @@ public class Board implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) { renderPlayers(); }
+
+    public List<Property> getMyProps() {
+        return myProps;
+    }
+
 }

@@ -1,19 +1,24 @@
 package Controller;
 
 import Model.AbstractPlayer;
+import Model.XmlReaderException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClassicGame extends AbstractGame {
 
-    public ClassicGame(String filename) {
+    public ClassicGame(String filename) throws XmlReaderException {
         super(filename);
         ConfigReader configReader = new ConfigReader(filename);
     }
 
     @Override
-    public int rollDice() {
+    public List<Integer> rollDice() {
         int oldIndex = getCurrPlayer().getCurrentLocation();
-        int roll = super.rollDice();
-        int newIndex = getNewIndex(oldIndex, roll);
+        List<Integer> rolls = super.rollDice();
+        int rollVal = getLastDiceRoll();
+        int newIndex = getNewIndex(oldIndex, rollVal);
         if(!getCurrPlayer().isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }
@@ -26,15 +31,27 @@ public class ClassicGame extends AbstractGame {
             }
         }
         checkPassGo(oldIndex, newIndex);
-        return roll;
+        return rolls;
     }
 
-    public void checkPassGo(int oldIndex, int newIndex) {
-        if(newIndex < oldIndex) {
-//        if(0 <= newIndex && 0>= oldIndex) {
-            getCurrPlayer().addFunds(getPassGo());
+    //checks 3 matching all dice in a row
+    public boolean checkDoublesForJail() {
+        if(getDiceHistory().get(0).size() < 3) {
+            return false;
         }
+        ArrayList<Integer> firstDie = getDiceHistory().get(0);
+        List<Integer> check = firstDie.subList(firstDie.size() - 3, firstDie.size());
+        for(Integer key : getDiceHistory().keySet()) {
+            ArrayList<Integer> otherDie = getDiceHistory().get(key);
+            List<Integer> other = otherDie.subList(otherDie.size() - 3, otherDie.size());
+            if(!check.equals(other)) {
+                return false;
+            }
+        }
+        return true;
     }
+
+
 
     public boolean checkGameOver() {
         int numPlayers = getPlayers().size();

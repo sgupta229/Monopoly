@@ -7,6 +7,7 @@ import Controller.AbstractGame;
 import Model.properties.BuildingType;
 import Model.properties.Property;
 
+import javax.swing.tree.TreeCellEditor;
 import java.io.Serializable;
 import java.util.*;
 
@@ -17,12 +18,15 @@ public class Bank implements Transfer, Serializable {
     private double myBalance;
     private Map<BuildingType, Integer> totalBuildingMap;
     private Map<BuildingType, Integer> maxBuildingsPerProp;
+    private boolean evenBuildingRule;
+    List<BuildingType> typesOfBuildings = new ArrayList<>();
 
     public Bank(List<Double> allInfo, List<Property> properties, List<Map<BuildingType, Integer>> buildingInfo){
         myBalance=allInfo.get(0);
         unOwnedProps = new HashSet<>(properties);
         totalBuildingMap = buildingInfo.get(0);
         maxBuildingsPerProp = buildingInfo.get(1);
+        typesOfBuildings.addAll(maxBuildingsPerProp.keySet());
         //////totalBuildingMap.put(something);
         //////maxBuildingsPerProp.put(something);
     }
@@ -51,14 +55,14 @@ public class Bank implements Transfer, Serializable {
      */
     public AbstractPlayer propertyOwnedBy(Property property){
         if(ownedPropsMap.containsKey(property)){
-            System.out.println("PROPERTY IN OWNED MAP");
-            System.out.println("MY OWNER IS: " + ownedPropsMap.get(property));
+//            System.out.println("PROPERTY IN OWNED MAP");
+//            System.out.println("MY OWNER IS: " + ownedPropsMap.get(property));
             return ownedPropsMap.get(property);
         }
         else if (unOwnedProps.contains(property)){
             return null;
         }
-        System.out.println("not in either");
+//        System.out.println("not in either");
         //TODO: need to turn this into a try catch
         return null;
     }
@@ -103,18 +107,29 @@ public class Bank implements Transfer, Serializable {
      */
     public void sellBackProperty(Property property, AbstractGame game){
         AbstractPlayer propOwner = ownedPropsMap.get(property);
-        this.makePayment(property.getMortgageAmount(), propOwner);
+        //this.makePayment(property.getMortgageAmount(), propOwner);
         ownedPropsMap.remove(property);
         unOwnedProps.add(property);
         propOwner.removeProperty(property);
-        game.startAuction();
+        //game.startAuction();
+    }
 
+    public boolean checkIfCanMortgage(Property property){
+        for(BuildingType bType:typesOfBuildings){
+            if(property.getNumBuilding(bType)!=0){
+                return false;
+            }
+        }
+
+        return !property.getIsMortgaged();
     }
 
     public void mortgageProperty(Property property){
-        AbstractPlayer propOwner = ownedPropsMap.get(property);
-        this.makePayment(property.getMortgageAmount(), propOwner);
-        property.setIsMortgaged(true);
+        if(checkIfCanMortgage(property)){
+            AbstractPlayer propOwner = ownedPropsMap.get(property);
+            this.makePayment(property.getMortgageAmount(), propOwner);
+            property.setIsMortgaged(true);
+        }
     }
 
 
@@ -128,27 +143,69 @@ public class Bank implements Transfer, Serializable {
         if(!(property instanceof Property)) {
             throw new IllegalArgumentException("the Buildable is not a property");
         }*/
+    public boolean checkIfCanBuild(Property property, BuildingType building){
+
+        if(typesOfBuildings.indexOf(building)>0 && property.getNumBuilding(building)==0){
+            BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
+            if(property.getNumBuilding(bBefore)!=maxBuildingsPerProp.get(bBefore)){
+                return false;
+            }
+        }
+        if(maxBuildingsPerProp.get(building)==property.getNumBuilding(building)){
+            return false;
+        }
+        if(totalBuildingMap.get(building)==0){
+            return false;
+        }
+        if(ownedPropsMap.get(property).getFunds() < property.getBuildingPrice(building)){
+            return false;
+        }
+        if(evenBuildingRule){
+            List<Property> otherProps = propertyOwnedBy(property).getPropertiesOfType(property.getColor());
+            for(Property p: otherProps){
+                if(p.getNumBuilding(building)==property.getNumBuilding(building)-1){
+                    return false;
+                }
+            }
+        }
+        if(!propertyOwnedBy(property).checkMonopoly(property)){
+            return false;
+        }
+        return true;
+
+    }
+
 
     public void build(Property property, BuildingType building){
-        if (maxBuildingsPerProp.get(building) > property.getNumBuilding(building)) {
-            AbstractPlayer propOwner = propertyOwnedBy(property);
-            totalBuildingMap.put(building, totalBuildingMap.get(building) - 1);
-            property.addBuilding(building);
-            propOwner.makePayment(property.getBuildingPrice(building), this);
+        if(checkIfCanBuild(property, building)){
+            if(typesOfBuildings.indexOf(building)>0 && property.getNumBuilding(building)==0){
+                BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
+                int numOfPrevBuildings = property.getNumBuilding(bBefore);
+                for(int x=0; x<numOfPrevBuildings; x++){
+                    unbuildForUpgrade(property, bBefore);
+                }
+            }
+            if (maxBuildingsPerProp.get(building) > property.getNumBuilding(building)) {
+                AbstractPlayer propOwner = propertyOwnedBy(property);
+                totalBuildingMap.put(building, totalBuildingMap.get(building) - 1);
+                property.addBuilding(building);
+                propOwner.makePayment(property.getBuildingPrice(building), this);
+            }
         }
     }
 
     public void sellBackBuildings(Property property, BuildingType building){
         AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
-        property.removeBuilding(building);
+        property.removeBuilding(building, 1);
         this.makePayment(property.getBuildingPrice(building)/2, propOwner);
     }
 
     public void unbuildForUpgrade(Property property, BuildingType building){
         AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
-        property.removeBuilding(building);
+        property.removeBuilding(building, 1);
+
     }
 
     /***
@@ -166,4 +223,19 @@ public class Bank implements Transfer, Serializable {
         return unOwnedProps;
     }
 
+    public void setEvenBuildingRule(boolean bool){
+        evenBuildingRule = bool;
+    }
+
+    public void setFunds(double amount){
+        myBalance = amount;
+    }
+
+    public Map<BuildingType, Integer> getTotalBuildingMap() {
+        return totalBuildingMap;
+    }
+
+    public void setTotalBuildingMap(BuildingType bt, Integer amnt) {
+        this.totalBuildingMap.put(bt, totalBuildingMap.get(bt)+amnt);
+    }
 }

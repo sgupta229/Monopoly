@@ -1,29 +1,35 @@
 package Model.spaces;
 
 import Controller.AbstractGame;
+import Model.AbstractPlayer;
+import Model.Bank;
 import Model.properties.Property;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class GoSpace extends AbstractSpace {
+public abstract class AbstractPropSpace extends AbstractSpace {
 
-    private static final String myPopString = "Corner";
 
-    public GoSpace(int locationIndex, String spaceName, String spaceGroup,
-                   String jumpToSpace, List<Double> taxNums, Property myProp){
+    private Property myProperty;
+
+    public AbstractPropSpace(int locationIndex, String spaceName, String spaceGroup,
+                             String jumpToSpace, List<Double> taxNums, Property myProp){
         super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
-        setPopString(myPopString);
+
+        myProperty = myProp;
+
     }
 
-    public GoSpace(int locationIndex, String spaceName){
+    public AbstractPropSpace(int locationIndex, String spaceName, Property prop){
         super(locationIndex, spaceName);
+
+        myProperty = prop;
+
     }
 
     public List getInfo(){
-        return new ArrayList();
+        return myProperty.getInfo();
     }
-
 
     /***
      * This method performs the specific action that a type of space requires.
@@ -33,11 +39,12 @@ public class GoSpace extends AbstractSpace {
      * @param game the active Game driver class for this game
      */
 
-    public void doAction(AbstractGame game, int userChoice){
+    public abstract void doAction(AbstractGame game, int userChoice);
 
+    public Property getMyProperty(){
+        return myProperty;
     }
 
-    public String getPopString(AbstractGame game){
-        return myPopString;
-    }
+
+
 }

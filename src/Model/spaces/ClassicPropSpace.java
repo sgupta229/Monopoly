@@ -9,29 +9,26 @@ import Model.Bank;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PropSpace extends AbstractSpace {
+public class ClassicPropSpace extends AbstractPropSpace {
 
 
     private Property myProperty;
+    private static final String myUnOwnedPopString = "BuyProperty";
+    private static final String myOwnedPopString = "PayRent";
+    private static final String myPopString = "ClassicProp";
 
-    public PropSpace(int locationIndex, String spaceName, String spaceGroup,
-                     String jumpToSpace, List<Double> taxNums, Property myProp){
+    public ClassicPropSpace(int locationIndex, String spaceName, String spaceGroup,
+                            String jumpToSpace, List<Double> taxNums, Property myProp){
         super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
-
+        setPopString(myPopString);
         myProperty = myProp;
 
     }
 
-    public PropSpace(int locationIndex, String spaceName, Property prop){
-        super(locationIndex, spaceName);
 
-        myProperty = prop;
-
-    }
-
-    public List getInfo(){
-        return myProperty.getInfo();
-    }
+    //public List getInfo(){
+        //return myProperty.getInfo();
+    //}
 
     /***
      * This method performs the specific action that a type of space requires.
@@ -51,6 +48,7 @@ public class PropSpace extends AbstractSpace {
         if (propOwner == null) {
             if (userChoice == 0) { //aka buy property
                 bank.setPropertyOwner(myProperty, currPlayer);
+                myProperty.setIsOwned(true);
                 currPlayer.makePayment(propertyPrice, bank);
                 currPlayer.addProperty(myProperty); //have to update the players assets
                 //front end updates this somewhere?
@@ -66,9 +64,23 @@ public class PropSpace extends AbstractSpace {
         //else()
     }
 
-    public Property getMyProperty(){
-        return myProperty;
+    public String getPopString(AbstractGame game){
+
+        if(myProperty.getIsOwned() && game.getBank().propertyOwnedBy(myProperty)!=game.getCurrPlayer()){
+            return myOwnedPopString;
+        }
+        else if(game.getBank().propertyOwnedBy(myProperty)==game.getCurrPlayer()){
+            return null;
+        }
+        return myUnOwnedPopString;
     }
+
+
+    //public Property getMyProperty(){
+        //return myProperty;
+    //}
+
+
 
 
 

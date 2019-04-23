@@ -4,10 +4,10 @@ import Controller.AbstractGame;
 import Controller.ClassicGame;
 import Model.AbstractPlayer;
 import Model.ClassicPlayer;
+import Model.XmlReaderException;
 import Model.actioncards.*;
 import Model.properties.Property;
-import Model.spaces.AbstractSpace;
-import Model.spaces.PropSpace;
+import Model.spaces.ClassicPropSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +27,11 @@ class MoveToOpenACTest {
     void setUp() {
         p1 = new ClassicPlayer();
         p2 = new ClassicPlayer();
-        game = new ClassicGame("Junior_Config.xml");
+        try {
+            game = new ClassicGame("Junior_Config.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
         game.setPlayers(List.of(p1, p2));
         game.setCurrPlayer(0);
 
@@ -55,7 +59,7 @@ class MoveToOpenACTest {
     @Test
     void moveToBrownFirstOwned(){
         AbstractPlayer curr = game.getCurrPlayer();
-        PropSpace sp = (PropSpace) game.getBoard().getSpaceAt(1);
+        ClassicPropSpace sp = (ClassicPropSpace) game.getBoard().getSpaceAt(1);
         game.getBank().setPropertyOwner(sp.getMyProperty(), p2);
         var expected = game.getBoard().getLocationOfSpace("PIZZA_HOUSE");
         System.out.println(expected);
@@ -67,8 +71,8 @@ class MoveToOpenACTest {
     @Test
     void moveToYellowBrownOwnedOwnYellow(){
         AbstractPlayer curr = game.getCurrPlayer();
-        PropSpace sp1 = (PropSpace) game.getBoard().getSpaceAt(1);
-        PropSpace sp2 = (PropSpace) game.getBoard().getSpaceAt(2);
+        ClassicPropSpace sp1 = (ClassicPropSpace) game.getBoard().getSpaceAt(1);
+        ClassicPropSpace sp2 = (ClassicPropSpace) game.getBoard().getSpaceAt(2);
         game.getBank().setPropertyOwner(sp1.getMyProperty(), p2);
         game.getBank().setPropertyOwner(sp2.getMyProperty(), p2);
         var expected1 = game.getBoard().getLocationOfSpace("TOY_STORE");
@@ -77,7 +81,7 @@ class MoveToOpenACTest {
         assertEquals(expected1, actual1);
 
         var expected2 = curr;
-        PropSpace sp3 = (PropSpace) game.getBoard().getSpaceAt(curr.getCurrentLocation());
+        ClassicPropSpace sp3 = (ClassicPropSpace) game.getBoard().getSpaceAt(curr.getCurrentLocation());
         Property prop = sp3.getMyProperty();
         var actual2 = game.getBank().propertyOwnedBy(prop);
         assertEquals(expected2, actual2);
@@ -86,7 +90,7 @@ class MoveToOpenACTest {
     @Test
     void moveToLightBlueAndOwn(){
         AbstractPlayer curr = game.getCurrPlayer();
-        //PropSpace sp = (PropSpace) game.getBoard().getSpaceAt(4);
+        //ClassicPropSpace sp = (ClassicPropSpace) game.getBoard().getSpaceAt(4);
         //game.getBank().setPropertyOwner(sp.getMyProperty(), p2);
         var expected = game.getBoard().getLocationOfSpace("CANDY_STORE");
 
@@ -94,7 +98,7 @@ class MoveToOpenACTest {
         var actual = curr.getCurrentLocation();
         assertEquals(expected, actual);
 
-        PropSpace sp = (PropSpace) game.getBoard().getSpaceAt(4);
+        ClassicPropSpace sp = (ClassicPropSpace) game.getBoard().getSpaceAt(4);
         var expected2 = curr;
         var actual2 = game.getBank().propertyOwnedBy(sp.getMyProperty());
         assertEquals(expected2, actual2);

@@ -228,17 +228,17 @@ public class BuyPropertyPopup extends Popup {
     public BuyPropertyPopup(int propLocation, Controller controller) {
         super();
         this.propLocation = propLocation;
-        BoardConfigReader spaceInfo = new BoardConfigReader();
+        this.myController = controller;
+        BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         allSpaces = spaceInfo.getSpaces();
         allProps = spaceInfo.getProperties();
-        this.myController = controller;
         for (AbstractSpace sp : allSpaces) {
             if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;
+                name = mySpace.getMyName();
                 myDetails = sp.getInfo();
             }
         }
-
     }
 
     public BuyPropertyPopup(int propLocation) {
@@ -265,7 +265,6 @@ public class BuyPropertyPopup extends Popup {
             propColor.setFill(Color.web(myDetails.get(0).toString()));
             imagePane = new Pane(rectangle, propColor);
         }
-        name = mySpace.getMyName();
         return new StackPane(imagePane, propertyInfo(scene));
     }
 

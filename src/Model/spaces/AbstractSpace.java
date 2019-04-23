@@ -18,6 +18,7 @@ public abstract class AbstractSpace implements Serializable {
     List<AbstractPlayer> myOccupants = new ArrayList<>();
     private SpaceGroup myGroup;
     private Property myProp;
+    private String myPopString;
 
     public AbstractSpace(int locationIndex, String spaceName, String spaceGroup,
     String jumpToSpace, List<Double> taxNums, Property prop){
@@ -107,4 +108,12 @@ public abstract class AbstractSpace implements Serializable {
             myOccupants.remove(occupantToRemove);
         }
     }
+
+    public abstract  String getPopString(AbstractGame game);
+
+    protected void setPopString(String popupString){
+        myPopString = popupString;
+    }
+
+    //public abstract PopUps generatePopUp();
 }
