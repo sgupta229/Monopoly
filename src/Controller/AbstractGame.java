@@ -169,15 +169,15 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public boolean checkDoubles() {
-//        ArrayList<Integer> firstDie = diceHistory.get(0);
-//        int check = firstDie.get(firstDie.size() - 1);
-//        for(Integer key : diceHistory.keySet()) {
-//            ArrayList<Integer> otherDie = diceHistory.get(key);
-//            int other = otherDie.get(firstDie.size() - 1);
-//            if(!(check == other)) {
-//                return false;
-//            }
-//        }
+        ArrayList<Integer> firstDie = diceHistory.get(0);
+        int check = firstDie.get(firstDie.size() - 1);
+        for(Integer key : diceHistory.keySet()) {
+            ArrayList<Integer> otherDie = diceHistory.get(key);
+            int other = otherDie.get(firstDie.size() - 1);
+            if(!(check == other)) {
+                return false;
+            }
+        }
         return true;
     }
 
