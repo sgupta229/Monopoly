@@ -6,6 +6,7 @@ import Model.actioncards.ActionDeck;
 import Model.properties.BuildingType;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
+import Model.spaces.SpaceGroup;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -233,7 +234,10 @@ public abstract class AbstractGame implements Serializable {
         if(oldIndex != currPlayer.getCurrentLocation()) {
             throw new IllegalArgumentException("The old index provided is not correct");
         }
-        checkPassGo(oldIndex, newIndex);
+        SpaceGroup prevSpace = board.getSpaceAt(oldIndex).getMyGroup();
+        if(prevSpace != SpaceGroup.ACTION && prevSpace != SpaceGroup.GO_TO_JAIL){
+            checkPassGo(oldIndex, newIndex);
+        }
         currPlayer.moveTo(newIndex);
         AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
         oldSpace.removeOccupant(getCurrPlayer());

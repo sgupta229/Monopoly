@@ -28,9 +28,10 @@ public class MoveToNearestAC extends AbstractActionCard {
             }
             if(game.getBoard().getSpaceAt(i).getMyGroup() == sg){
                 game.movePlayer(prevLocation, i);
-                if(prevLocation > i){
+                //Payment handled in game.movePlayer();
+                /*if(prevLocation > i){
                     game.getBank().makePayment(passGo, curr);
-                }
+                }*/
                 break;
             }
         }

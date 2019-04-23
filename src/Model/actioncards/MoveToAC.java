@@ -33,9 +33,10 @@ public class MoveToAC extends AbstractActionCard {
         AbstractPlayer curr = game.getCurrPlayer();
         int prevLocation = curr.getCurrentLocation();
         int newLocation = game.getBoard().getLocationOfSpace(myTargetSpace);
-        if (myTargetSpace.equalsIgnoreCase("GO") || (prevLocation > newLocation)) {
+        //This is handled in game.movePlayer();
+        /*if (myTargetSpace.equalsIgnoreCase("GO") || (prevLocation > newLocation)) {
             game.getBank().makePayment(passGo, curr);
-        }
+        }*/
 
         game.movePlayer(prevLocation, newLocation);
         ActionDeck d = this.getMyDeck();
