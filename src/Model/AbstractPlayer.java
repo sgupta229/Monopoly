@@ -3,15 +3,17 @@ package Model;
 import Model.properties.Property;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public abstract class AbstractPlayer implements Transfer, Serializable {
     private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
@@ -21,8 +23,8 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
-    private ObservableList<Property> properties;
-    private ObservableList<AbstractActionCard> actionCards;
+    transient private ObservableList<Property> properties;
+    transient private ObservableList<AbstractActionCard> actionCards;
     private int currentLocation;
 
 

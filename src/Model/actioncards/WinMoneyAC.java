@@ -2,11 +2,7 @@ package Model.actioncards;
 
 import Controller.AbstractGame;
 import Model.AbstractPlayer;
-import Model.Transfer;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class WinMoneyAC extends AbstractActionCard {
     //private List<Transfer> winMoneyFrom;

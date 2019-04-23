@@ -17,7 +17,7 @@ import java.util.*;
 public abstract class AbstractSpace implements Serializable {
     private int myLocation;
     private String myName;
-    ObservableList<AbstractPlayer> myOccupants = FXCollections.observableArrayList();
+    transient ObservableList<AbstractPlayer> myOccupants = FXCollections.observableArrayList();
     private SpaceGroup myGroup;
     private Property myProp;
     private String myPopString;
