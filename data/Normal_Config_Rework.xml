@@ -1073,6 +1073,7 @@
         <EvenBuilding>false</EvenBuilding>
         <FreeParking>false</FreeParking>
         <RollsInJail>3</RollsInJail>
+        <SnakeEyes>0</SnakeEyes>
     </Rules>
     <Files>
         <PropertyFile>PopUpText.properties</PropertyFile>

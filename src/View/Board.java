@@ -10,6 +10,7 @@ import Model.spaces.TaxSpace;
 import View.PopUps.*;
 import View.SpaceDisplay.*;
 import View.SpaceDisplay.CornerDisplay;
+import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -103,51 +104,6 @@ public class Board implements PropertyChangeListener {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        /*if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
-            myPopup = new ActionCardPopup( playerLocation, myController);
-        }
-        else if (playerLocation==4 || playerLocation==38){
-            myPopup = new TaxPopup(playerLocation,myController);
-        }
-        else if (playerLocation==0 || playerLocation==10 || playerLocation==20 || playerLocation==30){
-            myPopup = new CornerPopup(playerLocation, myController);
-        }
-        else {
-
-            for (AbstractSpace sp : allSpaces){
-                if (sp.getMyLocation()==playerLocation){
-                    myAbstractSpace = sp;
-                }
-            }
-            for (Property p : myProps){
-                if (myAbstractSpace.getMyName().equalsIgnoreCase(p.getName())){
-                    myProperty = p;
-                }
-            }
-            myProperty = myAbstractSpace.getMyProp();
-            System.out.println("NEW TURN: ");
-
-
-            System.out.println("CHECKING IF " + myProperty.getName()+ " STILL MORTGAGED********** "+myProperty.getIsMortgaged() + " " + myProperty);
-//            System.out.println("CHECKING IF STILL MORTGAGED********** "+myController.getGame().getCurrPlayer().getProperties() + " " + myProperty);
-            for (Property pr: myController.getGame().getCurrPlayer().getProperties()){
-                System.out.println("LOOK HERE***** "+ pr + " " + pr.getIsMortgaged());
-            }
-
-            if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
-                myPopup = new PayRentPopup(playerLocation, myController);
-            }
-            else if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)==myGame.getCurrPlayer()) {
-                myPopup = null;
-            }
-            else{
-                myPopup = new BuyPropertyPopup(playerLocation, myController);
-            }
-        }
-        if (myPopup!=null){
-            myPopup.display();
-        }*/
     }
 
     private void addTokensToGo(){

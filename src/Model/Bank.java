@@ -6,10 +6,13 @@ import Controller.AbstractGame;
 
 import Model.properties.BuildingType;
 import Model.properties.Property;
-
-import javax.swing.tree.TreeCellEditor;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Bank implements Transfer, Serializable {
 
