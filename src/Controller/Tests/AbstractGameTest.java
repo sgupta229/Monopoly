@@ -3,6 +3,7 @@ package Controller.Tests;
 import Controller.*;
 import Model.AbstractPlayer;
 import Model.ClassicPlayer;
+import Model.XmlReaderException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ class AbstractGameTest {
     ClassicPlayer p4;
 
     @BeforeEach
-    void setup() {
+    void setup() throws XmlReaderException {
         game = new ClassicGame("Normal_Config_Rework.xml");
         p1 = new ClassicPlayer();
         p1.setName("Sahil");

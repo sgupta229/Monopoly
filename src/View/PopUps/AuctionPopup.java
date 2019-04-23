@@ -25,8 +25,12 @@ public class AuctionPopup implements PropertyChangeListener {
     private Stage oldPopUp;
     private BidBoxGroup myBidBoxGroup;
     private SimpleBooleanProperty auctionOver;
+    private Controller myController;
+    private int myPropLocation;
 
     public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow, List<AbstractPlayer> players, AbstractPlayer currPlayer) {
+        this.myController = controller;
+        this.myPropLocation = propLocation;
         this.messages = ResourceBundle.getBundle("PopUpText");
         this.name = name;
         this.myPlayers = players;
@@ -82,9 +86,12 @@ public class AuctionPopup implements PropertyChangeListener {
         }
         else {
             AbstractPlayer winner = myBidBoxGroup.getHighestBidder().getMyPlayer();
+            int bid = myBidBoxGroup.getHighestBid();
+            myController.getGame().handleAuction(winner, bid, myPropLocation);
             // need to get the property that is being sold
 //            winner.addProperty(); TODO hi sahil add this backend stuff
 //            winner.makePayment();
+
             displayWinnerOfAuction(myBidBoxGroup.getHighestBid(),myBidBoxGroup.getHighestBidder().getMyPlayer());
         }
     }

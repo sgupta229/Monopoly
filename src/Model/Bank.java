@@ -105,12 +105,11 @@ public class Bank implements Transfer, Serializable {
      */
     public void sellBackProperty(Property property, AbstractGame game){
         AbstractPlayer propOwner = ownedPropsMap.get(property);
-        this.makePayment(property.getMortgageAmount(), propOwner);
+        //this.makePayment(property.getMortgageAmount(), propOwner);
         ownedPropsMap.remove(property);
         unOwnedProps.add(property);
         propOwner.removeProperty(property);
-        game.startAuction();
-
+        //game.startAuction();
     }
 
     public void mortgageProperty(Property property){
@@ -157,6 +156,9 @@ public class Bank implements Transfer, Serializable {
                 }
             }
         }
+        if(property.getIsMortgaged()){
+            return false;
+        }
         if(!propertyOwnedBy(property).checkMonopoly(property)){
             return false;
         }
@@ -188,14 +190,14 @@ public class Bank implements Transfer, Serializable {
     public void sellBackBuildings(Property property, BuildingType building){
         AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
-        property.removeBuilding(building);
+        property.removeBuilding(building, 1);
         this.makePayment(property.getBuildingPrice(building)/2, propOwner);
     }
 
     public void unbuildForUpgrade(Property property, BuildingType building){
         AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
-        property.removeBuilding(building);
+        property.removeBuilding(building, 4);
     }
 
     /***
@@ -221,4 +223,11 @@ public class Bank implements Transfer, Serializable {
         myBalance = amount;
     }
 
+    public Map<BuildingType, Integer> getTotalBuildingMap() {
+        return totalBuildingMap;
+    }
+
+    public void setTotalBuildingMap(BuildingType bt, Integer amnt) {
+        this.totalBuildingMap.put(bt, totalBuildingMap.get(bt)+amnt);
+    }
 }

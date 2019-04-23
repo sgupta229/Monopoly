@@ -74,6 +74,7 @@ public class CornerPopup extends Popup {
             @Override
             public void handle(ActionEvent event) {
                 mySpace.doAction(myController.getGame(), OK);
+                System.out.println("called do action");
                 window.close();
             }
         });

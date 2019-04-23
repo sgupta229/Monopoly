@@ -1,13 +1,14 @@
 package Controller;
 
 import Model.AbstractPlayer;
+import Model.XmlReaderException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClassicGame extends AbstractGame {
 
-    public ClassicGame(String filename) {
+    public ClassicGame(String filename) throws XmlReaderException {
         super(filename);
         ConfigReader configReader = new ConfigReader(filename);
     }

@@ -65,7 +65,7 @@ public class JuniorColorProperty extends ColorProperty {
 
     }
 
-    public void removeBuilding(BuildingType building){
+    public void removeBuilding(BuildingType building, int amount){
 
     }
 

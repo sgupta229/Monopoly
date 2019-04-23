@@ -31,7 +31,7 @@ class BankTest {
 
 
     @BeforeEach
-    void setUp() throws XmlTagException {
+    void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         spaceList = conf.parseSpaces().get(0);
         propsList = conf.parseSpaces().get(1);

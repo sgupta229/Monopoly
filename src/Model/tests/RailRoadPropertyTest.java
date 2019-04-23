@@ -4,7 +4,7 @@ import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Model.Bank;
 import Model.ClassicPlayer;
-import Model.XmlTagException;
+import Model.XmlReaderException;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ class RailRoadPropertyTest {
 
 
     @BeforeEach
-    void setUp() throws XmlTagException {
+    void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         //gameClass.get
         spaceList = conf.parseSpaces().get(0);

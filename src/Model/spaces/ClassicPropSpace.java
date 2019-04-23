@@ -13,11 +13,14 @@ public class ClassicPropSpace extends AbstractPropSpace {
 
 
     private Property myProperty;
+    private static final String myUnOwnedPopString = "BuyProperty";
+    private static final String myOwnedPopString = "PayRent";
+    private static final String myPopString = "ClassicProp";
 
     public ClassicPropSpace(int locationIndex, String spaceName, String spaceGroup,
                             String jumpToSpace, List<Double> taxNums, Property myProp){
         super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
-
+        setPopString(myPopString);
         myProperty = myProp;
 
     }
@@ -45,6 +48,7 @@ public class ClassicPropSpace extends AbstractPropSpace {
         if (propOwner == null) {
             if (userChoice == 0) { //aka buy property
                 bank.setPropertyOwner(myProperty, currPlayer);
+                myProperty.setIsOwned(true);
                 currPlayer.makePayment(propertyPrice, bank);
                 currPlayer.addProperty(myProperty); //have to update the players assets
                 //front end updates this somewhere?
@@ -60,9 +64,23 @@ public class ClassicPropSpace extends AbstractPropSpace {
         //else()
     }
 
+    public String getPopString(AbstractGame game){
+
+        if(myProperty.getIsOwned() && game.getBank().propertyOwnedBy(myProperty)!=game.getCurrPlayer()){
+            return myOwnedPopString;
+        }
+        else if(game.getBank().propertyOwnedBy(myProperty)==game.getCurrPlayer()){
+            return null;
+        }
+        return myUnOwnedPopString;
+    }
+
+
     //public Property getMyProperty(){
         //return myProperty;
     //}
+
+
 
 
 

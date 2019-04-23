@@ -3,10 +3,9 @@ package View;
 import Controller.AbstractGame;
 import Controller.Controller;
 import Model.AbstractPlayer;
-import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import Model.spaces.SpaceGroup;
-import View.PopUps.*;
+import View.PopUps.Popup;
 import View.SpaceDisplay.PropertyDisplay;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -26,7 +25,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Board implements PropertyChangeListener {
-    //Todo: needs to be refactored but wanted to make it work, all data is read in from file
 
     public static final int BOARD_HEIGHT = 700;
     private Controller myController;
@@ -37,10 +35,6 @@ public class Board implements PropertyChangeListener {
     private Map<String,String> nameToColor;
     private Map<String,Integer> nameToPrice;
     private List<Node> imagesOnBoard = new ArrayList<>();
-    private List<Property> myProps;
-    private List<AbstractSpace> allSpaces;
-    private AbstractSpace myAbstractSpace;
-    private Property myProperty;
     private ResourceBundle boardInfo;
     private int boardDimension;
     private String baseColor;
@@ -81,53 +75,26 @@ public class Board implements PropertyChangeListener {
         }
         Popup myPopup;
         playerLocation = myGame.getCurrPlayer().getCurrentLocation();
-        //board -> get space at
-        //space.generatePopup.displa
+        AbstractSpace playersSpace = myGame.getBoard().getSpaceAt(playerLocation);
 
-
-        if (playerLocation==2 || playerLocation==7 || playerLocation==17 || playerLocation==22 || playerLocation==33 || playerLocation==36){
-            myPopup = new ActionCardPopup( playerLocation, myController);
-        }
-        else if (playerLocation==4 || playerLocation==38){
-            myPopup = new TaxPopup(playerLocation,myController);
-        }
-        else if (playerLocation==0 || playerLocation==10 || playerLocation==20 || playerLocation==30){
-            myPopup = new CornerPopup(playerLocation, myController);
-        }
-        else {
-
-            for (AbstractSpace sp : allSpaces){
-                if (sp.getMyLocation()==playerLocation){
-                    myAbstractSpace = sp;
-                }
-            }
-            for (Property p : myProps){
-                if (myAbstractSpace.getMyName().equalsIgnoreCase(p.getName())){
-                    myProperty = p;
-                }
-            }
-            myProperty = myAbstractSpace.getMyProp();
-            System.out.println("NEW TURN: ");
-
-
-            System.out.println("CHECKING IF " + myProperty.getName()+ " STILL MORTGAGED********** "+myProperty.getIsMortgaged() + " " + myProperty);
-//            System.out.println("CHECKING IF STILL MORTGAGED********** "+myController.getGame().getCurrPlayer().getProperties() + " " + myProperty);
-            for (Property pr: myController.getGame().getCurrPlayer().getProperties()){
-                System.out.println("LOOK HERE***** "+ pr + " " + pr.getIsMortgaged());
+        try {
+            String popClass = playersSpace.getPopString(myController.getGame());
+            if(popClass!=null){
+                myPopup = (Popup) Class.forName("View.PopUps." + popClass+"Popup").getConstructor(int.class, Controller.class).newInstance(playerLocation,
+                        myController);
+                myPopup.display();
             }
 
-            if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)!=myGame.getCurrPlayer()){
-                myPopup = new PayRentPopup(playerLocation, myController);
-            }
-            else if (myController.getGame().getBank().propertyOwnedBy(myProperty)!= null && myController.getGame().getBank().propertyOwnedBy(myProperty)==myGame.getCurrPlayer()) {
-                myPopup = null;
-            }
-            else{
-                myPopup = new BuyPropertyPopup(playerLocation, myController);
-            }
-        }
-        if (myPopup!=null){
-            myPopup.display();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -228,8 +195,8 @@ public class Board implements PropertyChangeListener {
         indexToName = configs.getIndexToName();
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
-        allSpaces = configs.getSpaces();
-        myProps = new ArrayList(myController.getGame().getProperties());
+//        allSpaces = configs.getSpaces();
+//        myProps = new ArrayList(myController.getGame().getProperties());
     }
 
     public Pane getGridPane() { return myGridPane; }

@@ -5,7 +5,7 @@ import Model.AbstractPlayer;
 import Model.ClassicPlayer;
 import Model.Bank;
 import Model.properties.Property;
-import Model.XmlTagException;
+import Model.XmlReaderException;
 import Model.spaces.ClassicPropSpace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class ClassicPropSpaceTest {
 
 
     @BeforeEach
-    void setUp() throws XmlTagException {
+    void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         classicPropSpace = (ClassicPropSpace) gameClass.getBoard().getSpaceAt(1);
         player1 = new ClassicPlayer();
@@ -45,9 +45,6 @@ class ClassicPropSpaceTest {
         gameBank = gameClass.getBank();
         gameClass.rollDice();
         //player1.moveTo(30, gameClass.getBoardSize());
-
-
-
     }
 
     AbstractPlayer buyProperty(){

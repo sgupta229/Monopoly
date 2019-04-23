@@ -26,7 +26,7 @@ public class Board implements Serializable {
      */
     public AbstractSpace getSpaceAt(int location) throws GameBoardException{
         if(location > mySpaces.size()){
-            throw new GameBoardException(location);
+            throw new GameBoardException("Location not found on board: ", location);
         }
         else{
             for(AbstractSpace sp : mySpaces) {
@@ -34,7 +34,7 @@ public class Board implements Serializable {
                     return sp;
                 }
             }
-            throw new GameBoardException(location);
+            throw new GameBoardException("Space not found on board at location: ", location);
         }
     }
 

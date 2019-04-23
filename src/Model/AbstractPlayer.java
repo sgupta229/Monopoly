@@ -5,6 +5,8 @@ import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -51,6 +53,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
             throw new IllegalArgumentException("Not enough money to pay");
         }
         setFunds(this.funds - amount);
+        System.out.println("receiveer is going to get this amount: " + amount);
         receiver.receivePayment(amount);
     }
 
@@ -68,6 +71,9 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
                 count++;
             }
         }
+        System.out.println("I own :" + count + "props");
+        System.out.println("And my group has :" + groupSize + "props");
+
         if(count == groupSize) {
             return true;
         }
@@ -143,7 +149,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
-
 
     public List<Property> getPropertiesOfType(String type) {
         String checkType = type.toLowerCase();
