@@ -32,4 +32,12 @@ public class GameSaver<T extends AbstractGame> {
             return null;
         }
     }
+
+    public static void main(String[] args) throws Exception {
+        ClassicGame game = new ClassicGame("Normal_Config_Rework.xml");
+        GameSaver<ClassicGame> gs = new GameSaver<ClassicGame>();
+        File file = new File("/Users/SGGS1234/Desktop/myTest.ser");
+        gs.saveGame(game, file);
+        ClassicGame newGame = gs.reload(file);
+    }
 }
