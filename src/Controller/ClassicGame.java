@@ -2,7 +2,6 @@ package Controller;
 
 import Model.AbstractPlayer;
 import Model.XmlReaderException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,22 +17,10 @@ public class ClassicGame extends AbstractGame {
         List<Integer> rolls = super.rollDice();
         int rollVal = getLastDiceRoll();
         int newIndex = getNewIndex(oldIndex, rollVal);
-        if(!getCurrPlayer().isInJail()) {
-            this.movePlayer(oldIndex, newIndex);
-        }
-        //FIX THIS TO ADD POPUP AT THIRD ROLL IN JAIL
-        else if(getCurrPlayer().isInJail()) {
-            getCurrPlayer().incrementNumRollsinJail();
-            if(checkDoubles()) {
-                this.movePlayer(oldIndex, newIndex);
-            }
-            else if(getCurrPlayer().getNumRollsInJail() == getRollsInJailRule()){
-                this.movePlayer(oldIndex, newIndex);
-                getCurrPlayer().resetNumRollsInJail();
-                getCurrPlayer().setJail(false);
-            }
-        }
+        checkJail(oldIndex, newIndex);
         checkPassGo(oldIndex, newIndex);
+        checkSnakeEyes(rolls);
+        checkDoublesForJail();
         return rolls;
     }
 
@@ -51,6 +38,8 @@ public class ClassicGame extends AbstractGame {
                 return false;
             }
         }
+        movePlayer(getCurrPlayer().getCurrentLocation(), 10);
+        getCurrPlayer().setJail(true);
         return true;
     }
 

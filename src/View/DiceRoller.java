@@ -5,11 +5,14 @@ import Controller.Die;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -61,9 +64,19 @@ public class DiceRoller {
         for(int i = 0; i < rolls.size(); i++) {
             diceValues.get(i).setText(Integer.toString(rolls.get(i)));
         }
-        if(!(myController.getGame().checkDoubles())) {
+        if(!(myController.getGame().checkDoubles()) || myController.getGame().checkDoublesForJail()) {
             rollButton.setDisable(true);
             myEndTurn.setDisable(false);
+        }
+        displayJailPopup();
+    }
+
+    private void displayJailPopup() {
+        if(myController.getGame().checkDoublesForJail()) {
+            Alert a = new Alert(Alert.AlertType.NONE);
+            a.setContentText("You got three doubles so you went to Jail.");
+            a.setAlertType(Alert.AlertType.WARNING);
+            a.show();
         }
     }
 
