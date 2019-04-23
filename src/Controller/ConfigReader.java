@@ -549,7 +549,7 @@ public class ConfigReader {
         Map<BuildingType, Integer> buildingTotalAmount = new TreeMap<>();
         Map<BuildingType, Integer> buildingMaxAmount = new TreeMap<>();
 
-
+        //NodeList buildingList = new NodeLi
         NodeList buildingList = doc.getElementsByTagName("BuildingType");
         for (int x = 0; x < buildingList.getLength(); x++) {
             Node bL = buildingList.item(x);

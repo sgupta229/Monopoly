@@ -61,8 +61,7 @@ public class RailRoadProperty extends Property {
 
     }
 
-    @Deprecated
-    public void build(){}
+
 
     /***
      * A method that utilizes the member variables to calculate how
