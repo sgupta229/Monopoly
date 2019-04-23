@@ -32,6 +32,7 @@ public class BidBox {
 
         playerName = new Label(myPlayer.getName());
         spinner = new NumberSpinner(20,20);
+        spinner.setLowerBound(20);
         HBox buttonBox = createButtonsHBox();
 
         v.getChildren().addAll(playerName,spinner,buttonBox);
@@ -63,6 +64,10 @@ public class BidBox {
     public void remove(){
         view.setStyle("-fx-background-color: #cfcfcf");
         System.out.println("style set");
+    }
+
+    public void setLowerBound(int value){
+        spinner.setLowerBound(value);
     }
 
     public void setInitalBidValue(int value){

@@ -174,7 +174,7 @@ public class AddPlayersScreen {
             String name = myPlayerNameField.getText();
             myPlayerNameField.clear();
             String icon = (String) myIconMenu.getValue();
-            if (icon.equals("") || name.equals("")) return;
+            if (icon == null || name==null) return;
             myController.addPlayer(name,icon);
             System.out.println("added player");
             //remove icon from observablelist
