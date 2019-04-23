@@ -130,6 +130,7 @@ public class AddPlayersScreen {
         icon.setButtonCell(new ImageListCell());
         icon.setCellFactory(listView -> new ImageListCell());
         icon.setPrefSize(100,60);
+        if(availableTokens.size()>=1) icon.setPromptText(availableTokens.get(0));
         return icon;
     }
 
@@ -173,6 +174,7 @@ public class AddPlayersScreen {
             String name = myPlayerNameField.getText();
             myPlayerNameField.clear();
             String icon = (String) myIconMenu.getValue();
+            if (icon.equals("") || name.equals("")) return;
             myController.addPlayer(name,icon);
             System.out.println("added player");
             //remove icon from observablelist
