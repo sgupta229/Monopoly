@@ -1074,4 +1074,12 @@
         <FreeParking>false</FreeParking>
         <RollsInJail>3</RollsInJail>
     </Rules>
+    <Files>
+        <PropertyFile>PopUpText.properties</PropertyFile>
+        <PropertyFile>Messages.properties</PropertyFile>
+        <PropertyFile>IndexToCoordinate.properties</PropertyFile>
+        <PropertyFile>GeneralInfo.properties</PropertyFile>
+        <PropertyFile>GameTypes.properties</PropertyFile>
+        <PropertyFile>classicBoardDisplay.properties</PropertyFile>
+    </Files>
 </Game>

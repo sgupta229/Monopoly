@@ -296,16 +296,6 @@ public class ConfigReader {
         }
     }
 
-    private boolean checkDeckType(String deckName){
-        int counter = DeckType.values().length;
-        for(DeckType dtype : DeckType.values()) {
-            if (dtype.name().equalsIgnoreCase(deckName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public List<List> parseSpaces(){
         List<List> allSpacesAndProps = new ArrayList<>();
         List<Property> allProps = parseAllProps();
@@ -574,12 +564,24 @@ public class ConfigReader {
         return buildingProperties;
     }
 
+    //Helper method converts list of strings to list of doubles for parsing
     private List<Double> listDoubleConverter(String[] stringList){
         List<Double> doubleList = new ArrayList<>();
         for(String n:stringList){
             doubleList.add(Double.parseDouble(n));
         }
         return doubleList;
+    }
+
+    //Helper method to check if deck type found is a legal deck type enum -- for error handling
+    private boolean checkDeckType(String deckName){
+        int counter = DeckType.values().length;
+        for(DeckType dtype : DeckType.values()) {
+            if (dtype.name().equalsIgnoreCase(deckName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args) {
