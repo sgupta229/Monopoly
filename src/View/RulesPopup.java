@@ -23,6 +23,7 @@ public class RulesPopup {
     private VBox myLayout;
     private ToggleGroup buildingToggle;
     private ToggleGroup freeParkingToggle;
+    private ToggleGroup landOnGoBonus;
     private NumberSpinner snakeEyesMoney;
     private NumberSpinner jailRolls;
     private NumberSpinner startFunds;
@@ -57,6 +58,7 @@ public class RulesPopup {
 
         buildingToggle = makeToggleGroup("YES","NO");
         freeParkingToggle = makeToggleGroup("YES","NO");
+        landOnGoBonus = makeToggleGroup("YES","NO");
         snakeEyesMoney = new NumberSpinner((int)myGame.getSnakeEyes(),1);
         jailRolls = new NumberSpinner(myGame.getRollsInJailRule(),1);
         startFunds = new NumberSpinner((int)myGame.getStartFunds(),100);    //TODO is it okay to cast to int
@@ -68,6 +70,7 @@ public class RulesPopup {
         applyButton.setOnAction(new ApplyButtonHandler());
         myLayout.getChildren().addAll(makeRuleView(messages.getString("buildingRule"),makeToggleBox(buildingToggle)),
                 makeRuleView(messages.getString("freeParkingRule"),makeToggleBox(freeParkingToggle)),
+                makeRuleView(messages.getString("landOnGo"),makeToggleBox(landOnGoBonus)),
                 makeRuleView(messages.getString("jailRollsRule"),jailRolls),
                 makeRuleView(messages.getString("startingFundsRule"),startFunds),
                 makeRuleView(messages.getString("jailBailRule"),jailBail),
@@ -107,10 +110,15 @@ public class RulesPopup {
         public void handle(ActionEvent event) {
             String buildingChoiceString = ((ToggleButton)buildingToggle.getSelectedToggle()).getText();
             String freeParkingChoiceString = ((ToggleButton)freeParkingToggle.getSelectedToggle()).getText();
+            String landOnGoChoiceString = ((ToggleButton)landOnGoBonus.getSelectedToggle()).getText();
+
             boolean buildingChoice = false;
             boolean freeParkingChoice = false;
+            boolean landOnGoChoice = false;
             if (buildingChoiceString.equalsIgnoreCase("yes")) buildingChoice = true;
             if (freeParkingChoiceString.equalsIgnoreCase("yes")) freeParkingChoice = true;
+            if (landOnGoChoiceString.equalsIgnoreCase("yes")) landOnGoChoice = true;
+
             int jailRollsChoice = jailRolls.getNumber();
             int startFundsChoice = startFunds.getNumber();
             int jailBailChoice = jailBail.getNumber();
@@ -120,6 +128,7 @@ public class RulesPopup {
 
             myGame.setEvenBuildingRule(buildingChoice);
             myGame.setFreeParkingRule(freeParkingChoice);
+            myGame.setLandOnGoMult(landOnGoChoice);
             myGame.setRollsInJailRule(jailRollsChoice);
             myGame.setStartFunds(startFundsChoice);
             myGame.setJailBail(jailBailChoice);

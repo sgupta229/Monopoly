@@ -86,7 +86,7 @@ public class PlayerTabs implements PropertyChangeListener {
             fileChooser.setTitle(messages.getString("save-game"));
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Serializable", "*.ser"));
-            //fileChooser.setInitialFileName(".ser");
+            fileChooser.setInitialFileName(".ser");
             //TODO make generic
             GameSaver<ClassicGame> mySaver = new GameSaver<ClassicGame>();
             File openedFile = fileChooser.showSaveDialog(myController.getStage());

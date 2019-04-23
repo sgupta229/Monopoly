@@ -154,6 +154,11 @@ public class Bank implements Transfer, Serializable {
                 return false;
             }
         }
+        for(int x= typesOfBuildings.indexOf(building)+1; x<typesOfBuildings.size(); x++){
+            if(property.getNumBuilding(typesOfBuildings.get(x))!=0){
+                return false;
+            }
+        }
         if(maxBuildingsPerProp.get(building)==property.getNumBuilding(building)){
             return false;
         }

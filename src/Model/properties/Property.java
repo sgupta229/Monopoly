@@ -12,6 +12,7 @@ import java.util.*;
  */
 public abstract class Property implements Serializable {
 
+
     private double myPrice;
     private double mortgageAmount;
     private String myGroup;
@@ -39,6 +40,7 @@ public abstract class Property implements Serializable {
         buildingPrices = buildingPriceMap;
         this.buildingMap = new HashMap<>();
 
+
         for(BuildingType buildingType : buildingPrices.keySet()){
             buildingMap.put(buildingType, 0);
         }
@@ -52,6 +54,7 @@ public abstract class Property implements Serializable {
         allPaymentInfo = paymentInfo;
         myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
+
     }
 
     @Deprecated

@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 public abstract class AbstractPlayer implements Transfer, Serializable {
 
-    private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
+    transient private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
     private String name;
     private String tokenImage;
     private int numRollsInJail = 0;
@@ -41,7 +41,9 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
     public void addProperty(Property property) {
-        properties.add(property);
+        if(!properties.contains(property)){
+            properties.add(property);
+        }
     }
 
     public void removeProperty(Property property) {

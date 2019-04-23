@@ -196,14 +196,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>1</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>BURGER_JOINT</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>2</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>PIZZA_HOUSE</SpaceName>
@@ -217,14 +217,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>4</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>CANDY_STORE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>5</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>ICE_CREAM_PARLOR</SpaceName>
@@ -238,14 +238,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>7</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>MUSEUM</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>8</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>LIBRARY</SpaceName>
@@ -259,14 +259,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>10</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>SKATE_PARK</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>11</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>SWIMMING_POOL</SpaceName>
@@ -280,14 +280,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>13</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>VIDEO_GAME_ARCADE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>14</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>CINEMA</SpaceName>
@@ -301,14 +301,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>16</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>TOY_STORE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>17</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>PET_STORE</SpaceName>
@@ -322,14 +322,14 @@
             <ExtraString>JAIL</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>19</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>BOWLING_ALLEY</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>20</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>ZOO</SpaceName>
@@ -343,14 +343,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>22</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>PARK_PLACE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="JuniorPropSpace">
             <Index>23</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>BOARDWALK</SpaceName>
