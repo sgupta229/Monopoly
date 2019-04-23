@@ -73,7 +73,7 @@ class MoveToNearestACTest {
     @Test
     void moveNearestRRReadingPassGo(){
         AbstractPlayer curr = game.getCurrPlayer();
-        curr.setCurrentLocation(38);
+        curr.setCurrentLocation(36);
         var expected1 = game.getBoard().getLocationOfSpace("READING_RAILROAD");
         var expected2 = curr.getFunds() + 200;
         ac2.doCardAction(game);

@@ -87,11 +87,11 @@ class MoveToACTest {
 
     @Test
     void moveToSpecificPassGo(){
-        AbstractPlayer curr = tropical_game.getCurrPlayer();
-        //curr.setCurrentLocation(38);
-        curr.setCurrentLocation(30);
+        AbstractPlayer curr = normal_game.getCurrPlayer();
+        //36 is the chance action space before go
+        curr.setCurrentLocation(36);
         var expected = curr.getFunds() + 200;
-        ac4.doCardAction(tropical_game);
+        ac2.doCardAction(normal_game);
         var actual = curr.getFunds();
         assertEquals(expected, actual);
     }
