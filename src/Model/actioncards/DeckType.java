@@ -4,5 +4,7 @@ import java.io.Serializable;
 
 public enum DeckType {
     COMMUNITY_CHEST,
-    CHANCE;
+    CHANCE,
+    TREASURE_CHEST,
+    LUAU_GIFT_BAG;
 }

@@ -24,6 +24,7 @@ public class RulesPopup {
     private ToggleGroup buildingToggle;
     private ToggleGroup freeParkingToggle;
     private ToggleGroup landOnGoBonus;
+    private NumberSpinner snakeEyesMoney;
     private NumberSpinner jailRolls;
     private NumberSpinner startFunds;
     private NumberSpinner jailBail;
@@ -45,7 +46,7 @@ public class RulesPopup {
 
         setUpLayout();
 
-        Scene scene1= new Scene(myLayout, Controller.WIDTH/2, Controller.HEIGHT* 0.8);
+        Scene scene1= new Scene(myLayout, Controller.WIDTH/2, Controller.HEIGHT);
         scene1.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
 
         window.setScene(scene1);
@@ -58,6 +59,7 @@ public class RulesPopup {
         buildingToggle = makeToggleGroup("YES","NO");
         freeParkingToggle = makeToggleGroup("YES","NO");
         landOnGoBonus = makeToggleGroup("YES","NO");
+        snakeEyesMoney = new NumberSpinner((int)myGame.getSnakeEyes(),1);
         jailRolls = new NumberSpinner(myGame.getRollsInJailRule(),1);
         startFunds = new NumberSpinner((int)myGame.getStartFunds(),100);    //TODO is it okay to cast to int
         jailBail = new NumberSpinner((int)myGame.getJailBail(),50);
@@ -74,6 +76,7 @@ public class RulesPopup {
                 makeRuleView(messages.getString("jailBailRule"),jailBail),
                 makeRuleView(messages.getString("passGoRule"),passGo),
                 makeRuleView(messages.getString("startBankFunds"),bankFunds),
+                makeRuleView(messages.getString("snakeEyesRule"),snakeEyesMoney),
                 applyButton);
     }
 
@@ -121,6 +124,7 @@ public class RulesPopup {
             int jailBailChoice = jailBail.getNumber();
             int passGoChoice = passGo.getNumber();
             int bankFundsChoice = bankFunds.getNumber();
+            int snakeEyesChoice = snakeEyesMoney.getNumber();
 
             myGame.setEvenBuildingRule(buildingChoice);
             myGame.setFreeParkingRule(freeParkingChoice);
@@ -130,6 +134,7 @@ public class RulesPopup {
             myGame.setJailBail(jailBailChoice);
             myGame.setPassGo(passGoChoice);
             myGame.setBankFunds(bankFundsChoice);
+            myGame.setSnakeEyes(snakeEyesChoice);
 
             window.close();
         }

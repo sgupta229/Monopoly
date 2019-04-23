@@ -1,7 +1,10 @@
 package Model.actioncards;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ActionDeck implements Serializable {
     private DeckType myDeckType;

@@ -10,7 +10,6 @@ public class ClassicGame extends AbstractGame {
 
     public ClassicGame(String filename) throws XmlReaderException {
         super(filename);
-        ConfigReader configReader = new ConfigReader(filename);
     }
 
     @Override
@@ -19,18 +18,10 @@ public class ClassicGame extends AbstractGame {
         List<Integer> rolls = super.rollDice();
         int rollVal = getLastDiceRoll();
         int newIndex = getNewIndex(oldIndex, rollVal);
-        if(!getCurrPlayer().isInJail()) {
-            this.movePlayer(oldIndex, newIndex);
-        }
-        else {
-            getCurrPlayer().incrementNumRollsinJail();
-            if(getCurrPlayer().getNumRollsInJail() == getRollsInJailRule()) {
-                this.movePlayer(oldIndex, newIndex);
-                getCurrPlayer().resetNumRollsInJail();
-                getCurrPlayer().setJail(false);
-            }
-        }
+        handleMoveInJail(oldIndex, newIndex);
         checkPassGo(oldIndex, newIndex);
+        checkSnakeEyes(rolls);
+        checkDoublesForJail();
         return rolls;
     }
 
@@ -40,18 +31,18 @@ public class ClassicGame extends AbstractGame {
             return false;
         }
         ArrayList<Integer> firstDie = getDiceHistory().get(0);
-        List<Integer> check = firstDie.subList(firstDie.size() - 3, firstDie.size());
+        List<Integer> check = new ArrayList<>(firstDie.subList(firstDie.size() - 3, firstDie.size()));
         for(Integer key : getDiceHistory().keySet()) {
             ArrayList<Integer> otherDie = getDiceHistory().get(key);
-            List<Integer> other = otherDie.subList(otherDie.size() - 3, otherDie.size());
+            List<Integer> other = new ArrayList<>(otherDie.subList(otherDie.size() - 3, otherDie.size()));
             if(!check.equals(other)) {
                 return false;
             }
         }
+        movePlayer(getCurrPlayer().getCurrentLocation(), 10);
+        getCurrPlayer().setJail(true);
         return true;
     }
-
-
 
     public boolean checkGameOver() {
         int numPlayers = getPlayers().size();
