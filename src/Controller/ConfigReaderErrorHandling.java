@@ -7,6 +7,7 @@ import Model.spaces.SpaceGroup;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,9 +96,4 @@ public class ConfigReaderErrorHandling {
         }
         return false;
     }
-
-
-
-
-
 }

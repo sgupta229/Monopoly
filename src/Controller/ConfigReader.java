@@ -63,18 +63,24 @@ public class ConfigReader {
     ConfigReaderErrorHandling errorChecker;
 
     //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
-    public ConfigReader(String filename) {
+    public ConfigReader(String filename) throws XmlReaderException{
         //File inputFile = new File(filename);
-        try {
-            File inputFile = new File(this.getClass().getClassLoader().getResource(filename).toURI());
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(inputFile);
-            errorChecker = new ConfigReaderErrorHandling(doc);
-
+        if(checkFileExists(filename)){
+            try {
+                System.out.println(checkFileExists(filename));
+                File inputFile = new File(this.getClass().getClassLoader().getResource(filename).toURI());
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                dBuilder = dbFactory.newDocumentBuilder();
+                doc = dBuilder.parse(inputFile);
+                errorChecker = new ConfigReaderErrorHandling(doc);
+                //errorChecker.checkFileExists(filename);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        else{
+            throw new XmlReaderException(filename + " is not a valid name for a config file.");
         }
     }
 
@@ -539,10 +545,21 @@ public class ConfigReader {
         }
     }
 
+    private boolean checkFileExists(String filename){
+        File[] files = new File("data").listFiles();
+        for(File file : files){
+            if(file.isFile() && file.getName().equals(filename)){
+                //System.out.println(file.getName());
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static void main(String[] args) {
-        ConfigReader c = new ConfigReader("Junior_Config.xml");
         try{
+            ConfigReader c = new ConfigReader("Junior_Config.xml");
             c.parseSpaces();
             c.parseActionCards();
             c.parseActionDecks();

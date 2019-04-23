@@ -2,8 +2,11 @@ package View;
 
 import Controller.ConfigReader;
 import Controller.AbstractGame;
+import Model.XmlReaderException;
 import Model.spaces.AbstractSpace;
 import Model.properties.Property;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.Region;
 
 import java.awt.geom.Point2D;
 import java.util.List;
@@ -27,7 +30,17 @@ public class BoardConfigReader {
 
     public BoardConfigReader(AbstractGame game) {
         myResourceBundle = ResourceBundle.getBundle("IndexToCoordinate");
-        mySpaceConfigs = new ConfigReader(CONFIG_PATH);
+        try {
+            mySpaceConfigs = new ConfigReader(CONFIG_PATH);
+        } catch (XmlReaderException e) {
+            String msg = e.getMessage();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("XML Config");
+            alert.setHeaderText("XML Config File Error");
+            alert.setContentText(msg);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+        }
 
         spaces = game.getSpaces();
         properties = game.getProperties();

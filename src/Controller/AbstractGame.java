@@ -54,8 +54,8 @@ public abstract class AbstractGame implements Serializable {
     }
 
     private void parseXMLFile(String filename) throws XmlReaderException {
-        ConfigReader configReader = new ConfigReader(filename);
         try {
+            ConfigReader configReader = new ConfigReader(filename);
             decks = configReader.parseActionDecks();
             List<AbstractActionCard> allCards = configReader.parseActionCards();
             for(ActionDeck d : decks) {

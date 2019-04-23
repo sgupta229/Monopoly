@@ -16,7 +16,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UtilityPropertyTest {
 
-    ConfigReader conf = new ConfigReader("Normal_Config_Rework.xml");
+    ConfigReader conf;
+
+    {
+        try {
+            conf = new ConfigReader("Normal_Config_Rework.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
+    }
+
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
