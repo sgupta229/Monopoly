@@ -2,27 +2,26 @@ package View;
 
 import Controller.Controller;
 import Controller.Die;
-import Model.AbstractPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class DiceRoller {
-    protected Die myDie;
-    protected HBox myHBox;
-    protected Controller myController;
-    protected  Button rollButton;
-    protected List<Label> diceValues;
-    private Button myEndTurn;
 
+    private Die myDie;
+    private HBox myHBox;
+    private Controller myController;
+    private  Button rollButton;
+    private List<Label> diceValues;
+    private Button myEndTurn;
 
     public DiceRoller(Controller controller, Button endTurn){
         myController = controller;
@@ -63,12 +62,30 @@ public class DiceRoller {
         for(int i = 0; i < rolls.size(); i++) {
             diceValues.get(i).setText(Integer.toString(rolls.get(i)));
         }
-        if(!(myController.getGame().checkDoubles())) {
+        if(!(myController.getGame().checkDoubles()) || myController.getGame().checkDoublesForJail()) {
             rollButton.setDisable(true);
             myEndTurn.setDisable(false);
         }
-        else {
-            myController.getGame().getCurrPlayer().setJail(false);
+        checkJailPopup();
+        checkBailPopup();
+    }
+
+    private void checkJailPopup() {
+        if(myController.getGame().checkDoublesForJail()) {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setContentText("You got three doubles so you went to Jail.");
+            a.show();
+        }
+    }
+
+    private void checkBailPopup() {
+        if(myController.getGame().checkNeedToPayBail()) {
+            System.out.println("YOU NEED TO PAY");
+            System.out.println("TEST");
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setContentText("You paid bail!");
+            a.show();
+            myController.getGame().getCurrPlayer().makePayment(myController.getGame().getJailBail(), myController.getGame().getBank());
         }
     }
 

@@ -20,7 +20,7 @@ public class AbstractPlayerCell extends ListCell<AbstractPlayer> {
         private Label label = new Label("");
         private Pane pane = new Pane();
         private Button button = new Button("X");
-        private ObservableList<String> availableTokens;
+        transient private ObservableList<String> availableTokens;
 
         public AbstractPlayerCell(ObservableList<String> tokens) {
             super();

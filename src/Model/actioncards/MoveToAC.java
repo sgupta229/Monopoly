@@ -3,7 +3,6 @@ package Model.actioncards;
 
 import Controller.AbstractGame;
 import Model.AbstractPlayer;
-import Model.spaces.SpaceGroup;
 
 import java.util.List;
 
@@ -34,6 +33,7 @@ public class MoveToAC extends AbstractActionCard {
         AbstractPlayer curr = game.getCurrPlayer();
         int prevLocation = curr.getCurrentLocation();
         int newLocation = game.getBoard().getLocationOfSpace(myTargetSpace);
+        //This is handled in game.movePlayer();
         if (myTargetSpace.equalsIgnoreCase("GO") || (prevLocation > newLocation)) {
             game.getBank().makePayment(passGo, curr);
         }
