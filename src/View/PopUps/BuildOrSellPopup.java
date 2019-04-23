@@ -5,13 +5,11 @@ import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import View.Board;
 import View.BoardConfigReader;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -59,6 +57,10 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         myMortgage.setOnAction(e -> {
             myController.getGame().getBank().mortgageProperty(myProperty);
             popUpWindow.close();
+            Alert a = new Alert(Alert.AlertType.NONE);
+            a.setAlertType(Alert.AlertType.INFORMATION);
+            a.show();
+
         });
         sellInfo.getChildren().addAll(setBuildInfo(popUpWindow, myText.getString("sellHouse"), myText.getString("sellHotel"),myText.getString("SellMessage")),myMortgage);
         sellTab.setContent(sellInfo);

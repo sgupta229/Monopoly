@@ -1,23 +1,25 @@
 package View;
 
-import Controller.*;
-import Model.*;
+import Controller.AbstractGame;
+import Controller.Controller;
+import Model.AbstractPlayer;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
-import Model.spaces.ActionCardSpace;
-import Model.spaces.ClassicPropSpace;
-import Model.spaces.TaxSpace;
+import Model.spaces.SpaceGroup;
 import View.PopUps.*;
-import View.SpaceDisplay.*;
-import View.SpaceDisplay.CornerDisplay;
+import View.SpaceDisplay.PropertyDisplay;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 
 import java.awt.geom.Point2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +59,7 @@ public class Board implements PropertyChangeListener {
         setUpGridConstraints();
         setUpBoardConfig();
         baseColor = boardInfo.getString("baseColor");
-        createSpaces(baseColor);
+        createSpaces();
         addTokensToGo();
     }
 
@@ -138,79 +140,73 @@ public class Board implements PropertyChangeListener {
         }
     }
 
-    private void createSpaces(String baseColor){
+    private void createSpaces() {
         for (Map.Entry<Point2D.Double, AbstractSpace> entry : indexToName.entrySet()) {
             String name = entry.getValue().getMyName().replace("_", " ");
-            if (entry.getValue() instanceof ClassicPropSpace) {
-                String price = nameToPrice.get(name).toString();
-                String color = nameToColor.get(name);
-                if (entry.getKey().getY() == boardDimension-1) {
-                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(name, price, color, baseColor);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), boardDimension-1);
-                }
-                if (entry.getKey().getX() == 0) {
-                    LeftPropertyDisplay propSpaces = new LeftPropertyDisplay(name, price, color,baseColor);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), 0, (int) entry.getKey().getY());
-                }
-                if (entry.getKey().getY() == 0) {
-                    TopPropertyDisplay propSpaces = new TopPropertyDisplay(name, price, color, baseColor);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 0);
-                }
-                if (entry.getKey().getX() == boardDimension-1) {
-                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(name, price, color,baseColor);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), boardDimension-1, (int) entry.getKey().getY());
-                }
-            }
-            if (entry.getValue() instanceof TaxSpace) {
-                if (entry.getKey().getY() == boardDimension-1) {
-                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(baseColor, "tax.png");
-                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), boardDimension-1);
-                }
-                if (entry.getKey().getX() == boardDimension-1) {
-                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(baseColor, "tax.png");
-                    myGridPane.add(propSpaces.getMyPropStackPane(), boardDimension-1, (int) entry.getKey().getY());
-                }
-            }
-            if (entry.getValue() instanceof ActionCardSpace) {
-                String image;
-                if (name.equals("COMMUNITY CHEST")) {
-                    image = "chest.png";
-                } else {
-                    image = "chance.png";
-                }
-                if (entry.getKey().getY() == boardDimension-1) {
-                    BottomPropertyDisplay propSpaces = new BottomPropertyDisplay(baseColor, image);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), boardDimension-1);
-                }
-                if (entry.getKey().getX() == boardDimension-1) {
-                    RightPropertyDisplay propSpaces = new RightPropertyDisplay(baseColor, image);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), boardDimension-1, (int) entry.getKey().getY());
-                }
-                if (entry.getKey().getX() == 0) {
-                    LeftPropertyDisplay propSpaces = new LeftPropertyDisplay(baseColor, image);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), 0, (int) entry.getKey().getY());
-                }
-                if (entry.getKey().getY() == 0) {
-                    TopPropertyDisplay propSpaces = new TopPropertyDisplay(baseColor, image);
-                    myGridPane.add(propSpaces.getMyPropStackPane(), (int) entry.getKey().getX(), 0);
-                }
+            String boardEdge = this.getBoardEdge(entry.getKey().getX(), entry.getKey().getY());
+            if (entry.getValue().getMyGroup().equals(SpaceGroup.COLOR) || entry.getValue().getMyGroup().equals(SpaceGroup.RAILROAD) || entry.getValue().getMyGroup().equals(SpaceGroup.UTILITY)) {
+                createColorProp(name, boardEdge, entry);
+            } else if (entry.getValue().getMyGroup().equals(SpaceGroup.TAX) || entry.getValue().getMyGroup().equals(SpaceGroup.ACTION)) {
+                createTaxAndActionSpaces(boardEdge,entry);
             } else {
-               createCornerSpaces();
+                createCornerSpaces(boardEdge,entry);
             }
         }
     }
 
 
-    private void createCornerSpaces(){
-        CornerDisplay goSpace = new CornerDisplay(baseColor, "go.png");
-        myGridPane.add(goSpace.getMyPropertyStackPane(), boardDimension-1, boardDimension-1);
-        CornerDisplay parkingSpace = new CornerDisplay(baseColor, "freeParking.png");
-        myGridPane.add(parkingSpace.getMyPropertyStackPane(), 0, 0);
-        CornerDisplay jailSpace = new CornerDisplay(baseColor,"jail.png");
-        myGridPane.add(jailSpace.getMyPropertyStackPane(), 0, boardDimension-1);
-        CornerDisplay goToJail = new CornerDisplay(baseColor, "goToJail.png");
-        myGridPane.add(goToJail.getMyPropertyStackPane(), boardDimension-1, 0);
+    private void createColorProp(String name, String boardEdge, Map.Entry<Point2D.Double, AbstractSpace> entry){
+        String price = nameToPrice.get(name).toString();
+        String color = nameToColor.get(name);
+        try {
+            PropertyDisplay propSpace = (PropertyDisplay) Class.forName("View.SpaceDisplay." + boardEdge).getConstructor(String.class, String.class, String.class, String.class).newInstance(name, price, color, baseColor);
+            myGridPane.add(propSpace.getMyPropStackPane(), (int) entry.getKey().getX(), (int) entry.getKey().getY());
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
+
+    private void createTaxAndActionSpaces(String boardEdge, Map.Entry<Point2D.Double, AbstractSpace> entry) {
+            String image = "";
+            if (entry.getValue().getMyGroup().equals(SpaceGroup.TAX)) { image = boardInfo.getString("taxSpace"); }
+            else if (entry.getValue().getMyGroup().equals(SpaceGroup.ACTION) && entry.getValue().getMyName().equalsIgnoreCase(boardInfo.getString("actionCard1Name"))) { image = boardInfo.getString("actionCard1Image"); }
+            else{ image = boardInfo.getString("actionCard2Image"); }
+            createNonPropSpace(image,boardEdge,entry);
+    }
+
+        private void createNonPropSpace (String image,String boardEdge, Map.Entry<Point2D.Double, AbstractSpace> entry) {
+            try {
+            PropertyDisplay propSpace = (PropertyDisplay) Class.forName("View.SpaceDisplay." + boardEdge).getConstructor(String.class, String.class).newInstance(baseColor, image);
+            myGridPane.add(propSpace.getMyPropStackPane(), (int) entry.getKey().getX(), (int) entry.getKey().getY());
+        } catch(InstantiationException e){
+            e.printStackTrace();
+        } catch(IllegalAccessException e){
+            e.printStackTrace();
+        } catch(InvocationTargetException e){
+            e.printStackTrace();
+        } catch(NoSuchMethodException e){
+            e.printStackTrace();
+        } catch(ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void createCornerSpaces(String boardEdge, Map.Entry<Point2D.Double, AbstractSpace> entry){
+        String image;
+        if (entry.getValue().getMyGroup().equals(SpaceGroup.GO)) { image = boardInfo.getString("goSpace"); }
+        else if (entry.getValue().getMyGroup().equals(SpaceGroup.JAIL)){ image = boardInfo.getString("jailSpace"); }
+        else if (entry.getValue().getMyGroup().equals(SpaceGroup.FREE_PARKING)){ image = boardInfo.getString("freeParkingSpace"); }
+        else{ image = boardInfo.getString("goToJailSpace"); }
+        createNonPropSpace(image,boardEdge,entry);
+}
 
     private void setUpGridConstraints(){
         final int numCols = boardDimension;
@@ -233,7 +229,6 @@ public class Board implements PropertyChangeListener {
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
         allSpaces = configs.getSpaces();
-//        myProps = new ArrayList<>(myController.getGame().getBank().getUnOwnedProps());
         myProps = new ArrayList(myController.getGame().getProperties());
     }
 
@@ -251,8 +246,12 @@ public class Board implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) { renderPlayers(); }
 
-    public List<Property> getMyProps() {
-        return myProps;
+    public String getBoardEdge(double x, double y){
+        if (y == boardDimension-1) { return "BottomPropertyDisplay"; }
+        if (x == boardDimension-1) { return "RightPropertyDisplay"; }
+        if (y == 0) { return "TopPropertyDisplay"; }
+        if (x == 0) { return "LeftPropertyDisplay"; }
+        else{ return "CornerDisplay"; }
     }
 
 }

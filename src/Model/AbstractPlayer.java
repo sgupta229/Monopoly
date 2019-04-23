@@ -145,7 +145,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
 
-
     public List<Property> getPropertiesOfType(String type) {
         String checkType = type.toLowerCase();
         List<Property> propsList = new ArrayList<>();

@@ -1,6 +1,5 @@
 package View.SpaceDisplay;
 
-import Controller.Controller;
 import View.Board;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
