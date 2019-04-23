@@ -80,9 +80,10 @@ public class DiceRoller {
 
     private void checkBailPopup() {
         if(myController.getGame().checkNeedToPayBail()) {
+            System.out.println("YOU NEED TO PAY");
             System.out.println("TEST");
             Alert a = new Alert(Alert.AlertType.WARNING);
-            a.setContentText("You must pay bail!");
+            a.setContentText("You paid bail!");
             a.show();
             myController.getGame().getCurrPlayer().makePayment(myController.getGame().getJailBail(), myController.getGame().getBank());
         }

@@ -181,8 +181,10 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public boolean checkNeedToPayBail() {
+        System.out.println(currPlayer.getNumRollsInJail());
         if(!(checkDoubles())) {
             if(currPlayer.getNumRollsInJail() == getRollsInJailRule()) {
+                currPlayer.resetNumRollsInJail();
                 return true;
             }
         }
@@ -263,10 +265,11 @@ public abstract class AbstractGame implements Serializable {
             currPlayer.incrementNumRollsinJail();
             if(checkDoubles()) {
                 this.movePlayer(oldIndex, newIndex);
+                currPlayer.setJail(false);
+                currPlayer.resetNumRollsInJail();
             }
             else if(currPlayer.getNumRollsInJail() == getRollsInJailRule()){
                 this.movePlayer(oldIndex, newIndex);
-                currPlayer.resetNumRollsInJail();
                 currPlayer.setJail(false);
             }
         }
