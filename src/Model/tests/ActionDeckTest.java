@@ -13,7 +13,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ActionDeckTest {
-    ConfigReader cr = new ConfigReader("Normal_Config_Rework.xml");
+    ConfigReader cr;
+
+    {
+        try {
+            cr = new ConfigReader("Normal_Config_Rework.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
+    }
+
     ActionDeck chanceDeck;
     ActionDeck communityChestDeck;
     List<AbstractActionCard> actionCardList;
