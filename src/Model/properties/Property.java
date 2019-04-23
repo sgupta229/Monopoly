@@ -11,7 +11,7 @@ import java.util.*;
  * with every specific  number of houses, cost of rent with a hotel, and the mortgage cost
  */
 public abstract class Property implements Serializable {
-    protected ResourceBundle general;
+    //protected ResourceBundle general;
 
     private double myPrice;
     private double mortgageAmount;
@@ -39,7 +39,7 @@ public abstract class Property implements Serializable {
         initializePaymentInfo(allPaymentInfo);
         buildingPrices = buildingPriceMap;
         this.buildingMap = new HashMap<>();
-        general = ResourceBundle.getBundle("GeneralInfo");
+        //general = ResourceBundle.getBundle("GeneralInfo");
 
         for(BuildingType buildingType : buildingPrices.keySet()){
             buildingMap.put(buildingType, 0);
@@ -54,7 +54,7 @@ public abstract class Property implements Serializable {
         allPaymentInfo = paymentInfo;
         myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
-        general = ResourceBundle.getBundle("GeneralInfo");
+        //general = ResourceBundle.getBundle("GeneralInfo");
     }
 
     @Deprecated
