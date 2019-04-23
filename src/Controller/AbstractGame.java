@@ -37,7 +37,6 @@ public abstract class AbstractGame implements Serializable {
     private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     private List<String> possibleTokens;
-    private int numRollsInJail = 0;
     private double bankFunds;
     private int rollsInJailRule;
     private boolean evenBuildingRule;
@@ -181,6 +180,15 @@ public abstract class AbstractGame implements Serializable {
         return true;
     }
 
+    public boolean checkNeedToPayBail() {
+        if(!(checkDoubles())) {
+            if(currPlayer.getNumRollsInJail() == getRollsInJailRule()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public abstract boolean checkDoublesForJail();
 
     public List<ActionDeck> getMyActionDecks(){return decks;}
@@ -246,12 +254,12 @@ public abstract class AbstractGame implements Serializable {
         bank.makePayment(snakeEyes, currPlayer);
     }
 
-    public void checkJail(int oldIndex, int newIndex) {
+    public void handleMoveInJail(int oldIndex, int newIndex) {
         if(!currPlayer.isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }
-        //FIX THIS TO ADD POPUP AT THIRD ROLL IN JAIL
-        else if(currPlayer.isInJail()) {
+
+        else {
             currPlayer.incrementNumRollsinJail();
             if(checkDoubles()) {
                 this.movePlayer(oldIndex, newIndex);

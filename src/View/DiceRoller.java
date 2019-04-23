@@ -10,9 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -68,15 +66,25 @@ public class DiceRoller {
             rollButton.setDisable(true);
             myEndTurn.setDisable(false);
         }
-        displayJailPopup();
+        checkJailPopup();
+        checkBailPopup();
     }
 
-    private void displayJailPopup() {
+    private void checkJailPopup() {
         if(myController.getGame().checkDoublesForJail()) {
-            Alert a = new Alert(Alert.AlertType.NONE);
+            Alert a = new Alert(Alert.AlertType.WARNING);
             a.setContentText("You got three doubles so you went to Jail.");
-            a.setAlertType(Alert.AlertType.WARNING);
             a.show();
+        }
+    }
+
+    private void checkBailPopup() {
+        if(myController.getGame().checkNeedToPayBail()) {
+            System.out.println("TEST");
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setContentText("You must pay bail!");
+            a.show();
+            myController.getGame().getCurrPlayer().makePayment(myController.getGame().getJailBail(), myController.getGame().getBank());
         }
     }
 

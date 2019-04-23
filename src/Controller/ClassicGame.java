@@ -2,6 +2,7 @@ package Controller;
 
 import Model.AbstractPlayer;
 import Model.XmlReaderException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class ClassicGame extends AbstractGame {
         List<Integer> rolls = super.rollDice();
         int rollVal = getLastDiceRoll();
         int newIndex = getNewIndex(oldIndex, rollVal);
-        checkJail(oldIndex, newIndex);
+        handleMoveInJail(oldIndex, newIndex);
         checkPassGo(oldIndex, newIndex);
         checkSnakeEyes(rolls);
         checkDoublesForJail();
