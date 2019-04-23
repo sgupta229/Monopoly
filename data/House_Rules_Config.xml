@@ -651,7 +651,7 @@
             <SpaceGroup>TAX</SpaceGroup>
             <SpaceName>VACATION_FEE</SpaceName>
             <ExtraString>NA</ExtraString>
-            <ExtraDoubles>0</ExtraDoubles>
+            <ExtraDoubles>200,10</ExtraDoubles>
         </Space>
         <Space type="ClassicPropSpace">
             <Index>31</Index>
@@ -941,6 +941,7 @@
         <EvenBuilding>false</EvenBuilding>
         <FreeParking>false</FreeParking>
         <RollsInJail>3</RollsInJail>
+        <SnakeEyes>0</SnakeEyes>
     </Rules>
     <Files>
         <PropertyFile>PopUpText.properties</PropertyFile>

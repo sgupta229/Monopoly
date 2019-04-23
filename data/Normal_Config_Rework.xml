@@ -837,7 +837,7 @@
         <ActionCardType type="MoveToNearestAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TOKEN TO NEAREST UTILITY. IF UNOWNED, YOU MAY BUY IT FROM THE BANK.
-                IF OWNED, THROW DICE AND PAY OWNER 10 TIMES THE AMOUNT THROWN</Message>
+                IF OWNED, PAY THE OWNER HIS/HER RENT.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>UTILITY</ExtraString>
             <ExtraDoubles>200</ExtraDoubles>
