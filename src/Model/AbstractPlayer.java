@@ -48,7 +48,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         properties.remove(property);
     }
 
-
     @Override
     public void makePayment(double amount, Transfer receiver) {
         if(this.funds < amount) {
