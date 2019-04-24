@@ -7,7 +7,7 @@ public class FreeParkingFunds implements Transfer, Serializable {
     double myParkingMoney=0;
 
     @Override
-    public void makePayment(double amount, Transfer receiver) {
+    public void makePayment(Bank b, double amount, Transfer receiver) {
         myParkingMoney -= amount;
         System.out.println(myParkingMoney);
         receiver.receivePayment(myParkingMoney);

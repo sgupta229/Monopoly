@@ -68,7 +68,7 @@ public class TaxSpace extends AbstractSpace {
         else{
             amountTaxed = playersWealth * percentageTaken;
         }
-        currentPlayer.makePayment(amountTaxed, taxReceiver);
+        currentPlayer.makePayment(game.getBank(), amountTaxed, taxReceiver);
     }
 
     public String getPopString(AbstractGame game){

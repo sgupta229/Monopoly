@@ -26,7 +26,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     transient private ObservableList<Property> properties;
     transient private ObservableList<AbstractActionCard> actionCards;
     private int currentLocation;
-
+    private boolean cantPayBool;
 
     public AbstractPlayer() {
         this.inJail = false;
@@ -51,12 +51,32 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
     @Override
-    public void makePayment(double amount, Transfer receiver) {
+    public void makePayment(Bank bank, double amount, Transfer receiver) {
         if(this.funds < amount) {
-            throw new IllegalArgumentException("Not enough money to pay");
+            for(Property p : properties) {
+                for(BuildingType b : p.getBuildingMap().keySet()) {
+                    while(p.getBuildingMap().get(b) != 0) {
+                        bank.sellBackBuildings(p, b);
+                        if(this.funds >= amount) {
+                            break;
+                        }
+                    }
+                }
+                if(bank.checkIfCanMortgage(p)) {
+                    bank.mortgageProperty(p);
+                    if(this.funds >= amount) {
+                        break;
+                    }
+                }
+            }
+            if(this.funds < amount) {
+                cantPayBool = true;
+                setFunds(0);
+                receiver.receivePayment(this.funds);
+                return;
+            }
         }
         setFunds(this.funds - amount);
-        System.out.println("receiveer is going to get this amount: " + amount);
         receiver.receivePayment(amount);
     }
 
@@ -103,7 +123,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
     public void payBail(Bank b) {
-        this.makePayment(50, b);
+        this.makePayment(b, 50, b);
         this.inJail = false;
     }
 
@@ -166,9 +186,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
 
-
-
-
     public ObservableList<Property> getProperties() {
         return properties;
     }
@@ -205,5 +222,9 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     //TESTING ONLY
     public void setCurrentLocation(int newLocation) {
         currentLocation = newLocation;
+    }
+
+    public boolean getCantPayBool() {
+        return cantPayBool;
     }
 }

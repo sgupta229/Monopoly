@@ -2,6 +2,7 @@ package Model.Tests;
 
 import Controller.ConfigReader;
 import Model.AbstractPlayer;
+import Model.Bank;
 import Model.ClassicPlayer;
 import Model.XmlReaderException;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,12 +24,14 @@ class AbstractPlayerTest {
 
     AbstractPlayer p1;
     AbstractPlayer p2;
+    Bank b;
     int boardSize;
 
     @BeforeEach
     void setup() throws XmlReaderException {
         boardSize = cr.parseBoard();
 
+        b = new Bank();
         p1 = new ClassicPlayer();
         p1.setFunds(500);
         p1.setCurrentLocation(0);
@@ -41,7 +44,7 @@ class AbstractPlayerTest {
 
     @Test
     void checkPayToAnotherPlayer() {
-        p1.makePayment(200, p2);
+        p1.makePayment(b, 200, p2);
         double actualp1 = p1.getFunds();
         double expectedp1 = 300;
         assertEquals(actualp1, expectedp1);
@@ -49,7 +52,7 @@ class AbstractPlayerTest {
 
     @Test
     void checkReceiveAfterPayment() {
-        p1.makePayment(200, p2);
+        p1.makePayment(b, 200, p2);
         double actualp2 = p2.getFunds();
         double expectedp2 = 700;
         assertEquals(actualp2, expectedp2);
@@ -57,7 +60,7 @@ class AbstractPlayerTest {
 
     @Test
     void checkInvalidPayment() {
-        assertThrows(IllegalArgumentException.class, () -> p1.makePayment(700, p2));
+        assertThrows(IllegalArgumentException.class, () -> p1.makePayment(b, 700, p2));
     }
 
     @Test
