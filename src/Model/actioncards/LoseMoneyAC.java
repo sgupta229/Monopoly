@@ -12,7 +12,6 @@ public class LoseMoneyAC extends AbstractActionCard {
     String loseMoneyTo;
     List<Double> amountLose;
 
-
     //Deprecate -- was Double amount, now List<Double> amount
     @Deprecated
     public LoseMoneyAC(DeckType deckType, String message, Boolean holdable, String loseTo, Double amount) {
@@ -51,12 +50,12 @@ public class LoseMoneyAC extends AbstractActionCard {
         double amnt = amountLose.get(0);
         AbstractPlayer currP = game.getCurrPlayer();
         if(loseMoneyTo.equalsIgnoreCase("bank")){
-            currP.makePayment(amnt,game.getBank());
+            currP.makePayment(game.getBank(), amnt,game.getBank());
         }
         else{
             for(AbstractPlayer p: game.getPlayers()){
                 if(!p.equals(currP)){
-                    currP.makePayment(amnt, p);
+                    currP.makePayment(game.getBank(), amnt, p);
                 }
             }
         }
@@ -75,6 +74,6 @@ public class LoseMoneyAC extends AbstractActionCard {
             //Price per house at index 0; pp hotel at index 1
             payment += numB * amountLose.get(bt.getBuildingLevel());
         }
-        currP.makePayment(payment, game.getBank());
+        currP.makePayment(game.getBank(), payment, game.getBank());
     }
 }

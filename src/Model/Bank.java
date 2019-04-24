@@ -34,6 +34,10 @@ public class Bank implements Transfer, Serializable {
         //////maxBuildingsPerProp.put(something);
     }
 
+    public Bank() {
+
+    }
+
     @Deprecated
     public Bank(double startingBalance, List<Property> properties){
         myBalance=startingBalance;

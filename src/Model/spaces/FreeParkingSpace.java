@@ -42,7 +42,7 @@ public class FreeParkingSpace extends AbstractSpace {
             System.out.println("i am in the free parking space");
             AbstractPlayer curr = game.getCurrPlayer();
             Transfer fpFunds = game.getFreeParking();
-            fpFunds.makePayment(0, curr);
+            fpFunds.makePayment(game.getBank(), 0, curr);
 
         }
     }
