@@ -30,6 +30,9 @@ import static javax.xml.datatype.DatatypeFactory.newInstance;
 
 public class ConfigReader {
     private static final String BOARD_SIZE_TAG = "BoardSize";
+    private static final String INDEX_COORD_TAG = "IndexToCoord";
+    private static final String DISPLAY_FILE_TAG = "Display";
+    private static final String POPUP_FILE_TAG = "PopUpText";
     private static final String BANK_FUNDS_TAG = "BankFunds";
     private static final String DICE_NUMBER_TAG = "Number";
     private static final String DICE_SIDES_TAG = "Sides";
@@ -110,11 +113,21 @@ public class ConfigReader {
     }
 
     public List<String> parseOtherFiles() throws XmlReaderException {
-        List<String> frontEndFiles = new ArrayList<>();
-        frontEndFiles.add(doc.getElementsByTagName("IndexToCoord").item(0).getTextContent());
-        frontEndFiles.add(doc.getElementsByTagName("Display").item(0).getTextContent());
-        frontEndFiles.add(doc.getElementsByTagName("PopUpText").item(0).getTextContent());
-        return frontEndFiles;
+        if(errorChecker.checkTagName(List.of(INDEX_COORD_TAG, DISPLAY_FILE_TAG, POPUP_FILE_TAG)).equalsIgnoreCase("VALID")){
+            List<String> frontEndFiles = new ArrayList<>();
+            frontEndFiles.add(doc.getElementsByTagName(INDEX_COORD_TAG).item(0).getTextContent());
+            frontEndFiles.add(doc.getElementsByTagName(DISPLAY_FILE_TAG).item(0).getTextContent());
+            frontEndFiles.add(doc.getElementsByTagName(POPUP_FILE_TAG).item(0).getTextContent());
+            for(String filename: frontEndFiles){
+                if(!checkFileExists(filename + ".properties", ".properties")){
+                    throw new XmlReaderException(filename + " is not a valid file found in doc directory. Check xml config file");
+                }
+            }
+            return frontEndFiles;
+        }
+        else{
+            throw getXmlReaderException(INDEX_COORD_TAG + " and/or " + DISPLAY_FILE_TAG + " and/or " + POPUP_FILE_TAG);
+        }
     }
 
     public List<Double> parseBank() throws XmlReaderException {

@@ -46,31 +46,23 @@ public class Controller {
         myGameConfigFile = gameConfigFile;
 
         try{
-            myGame = (AbstractGame) Class.forName("Controller.ClassicGame").getConstructor(String.class).newInstance(myGameConfigFile);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-//        } catch(XmlReaderException e){
-//            String msg = e.getMessage();
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("XML Config");
-//            alert.setHeaderText("XML Config File Error");
-//            alert.setContentText(msg);
-//            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-//            alert.showAndWait();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+            myGame = new ClassicGame(myGameConfigFile);
+            //(AbstractGame) Class.forName("Controller.ClassicGame").getConstructor(String.class).newInstance(myGameConfigFile);
+        } catch(XmlReaderException e){
+            String msg = e.getMessage();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("XML Config");
+            alert.setHeaderText("XML Config File Error");
+            alert.setContentText(msg);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+            System.exit(0);
+        } 
 
         //TODO: make gameFactory or use reflection to create concrete Game class based on gameType
         //gameType = ClassicGame, MegaGame
         // AbstractGame myGame = (AbstractGame) Class
-        System.out.println(myGameConfigFile);
+        //System.out.println(myGameConfigFile);
         //TODO
         gameStyle = fileToStylesheetString(new File("data/GUI.css"));
     }
