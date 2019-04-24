@@ -68,7 +68,6 @@ public class ConfigReader {
         //File inputFile = new File(filename);
         if(checkFileExists(filename)){
             try {
-                System.out.println(checkFileExists(filename));
                 File inputFile = new File(this.getClass().getClassLoader().getResource(filename).toURI());
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -360,7 +359,7 @@ public class ConfigReader {
         if(!errorChecker.checkBoardSizeAndSpaces(BoardSize, spaceList.getLength())){
             throw new XmlReaderException("Board Size and Number of Spaces listed in the xml config file to not match.");
         }
-        
+
         for(int i = 0; i < spaceList.getLength(); i++) {
             Node s = spaceList.item(i);
             if (s.getNodeType() == Node.ELEMENT_NODE) {
@@ -553,7 +552,7 @@ public class ConfigReader {
     private boolean checkFileExists(String filename){
         File[] files = new File("data").listFiles();
         for(File file : files){
-            if(file.isFile() && file.getName().equals(filename)){
+            if(file.getName().equals(filename) && file.getName().endsWith(".xml")){
                 //System.out.println(file.getName());
                 return true;
             }
