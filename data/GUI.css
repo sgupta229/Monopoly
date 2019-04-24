@@ -30,7 +30,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 20pt;
     -fx-background-color: linear-gradient(#C4C4C4, #7D7D7D);
-    -fx-pref-width: 165px;
+    /*-fx-pref-width: 165px;*/
     -fx-pref-height: 55px;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }

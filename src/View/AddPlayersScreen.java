@@ -43,10 +43,10 @@ public class AddPlayersScreen {
     private ComboBox myIconMenu;
     private TextField myPlayerNameField;
 
-    public AddPlayersScreen(double width, double height, String style, Controller controller, ObservableList<AbstractPlayer> players, ObservableList<String> tokens) {
+    public AddPlayersScreen(double width, double height, String style, Controller controller, ObservableList<AbstractPlayer> players) {
         this.myController = controller;
         this.myPlayers = players;
-        this.availableTokens = tokens;
+        this.availableTokens = FXCollections.observableList(myController.getGame().getPossibleTokens());
         this.myWidth = width;
         this.myHeight = height;
         this.myRoot = new Group();
