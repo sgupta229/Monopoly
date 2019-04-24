@@ -53,11 +53,16 @@ public class JuniorColorProperty extends ColorProperty {
      */
     @Override
     public double calculateRent(AbstractPlayer propOwner, int lastDiceRoll){
+        double rentNums;
         if(this.getIsMortgaged()){
-            return 0.0;
+            return  0.0;
         }
         else{
-            return getRentNumbers().get(0);
+            rentNums = getRentNumbers().get(0);
+            if(propOwner.checkMonopoly(this)){
+                rentNums = rentNums*2;
+            }
+            return rentNums;
         }
     }
 

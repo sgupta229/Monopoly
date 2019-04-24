@@ -25,27 +25,79 @@ import org.w3c.dom.Element;
 import static javax.xml.datatype.DatatypeFactory.newInstance;
 
 public class ConfigReader {
+    private static final String BOARD_SIZE_TAG = "BoardSize";
+    private static final String BANK_FUNDS_TAG = "BankFunds";
+    private static final String DICE_NUMBER_TAG = "Number";
+    private static final String DICE_SIDES_TAG = "Sides";
+    private static final String ACTION_DECK_TAG = "ActionDeck";
+    private static final String ACTION_CARD_TAG = "ActionCardType";
+    private static final String DECK_TYPE_TAG = "DeckType";
+    private static final String MESSAGE_TAG = "Message";
+    private static final String HOLDABLE_TAG = "Holdable";
+    private static final String EXTRA_STRINGS_TAG = "ExtraString";
+    private static final String EXTRA_DOUBLES_TAG = "ExtraDoubles";
+    private static final String ACTION_CARD_PATH = "Model.actioncards.";
+    private static final String PROPERTY_TAG = "Property";
+    private static final String PROPERTY_NAME_TAG = "PropertyName";
+    private static final String COLOR_GROUP_TAG = "ColorGroup";
+    private static final String BUY_PRICE_TAG = "BuyPrice";
+    private static final String RENT_TAG = "Rent";
+    private static final String BUILDING_PRICES_TAG = "BuildingPrices";
+    private static final String PROPERTIES_PATH_TAG = "Model.properties.";
+    private static final String TYPE_TAG = "type";
+    private static final String GROUP_SIZE_TAG = "GroupSize";
+    private static final String SPACE_TAG = "Space";
+    private static final String INDEX_TAG = "Index";
+    private static final String SPACE_GROUP_TAG = "SpaceGroup";
+    private static final String SPACE_NAME_TAG = "SpaceName";
+    private static final String SPACES_PATH_TAG = "Model.spaces.";
+    private static final String TOKEN_TAG = "Token";
+    private static final String BUILDING_TYPE_TAG = "BuildingType";
+    private static final String TOTAL_AMOUNT_TAG = "TotalAmount";
+    private static final String MAX_AMOUNT_TAG = "MaxAmount";
 
-    DocumentBuilder dBuilder;
-    Document doc;
+
+
+    //private DocumentBuilder dBuilder;
+    private Document doc;
+    private ConfigReaderErrorHandling errorChecker;
+    private int BoardSize;
 
     //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
-    public ConfigReader(String filename) {
+    public ConfigReader(String filename) throws XmlReaderException{
         //File inputFile = new File(filename);
-        try {
-            File inputFile = new File(this.getClass().getClassLoader().getResource(filename).toURI());
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(inputFile);
+        if(checkFileExists(filename, ".xml")){
+            try {
+                File inputFile = new File(this.getClass().getClassLoader().getResource(filename).toURI());
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                doc = dBuilder.parse(inputFile);
+                errorChecker = new ConfigReaderErrorHandling(doc);
+                //errorChecker.checkFileExists(filename);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        else{
+            throw new XmlReaderException(filename + " is not a valid name for a config file.");
         }
     }
 
     public int parseBoard() throws XmlReaderException {
-        int boardSize = Integer.parseInt(doc.getElementsByTagName("BoardSize").item(0).getTextContent());
-        return boardSize;
+        if(errorChecker.checkTagName(BOARD_SIZE_TAG)){
+            String boardSize = doc.getElementsByTagName(BOARD_SIZE_TAG).item(0).getTextContent();
+            if(errorChecker.checkValuesAreNumbers(boardSize)){
+                BoardSize = Integer.parseInt(boardSize);
+                return BoardSize;
+            }
+            else{
+                throw getXmlReadNumberException(BOARD_SIZE_TAG);
+            }
+        }
+        else{
+            throw getXmlReaderException(BOARD_SIZE_TAG);
+        }
     }
 
     public List<String> parseOtherFiles() throws XmlReaderException {
@@ -57,25 +109,44 @@ public class ConfigReader {
     }
 
     public List<Double> parseBank() throws XmlReaderException {
-        List<Double> bankInfo = new ArrayList<>();
-        double bankFunds = Double.parseDouble(doc.getElementsByTagName("BankFunds").item(0).getTextContent());
-        //double numHouses = Double.parseDouble(doc.getElementsByTagName("Houses").item(0).getTextContent());
-        //double numHotels = Double.parseDouble(doc.getElementsByTagName("Hotels").item(0).getTextContent());
-        //double maxNumHouses = Double.parseDouble(doc.getElementsByTagName("MaxHouses").item(0).getTextContent());
-
-        bankInfo.add(bankFunds);
-        //bankInfo.add(numHouses);
-        //bankInfo.add(numHotels);
-        //bankInfo.add(maxNumHouses);
-        //System.out.println(maxNumHouses);
-        return bankInfo;
+        if(errorChecker.checkTagName(BANK_FUNDS_TAG)){
+            List<Double> bankInfo = new ArrayList<>();
+            String bankFunds = doc.getElementsByTagName(BANK_FUNDS_TAG).item(0).getTextContent();
+            if(errorChecker.checkValuesAreNumbers(bankFunds)){
+                double bankFundsInt = Double.parseDouble(bankFunds);
+                bankInfo.add(bankFundsInt);
+                return bankInfo;
+            }
+            else{
+                throw getXmlReadNumberException(BANK_FUNDS_TAG);
+            }
+        }
+        else{
+            throw getXmlReaderException(BANK_FUNDS_TAG);
+        }
     }
 
     public List<Die> parseDice() throws XmlReaderException {
+        if(!errorChecker.checkTagName(DICE_SIDES_TAG)){
+            throw getXmlReaderException(DICE_SIDES_TAG);
+        }
+        if(!errorChecker.checkTagName(DICE_NUMBER_TAG)){
+            throw getXmlReaderException(DICE_NUMBER_TAG);
+        }
         List<Die> dice = new ArrayList<>();
 
-        int numberOfDice = Integer.parseInt(doc.getElementsByTagName("Number").item(0).getTextContent());
-        int numberOfSides = Integer.parseInt(doc.getElementsByTagName("Sides").item(0).getTextContent());
+        //Check valid input
+        String numDice = doc.getElementsByTagName(DICE_NUMBER_TAG).item(0).getTextContent();
+        String numSides = doc.getElementsByTagName(DICE_SIDES_TAG).item(0).getTextContent();
+        List<String> checkList = List.of(numDice, numSides);
+        for(String s: checkList){
+            if(!errorChecker.checkValuesAreNumbers(s)){
+                throw getXmlReadNumberException(DICE_NUMBER_TAG + " and/or " + DICE_SIDES_TAG);
+            }
+        }
+
+        int numberOfDice = Integer.parseInt(numDice);
+        int numberOfSides = Integer.parseInt(numSides);
 
         for(int i=0; i<numberOfDice; i++){
             int[] sideValues = new int[numberOfSides];
@@ -91,9 +162,12 @@ public class ConfigReader {
     }
 
     public List<ActionDeck> parseActionDecks() throws XmlReaderException {
+        if(!errorChecker.checkTagName(ACTION_DECK_TAG)){
+            throw getXmlReaderException(ACTION_DECK_TAG);
+        }
         List<ActionDeck> decks = new ArrayList<>();
 
-        NodeList actionDeckList = doc.getElementsByTagName("ActionDeck");
+        NodeList actionDeckList = doc.getElementsByTagName(ACTION_DECK_TAG);
 
         for(int i=0; i<actionDeckList.getLength(); i++){
             Node ad = actionDeckList.item(i);
@@ -102,13 +176,13 @@ public class ConfigReader {
                 //String deckName = deck.getElementsByTagName("ActionDeck").item(0).getTextContent();
                 String deckName = deck.getTextContent();
                 //Check if deckName in DeckType enum before getting enum
-                if(!checkDeckType(deckName)){
-                    throw new XmlReaderException(deckName + "not a valid action deck. Please check the data file.");
-                }
-                else{
+                if(errorChecker.checkDeckType(deckName)){
                     DeckType dt = DeckType.valueOf(deckName);
                     ActionDeck tempDeck = new ActionDeck(dt);
                     decks.add(tempDeck);
+                }
+                else{
+                    throw new XmlReaderException(deckName + " is not a valid DeckType enum. Please check the data file.");
                 }
             }
         }
@@ -117,177 +191,224 @@ public class ConfigReader {
 
 //    public List<AbstractActionCard> parseActionCards() throws XmlReaderException{
     public List<AbstractActionCard> parseActionCards() throws XmlReaderException {
-        //Feed this allActionCards list into fillLiveDeck() in deck class after initializing empty decks
-        List<AbstractActionCard> allActionCards = new ArrayList<>();
+        String errorCheck = errorChecker.checkTagName(List.of(ACTION_CARD_TAG, DECK_TYPE_TAG, MESSAGE_TAG, HOLDABLE_TAG, EXTRA_STRINGS_TAG, EXTRA_DOUBLES_TAG));
+        if(errorCheck.equalsIgnoreCase("VALID")){
+            //Feed this allActionCards list into fillLiveDeck() in deck class after initializing empty decks
+            List<AbstractActionCard> allActionCards = new ArrayList<>();
+            NodeList actionCardList = doc.getElementsByTagName(ACTION_CARD_TAG);
+            for(int i = 0; i<actionCardList.getLength(); i++){
+                Node ac = actionCardList.item(i);
+                if(ac.getNodeType() == Node.ELEMENT_NODE){
+                    Element card = (Element) ac;
+                    String deckName = card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent();
+                    if(errorChecker.checkDeckType(deckName)){
 
-        NodeList actionCardList = doc.getElementsByTagName("ActionCardType");
-        for(int i = 0; i<actionCardList.getLength(); i++){
-            Node ac = actionCardList.item(i);
-            if(ac.getNodeType() == Node.ELEMENT_NODE){
-                Element card = (Element) ac;
-                String deckName = card.getElementsByTagName("DeckType").item(0).getTextContent();
-                if(!checkDeckType(deckName)){
-                    throw new XmlReaderException(deckName + "not a valid action deck. Please check the data file.");
-                }
+                        //All types of action cards have these fields
+                        DeckType dt = DeckType.valueOf(card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent());
+                        String msg = card.getElementsByTagName(MESSAGE_TAG).item(0).getTextContent();
+                        //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
+                        Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName(HOLDABLE_TAG).item(0).getTextContent());
+                        List<String> extraStrings = List.of(card.getElementsByTagName(EXTRA_STRINGS_TAG).item(0).getTextContent().split(","));
+                        //System.out.println(extraStrings.get(0) + " AND " + extraStrings.get(1));
+                        //Get list of doubles
+                        String[] extraDubTemp = card.getElementsByTagName(EXTRA_DOUBLES_TAG).item(0).getTextContent().split(",");
+                        helpCheckDoublesTag(List.of(extraDubTemp));
 
-                //All types of action cards have these fields
-                DeckType dt = DeckType.valueOf(card.getElementsByTagName("DeckType").item(0).getTextContent());
-                String msg = card.getElementsByTagName("Message").item(0).getTextContent();
-                //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
-                Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName("Holdable").item(0).getTextContent());
-                List<String> extraStrings = List.of(card.getElementsByTagName("ExtraString").item(0).getTextContent().split(","));
-                //System.out.println(extraStrings.get(0) + " AND " + extraStrings.get(1));
-                //Get list of doubles
-                String[] extraDubTemp = card.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
-/*                List<Double> extraDubs = new ArrayList<>();
-                for(String n:extraDubTemp){
-                    extraDubs.add(Double.parseDouble(n));
-                }*/
-                List<Double> extraDubs = listDoubleConverter(extraDubTemp);
+                        List<Double> extraDubs = listDoubleConverter(extraDubTemp);
 
-
-                String className = card.getAttribute("type");
-                //Reflection to create action cards
-                try {
-                    AbstractActionCard newAC = (AbstractActionCard) Class.forName("Model.actioncards." + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
-                    allActionCards.add(newAC);
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                        String className = card.getAttribute(TYPE_TAG);
+                        //Reflection to create action cards
+                        try {
+                            AbstractActionCard newAC = (AbstractActionCard) Class.forName(ACTION_CARD_PATH + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
+                            allActionCards.add(newAC);
+                        } catch (InstantiationException e) {
+                            throw new XmlReaderException("Instantiation error");
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchMethodException e) {
+                            throw new XmlReaderException("Method reflection not found");
+                        } catch (ClassNotFoundException e) {
+                            throw new XmlReaderException(className + " was not a valid class name... please check the data file's ActionCard 'type' attributes to ensure they match the class names");
+                            //e.printStackTrace();
+                        }
+                    }
+                    else{
+                        throw new XmlReaderException(deckName + "not a valid action deck. Please check the data file.");
+                    }
                 }
             }
+            return allActionCards;
         }
-        return allActionCards;
+        else{
+            throw getXmlReaderException(errorCheck);
+        }
     }
 
-/*    private List<Integer> loopThroughChildren(String tag, int index){
-        ArrayList<Integer> numbers = new ArrayList<>();
-        NodeList rentList = doc.getElementsByTagName(tag);
-        Node thisValue = rentList.item(index);
-        NodeList nodeNums = thisValue.getChildNodes();
-        for(int x=0; x<nodeNums.getLength(); x++){
-            Node currNum = nodeNums.item(x);
-            int rentVal = Integer.parseInt(currNum.getTextContent());
-            numbers.add(rentVal);
-        }
-        return numbers;
-    }*/
 
-    public List<Property> parseAllProps(){
+
+
+
+
+
+    //Helper to reduce duplication
+    private XmlReaderException getXmlReaderException(String errorCheck) {
+        return new XmlReaderException(errorCheck + " is not a valid tag. Please check the xml config file");
+    }
+    //Helper to reduce duplication
+    private XmlReaderException getXmlReadNumberException(String errorCheck) {
+        return new XmlReaderException(errorCheck + " is not a valid input. Value must be a number, not a string or character.");
+    }
+
+
+
+
+
+
+
+    public List<Property> parseAllProps()throws XmlReaderException{
+        //BuildingPrices might be empty list so don't check that
+        String errorCheck = errorChecker.checkTagName(List.of(PROPERTY_TAG, PROPERTY_NAME_TAG, COLOR_GROUP_TAG, GROUP_SIZE_TAG, BUY_PRICE_TAG, RENT_TAG));
+        if(!errorCheck.equalsIgnoreCase("VALID")){
+            throw new XmlReaderException(errorCheck + " is not a valid tag. Please check the xml config file.");
+        }
         List<Property> propsList = new ArrayList<>();
-        NodeList propTypeList = doc.getElementsByTagName("Property");
+        NodeList propTypeList = doc.getElementsByTagName(PROPERTY_TAG);
         for(int i = 0; i<propTypeList.getLength(); i++){
             Node ac = propTypeList.item(i);
             if(ac.getNodeType() == Node.ELEMENT_NODE){
                 Element prop = (Element) ac;
-                String name = prop.getElementsByTagName("PropertyName").item(0).getTextContent();
+                String name = prop.getElementsByTagName(PROPERTY_NAME_TAG).item(0).getTextContent();
                 //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
-                String color = prop.getElementsByTagName("ColorGroup").item(0).getTextContent();
-                int groupSize = Integer.parseInt(prop.getElementsByTagName("GroupSize").item(0).getTextContent());
-                double buyPrice = Double.parseDouble(prop.getElementsByTagName("BuyPrice").item(0).getTextContent());
+                String color = prop.getElementsByTagName(COLOR_GROUP_TAG).item(0).getTextContent();
+                String groupSizeString = prop.getElementsByTagName(GROUP_SIZE_TAG).item(0).getTextContent();
+                String buyPriceString = prop.getElementsByTagName(BUY_PRICE_TAG).item(0).getTextContent();
+                if(!errorChecker.checkValuesAreNumbers(List.of(groupSizeString, buyPriceString))){
+                    throw getXmlReadNumberException(GROUP_SIZE_TAG + " and/or " + BUY_PRICE_TAG);
+                }
+                int groupSize = Integer.parseInt(groupSizeString);
+                double buyPrice = Double.parseDouble(buyPriceString);
 
                 //get all rent numbers
-                //Node rentNode = doc.getDocumentElement();
                 ArrayList<Double> rentNumbers = new ArrayList<>();
-                NodeList rentList = doc.getElementsByTagName("Rent");
-                //System.out.println(rentList.getLength());
+                NodeList rentList = doc.getElementsByTagName(RENT_TAG);
+
                 Node thisRent1 = rentList.item(i);
                 Element thisRent = (Element) thisRent1;
                 NodeList rentNums = thisRent.getChildNodes();
-                //System.out.println(rentNums.getLength());
-                //System.out.println(name);
+
                 for(int x=1; x<rentNums.getLength(); x=x+2){
                     Node currRentNum = rentNums.item(x);
-                    //System.out.println(currRentNum.getNodeName());
-                    //System.out.println(currRentNum.getTextContent());
-                    Double rentVal = Double.parseDouble(currRentNum.getTextContent());
-                    //System.out.println("RentVal is " + rentVal);
-                    rentNumbers.add(rentVal);
+                    if(errorChecker.checkValuesAreNumbers(currRentNum.getTextContent())){
+                        Double rentVal = Double.parseDouble(currRentNum.getTextContent());
+                        rentNumbers.add(rentVal);
+                    }
+                    else{
+                        throw getXmlReadNumberException(RENT_TAG + " Children");
+                    }
                 }
 
                 //get all building numbers
                 Map<BuildingType, Double> BuildingPrices = new TreeMap<>();
-                NodeList priceList = doc.getElementsByTagName("BuildingPrices");
+                NodeList priceList = doc.getElementsByTagName(BUILDING_PRICES_TAG);
                 Node thisPrice = priceList.item(i);
                 NodeList priceNums = thisPrice.getChildNodes();
                 for(int x=1; x<priceNums.getLength(); x=x+2){
                     Node currPriceNum = priceNums.item(x);
                     Element c = (Element) currPriceNum;
-                    BuildingType bType = (BuildingType.valueOf(c.getAttribute("type")));
-                    double priceVal = Double.parseDouble(currPriceNum.getTextContent());
-                    BuildingPrices.put(bType, priceVal);
+                    String buildingType = c.getAttribute(TYPE_TAG);
+                    if(errorChecker.checkBuildingType(buildingType)){
+                        BuildingType bType = (BuildingType.valueOf(c.getAttribute(TYPE_TAG)));
+                        if(errorChecker.checkValuesAreNumbers(currPriceNum.getTextContent())){
+                            double priceVal = Double.parseDouble(currPriceNum.getTextContent());
+                            BuildingPrices.put(bType, priceVal);
+                        }
+                        else{
+                            throw getXmlReadNumberException(BUILDING_PRICES_TAG);
+                        }
+                    }
+                    else{
+                        throw getXmlReaderException(buildingType);
+                    }
                 }
 
-                String className = prop.getAttribute("type");
+                String className = prop.getAttribute(TYPE_TAG);
                 //Reflection to create properties
                 try {
-                    Property newProp = (Property) Class.forName("Model.properties." + className).getConstructor(double.class, String.class, String.class, List.class, int.class, Map.class).newInstance(buyPrice,
+                    Property newProp = (Property) Class.forName(PROPERTIES_PATH_TAG + className).getConstructor(double.class, String.class, String.class, List.class, int.class, Map.class).newInstance(buyPrice,
                             name, color, rentNumbers, groupSize, BuildingPrices);
                     propsList.add(newProp);
                     newProp.setIsMortgaged(false);
                 } catch (InstantiationException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException("Instantiation error");
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException("Method reflection not found");
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException(className + " was not a valid class name... please check the data file's Property 'type' attributes to ensure they match the class names");
+                    //e.printStackTrace();
                 }
             }
         }
         return propsList;
     }
 
-    public List<AbstractSpace> parseNewSpaces(List<Property> propsList){
+    public List<AbstractSpace> parseNewSpaces(List<Property> propsList) throws XmlReaderException{
+        String errorString = errorChecker.checkTagName(List.of(SPACE_TAG, INDEX_TAG, SPACE_GROUP_TAG, SPACE_NAME_TAG, EXTRA_STRINGS_TAG, EXTRA_DOUBLES_TAG));
+        if(!errorString.equalsIgnoreCase("VALID")){
+            throw getXmlReaderException(errorString);
+        }
         List<AbstractSpace> allSpaces = new ArrayList<>();
+        NodeList spaceList = doc.getElementsByTagName(SPACE_TAG);
+        if(!errorChecker.checkBoardSizeAndSpaces(BoardSize, spaceList.getLength())){
+            throw new XmlReaderException("Board Size and Number of Spaces listed in the xml config file to not match.");
+        }
 
-        NodeList spaceList = doc.getElementsByTagName("Space");
         for(int i = 0; i < spaceList.getLength(); i++) {
             Node s = spaceList.item(i);
             if (s.getNodeType() == Node.ELEMENT_NODE) {
                 Element space = (Element) s;
-                int index = Integer.parseInt(space.getElementsByTagName("Index").item(0).getTextContent());
-                String spaceGroupString = space.getElementsByTagName("SpaceGroup").item(0).getTextContent().strip();
-                SpaceGroup spaceGroup = SpaceGroup.valueOf(spaceGroupString);
-                String spaceName = space.getElementsByTagName("SpaceName").item(0).getTextContent().strip();
-                String extraString = space.getElementsByTagName("ExtraString").item(0).getTextContent().strip();
-                String[] extraDubTemp = space.getElementsByTagName("ExtraDoubles").item(0).getTextContent().split(",");
-/*                List<Double> extraDubs = new ArrayList<>();
-                for(String n:extraDubTemp){
-                    extraDubs.add(Double.parseDouble(n));
-                }*/
+                String dexString = space.getElementsByTagName(INDEX_TAG).item(0).getTextContent();
+                if(!errorChecker.checkValuesAreNumbers(dexString)){
+                    throw getXmlReadNumberException(INDEX_TAG);
+                }
+                int index = Integer.parseInt(dexString);
+                String spaceGroupString = space.getElementsByTagName(SPACE_GROUP_TAG).item(0).getTextContent().strip();
+                if(!errorChecker.checkSpaceGroup(spaceGroupString)){
+                    throw new XmlReaderException(spaceGroupString + " is not a valid SpaceGroup enum. Please check the config file");
+                }
+                SpaceGroup sg = SpaceGroup.valueOf(spaceGroupString);
+                String spaceName = space.getElementsByTagName(SPACE_NAME_TAG).item(0).getTextContent().strip();
+                String extraString = space.getElementsByTagName(EXTRA_STRINGS_TAG).item(0).getTextContent().strip();
+                String[] extraDubTemp = space.getElementsByTagName(EXTRA_DOUBLES_TAG).item(0).getTextContent().split(",");
+                //Help check if values in EXTRA_DOUBLES_TAG are numbers separated by a comma
+                helpCheckDoublesTag(List.of(extraDubTemp));
                 List<Double> extraDubs = listDoubleConverter(extraDubTemp);
 
-                Property myProp = findLinkedProperty(propsList, spaceName);
+                Property myProp = findLinkedProperty(propsList, spaceName, sg);
 
-                String className = space.getAttribute("type");
-                //System.out.println(className);
+                String className = space.getAttribute(TYPE_TAG);
+
                 //Reflection to create properties
                 try {
-                    AbstractSpace newSpace = (AbstractSpace) Class.forName("Model.spaces." + className).getConstructor(int.class, String.class, String.class, String.class, List.class, Property.class).newInstance(index,
+                    AbstractSpace newSpace = (AbstractSpace) Class.forName(SPACES_PATH_TAG + className).getConstructor(int.class, String.class, String.class, String.class, List.class, Property.class).newInstance(index,
                             spaceName, spaceGroupString, extraString, extraDubs, myProp);
                     //newSpace.setMyProp(myProp);
                     allSpaces.add(newSpace);
                 } catch (InstantiationException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException("Instantiation error");
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException("Method reflection not found");
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException(className + " was not a valid class name... please check the data file's Space 'type' attributes to ensure they match the class names");
                 }
 
             }
@@ -295,279 +416,119 @@ public class ConfigReader {
         return allSpaces;
     }
 
-    private Property findLinkedProperty(List<Property> allProperties, String name){
-        HashMap<String, Property> allPropsAndNames = new HashMap<>();
+    private Property findLinkedProperty(List<Property> allProperties, String name, SpaceGroup sg) throws XmlReaderException{
+        Map<String, Property> allPropsAndNames = new HashMap<>();
         for(Property prop:allProperties){
             allPropsAndNames.put(prop.getName(), prop);
         }
-        if(allPropsAndNames.containsKey(name)){
-            return allPropsAndNames.get(name);
+        if(sg != SpaceGroup.RAILROAD && sg != SpaceGroup.UTILITY && sg != SpaceGroup.COLOR){
+            return null;
+        }
+        else if(errorChecker.checkLinkedProperty(allPropsAndNames, name) != null){
+            return errorChecker.checkLinkedProperty(allPropsAndNames, name);
         }
         else{
-            return null;
+            throw new XmlReaderException(name + " does not match a property name, check for typos in xml between space names and property names.");
         }
     }
 
-    public List<List> parseSpaces(){
+    public List<List> parseSpaces() throws XmlReaderException{
         List<List> allSpacesAndProps = new ArrayList<>();
         List<Property> allProps = parseAllProps();
         List<AbstractSpace> allSpaces = parseNewSpaces(allProps);
 
-        /*Map<String, ArrayList> propInfo = new HashMap<String, ArrayList>();
-
-
-        NodeList spaceList = doc.getElementsByTagName("Space");
-        for(int i = 0; i < spaceList.getLength(); i++) {
-            Node s = spaceList.item(i);
-            if(s.getNodeType() == Node.ELEMENT_NODE) {
-                Element space = (Element) s;
-                int index = Integer.parseInt(space.getElementsByTagName("Index").item(0).getTextContent());
-                String spaceName = space.getElementsByTagName("SpaceName").item(0).getTextContent().strip();
-                //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
-
-                //CHANGE - type = color_property; utility_property; railroad_property
-                //if(space.getAttribute("type").split("_")[1].equalsIgnoreCase("property")){}
-                if(space.getAttribute("type").equalsIgnoreCase("ACTION")) {
-                    AbstractSpace newSpace = new ActionCardSpace(index, spaceName);
-                    allSpaces.add(newSpace);
-                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
-                }
-                else if(space.getAttribute("type").equalsIgnoreCase("FREE_PARKING")) {
-                    AbstractSpace newSpace = new FreeParkingSpace(index, spaceName);
-                    allSpaces.add(newSpace);
-                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
-                }
-                else if(space.getAttribute("type").equalsIgnoreCase("GO")) {
-                    AbstractSpace newSpace = new GoSpace(index, spaceName);
-                    allSpaces.add(newSpace);
-                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
-                }
-                else if(space.getAttribute("type").equalsIgnoreCase("GO_TO_JAIL")) {
-                    String spaceToMoveTo = space.getElementsByTagName("TargetSpace").item(0).getTextContent();
-                    AbstractSpace newSpace = new GoToSpace(index, spaceName, spaceToMoveTo);
-                    allSpaces.add(newSpace);
-                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
-                }
-                else if(space.getAttribute("type").equalsIgnoreCase("JAIL")) {
-                    AbstractSpace newSpace = new JailSpace(index, spaceName);
-                    allSpaces.add(newSpace);
-                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
-                }
-                else if(space.getAttribute("type").equalsIgnoreCase("TAX")) {
-                    double flatRate = Double.parseDouble(space.getElementsByTagName("FlatRate").item(0).getTextContent());
-                    double percentage = Double.parseDouble(space.getElementsByTagName("Percentage").item(0).getTextContent());
-                    double newPercent = percentage/100;
-                    AbstractSpace newSpace = new TaxSpace(index, spaceName, flatRate, newPercent);
-                    allSpaces.add(newSpace);
-                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type")));
-
-                }
-                else if(space.getAttribute("type").equalsIgnoreCase("COLOR_PROPERTY")) {
-
-                    String colorGroup = space.getElementsByTagName("ColorGroup").item(0).getTextContent();
-                    int groupSize = Integer.parseInt(space.getElementsByTagName("GroupSize").item(0).getTextContent());
-                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
-                    double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
-                    double rentOneHouse = Double.parseDouble(space.getElementsByTagName("Rent1House").item(0).getTextContent());
-                    double rentTwoHouse = Double.parseDouble(space.getElementsByTagName("Rent2House").item(0).getTextContent());
-                    double rentThreeHouse = Double.parseDouble(space.getElementsByTagName("Rent3House").item(0).getTextContent());
-                    double rentFourHouse = Double.parseDouble(space.getElementsByTagName("Rent4House").item(0).getTextContent());
-                    double rentHotel = Double.parseDouble(space.getElementsByTagName("RentHotel").item(0).getTextContent());
-                    double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
-                    double pricePerHotel = Double.parseDouble(space.getElementsByTagName("PricePerHotel").item(0).getTextContent());
-                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    ArrayList<Double> rentAmounts = new ArrayList<>();
-                    rentAmounts.add(rent);
-                    rentAmounts.add(rentOneHouse);
-                    rentAmounts.add(rentTwoHouse);
-                    rentAmounts.add(rentThreeHouse);
-                    rentAmounts.add(rentFourHouse);
-                    rentAmounts.add(rentHotel);
-                    rentAmounts.add(pricePerHouse);
-                    rentAmounts.add(pricePerHotel);
-                    rentAmounts.add(mortgage);
-                    TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
-                    buildingPriceMap.put(BuildingType.valueOf("HOUSE"), pricePerHouse);
-                    buildingPriceMap.put(BuildingType.valueOf("HOTEL"), pricePerHotel);
-
-
-                    Property newProp = new ClassicColorProperty(buyPrice, spaceName, colorGroup, rentAmounts, groupSize, buildingPriceMap);
-                    AbstractSpace newSpace = new ClassicPropSpace(index, spaceName, newProp);
-                    allSpaces.add(newSpace);
-                    //((ClassicPropSpace) newSpace).linkSpaceToProperty(newProp);
-                    allProps.add(newProp);
-                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
-
-                }
-                else if(space.getAttribute("type").equalsIgnoreCase("RAILROAD_PROPERTY")) {
-
-                    int groupSize = Integer.parseInt(space.getElementsByTagName("GroupSize").item(0).getTextContent());
-                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
-                    double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
-                    double rent2 = Double.parseDouble(space.getElementsByTagName("Rent2").item(0).getTextContent());
-                    double rent3 = Double.parseDouble(space.getElementsByTagName("Rent3").item(0).getTextContent());
-                    double rent4 = Double.parseDouble(space.getElementsByTagName("Rent4").item(0).getTextContent());
-                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    ArrayList<Double> rentAmounts = new ArrayList<>();
-                    rentAmounts.add(rent);
-                    rentAmounts.add(rent2);
-                    rentAmounts.add(rent3);
-                    rentAmounts.add(rent4);
-                    rentAmounts.add(mortgage);
-                    TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
-                    Property newProp = new RailRoadProperty(buyPrice, spaceName, rentAmounts, groupSize);
-                    //((ClassicPropSpace) newSpace).linkSpaceToProperty(newProp);
-                    AbstractSpace newSpace = new ClassicPropSpace(index, spaceName, newProp);
-                    allSpaces.add(newSpace);
-                    allProps.add(newProp);
-                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
-
-                }
-                else if(space.getAttribute("type").equalsIgnoreCase("UTILITY_PROPERTY")) {
-
-                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
-                    double rentMult = Double.parseDouble(space.getElementsByTagName("RentMultiplier").item(0).getTextContent());
-                    double rentMult2 = Double.parseDouble(space.getElementsByTagName("Rent2Multiplier").item(0).getTextContent());
-                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    int groupSize = Integer.parseInt(space.getElementsByTagName("GroupSize").item(0).getTextContent());
-                    ArrayList<Double> rentAmounts = new ArrayList<>();
-                    rentAmounts.add(rentMult);
-                    rentAmounts.add(rentMult2);
-                    rentAmounts.add(mortgage);
-                    TreeMap<BuildingType, Double> buildingPriceMap = new TreeMap<>();
-                    Property newProp = new UtilityProperty(buyPrice, spaceName, rentAmounts, groupSize);
-                    //((ClassicPropSpace) newSpace).linkSpaceToProperty(newProp);
-                    AbstractSpace newSpace = new ClassicPropSpace(index, spaceName, newProp);
-                    allSpaces.add(newSpace);
-                    allProps.add(newProp);
-                    newSpace.setMyGroup(SpaceGroup.valueOf(space.getAttribute("type").split("_")[0]));
-                }
-//                else{
-//                    throw new XmlReaderException(space.getAttribute("type"));
-//                }
-            }
-        }*/
         allSpacesAndProps.add(allSpaces);
         allSpacesAndProps.add(allProps);
-
 
         return allSpacesAndProps;
     }
 
-    /*public Map<Integer, ArrayList> parseColorPropInfo() {
-        Map<Integer, ArrayList> propInfo = new HashMap<Integer, ArrayList>();
-        NodeList spaceList = doc.getElementsByTagName("Space");
-        for (int i = 0; i < spaceList.getLength(); i++) {
-            Node s = spaceList.item(i);
-            if (s.getNodeType() == Node.ELEMENT_NODE) {
-                Element space = (Element) s;
-                String spaceName = space.getElementsByTagName("SpaceName").item(0).getTextContent().strip();
-                int index = Integer.parseInt(space.getElementsByTagName("Index").item(0).getTextContent());
-                if (space.getAttribute("type").equalsIgnoreCase("COLOR_PROPERTY")) {
-                    String colorGroup = space.getElementsByTagName("ColorGroup").item(0).getTextContent();
-                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
-                    double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
-                    double rentOneHouse = Double.parseDouble(space.getElementsByTagName("Rent1House").item(0).getTextContent());
-                    double rentTwoHouse = Double.parseDouble(space.getElementsByTagName("Rent2House").item(0).getTextContent());
-                    double rentThreeHouse = Double.parseDouble(space.getElementsByTagName("Rent3House").item(0).getTextContent());
-                    double rentFourHouse = Double.parseDouble(space.getElementsByTagName("Rent4House").item(0).getTextContent());
-                    double rentHotel = Double.parseDouble(space.getElementsByTagName("RentHotel").item(0).getTextContent());
-                    double pricePerHouse = Double.parseDouble(space.getElementsByTagName("PricePerHouse").item(0).getTextContent());
-                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    ArrayList details = new ArrayList();
-                    details.addAll(Arrays.asList(colorGroup, buyPrice, rent, rentOneHouse, rentTwoHouse, rentThreeHouse, rentFourHouse, rentHotel, pricePerHouse, mortgage, spaceName));
-                    propInfo.put(index, details);
-                } else if (space.getAttribute("type").equalsIgnoreCase("RAILROAD_PROPERTY")) {
-                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
-                    double rent = Double.parseDouble(space.getElementsByTagName("Rent").item(0).getTextContent());
-                    double rent2 = Double.parseDouble(space.getElementsByTagName("Rent2").item(0).getTextContent());
-                    double rent3 = Double.parseDouble(space.getElementsByTagName("Rent3").item(0).getTextContent());
-                    double rent4 = Double.parseDouble(space.getElementsByTagName("Rent4").item(0).getTextContent());
-                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    ArrayList details = new ArrayList();
-                    details.addAll(Arrays.asList(buyPrice, rent, rent2, rent3, rent4, mortgage, spaceName));
-                    propInfo.put(index, details);
-                } else if (space.getAttribute("type").equalsIgnoreCase("UTILITY_PROPERTY")){
-                    double buyPrice = Double.parseDouble(space.getElementsByTagName("BuyPrice").item(0).getTextContent());
-                    double rentMult = Double.parseDouble(space.getElementsByTagName("RentMultiplier").item(0).getTextContent());
-                    double rentMult2 = Double.parseDouble(space.getElementsByTagName("Rent2Multiplier").item(0).getTextContent());
-                    double mortgage = Double.parseDouble(space.getElementsByTagName("Mortgage").item(0).getTextContent());
-                    ArrayList details = new ArrayList();
-                    details.addAll(Arrays.asList(buyPrice, rentMult, rentMult2, mortgage, spaceName));
-                    propInfo.put(index, details);
-                } else if (space.getAttribute("type").equalsIgnoreCase("TAX")){
-                    double flatRate = Double.parseDouble(space.getElementsByTagName("FlatRate").item(0).getTextContent());
-                    double percentage = Double.parseDouble(space.getElementsByTagName("Percentage").item(0).getTextContent());
-                    double newPercent = percentage/100;
-                    ArrayList details = new ArrayList();
-                    details.addAll(Arrays.asList(flatRate, percentage, newPercent));
-                    propInfo.put(index, details);
-                }
-            }
-        }
-        return propInfo;
-    }*/
-
 
     public List<String> parseTokens() throws XmlReaderException {
-        List<String> allTokens = new ArrayList<>();
+        if(errorChecker.checkTagName(TOKEN_TAG)){
+            List<String> allTokens = new ArrayList<>();
 
-        NodeList tokenList = doc.getElementsByTagName("Token");
-        for(int i = 0; i<tokenList.getLength(); i++) {
-            Node tk = tokenList.item(i);
-            if (tk.getNodeType() == Node.ELEMENT_NODE) {
-                Element tok = (Element) tk;
-                String tokName = tok.getTextContent();
-                allTokens.add(tokName);
+            NodeList tokenList = doc.getElementsByTagName(TOKEN_TAG);
+            for(int i = 0; i<tokenList.getLength(); i++) {
+                Node tk = tokenList.item(i);
+                if (tk.getNodeType() == Node.ELEMENT_NODE) {
+                    Element tok = (Element) tk;
+                    String tokName = tok.getTextContent();
+                    if(checkFileExists(tokName, ".png")){
+                        allTokens.add(tokName);
+                    }
+                    else{
+                        throw new XmlReaderException(tokName + " is not a token image found in doc directory or has the incorrect suffix. Fix data file");
+                    }
+                }
             }
-        }
-        if(!allTokens.isEmpty()){
-//            System.out.println(allTokens);
             return allTokens;
         }
         else{
-            throw new XmlReaderException("BadTag");
+            throw getXmlReaderException(TOKEN_TAG);
         }
     }
 
-    public double getRuleDouble(String attribute) {
-        NodeList list = doc.getElementsByTagName(attribute);
-        Node node = list.item(0);
-        if(node.getNodeType() == Node.ELEMENT_NODE) {
-            Element element = (Element) node;
-            String stringValue = element.getTextContent();
-            return Double.parseDouble(stringValue);
+    public double getRuleDouble(String attribute) throws XmlReaderException{
+        if(errorChecker.checkTagName(attribute)){
+            NodeList list = doc.getElementsByTagName(attribute);
+            Node node = list.item(0);
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String stringValue = element.getTextContent();
+                if(errorChecker.checkValuesAreNumbers(stringValue)){
+                    return Double.parseDouble(stringValue);
+                }
+                else{
+                    throw getXmlReadNumberException(attribute);
+                }
+            }
+            return -1;
         }
-        return -1;
+        else{
+            throw getXmlReaderException(attribute);
+        }
     }
 
-    public boolean getRuleBool(String attribute){
-        NodeList list = doc.getElementsByTagName(attribute);
-        Node node = list.item(0);
-        if(node.getNodeType() == Node.ELEMENT_NODE) {
-            Element element = (Element) node;
-            String stringValue = element.getTextContent();
-            return Boolean.parseBoolean(stringValue);
+    public boolean getRuleBool(String attribute) throws XmlReaderException{
+        if(errorChecker.checkTagName(attribute)){
+            NodeList list = doc.getElementsByTagName(attribute);
+            Node node = list.item(0);
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String stringValue = element.getTextContent();
+                return Boolean.parseBoolean(stringValue);
+            }
+            return false;
         }
-        return false;
+        else{
+            throw getXmlReaderException(attribute);
+        }
     }
 
-    public List<Map<BuildingType, Integer>> getBuildingProperties() {
+    public List<Map<BuildingType, Integer>> getBuildingProperties() throws XmlReaderException{
         List<Map<BuildingType, Integer>> buildingProperties = new ArrayList<>();
         Map<BuildingType, Integer> buildingTotalAmount = new TreeMap<>();
         Map<BuildingType, Integer> buildingMaxAmount = new TreeMap<>();
 
 
-        NodeList buildingList = doc.getElementsByTagName("BuildingType");
+        NodeList buildingList = doc.getElementsByTagName(BUILDING_TYPE_TAG);
         for (int x = 0; x < buildingList.getLength(); x++) {
             Node bL = buildingList.item(x);
             if (bL.getNodeType() == Node.ELEMENT_NODE) {
                 Element building = (Element) bL;
-                BuildingType bType = BuildingType.valueOf(building.getAttribute("type"));
-                int total = Integer.parseInt(building.getElementsByTagName("TotalAmount").item(0).getTextContent());
-                buildingTotalAmount.put(bType, total);
-                int max = Integer.parseInt(building.getElementsByTagName("MaxAmount").item(0).getTextContent());
-                buildingMaxAmount.put(bType, max);
+                BuildingType bType = BuildingType.valueOf(building.getAttribute(TYPE_TAG));
+                String totalString = building.getElementsByTagName(TOTAL_AMOUNT_TAG).item(0).getTextContent();
+                String maxString = building.getElementsByTagName(MAX_AMOUNT_TAG).item(0).getTextContent();
+                if(errorChecker.checkValuesAreNumbers(List.of(totalString, maxString))){
+                    int total = Integer.parseInt(totalString);
+                    buildingTotalAmount.put(bType, total);
+                    int max = Integer.parseInt(maxString);
+                    buildingMaxAmount.put(bType, max);
+                }
+                else{
+                    throw getXmlReadNumberException(TOTAL_AMOUNT_TAG + " and/or " + MAX_AMOUNT_TAG);
+                }
             }
         }
 
@@ -577,7 +538,12 @@ public class ConfigReader {
     }
 
     //Helper method converts list of strings to list of doubles for parsing
-    private List<Double> listDoubleConverter(String[] stringList){
+    private List<Double> listDoubleConverter(String[] stringList) throws XmlReaderException{
+        for(String s: stringList){
+            if(!errorChecker.checkValuesAreNumbers(s)){
+                throw new XmlReaderException(s + " - not a valid inputs.  Must be number value, not character or string");
+            }
+        }
         List<Double> doubleList = new ArrayList<>();
         for(String n:stringList){
             doubleList.add(Double.parseDouble(n));
@@ -585,28 +551,33 @@ public class ConfigReader {
         return doubleList;
     }
 
-    //Helper method to check if deck type found is a legal deck type enum -- for error handling
-    private boolean checkDeckType(String deckName){
-        int counter = DeckType.values().length;
-        for(DeckType dtype : DeckType.values()) {
-            if (dtype.name().equalsIgnoreCase(deckName)) {
+    //Helper method for checking EXTRA_DOUBLES check
+    private void helpCheckDoublesTag(List<String> args) throws XmlReaderException{
+        if(errorChecker.checkValuesAreNumbers(args)){
+            return;
+        }
+        else{
+            throw getXmlReadNumberException(EXTRA_DOUBLES_TAG);
+        }
+    }
+
+    public boolean checkFileExists(String fileName, String fileEnding){
+        File[] files = new File("data").listFiles();
+        for(File file : files){
+            if(file.getName().equals(fileName) && file.getName().toLowerCase().endsWith(fileEnding.toLowerCase())){
                 return true;
             }
         }
         return false;
     }
 
+
     public static void main(String[] args) {
-        ConfigReader c = new ConfigReader("Junior_Config.xml");
         try{
+            ConfigReader c = new ConfigReader("Junior_Config.xml");
             c.parseSpaces();
             c.parseActionCards();
             c.parseActionDecks();
-            /*c.parseBank();
-            c.parseBoard();
-            c.parseDice();
-            c.parseTokens();
-            c.getBuildingProperties();*/
         }
         catch(XmlReaderException e){
         }

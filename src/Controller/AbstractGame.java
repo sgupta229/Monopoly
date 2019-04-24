@@ -43,6 +43,7 @@ public abstract class AbstractGame implements Serializable {
     private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
+    private boolean landOnGoMult;
     private Transfer freeParking = new FreeParkingFunds();
     private int lastDiceRoll = 0;
     
@@ -54,8 +55,8 @@ public abstract class AbstractGame implements Serializable {
     }
 
     private void parseXMLFile(String filename) throws XmlReaderException {
-        ConfigReader configReader = new ConfigReader(filename);
         try {
+            ConfigReader configReader = new ConfigReader(filename);
             decks = configReader.parseActionDecks();
             List<AbstractActionCard> allCards = configReader.parseActionCards();
             for(ActionDeck d : decks) {
@@ -342,6 +343,9 @@ public abstract class AbstractGame implements Serializable {
     public void setFreeParkingRule(boolean bool){
         this.freeParkingRule = bool;
     }
+
+    public void setLandOnGoMult(boolean bool){this.landOnGoMult=bool;}
+    public boolean getLandOnGoMult(){return landOnGoMult;}
 
     public int getRollsInJailRule() {
         return rollsInJailRule;

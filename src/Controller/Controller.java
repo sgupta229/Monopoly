@@ -8,11 +8,14 @@ import View.Layout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,18 +47,50 @@ public class Controller {
     public void setGame(String gameType){
         myGameType = gameType;
 
+/*        try{
+            myGame = (AbstractGame) Class.forName("Controller.ClassicGame").getConstructor(String.class).newInstance(myGameType);
+        }
+        catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch(XmlReaderException e){
+            String msg = e.getMessage();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("XML Config");
+            alert.setHeaderText("XML Config File Error");
+            alert.setContentText(msg);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }*/
+
         //TODO: make gameFactory or use reflection to create concrete Game class based on gameType
         //gameType = ClassicGame, MegaGame
         // AbstractGame myGame = (AbstractGame) Class
         if(myGameType.equalsIgnoreCase("classic")){
-            try {
+            try{
                 myGame = new ClassicGame("Normal_Config_Rework.xml");
 //                myGame = new ClassicGame("House_Rules_Config.xml");
 
-            } catch (XmlReaderException e) {
-                //Give popup with exception message displayed;
-                e.getMessage();
-                e.printStackTrace();
+//            } catch (XmlReaderException e) {
+//                //Give popup with exception message displayed;
+//                e.getMessage();
+//                e.printStackTrace();
+            }catch(XmlReaderException e){
+                String msg = e.getMessage();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("XML Config");
+                alert.setHeaderText("XML Config File Error");
+                alert.setContentText(msg);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                alert.showAndWait();
+                System.exit(0);
             }
             gameStyle = fileToStylesheetString(new File("data/GUI.css"));
             availableTokens = FXCollections.observableList(myGame.getPossibleTokens());

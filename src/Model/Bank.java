@@ -21,13 +21,15 @@ public class Bank implements Transfer, Serializable {
     private double myBalance;
     private Map<BuildingType, Integer> totalBuildingMap;
     private Map<BuildingType, Integer> maxBuildingsPerProp;
-    boolean evenBuildingRule;
+    private boolean evenBuildingRule;
+    List<BuildingType> typesOfBuildings = new ArrayList<>();
 
     public Bank(List<Double> allInfo, List<Property> properties, List<Map<BuildingType, Integer>> buildingInfo){
         myBalance=allInfo.get(0);
         unOwnedProps = new HashSet<>(properties);
         totalBuildingMap = buildingInfo.get(0);
         maxBuildingsPerProp = buildingInfo.get(1);
+        typesOfBuildings.addAll(maxBuildingsPerProp.keySet());
         //////totalBuildingMap.put(something);
         //////maxBuildingsPerProp.put(something);
     }
@@ -115,10 +117,22 @@ public class Bank implements Transfer, Serializable {
         //game.startAuction();
     }
 
+    public boolean checkIfCanMortgage(Property property){
+        for(BuildingType bType:typesOfBuildings){
+            if(property.getNumBuilding(bType)!=0){
+                return false;
+            }
+        }
+
+        return !property.getIsMortgaged();
+    }
+
     public void mortgageProperty(Property property){
-        AbstractPlayer propOwner = ownedPropsMap.get(property);
-        this.makePayment(property.getMortgageAmount(), propOwner);
-        property.setIsMortgaged(true);
+        if(checkIfCanMortgage(property)){
+            AbstractPlayer propOwner = ownedPropsMap.get(property);
+            this.makePayment(property.getMortgageAmount(), propOwner);
+            property.setIsMortgaged(true);
+        }
     }
 
 
@@ -133,12 +147,15 @@ public class Bank implements Transfer, Serializable {
             throw new IllegalArgumentException("the Buildable is not a property");
         }*/
     public boolean checkIfCanBuild(Property property, BuildingType building){
-        ArrayList<BuildingType> typesOfBuildings = new ArrayList<>();
-        typesOfBuildings.addAll(maxBuildingsPerProp.keySet());
 
         if(typesOfBuildings.indexOf(building)>0 && property.getNumBuilding(building)==0){
             BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
             if(property.getNumBuilding(bBefore)!=maxBuildingsPerProp.get(bBefore)){
+                return false;
+            }
+        }
+        for(int x= typesOfBuildings.indexOf(building)+1; x<typesOfBuildings.size(); x++){
+            if(property.getNumBuilding(typesOfBuildings.get(x))!=0){
                 return false;
             }
         }
@@ -171,8 +188,6 @@ public class Bank implements Transfer, Serializable {
 
 
     public void build(Property property, BuildingType building){
-        ArrayList<BuildingType> typesOfBuildings = new ArrayList<>();
-        typesOfBuildings.addAll(maxBuildingsPerProp.keySet());
         if(checkIfCanBuild(property, building)){
             if(typesOfBuildings.indexOf(building)>0 && property.getNumBuilding(building)==0){
                 BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
@@ -200,7 +215,8 @@ public class Bank implements Transfer, Serializable {
     public void unbuildForUpgrade(Property property, BuildingType building){
         AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
-        property.removeBuilding(building, 4);
+        property.removeBuilding(building, 1);
+
     }
 
     /***
