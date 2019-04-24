@@ -1,6 +1,8 @@
 package Model;
 
-public class FreeParkingFunds implements Transfer {
+import java.io.Serializable;
+
+public class FreeParkingFunds implements Transfer, Serializable {
 
     double myParkingMoney=0;
 

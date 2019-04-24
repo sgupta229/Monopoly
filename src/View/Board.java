@@ -7,6 +7,7 @@ import Model.spaces.AbstractSpace;
 import Model.spaces.SpaceGroup;
 import View.PopUps.Popup;
 import View.SpaceDisplay.PropertyDisplay;
+import View.SpaceDisplay.SpaceDisplay;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class Board implements PropertyChangeListener {
 
-    public static final int BOARD_HEIGHT = 700;
+    protected int myBoardHeight;
     private Controller myController;
     private AbstractGame myGame;
     private GridPane myGridPane;
@@ -38,11 +39,18 @@ public class Board implements PropertyChangeListener {
     private ResourceBundle boardInfo;
     private int boardDimension;
     private String baseColor;
+    private List myFiles;
 
     public Board(Controller controller, AbstractGame myGame) {
         this.myController = controller;
         this.myGame = myGame;
-        boardInfo = ResourceBundle.getBundle("classicBoardDisplay");
+        setUpBoardConfig();
+//        boardInfo = ResourceBundle.getBundle("classicBoardDisplay");
+        boardInfo = ResourceBundle.getBundle(myFiles.get(1).toString());
+
+
+        myBoardHeight = Integer.parseInt(boardInfo.getString("boardHeight"));
+
         boardDimension = Integer.parseInt(boardInfo.getString("dimension"));
         for (AbstractPlayer p : controller.getPlayers()) {
             p.addPropertyChangeListener("currentLocation",this);
@@ -51,7 +59,6 @@ public class Board implements PropertyChangeListener {
         myGridPane = new GridPane();
         myGridPane.setGridLinesVisible(true);
         setUpGridConstraints();
-        setUpBoardConfig();
         baseColor = boardInfo.getString("baseColor");
         createSpaces();
         addTokensToGo();
@@ -126,7 +133,7 @@ public class Board implements PropertyChangeListener {
         String price = nameToPrice.get(name).toString();
         String color = nameToColor.get(name);
         try {
-            PropertyDisplay propSpace = (PropertyDisplay) Class.forName("View.SpaceDisplay." + boardEdge).getConstructor(String.class, String.class, String.class, String.class).newInstance(name, price, color, baseColor);
+            PropertyDisplay propSpace = (PropertyDisplay) Class.forName("View.SpaceDisplay." + boardEdge).getConstructor(String.class, String.class, String.class, String.class, int.class).newInstance(name, price, color, baseColor, myBoardHeight);
             myGridPane.add(propSpace.getMyPropStackPane(), (int) entry.getKey().getX(), (int) entry.getKey().getY());
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -151,7 +158,7 @@ public class Board implements PropertyChangeListener {
 
         private void createNonPropSpace (String image,String boardEdge, Map.Entry<Point2D.Double, AbstractSpace> entry) {
             try {
-            PropertyDisplay propSpace = (PropertyDisplay) Class.forName("View.SpaceDisplay." + boardEdge).getConstructor(String.class, String.class).newInstance(baseColor, image);
+            PropertyDisplay propSpace = (PropertyDisplay) Class.forName("View.SpaceDisplay." + boardEdge).getConstructor(String.class, String.class, int.class).newInstance(baseColor, image, myBoardHeight);
             myGridPane.add(propSpace.getMyPropStackPane(), (int) entry.getKey().getX(), (int) entry.getKey().getY());
         } catch(InstantiationException e){
             e.printStackTrace();
@@ -180,12 +187,14 @@ public class Board implements PropertyChangeListener {
         final int numRows = boardDimension;
         for (int i = 0; i < numCols; i++) {
             ColumnConstraints colConst = new ColumnConstraints();
-            colConst.setPercentWidth(BOARD_HEIGHT / numCols);
+//            colConst.setPercentWidth(BOARD_HEIGHT / numCols);
+            colConst.setMaxWidth(myBoardHeight / numCols);
             myGridPane.getColumnConstraints().add(colConst);
         }
         for (int i = 0; i < numRows; i++) {
             RowConstraints rowConst = new RowConstraints();
-            rowConst.setPercentHeight(BOARD_HEIGHT / numRows);
+//            rowConst.setPercentHeight(BOARD_HEIGHT / numRows);
+            rowConst.setMaxHeight(myBoardHeight / numRows);
             myGridPane.getRowConstraints().add(rowConst);
         }
     }
@@ -195,8 +204,7 @@ public class Board implements PropertyChangeListener {
         indexToName = configs.getIndexToName();
         nameToColor = configs.getNameToColor();
         nameToPrice = configs.getNameToPrice();
-//        allSpaces = configs.getSpaces();
-//        myProps = new ArrayList(myController.getGame().getProperties());
+        myFiles = configs.getFiles();
     }
 
     public Pane getGridPane() { return myGridPane; }
@@ -204,8 +212,8 @@ public class Board implements PropertyChangeListener {
     public ImageView getLogo() {
         var logo = new Image(this.getClass().getClassLoader().getResourceAsStream(boardInfo.getString("boardLogo")));
         boardLogo = new ImageView(logo);
-        boardLogo.setFitWidth((705/ 13) * 9);
-        boardLogo.setFitHeight((705 / 13) * 9);
+        boardLogo.setFitWidth((705/ (boardDimension+2)) * (boardDimension-2));
+        boardLogo.setFitHeight((705 / (boardDimension+2)) * (boardDimension-2));
         boardLogo.setId("boardLogo");
         return boardLogo;
     }

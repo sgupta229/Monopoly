@@ -1,6 +1,5 @@
 package View;
 import Controller.Controller;
-import Controller.AbstractGame;
 import Controller.GameSaver;
 import Controller.ClassicGame;
 import javafx.event.ActionEvent;
@@ -16,11 +15,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -94,7 +90,7 @@ public class ChooseGameScreen {
         myFlowPane.setPrefWrapLength(Controller.WIDTH);
         myFlowPane.setId("flowPane");
 
-        gameTypeButtons = new ArrayList<>(Arrays.asList("classic", "mega", "junior", "starWars"));
+        gameTypeButtons = new ArrayList<>(Arrays.asList("classic", "tropical", "junior"));
 
         for (String type : gameTypeButtons) {
             myFlowPane.getChildren().add(createButton(type));
@@ -148,5 +144,4 @@ public class ChooseGameScreen {
             myController.setGame(newGame);
         }
     }
-
 }

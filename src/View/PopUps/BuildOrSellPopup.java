@@ -1,6 +1,7 @@
 package View.PopUps;
 
 import Controller.Controller;
+import Model.properties.BuildingType;
 import Model.properties.Property;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,8 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.util.ResourceBundle;
 
-import static Model.properties.BuildingType.HOTEL;
-import static Model.properties.BuildingType.HOUSE;
+import static Model.properties.BuildingType.*;
 
 public class BuildOrSellPopup extends BuyPropertyPopup {
 
@@ -28,6 +28,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
     private Button button3;
     private Button button4;
 
+
     //TODO: CHECK PLAYERS MONOPOLY WHEN MANAGE PROP IS HIT, IF FALSE THEN DISABLE ALL BUTTONS
 
     public BuildOrSellPopup(int propLocation, Controller controller) {
@@ -36,7 +37,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         tabPane.setPrefWidth(Controller.WIDTH/tabPaneWidth);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         this.myController = controller;
-        this.myText = super.getMessages();
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
     }
 
     @Override
@@ -88,7 +89,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
             myController.getGame().getBank().build(myProperty,HOUSE);
             popUpWindow.close();
             Alert a = new Alert(Alert.AlertType.NONE);
-            a.setContentText("You bought a house for " + myProperty.getName() + "! " + "You have a total of " +myProperty.getNumBuilding(HOUSE)+ " house(s) on this property." );
+            a.setContentText("You bought a " + myText.getString("building1") + " for " + myProperty.getName() + "! " + "You have a total of " +myProperty.getNumBuilding(HOUSE)+ " " + myText.getString("building1")+ "(s) on this property." );
             a.setAlertType(Alert.AlertType.INFORMATION);
             a.show();
         });
@@ -98,7 +99,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
             myController.getGame().getBank().build(myProperty,HOTEL);
             popUpWindow.close();
             Alert a = new Alert(Alert.AlertType.NONE);
-            a.setContentText("You bought a hotel for " + myProperty.getName() + "! " + "You have a total of " +myProperty.getNumBuilding(HOTEL)+ " hotel(s) on this property." );
+            a.setContentText("You bought a " + myText.getString("building2") + " for " + myProperty.getName() + "! " + "You have a total of " +myProperty.getNumBuilding(HOTEL)+ " " + myText.getString("building2")+ "(s) on this property." );
             a.setAlertType(Alert.AlertType.INFORMATION);
             a.show();
         });
@@ -135,8 +136,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
             //TODO implement sell here
             popUpWindow.close();
             Alert a = new Alert(Alert.AlertType.NONE);
-            a.setContentText("You sold a house on " + myProperty.getName() + "! " + "You have a total of " +myProperty.getNumBuilding(HOUSE)+ " house(s) on this property now." );
-            a.setAlertType(Alert.AlertType.INFORMATION);
+            a.setContentText("You sold a " + myText.getString("building1") + " on " + myProperty.getName() + "! " + "You have a total of " +myProperty.getNumBuilding(HOUSE)+ " " + myText.getString("building1")+ "(s) on this property." );
             a.show();
         });
         button4 = createIndividualButton(popUpWindow,key2);
@@ -145,7 +145,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
             myController.getGame().getBank().sellBackBuildings(myProperty,HOTEL);
             popUpWindow.close();
             Alert a = new Alert(Alert.AlertType.NONE);
-            a.setContentText("You sold a hotel on " + myProperty.getName() + "! " + "You have a total of " +myProperty.getNumBuilding(HOTEL)+ " hotel(s) on this property now." );
+            a.setContentText("You sold a " + myText.getString("building2") + " on " + myProperty.getName() + "! " + "You have a total of " +myProperty.getNumBuilding(HOTEL)+ " " + myText.getString("building2")+ "(s) on this property." );
             a.setAlertType(Alert.AlertType.INFORMATION);
             a.show();
         });
@@ -178,16 +178,16 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
             if (!myProperty.getIsMortgaged()){
                 myMortgage.setDisable(false);
             }
-            if (myController.getGame().getBank().checkIfCanBuild(myProperty, HOUSE)){
+            if (myController.getGame().getBank().checkIfCanBuild(myProperty, HOUSE) || myController.getGame().getBank().checkIfCanBuild(myProperty,BEACH_CHAIR)){
                 button.setDisable(false);
             }
-            if (myController.getGame().getBank().checkIfCanBuild(myProperty, HOTEL)){
+            if (myController.getGame().getBank().checkIfCanBuild(myProperty, HOTEL) || myController.getGame().getBank().checkIfCanBuild(myProperty,CABANA)){
                 button2.setDisable(false);
             }
-            if (myProperty.getNumBuilding(HOUSE)>0){
+            if (myProperty.getNumBuilding(HOUSE)>0 || myProperty.getNumBuilding(BEACH_CHAIR)>0){
                 button3.setDisable(false);
             }
-            if (myProperty.getNumBuilding(HOTEL)>0){
+            if (myProperty.getNumBuilding(HOTEL)>0 || myProperty.getNumBuilding(CABANA)>0){
                 button4.setDisable(false);
             }
             //TODO check if houses on prop then enable sell button

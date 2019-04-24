@@ -1,0 +1,959 @@
+<?xml version = "1.0"?>
+<Game>
+    <GameType>HouseRulesGame</GameType>
+    <Dice>
+        <Number>2</Number>
+        <Sides>6</Sides>
+    </Dice>
+    <Board>
+        <BoardSize>32</BoardSize>
+        <Dimension>9</Dimension>
+    </Board>
+    <OtherFiles>
+        <IndexToCoord>IndexToCoordHouseRules</IndexToCoord>
+        <Display>houseRulesDisplay</Display>
+        <PopUpText>HouseRulesPopUpText</PopUpText>
+    </OtherFiles>
+    <!--Space type; index; name-->
+    <!--Properties - property, name, colorgroup, group size, buyprice, rent-->
+    <Properties>
+        <Property type="ClassicColorProperty">
+            <PropertyName>FLORIDA</PropertyName>
+            <ColorGroup>SANDYBROWN</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>20</BuyPrice>
+            <Rent>
+                <InitialRent>2</InitialRent>
+                <Rent1House>5</Rent1House>
+                <Rent2House>20</Rent2House>
+                <Rent3House>60</Rent3House>
+                <Rent4House>100</Rent4House>
+                <RentHotel>130</RentHotel>
+                <Mortgage>10</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">25</PricePerHouse>
+                <PricePerHotel type="CABANA">25</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>FIRE_ISLAND</PropertyName>
+            <ColorGroup>SANDYBROWN</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>30</BuyPrice>
+            <Rent>
+                <InitialRent>4</InitialRent>
+                <Rent1House>10</Rent1House>
+                <Rent2House>40</Rent2House>
+                <Rent3House>90</Rent3House>
+                <Rent4House>120</Rent4House>
+                <RentHotel>250</RentHotel>
+                <Mortgage>15</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">25</PricePerHouse>
+                <PricePerHotel type="CABANA">25</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="RailRoadProperty">
+            <PropertyName>HAWAIIAN_AIR</PropertyName>
+            <ColorGroup>BLUEVIOLET</ColorGroup>
+            <GroupSize>4</GroupSize>
+            <BuyPrice>150</BuyPrice>
+            <Rent>
+                <InitialRent>25</InitialRent>
+                <Rent2>50</Rent2>
+                <Rent3>100</Rent3>
+                <Rent4>200</Rent4>
+                <Mortgage>75</Mortgage>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>MAUI</PropertyName>
+            <ColorGroup>AQUAMARINE</ColorGroup>
+            <GroupSize>3</GroupSize>
+            <BuyPrice>60</BuyPrice>
+            <Rent>
+                <InitialRent>10</InitialRent>
+                <Rent1House>50</Rent1House>
+                <Rent2House>90</Rent2House>
+                <Rent3House>250</Rent3House>
+                <Rent4House>375</Rent4House>
+                <RentHotel>550</RentHotel>
+                <Mortgage>30</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">25</PricePerHouse>
+                <PricePerHotel type="CABANA">25</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>OAHU</PropertyName>
+            <ColorGroup>AQUAMARINE</ColorGroup>
+            <GroupSize>3</GroupSize>
+            <BuyPrice>60</BuyPrice>
+            <Rent>
+                <InitialRent>10</InitialRent>
+                <Rent1House>50</Rent1House>
+                <Rent2House>90</Rent2House>
+                <Rent3House>250</Rent3House>
+                <Rent4House>375</Rent4House>
+                <RentHotel>550</RentHotel>
+                <Mortgage>30</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">50</PricePerHouse>
+                <PricePerHotel type="CABANA">50</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>BIG_ISLAND</PropertyName>
+            <ColorGroup>AQUAMARINE</ColorGroup>
+            <GroupSize>3</GroupSize>
+            <BuyPrice>80</BuyPrice>
+            <Rent>
+                <InitialRent>15</InitialRent>
+                <Rent1House>60</Rent1House>
+                <Rent2House>110</Rent2House>
+                <Rent3House>300</Rent3House>
+                <Rent4House>450</Rent4House>
+                <RentHotel>600</RentHotel>
+                <Mortgage>40</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">50</PricePerHouse>
+                <PricePerHotel type="CABANA">50</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>TURKS_&amp;_CAICOS</PropertyName>
+            <ColorGroup>SALMON</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>130</BuyPrice>
+            <Rent>
+                <InitialRent>20</InitialRent>
+                <Rent1House>60</Rent1House>
+                <Rent2House>155</Rent2House>
+                <Rent3House>440</Rent3House>
+                <Rent4House>635</Rent4House>
+                <RentHotel>750</RentHotel>
+                <Mortgage>65</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">100</PricePerHouse>
+                <PricePerHotel type="CABANA">100</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>GRAND_CAYMAN</PropertyName>
+            <ColorGroup>SALMON</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>130</BuyPrice>
+            <Rent>
+                <InitialRent>20</InitialRent>
+                <Rent1House>60</Rent1House>
+                <Rent2House>155</Rent2House>
+                <Rent3House>440</Rent3House>
+                <Rent4House>635</Rent4House>
+                <RentHotel>750</RentHotel>
+                <Mortgage>65</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">100</PricePerHouse>
+                <PricePerHotel type="CABANA">100</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>JAMAICA</PropertyName>
+            <ColorGroup>VIOLET</ColorGroup>
+            <GroupSize>3</GroupSize>
+            <BuyPrice>160</BuyPrice>
+            <Rent>
+                <InitialRent>24</InitialRent>
+                <Rent1House>75</Rent1House>
+                <Rent2House>180</Rent2House>
+                <Rent3House>505</Rent3House>
+                <Rent4House>710</Rent4House>
+                <RentHotel>900</RentHotel>
+                <Mortgage>80</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">100</PricePerHouse>
+                <PricePerHotel type="CABANA">100</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="RailRoadProperty">
+            <PropertyName>JAMAICAN_AIR</PropertyName>
+            <ColorGroup>BLUEVIOLET</ColorGroup>
+            <GroupSize>4</GroupSize>
+            <BuyPrice>150</BuyPrice>
+            <Rent>
+                <InitialRent>25</InitialRent>
+                <Rent2>50</Rent2>
+                <Rent3>100</Rent3>
+                <Rent4>200</Rent4>
+                <Mortgage>75</Mortgage>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>BAHAMAS</PropertyName>
+            <ColorGroup>VIOLET</ColorGroup>
+            <GroupSize>3</GroupSize>
+            <BuyPrice>160</BuyPrice>
+            <Rent>
+                <InitialRent>24</InitialRent>
+                <Rent1House>75</Rent1House>
+                <Rent2House>180</Rent2House>
+                <Rent3House>505</Rent3House>
+                <Rent4House>710</Rent4House>
+                <RentHotel>900</RentHotel>
+                <Mortgage>80</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">100</PricePerHouse>
+                <PricePerHotel type="CABANA">100</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>PUERTO_RICO</PropertyName>
+            <ColorGroup>VIOLET</ColorGroup>
+            <GroupSize>3</GroupSize>
+            <BuyPrice>180</BuyPrice>
+            <Rent>
+                <InitialRent>26</InitialRent>
+                <Rent1House>80</Rent1House>
+                <Rent2House>200</Rent2House>
+                <Rent3House>550</Rent3House>
+                <Rent4House>740</Rent4House>
+                <RentHotel>935</RentHotel>
+                <Mortgage>90</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">100</PricePerHouse>
+                <PricePerHotel type="CABANA">100</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>ST._LUCIA</PropertyName>
+            <ColorGroup>SPRINGGREEN</ColorGroup>
+            <GroupSize>3</GroupSize>
+            <BuyPrice>200</BuyPrice>
+            <Rent>
+                <InitialRent>29</InitialRent>
+                <Rent1House>84</Rent1House>
+                <Rent2House>220</Rent2House>
+                <Rent3House>610</Rent3House>
+                <Rent4House>800</Rent4House>
+                <RentHotel>1015</RentHotel>
+                <Mortgage>100</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">100</PricePerHouse>
+                <PricePerHotel type="CABANA">100</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>ST._MARTIN</PropertyName>
+            <ColorGroup>SPRINGGREEN</ColorGroup>
+            <GroupSize>3</GroupSize>
+            <BuyPrice>200</BuyPrice>
+            <Rent>
+                <InitialRent>29</InitialRent>
+                <Rent1House>84</Rent1House>
+                <Rent2House>220</Rent2House>
+                <Rent3House>610</Rent3House>
+                <Rent4House>800</Rent4House>
+                <RentHotel>1015</RentHotel>
+                <Mortgage>100</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">100</PricePerHouse>
+                <PricePerHotel type="CABANA">100</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="RailRoadProperty">
+            <PropertyName>CARIBBEAN_AIR</PropertyName>
+            <ColorGroup>BLUEVIOLET</ColorGroup>
+            <GroupSize>4</GroupSize>
+            <BuyPrice>150</BuyPrice>
+            <Rent>
+                <InitialRent>25</InitialRent>
+                <Rent2>50</Rent2>
+                <Rent3>100</Rent3>
+                <Rent4>200</Rent4>
+                <Mortgage>75</Mortgage>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>ST._VINCENT</PropertyName>
+            <ColorGroup>SPRINGGREEN</ColorGroup>
+            <GroupSize>3</GroupSize>
+            <BuyPrice>220</BuyPrice>
+            <Rent>
+                <InitialRent>32</InitialRent>
+                <Rent1House>90</Rent1House>
+                <Rent2House>250</Rent2House>
+                <Rent3House>670</Rent3House>
+                <Rent4House>900</Rent4House>
+                <RentHotel>1195</RentHotel>
+                <Mortgage>110</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">100</PricePerHouse>
+                <PricePerHotel type="CABANA">100</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>MALDIVES</PropertyName>
+            <ColorGroup>YELLOW</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>240</BuyPrice>
+            <Rent>
+                <InitialRent>35</InitialRent>
+                <Rent1House>110</Rent1House>
+                <Rent2House>305</Rent2House>
+                <Rent3House>755</Rent3House>
+                <Rent4House>945</Rent4House>
+                <RentHotel>1100</RentHotel>
+                <Mortgage>120</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">150</PricePerHouse>
+                <PricePerHotel type="CABANA">150</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>MYKONOS</PropertyName>
+            <ColorGroup>YELLOW</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>260</BuyPrice>
+            <Rent>
+                <InitialRent>37</InitialRent>
+                <Rent1House>120</Rent1House>
+                <Rent2House>330</Rent2House>
+                <Rent3House>800</Rent3House>
+                <Rent4House>975</Rent4House>
+                <RentHotel>1200</RentHotel>
+                <Mortgage>130</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">150</PricePerHouse>
+                <PricePerHotel type="CABANA">150</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>BORA_BORA</PropertyName>
+            <ColorGroup>TEAL</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>270</BuyPrice>
+            <Rent>
+                <InitialRent>40</InitialRent>
+                <Rent1House>135</Rent1House>
+                <Rent2House>350</Rent2House>
+                <Rent3House>820</Rent3House>
+                <Rent4House>1050</Rent4House>
+                <RentHotel>1300</RentHotel>
+                <Mortgage>135</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">175</PricePerHouse>
+                <PricePerHotel type="CABANA">175</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="RailRoadProperty">
+            <PropertyName>TROPIC_AIR</PropertyName>
+            <ColorGroup>BLUEVIOLET</ColorGroup>
+            <GroupSize>4</GroupSize>
+            <BuyPrice>150</BuyPrice>
+            <Rent>
+                <InitialRent>25</InitialRent>
+                <Rent2>50</Rent2>
+                <Rent3>100</Rent3>
+                <Rent4>200</Rent4>
+                <Mortgage>75</Mortgage>
+            </Rent>
+            <BuildingPrices>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>BALI</PropertyName>
+            <ColorGroup>TEAL</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>280</BuyPrice>
+            <Rent>
+                <InitialRent>42</InitialRent>
+                <Rent1House>140</Rent1House>
+                <Rent2House>400</Rent2House>
+                <Rent3House>900</Rent3House>
+                <Rent4House>1150</Rent4House>
+                <RentHotel>1350</RentHotel>
+                <Mortgage>140</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">175</PricePerHouse>
+                <PricePerHotel type="CABANA">175</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>FIJI</PropertyName>
+            <ColorGroup>CYAN</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>300</BuyPrice>
+            <Rent>
+                <InitialRent>45</InitialRent>
+                <Rent1House>150</Rent1House>
+                <Rent2House>410</Rent2House>
+                <Rent3House>950</Rent3House>
+                <Rent4House>1200</Rent4House>
+                <RentHotel>1450</RentHotel>
+                <Mortgage>150</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">200</PricePerHouse>
+                <PricePerHotel type="CABANA">200</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+        <Property type="ClassicColorProperty">
+            <PropertyName>GALAPAGOS</PropertyName>
+            <ColorGroup>CYAN</ColorGroup>
+            <GroupSize>2</GroupSize>
+            <BuyPrice>310</BuyPrice>
+            <Rent>
+                <InitialRent>50</InitialRent>
+                <Rent1House>175</Rent1House>
+                <Rent2House>440</Rent2House>
+                <Rent3House>990</Rent3House>
+                <Rent4House>1300</Rent4House>
+                <RentHotel>1500</RentHotel>
+                <Mortgage>155</Mortgage>
+            </Rent>
+            <BuildingPrices>
+                <PricePerHouse type="BEACH_CHAIR">200</PricePerHouse>
+                <PricePerHotel type="CABANA">200</PricePerHotel>
+            </BuildingPrices>
+        </Property>
+    </Properties>
+
+    <Spaces>
+        <Space type="GoSpace">
+            <Index>0</Index>
+            <SpaceGroup>GO</SpaceGroup>
+            <SpaceName>GO</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>1</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>FLORIDA</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>2</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>FIRE_ISLAND</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>3</Index>
+            <SpaceGroup>RAILROAD</SpaceGroup>
+            <SpaceName>HAWAIIAN_AIR</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>4</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>MAUI</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>5</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>OAHU</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ActionCardSpace">
+            <Index>6</Index>
+            <SpaceGroup>ACTION</SpaceGroup>
+            <SpaceName>TREASURE_CHEST</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>7</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>BIG_ISLAND</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="JailSpace">
+            <Index>8</Index>
+            <SpaceGroup>JAIL</SpaceGroup>
+            <SpaceName>SHARK_DIVING</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>9</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>TURKS_&amp;_CAICOS</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>10</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>GRAND_CAYMAN</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ActionCardSpace">
+            <Index>11</Index>
+            <SpaceGroup>ACTION</SpaceGroup>
+            <SpaceName>LUAU_GIFT_BAG</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>12</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>JAMAICA</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>13</Index>
+            <SpaceGroup>RAILROAD</SpaceGroup>
+            <SpaceName>JAMAICAN_AIR</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>14</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>BAHAMAS</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>15</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>PUERTO_RICO</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="FreeParkingSpace">
+            <Index>16</Index>
+            <SpaceGroup>FREE_PARKING</SpaceGroup>
+            <SpaceName>OPEN_OCEANS</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>17</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>ST._LUCIA</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>18</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>ST._MARTIN</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>19</Index>
+            <SpaceGroup>RAILROAD</SpaceGroup>
+            <SpaceName>CARIBBEAN_AIR</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>20</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>ST._VINCENT</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ActionCardSpace">
+            <Index>21</Index>
+            <SpaceGroup>ACTION</SpaceGroup>
+            <SpaceName>TREASURE_CHEST</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>22</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>MALDIVES</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>23</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>MYKONOS</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="GoToSpace">
+            <Index>24</Index>
+            <SpaceGroup>GO_TO_JAIL</SpaceGroup>
+            <SpaceName>GO_SHARK_DIVING</SpaceName>
+            <ExtraString>JAIL</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>25</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>BORA_BORA</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>26</Index>
+            <SpaceGroup>RAILROAD</SpaceGroup>
+            <SpaceName>TROPIC_AIR</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>27</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>BALI</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ActionCardSpace">
+            <Index>28</Index>
+            <SpaceGroup>ACTION</SpaceGroup>
+            <SpaceName>LUAU_GIFT_BAG</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>29</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>FIJI</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+        <Space type="TaxSpace">
+            <Index>30</Index>
+            <SpaceGroup>TAX</SpaceGroup>
+            <SpaceName>VACATION_FEE</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>200,10</ExtraDoubles>
+        </Space>
+        <Space type="ClassicPropSpace">
+            <Index>31</Index>
+            <SpaceGroup>COLOR</SpaceGroup>
+            <SpaceName>GALAPAGOS</SpaceName>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </Space>
+    </Spaces>
+
+    <ActionDecks>
+        <ActionDeck>LUAU_GIFT_BAG</ActionDeck>
+        <ActionDeck>TREASURE_CHEST</ActionDeck>
+    </ActionDecks>
+    <ActionCards>
+        <ActionCardType type="MoveToAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>JUMP TIME ZONES TO "GO"(COLLECT $200)!</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>GO</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>JUMP TIME ZONES TO "GO"(COLLECT $200)!</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>GO</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>TAKE A TRIP TO MAUI. IF YOU PASS GO, COLLECT $200!</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>MAUI</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>TAKE AN IMPROMPTU VACATION TO ST. MARTIN. IF YOU PASS GO, COLLECT $200!</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>ST._MARTIN</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToNearestAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>HOP ON THE NEXT FLIGHT OUTTA HERE! IF UNOWNED, YOU MAY BUY IT FROM THE BANK.
+                IF OWNED, YOU GOTTA PAY THE OWNER YOUR TICKET PRICE.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>RAILROAD</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToNearestAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>HOP ON THE NEXT FLIGHT OUTTA HERE! IF UNOWNED, YOU MAY BUY IT FROM THE BANK.
+                IF OWNED, YOU GOTTA PAY THE OWNER YOUR TICKET PRICE.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>RAILROAD</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveNumberAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>OH NO! THERE IS A STORM AND YOUR FLIGHT GOT CANCELLED... MOVE BACK THREE SPACES.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>-3</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>TAKE A TRIP TO HAWAII, HOP ON HAWAIIAN AIR. IF YOU PASS GO, COLLECT $200!</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>HAWAIIAN_AIR</ExtraString>
+            <ExtraDoubles>200</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>GO TO MYKONOS WITH A VISION OF A GENTAL COAST. ADVANCE TOKEN TO MYKONOS.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>MYKONOS</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="MoveToAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>GO TO GALAPAGOS TO SEE ALL THE ANIMALS. ADVANCE TOKEN TO GALAPAGOS.</Message>
+            <Holdable>FALSE</Holdable>
+            <ExtraString>GALAPAGOS</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="GoToJailAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>YOU'RE GOING SHARK DIVING. GO DIRECTLY TO THE SHARK CAGE. DO NOT PASS GO, DO NOT COLLECT $200!</Message>
+            <Holdable>False</Holdable>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="GoToJailAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>YOU'RE GOING SHARK DIVING. GO DIRECTLY TO THE SHARK CAGE. DO NOT PASS GO, DO NOT COLLECT $200!</Message>
+            <Holdable>False</Holdable>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="GetOutJailAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>GET OUT OF SHARK DIVING NOW! THIS CARD MAY BE KEPT UNTIL NEEDED, TRADED/SOLD.</Message>
+            <Holdable>TRUE</Holdable>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="GetOutJailAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>GET OUT OF SHARK DIVING NOW! THIS CARD MAY BE KEPT UNTIL NEEDED, TRADED/SOLD.</Message>
+            <Holdable>TRUE</Holdable>
+            <ExtraString>NA</ExtraString>
+            <ExtraDoubles>0</ExtraDoubles>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>LUAU_GIFT_BAG</DeckType>
+            <Message>HOTEL REFUND, BANK PAYS YOU $50!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>YOU'RE GETTING A FREE SEAT UPGRADE! RECEIVE $150!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>150</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>YOU HAVE WON LUAU DANCE CONTEST. COLLECT $100!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>150</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>FROM BET ON RED IN THE HOTEL CASINO... YOU WON $50!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>HOTEL ERROR IN YOUR FAVOR. COLLECT $200!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>200</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>BEACH PARTY BANGER! COLLECT $50 FROM EVERY PLAYER FOR THE PARTY YOU'RE THROWING!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>ALL</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>ISLAND INVESTMENT MATURES. RECEIVE $100!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>100</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>RESORT BREAKFAST REFUND. COLLECT $20!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>20</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>IT IS YOUR BIRTHDAY. COLLECT $10 FROM EVERY PLAYER!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>10</ExtraDoubles>
+            <ExtraString>ALL</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>PARENTS ARE TAKING YOU ALL ON A FAMILY TRIP. COLLECT $100!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>100</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>BAR TENDER FORGETS TO CHARGE - COLLECT $25!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>25</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>YOU HAVE WON SECOND PRIZE IN A SAND CASTLE CONTEST. COLLECT $10!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>10</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="WinMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>YOU DISCOVERED A NEW SPECIES IN THE GALAPAGOS, COLLECT $100!</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>100</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="LoseMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>A TROPICAL STORM DAMAGED ALL OF YOUR PROPERTY: FOR EACH BEACH CHAIR PAY $25, FOR EACH CABANA $100</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>25,100</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="LoseMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>LOST LUGGAGE, GO BUY NEW CLOTHES UNTIL THE AIRLINES FINDS IT. PAY $50</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="LoseMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>YOU ARE ASSESSED FOR BEACH MAINTENANCE: PAY $40 PER HOUSE AND $115 PER HOTEL YOU OWN</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>40,115</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="LoseMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>HUNGOVER... PAY $50</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="LoseMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>HOTEL SECURITY DEPOSIT LOST. PAY $50</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="LoseMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>YOU ARE THROWING A GIANT PARTY FOR EVERYONE. PAY EACH PLAYER $50</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>50</ExtraDoubles>
+            <ExtraString>ALL</ExtraString>
+        </ActionCardType>
+        <ActionCardType type="LoseMoneyAC">
+            <DeckType>TREASURE_CHEST</DeckType>
+            <Message>PAY TRAVEL AGENT FEE OF $15</Message>
+            <Holdable>False</Holdable>
+            <ExtraDoubles>15</ExtraDoubles>
+            <ExtraString>BANK</ExtraString>
+        </ActionCardType>
+    </ActionCards>
+    <Bank>
+        <BankFunds>10000000</BankFunds>
+        <Houses>32</Houses>
+        <Hotels>12</Hotels>
+    </Bank>
+    <Buildings>
+        <BuildingType type="BEACH_CHAIR">
+            <TotalAmount>32</TotalAmount>
+            <MaxAmount>4</MaxAmount>
+        </BuildingType>
+        <BuildingType type="CABANA">
+            <TotalAmount>12</TotalAmount>
+            <MaxAmount>1</MaxAmount>
+        </BuildingType>
+    </Buildings>
+    <Tokens>
+        <Token>battleship.png</Token>
+        <Token>boot.png</Token>
+        <Token>iron.png</Token>
+        <Token>racecar.png</Token>
+        <Token>sheep_dog.png</Token>
+        <Token>thimble.png</Token>
+        <Token>top_hat.png</Token>
+        <Token>wheelbarrow.png</Token>
+    </Tokens>
+    <Rules>
+        <StartFunds>1500</StartFunds>
+        <JailBail>50</JailBail>
+        <PassGo>200</PassGo>
+        <MaxHouses>4</MaxHouses>
+        <EvenBuilding>false</EvenBuilding>
+        <FreeParking>false</FreeParking>
+        <RollsInJail>3</RollsInJail>
+        <SnakeEyes>0</SnakeEyes>
+    </Rules>
+    <Files>
+        <PropertyFile>PopUpText.properties</PropertyFile>
+        <PropertyFile>Messages.properties</PropertyFile>
+        <PropertyFile>IndexToCoordinate.properties</PropertyFile>
+        <PropertyFile>GeneralInfo.properties</PropertyFile>
+        <PropertyFile>GameTypes.properties</PropertyFile>
+        <PropertyFile>classicBoardDisplay.properties</PropertyFile>
+    </Files>
+</Game>

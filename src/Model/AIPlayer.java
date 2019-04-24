@@ -1,19 +1,10 @@
 package Model;
-
-import Model.properties.BuildingType;
 import Model.properties.Property;
-import javafx.scene.Node;
-
-import java.util.Map;
 
 public class AIPlayer extends AbstractPlayer {
 
     public AIPlayer(String name, String image) {
         super(name,image);
-    }
-
-    public Map<BuildingType, Integer> getNumBuildings() {
-        return null;
     }
 
     public boolean wantsToBuy(Property property) {
@@ -23,7 +14,7 @@ public class AIPlayer extends AbstractPlayer {
         return false;
     }
 
-    public boolean wantsToBuild() {
+    public boolean wantsToBuildHouse() {
         return true;
     }
 

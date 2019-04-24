@@ -7,9 +7,7 @@ import View.EndGameScreen;
 import View.Layout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -17,9 +15,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Controller {
     public static final String TITLE = "Monopoly";
@@ -29,8 +25,8 @@ public class Controller {
     private AbstractGame myGame;
     private String myGameType;
     private String gameStyle;
-    private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
-    private ObservableList<String> availableTokens;
+    transient private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
+    transient private ObservableList<String> availableTokens;
 //    private Map<AbstractPlayer, Image> playersToImages = new HashMap<>();
 
     private Stage window;
@@ -54,6 +50,8 @@ public class Controller {
         if(myGameType.equalsIgnoreCase("classic")){
             try {
                 myGame = new ClassicGame("Normal_Config_Rework.xml");
+//                myGame = new ClassicGame("House_Rules_Config.xml");
+
             } catch (XmlReaderException e) {
                 //Give popup with exception message displayed;
                 e.getMessage();

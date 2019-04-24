@@ -31,7 +31,7 @@ public class AuctionPopup implements PropertyChangeListener {
     public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow, List<AbstractPlayer> players, AbstractPlayer currPlayer) {
         this.myController = controller;
         this.myPropLocation = propLocation;
-        this.messages = ResourceBundle.getBundle("PopUpText");
+        this.messages = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
         this.name = name;
         this.myPlayers = players;
         this.oldPopUp = popUpWindow;

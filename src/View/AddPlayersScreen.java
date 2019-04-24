@@ -36,8 +36,8 @@ public class AddPlayersScreen {
     private double myHeight;
     private Group myRoot;
     private Controller myController;
-    private ObservableList<AbstractPlayer> myPlayers;
-    private ObservableList<String> availableTokens;
+    transient private ObservableList<AbstractPlayer> myPlayers;
+    transient private ObservableList<String> availableTokens;
     private AnchorPane anchorPane = new AnchorPane();
 
     private ComboBox myIconMenu;

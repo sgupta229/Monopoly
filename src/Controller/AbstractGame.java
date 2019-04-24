@@ -6,10 +6,12 @@ import Model.actioncards.ActionDeck;
 import Model.properties.BuildingType;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
+import Model.spaces.SpaceGroup;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+
 import java.util.*;
 
 public abstract class AbstractGame implements Serializable {
@@ -24,6 +26,7 @@ public abstract class AbstractGame implements Serializable {
     private double jailBail;
     private double passGo;
     private AbstractActionCard currentActionCard;
+    private double snakeEyes;
 
     private List<AbstractPlayer> players;
     private Bank bank;
@@ -35,12 +38,13 @@ public abstract class AbstractGame implements Serializable {
     private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     private List<String> possibleTokens;
-    private int numRollsInJail = 0;
+    private List frontEndFiles = new ArrayList();
     private double bankFunds;
     private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
     private Transfer freeParking = new FreeParkingFunds();
+    private int lastDiceRoll = 0;
     
     public AbstractGame(String filename) throws XmlReaderException {
         parseXMLFile(filename);
@@ -70,13 +74,15 @@ public abstract class AbstractGame implements Serializable {
             //Map<BuildingType, Integer> buildingMaxAmount = buildingInfo.get(1);
             bank = new Bank(funds, properties, buildingInfo);
             board = new Board(boardSize, spaceProps.get(0));
-
+            frontEndFiles = configReader.parseOtherFiles();
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
             evenBuildingRule = configReader.getRuleBool("EvenBuilding");
             freeParkingRule = configReader.getRuleBool("FreeParking");
             rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
+            snakeEyes = configReader.getRuleDouble("SnakeEyes");
+
         }
         catch (XmlReaderException e) {
             throw new XmlReaderException(e.getMessage() + ": Check data file " + filename);
@@ -137,12 +143,16 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public List<Integer> rollDice() {
+        int val = 0;
         List<Integer> rolls = new ArrayList<>();
         for(int i = 0; i < dice.size(); i++) {
             int roll = dice.get(i).rollDie();
             rolls.add(roll);
+            val += roll;
             diceHistory.get(i).add(roll);
         }
+        lastDiceRoll = val;
+
         return rolls;
     }
 
@@ -157,6 +167,7 @@ public abstract class AbstractGame implements Serializable {
     public void startNextTurn() {
         int index = players.indexOf(this.getLeftPlayer());
         setCurrPlayer(index);
+        //clearDiceHistory();
     }
 
     public boolean checkDoubles() {
@@ -170,6 +181,17 @@ public abstract class AbstractGame implements Serializable {
             }
         }
         return true;
+    }
+
+    public boolean checkNeedToPayBail() {
+        System.out.println(currPlayer.getNumRollsInJail());
+        if(!(checkDoubles())) {
+            if(currPlayer.getNumRollsInJail() == getRollsInJailRule()) {
+                currPlayer.resetNumRollsInJail();
+                return true;
+            }
+        }
+        return false;
     }
 
     public abstract boolean checkDoublesForJail();
@@ -214,7 +236,10 @@ public abstract class AbstractGame implements Serializable {
         if(oldIndex != currPlayer.getCurrentLocation()) {
             throw new IllegalArgumentException("The old index provided is not correct");
         }
-        checkPassGo(oldIndex, newIndex);
+        SpaceGroup prevSpace = board.getSpaceAt(oldIndex).getMyGroup();
+        if(prevSpace != SpaceGroup.ACTION && prevSpace != SpaceGroup.GO_TO_JAIL){
+            checkPassGo(oldIndex, newIndex);
+        }
         currPlayer.moveTo(newIndex);
         AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
         oldSpace.removeOccupant(getCurrPlayer());
@@ -224,7 +249,35 @@ public abstract class AbstractGame implements Serializable {
 
     public void checkPassGo(int oldIndex, int newIndex) {
         if(newIndex < oldIndex) {
-            getCurrPlayer().addFunds(getPassGo());
+            bank.makePayment(passGo, currPlayer);
+        }
+    }
+
+    public void checkSnakeEyes(List<Integer> diceRoll) {
+        for(Integer i : diceRoll) {
+            if(i != 1) {
+                return;
+            }
+        }
+        bank.makePayment(snakeEyes, currPlayer);
+    }
+
+    public void handleMoveInJail(int oldIndex, int newIndex) {
+        if(!currPlayer.isInJail()) {
+            this.movePlayer(oldIndex, newIndex);
+        }
+
+        else {
+            currPlayer.incrementNumRollsinJail();
+            if(checkDoubles()) {
+                this.movePlayer(oldIndex, newIndex);
+                currPlayer.setJail(false);
+                currPlayer.resetNumRollsInJail();
+            }
+            else if(currPlayer.getNumRollsInJail() == getRollsInJailRule()){
+                this.movePlayer(oldIndex, newIndex);
+                currPlayer.setJail(false);
+            }
         }
     }
 
@@ -260,50 +313,48 @@ public abstract class AbstractGame implements Serializable {
         }*/
     }
 
-//    public void clearDiceHistory() {
-//        diceHistory = new HashMap<>();
-//        for(int i = 0; i < dice.size(); i++) {
-//            diceHistory.put(i, new ArrayList<>());
-//        }
-//    }
+    public void clearDiceHistory() {
+        diceHistory = new HashMap<>();
+        for(int i = 0; i < dice.size(); i++) {
+            diceHistory.put(i, new ArrayList<>());
+        }
+    }
 
     public int getLastDiceRoll() {
-        int value = 0;
-        for(int i = 0; i < dice.size(); i++) {
-            ArrayList<Integer> rollList = diceHistory.get(i);
-            if(rollList.size() == 0) {
-                throw new IllegalArgumentException("The dice has not been rolled");
-            }
-            else {
-                value += rollList.get(rollList.size() - 1);
-            }
-        }
-        return value;
+        return lastDiceRoll;
     }
 
     //Getters and setters for rules to be changed by user
+
     public boolean getEvenBuildingRule(){
         return evenBuildingRule;
     }
+
     public void setEvenBuildingRule(boolean bool){
         bank.setEvenBuildingRule(bool);
         this.evenBuildingRule = bool;
     }
+
     public boolean getFreeParkingRule(){
         return freeParkingRule;
     }
+
     public void setFreeParkingRule(boolean bool){
         this.freeParkingRule = bool;
     }
+
     public int getRollsInJailRule() {
         return rollsInJailRule;
     }
+
     public void setRollsInJailRule(int rollsInJailRule) {
         this.rollsInJailRule = rollsInJailRule;
     }
+
     public double getStartFunds() {
         return startFunds;
     }
+
     public void setStartFunds(double startFunds) {
         this.startFunds = startFunds;
     }
@@ -327,7 +378,6 @@ public abstract class AbstractGame implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Transfer getFreeParking(){
         return freeParking;
@@ -361,5 +411,17 @@ public abstract class AbstractGame implements Serializable {
             bank.sellBackProperty(p, this);
         }
         playerOut.makePayment(playerOut.getFunds(), bank);
+    }
+
+    public void setSnakeEyes(double d) {
+        snakeEyes = d;
+    }
+
+    public double getSnakeEyes() {
+        return snakeEyes;
+    }
+
+    public List getFrontEndFiles() {
+        return frontEndFiles;
     }
 }

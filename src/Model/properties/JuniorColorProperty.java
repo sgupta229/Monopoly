@@ -30,7 +30,7 @@ public class JuniorColorProperty extends ColorProperty {
 
     public List getInfo(){
         ArrayList ret = new ArrayList();
-        ret.addAll(Arrays.asList(myColor, this.getPrice()));
+        ret.addAll(Arrays.asList(getColor(), this.getPrice()));
         ret.add(getRentNumbers().get(0));
         ret.add(this.getMortgageAmount());
         ret.add(this.getName());
