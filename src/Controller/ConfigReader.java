@@ -58,9 +58,10 @@ public class ConfigReader {
 
 
 
-    DocumentBuilder dBuilder;
-    Document doc;
-    ConfigReaderErrorHandling errorChecker;
+    //private DocumentBuilder dBuilder;
+    private Document doc;
+    private ConfigReaderErrorHandling errorChecker;
+    private int BoardSize;
 
     //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
     public ConfigReader(String filename) throws XmlReaderException{
@@ -70,7 +71,7 @@ public class ConfigReader {
                 System.out.println(checkFileExists(filename));
                 File inputFile = new File(this.getClass().getClassLoader().getResource(filename).toURI());
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-                dBuilder = dbFactory.newDocumentBuilder();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 doc = dBuilder.parse(inputFile);
                 errorChecker = new ConfigReaderErrorHandling(doc);
                 //errorChecker.checkFileExists(filename);
@@ -88,7 +89,8 @@ public class ConfigReader {
         if(errorChecker.checkTagName(BOARD_SIZE_TAG)){
             String boardSize = doc.getElementsByTagName(BOARD_SIZE_TAG).item(0).getTextContent();
             if(errorChecker.checkValuesAreNumbers(boardSize)){
-                return Integer.parseInt(boardSize);
+                BoardSize = Integer.parseInt(boardSize);
+                return BoardSize;
             }
             else{
                 throw getXmlReadNumberException(BOARD_SIZE_TAG);
@@ -353,9 +355,12 @@ public class ConfigReader {
         if(!errorString.equalsIgnoreCase("VALID")){
             throw getXmlReaderException(errorString);
         }
-
         List<AbstractSpace> allSpaces = new ArrayList<>();
         NodeList spaceList = doc.getElementsByTagName(SPACE_TAG);
+        if(!errorChecker.checkBoardSizeAndSpaces(BoardSize, spaceList.getLength())){
+            throw new XmlReaderException("Board Size and Number of Spaces listed in the xml config file to not match.");
+        }
+        
         for(int i = 0; i < spaceList.getLength(); i++) {
             Node s = spaceList.item(i);
             if (s.getNodeType() == Node.ELEMENT_NODE) {

@@ -96,4 +96,8 @@ public class ConfigReaderErrorHandling {
         }
         return false;
     }
+
+    public boolean checkBoardSizeAndSpaces(int boardSize, int spaces){
+        return (boardSize == spaces);
+    }
 }
