@@ -1,22 +1,21 @@
 package View;
 
-import Controller.ConfigReader;
 import Controller.AbstractGame;
+import Controller.ConfigReader;
+import Model.XmlReaderException;
 import Model.spaces.AbstractSpace;
 import Model.properties.Property;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.Region;
 
 import java.awt.geom.Point2D;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.HashMap;
+import java.util.*;
 
 public class BoardConfigReader {
 
-    public static final String CONFIG_PATH = "Normal_Config_Rework.xml";
-    private ConfigReader mySpaceConfigs;
     private List<AbstractSpace> spaces;
     private List<Property> properties;
+    private List myFiles;
     Map<Point2D.Double, AbstractSpace> indexToName;
     Map<String, Integer> nameToPrice;
     Map<String, String> nameToColor;
@@ -26,8 +25,21 @@ public class BoardConfigReader {
 
 
     public BoardConfigReader(AbstractGame game) {
-        myResourceBundle = ResourceBundle.getBundle("IndexToCoordinate");
-        mySpaceConfigs = new ConfigReader(CONFIG_PATH);
+        myFiles = game.getFrontEndFiles();
+        myResourceBundle = ResourceBundle.getBundle(myFiles.get(0).toString());
+
+//        try {
+//            mySpaceConfigs = new ConfigReader(CONFIG_PATH);
+//        } catch (XmlReaderException e) {
+//            String msg = e.getMessage();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("XML Config");
+//            alert.setHeaderText("XML Config File Error");
+//            alert.setContentText(msg);
+//            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+//            alert.showAndWait();
+//            System.exit(0);
+//        }
 
         spaces = game.getSpaces();
         properties = game.getProperties();
@@ -75,6 +87,10 @@ public class BoardConfigReader {
     public List<AbstractSpace> getSpaces() { return spaces; }
 
     public List<Property> getProperties() { return properties; }
+
+    public List getFiles(){
+        return myFiles;
+    }
 
 }
 

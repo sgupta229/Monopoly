@@ -8,11 +8,14 @@ import View.Layout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +26,9 @@ public class Controller {
     public static final double WIDTH = 1200;
 
     private AbstractGame myGame;
-    private String myGameType;
+    private String myGameConfigFile;
     private String gameStyle;
     transient private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
-    transient private ObservableList<String> availableTokens;
-//    private Map<AbstractPlayer, Image> playersToImages = new HashMap<>();
 
     private Stage window;
 
@@ -41,30 +42,37 @@ public class Controller {
         window.show();
     }
 
-    public void setGame(String gameType){
-        myGameType = gameType;
+    public void setGame(String gameConfigFile){
+        myGameConfigFile = gameConfigFile;
+
+        try{
+            myGame = new ClassicGame(myGameConfigFile);
+            //(AbstractGame) Class.forName("Controller.ClassicGame").getConstructor(String.class).newInstance(myGameConfigFile);
+        } catch(XmlReaderException e){
+            String msg = e.getMessage();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("XML Config");
+            alert.setHeaderText("XML Config File Error");
+            alert.setContentText(msg);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+            System.exit(0);
+        } 
 
         //TODO: make gameFactory or use reflection to create concrete Game class based on gameType
         //gameType = ClassicGame, MegaGame
         // AbstractGame myGame = (AbstractGame) Class
-        if(myGameType.equalsIgnoreCase("classic")){
-            try {
-                myGame = new ClassicGame("Normal_Config_Rework.xml");
-            } catch (XmlReaderException e) {
-                //Give popup with exception message displayed;
-                e.getMessage();
-                e.printStackTrace();
-            }
-            gameStyle = fileToStylesheetString(new File("data/GUI.css"));
-            availableTokens = FXCollections.observableList(myGame.getPossibleTokens());
-        }
+        //System.out.println(myGameConfigFile);
+        //TODO
+        gameStyle = fileToStylesheetString(new File("data/GUI.css"));
     }
+
     public void setGame(AbstractGame game){
         myGame = game;
     }
 
     public void goToAddPlayersScreen(){
-        window.setScene(new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers,availableTokens).getScene());
+        window.setScene(new AddPlayersScreen(WIDTH,HEIGHT,gameStyle,this,newPlayers).getScene());
     }
 
     public void startGame(){
@@ -84,14 +92,12 @@ public class Controller {
     public void addPlayer(String name, String image){
         //create player depending on game type
         AbstractPlayer newP;
-        if (myGameType.equalsIgnoreCase("classic")){
+        if (myGameConfigFile.equalsIgnoreCase("Classic")){
             newP = new ClassicPlayer(name,image);
         }
         else{
             newP = new ClassicPlayer(name,image);   //TODO
         }
-        //add image to map
-//        playersToImages.put(newP,icon);
         //add player to arraylist
         newPlayers.add(newP);
         // on startgame, initialize players in game with setPlayers

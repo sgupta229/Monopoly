@@ -121,10 +121,13 @@ class AbstractGameTest {
 
     @Test
     void getLastDiceRoll() {
-        game.getDiceHistory().get(0).add(2);
-        game.getDiceHistory().get(1).add(3);
+        List<Integer> rolls = game.rollDice();
+        int val = 0;
+        for(int i = 0; i < rolls.size(); i++) {
+            val += rolls.get(i);
+        }
         int actual = game.getLastDiceRoll();
-        int expected = 5;
+        int expected = val;
         assertEquals(actual, expected);
     }
 

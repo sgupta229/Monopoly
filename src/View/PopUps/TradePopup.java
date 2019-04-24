@@ -28,7 +28,7 @@ public class TradePopup extends BuyPropertyPopup {
     public TradePopup(int propLocation, String name, Controller controller, Stage popUpWindow, List<AbstractPlayer> players, AbstractPlayer currPlayer) {
         super(propLocation, controller);
         this.name = name;
-        this.myText = super.getMessages();
+        this.myText = ResourceBundle.getBundle(controller.getGame().getFrontEndFiles().get(2).toString());
         this.myPlayers = players;
         this.oldPopUp = popUpWindow;
         this.myCurrPlayer = currPlayer;

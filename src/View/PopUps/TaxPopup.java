@@ -29,8 +29,8 @@ public class TaxPopup extends Popup {
     public TaxPopup(int propLocation, Controller controller) {
         super();
         this.propLocation = propLocation;
-        this.myText = super.getMessages();
         this.myController = controller;
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
         BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         spaces = spaceInfo.getSpaces();
         for (AbstractSpace sp : spaces) {
