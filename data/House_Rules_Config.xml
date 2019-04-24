@@ -608,7 +608,7 @@
             <Index>24</Index>
             <SpaceGroup>GO_TO_JAIL</SpaceGroup>
             <SpaceName>GO_SHARK_DIVING</SpaceName>
-            <ExtraString>JAIL</ExtraString>
+            <ExtraString>SHARK_DIVING</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
         <Space type="ClassicPropSpace">
