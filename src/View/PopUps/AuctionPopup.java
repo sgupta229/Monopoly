@@ -2,6 +2,7 @@ package View.PopUps;
 
 import Controller.Controller;
 import Model.AbstractPlayer;
+import Model.properties.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,12 +27,13 @@ public class AuctionPopup implements PropertyChangeListener {
     private BidBoxGroup myBidBoxGroup;
     private SimpleBooleanProperty auctionOver;
     private Controller myController;
+    private Property myProperty;
     private int myPropLocation;
 
     public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow, List<AbstractPlayer> players, AbstractPlayer currPlayer) {
         this.myController = controller;
         this.myPropLocation = propLocation;
-        this.messages = ResourceBundle.getBundle("PopUpText");
+        this.messages = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
         this.name = name;
         this.myPlayers = players;
         this.oldPopUp = popUpWindow;
@@ -87,10 +89,7 @@ public class AuctionPopup implements PropertyChangeListener {
         else {
             AbstractPlayer winner = myBidBoxGroup.getHighestBidder().getMyPlayer();
             int bid = myBidBoxGroup.getHighestBid();
-            myController.getGame().handleAuction(winner, bid, myPropLocation);
-            // need to get the property that is being sold
-//            winner.addProperty(); TODO hi sahil add this backend stuff
-//            winner.makePayment();
+            myProperty = myController.getGame().handleAuction(winner, bid, myPropLocation);
 
             displayWinnerOfAuction(myBidBoxGroup.getHighestBid(),myBidBoxGroup.getHighestBidder().getMyPlayer());
         }
@@ -99,7 +98,7 @@ public class AuctionPopup implements PropertyChangeListener {
     private void displayWinnerOfAuction(int winningBid, AbstractPlayer winningBidder){
         myLayout = new VBox(20);
         Label msg = new Label(winningBidder.getName() + " won the Auction");
-        Label msg2 = new Label("bought " + "NAME_OF_PROP"+ " for "+winningBid);
+        Label msg2 = new Label("bought " + myProperty.getName() + " for "+winningBid);
         Button ok = new Button("OK");
         ok.setOnAction(e -> oldPopUp.close());
         myLayout.getChildren().addAll(msg,msg2,ok);

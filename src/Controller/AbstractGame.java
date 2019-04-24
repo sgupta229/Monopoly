@@ -38,6 +38,7 @@ public abstract class AbstractGame implements Serializable {
     private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     private List<String> possibleTokens;
+    private List frontEndFiles = new ArrayList();
     private double bankFunds;
     private int rollsInJailRule;
     private boolean evenBuildingRule;
@@ -54,8 +55,8 @@ public abstract class AbstractGame implements Serializable {
     }
 
     private void parseXMLFile(String filename) throws XmlReaderException {
-        ConfigReader configReader = new ConfigReader(filename);
         try {
+            ConfigReader configReader = new ConfigReader(filename);
             decks = configReader.parseActionDecks();
             List<AbstractActionCard> allCards = configReader.parseActionCards();
             for(ActionDeck d : decks) {
@@ -74,7 +75,7 @@ public abstract class AbstractGame implements Serializable {
             //Map<BuildingType, Integer> buildingMaxAmount = buildingInfo.get(1);
             bank = new Bank(funds, properties, buildingInfo);
             board = new Board(boardSize, spaceProps.get(0));
-
+            frontEndFiles = configReader.parseOtherFiles();
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
@@ -82,6 +83,7 @@ public abstract class AbstractGame implements Serializable {
             freeParkingRule = configReader.getRuleBool("FreeParking");
             rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
             snakeEyes = configReader.getRuleDouble("SnakeEyes");
+
         }
         catch (XmlReaderException e) {
             throw new XmlReaderException(e.getMessage() + ": Check data file " + filename);
@@ -291,13 +293,14 @@ public abstract class AbstractGame implements Serializable {
         return diceHistory;
     }
 
-    public void handleAuction(AbstractPlayer p, int bid, int propLocation) {
+    public Property handleAuction(AbstractPlayer p, int bid, int propLocation) {        //TODO change method return type back to void, figure out how to get property in AuctionPopUp
         Property prop = board.getSpaceAt(propLocation).getMyProp();
         bank.setPropertyOwner(prop, p);
         p.makePayment(bid, bank);
         p.addProperty(prop);
         System.out.println(bank.propertyOwnedBy(prop).getName());
 
+        return prop;
 /*        AbstractPlayer maxPlayer = null;
         double maxBid = 0;
         for(AbstractPlayer p : bidMap.keySet()){
@@ -421,5 +424,9 @@ public abstract class AbstractGame implements Serializable {
 
     public double getSnakeEyes() {
         return snakeEyes;
+    }
+
+    public List getFrontEndFiles() {
+        return frontEndFiles;
     }
 }

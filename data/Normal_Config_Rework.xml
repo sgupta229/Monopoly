@@ -9,6 +9,11 @@
         <BoardSize>40</BoardSize>
         <Dimension>11</Dimension>
     </Board>
+    <OtherFiles>
+        <IndexToCoord>IndexToCoordinate</IndexToCoord>
+        <Display>classicBoardDisplay</Display>
+        <PopUpText>PopUpText</PopUpText>
+    </OtherFiles>
     <!--Space type; index; name-->
     <!--Properties - property, name, colorgroup, group size, buyprice, rent-->
     <Properties>
@@ -1075,12 +1080,4 @@
         <RollsInJail>3</RollsInJail>
         <SnakeEyes>0</SnakeEyes>
     </Rules>
-    <Files>
-        <PropertyFile>PopUpText.properties</PropertyFile>
-        <PropertyFile>Messages.properties</PropertyFile>
-        <PropertyFile>IndexToCoordinate.properties</PropertyFile>
-        <PropertyFile>GeneralInfo.properties</PropertyFile>
-        <PropertyFile>GameTypes.properties</PropertyFile>
-        <PropertyFile>classicBoardDisplay.properties</PropertyFile>
-    </Files>
 </Game>
