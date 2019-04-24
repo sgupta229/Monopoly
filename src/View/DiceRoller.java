@@ -22,14 +22,16 @@ public class DiceRoller {
     private  Button rollButton;
     private List<Label> diceValues;
     private Button myEndTurn;
+    private Button myPayBail;
 
-    public DiceRoller(Controller controller, Button endTurn){
+    public DiceRoller(Controller controller, Button endTurn, Button payBail){
         myController = controller;
         myDie = new Die(6);
         diceValues = new ArrayList<>();
         myHBox = new HBox();
         myHBox.setSpacing(40.0);
         myEndTurn = endTurn;
+        myPayBail = payBail;
         createDiceView();
         rollButton = new Button("Roll");
         rollButton.setId("button1");
@@ -66,6 +68,7 @@ public class DiceRoller {
             rollButton.setDisable(true);
             myEndTurn.setDisable(false);
         }
+        myPayBail.setDisable(true);
         checkJailPopup();
         checkBailPopup();
     }

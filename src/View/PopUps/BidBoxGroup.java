@@ -67,6 +67,9 @@ public class BidBoxGroup extends ToggleButton {
             outOfAuction.add(bidder);
             bidder.disable(true);
         }
+        for (BidBox b:myBids){
+            b.setLowerBound(highestBid + 20);
+        }
         moveCurrentBidToNext();
     }
 

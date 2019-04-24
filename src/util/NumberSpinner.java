@@ -42,6 +42,7 @@ public class NumberSpinner extends HBox {
     private final Button decrementButton;
     private final NumberBinding buttonHeight;
     private final NumberBinding spacing;
+    private int lowerBound;
 
     public NumberSpinner() {
         this(0,1);
@@ -112,6 +113,7 @@ public class NumberSpinner extends HBox {
             @Override
             public void handle(ActionEvent ae) {
                 increment();
+                if (numberField.getNumber()>lowerBound) decrementButton.setDisable(false);
                 ae.consume();
             }
         });
@@ -135,9 +137,11 @@ public class NumberSpinner extends HBox {
             @Override
             public void handle(ActionEvent ae) {
                 decrement();
+                if (numberField.getNumber()<=lowerBound) decrementButton.setDisable(true);
                 ae.consume();
             }
         });
+        decrementButton.setDisable(true);
 
         StackPane decPane = new StackPane();
         decPane.getChildren().addAll(decrementButton, arrowDown);
@@ -163,6 +167,10 @@ public class NumberSpinner extends HBox {
         int value = numberField.getNumber();
         value = value - stepWitdhProperty.get();
         numberField.setNumber(value);
+    }
+
+    public void setLowerBound(int value){
+        lowerBound = value;
     }
 
     public final void setNumber(int value) {

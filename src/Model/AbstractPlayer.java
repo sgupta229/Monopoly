@@ -41,7 +41,9 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
     public void addProperty(Property property) {
-        properties.add(property);
+        if(!properties.contains(property)){
+            properties.add(property);
+        }
     }
 
     public void removeProperty(Property property) {
