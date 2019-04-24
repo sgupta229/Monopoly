@@ -195,6 +195,7 @@ import Controller.Controller;
 import Model.AbstractPlayer;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
+import Model.spaces.SpaceGroup;
 import View.BoardConfigReader;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -214,6 +215,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class BuyPropertyPopup extends Popup {
 
@@ -224,6 +226,7 @@ public class BuyPropertyPopup extends Popup {
     List<Property> allProps;
     private AbstractSpace mySpace;
     private List myDetails;
+    private ResourceBundle myText;
 
     public BuyPropertyPopup(int propLocation, Controller controller) {
         super();
@@ -232,6 +235,7 @@ public class BuyPropertyPopup extends Popup {
         BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         allSpaces = spaceInfo.getSpaces();
         allProps = spaceInfo.getProperties();
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
         for (AbstractSpace sp : allSpaces) {
             if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;
@@ -242,7 +246,6 @@ public class BuyPropertyPopup extends Popup {
     }
 
     public BuyPropertyPopup(int propLocation) {
-        super();
         this.propLocation = propLocation;
     }
 
@@ -252,12 +255,11 @@ public class BuyPropertyPopup extends Popup {
         Rectangle rectangle = new Rectangle(scene.getWidth() / 2.5, scene.getHeight() / 1.5);
         rectangle.setFill(Color.WHITE);
         rectangle.setStroke(Color.BLACK);
-
-        if (propLocation == 5 || propLocation == 15 || propLocation == 25 || propLocation == 35) {
-            var imageFile = new Image(this.getClass().getClassLoader().getResourceAsStream("railroad.png"));
+        if (mySpace.getMyGroup().equals(SpaceGroup.RAILROAD)) {
+            var imageFile = new Image(this.getClass().getClassLoader().getResourceAsStream(myText.getString("buyRailroad")));
             ImageView image = new ImageView(imageFile);
             imagePane = new Pane(rectangle, image);
-        } else if (propLocation == 12 || propLocation == 28) {
+        } else if (mySpace.getMyGroup().equals(SpaceGroup.UTILITY)) {
             imagePane = new Pane(rectangle);
         } else {
             Rectangle propColor = new Rectangle(scene.getWidth() / 2.5, scene.getHeight() / 7);
@@ -270,21 +272,19 @@ public class BuyPropertyPopup extends Popup {
 
     @Override
     protected String createMessage() {
-        String myMessage = "Would you like to purchase this property?";
-        return myMessage;
+        return myText.getString("buyMessage");
     }
 
     @Override
     protected String createTitle() {
-        String myTitle = "Property";
-        return myTitle;
+        return myText.getString("buyTitle");
     }
 
     @Override
     protected Pane createButtons(Stage popUpWindow) {
         HBox buttons = new HBox(HBoxSpacing);
-        Button button1 = new Button("YES");
-        Button button2 = new Button("NO");
+        Button button1 = new Button(myText.getString("yesButton"));
+        Button button2 = new Button(myText.getString("noButton"));
         button1.setId("button2");
         button2.setId("button2");
         button2.setOnAction(new EventHandler<ActionEvent>() {
@@ -322,32 +322,32 @@ public class BuyPropertyPopup extends Popup {
         Text rent1House;
         Text rent2House;
         Text rent3House;
-        if (name.toLowerCase().contains("railroad")) {
-            priceProp.getChildren().add(new Text("Price: $" + myDetails.get(0)));
-            rent = new Text("Rent: $" + myDetails.get(1));
-            rent1House = new Text("Rent if 2 owned: $" + myDetails.get(2));
-            rent2House = new Text("Rent if 3 owned: $" + myDetails.get(3));
-            rent3House = new Text("Rent if 4 owned: $" + myDetails.get(4));
-            mortgage = new Text("Mortgage: $" + myDetails.get(5));
+        if (mySpace.getMyGroup().equals(SpaceGroup.RAILROAD)) {
+            priceProp.getChildren().add(new Text(myText.getString("price") + myDetails.get(0)));
+            rent = new Text(myText.getString("rent")+ myDetails.get(1));
+            rent1House = new Text(myText.getString("railroadRent2") + myDetails.get(2));
+            rent2House = new Text(myText.getString("railroadRent3") + myDetails.get(3));
+            rent3House = new Text(myText.getString("railroadRent4") + myDetails.get(4));
+            mortgage = new Text(myText.getString("mortgage") + myDetails.get(5));
             textPane.setVgap(2);
             textPane.getChildren().addAll(priceProp, rent, rent1House, rent2House, rent3House, mortgage);
-        } else if (name.toLowerCase().contains("works") || name.toLowerCase().contains("company")) {
-            priceProp.getChildren().add(new Text("Price: $" + myDetails.get(0)));
-            rent = new Text("If 1 owned, \nrent is " + myDetails.get(1).toString().replace(".0", "") + "x dice");
-            rent2House = new Text("If both owned, \nrent is " + myDetails.get(2).toString().replace(".0", "") + "x dice.");
-            mortgage = new Text("Mortgage: $" + myDetails.get(3));
+        } else if (mySpace.getMyGroup().equals(SpaceGroup.UTILITY)) {
+            priceProp.getChildren().add(new Text(myText.getString("price") + myDetails.get(0)));
+            rent = new Text(myText.getString("oneUtility") + myDetails.get(1).toString().replace(".0", "") + "x dice");
+            rent2House = new Text(myText.getString("twoUtility") + myDetails.get(2).toString().replace(".0", "") + "x dice.");
+            mortgage = new Text(myText.getString("mortgage") + myDetails.get(3));
             textPane.setVgap(3);
             textPane.getChildren().addAll(priceProp, rent, rent2House, mortgage);
         } else {
-            priceProp.getChildren().add(new Text("Price: $" + myDetails.get(1)));
-            rent = new Text("Rent: $" + myDetails.get(2));
-            rent1House = new Text("Rent w/ 1 House: $" + myDetails.get(3));
-            rent2House = new Text("Rent w/ 2 Houses: $" + myDetails.get(4));
-            rent3House = new Text("Rent w/ 3 Houses: $" + myDetails.get(5));
-            Text rent4Houses = new Text("Rent w/ 4 Houses: $" + myDetails.get(6));
-            Text rentHotel = new Text("Rent w/ Hotel: $" + myDetails.get(7));
-            Text costHouse = new Text("Cost of 1 House: $" + myDetails.get(8));
-            mortgage = new Text("Mortgage: $" + myDetails.get(9));
+            priceProp.getChildren().add(new Text(myText.getString("price") + myDetails.get(1)));
+            rent = new Text(myText.getString("rent") + myDetails.get(2));
+            rent1House = new Text(myText.getString("rent1House") +myText.getString("building1") +": $" + myDetails.get(3));
+            rent2House = new Text(myText.getString("rent2House") +myText.getString("building1") +"s: $" + myDetails.get(4));
+            rent3House = new Text(myText.getString("rent3House") +myText.getString("building1") +"s: $" + myDetails.get(5));
+            Text rent4Houses = new Text(myText.getString("rent4House") +myText.getString("building1") +"s: $" + myDetails.get(6));
+            Text rentHotel = new Text(myText.getString("rentHotel") +myText.getString("building2") +": $" + myDetails.get(7));
+            Text costHouse = new Text(myText.getString("costHouse") +myText.getString("building1") +": $" + myDetails.get(8));
+            mortgage = new Text(myText.getString("mortgage") + myDetails.get(9));
             textPane.setVgap(2);
             textPane.getChildren().addAll(priceProp, rent, rent1House, rent2House, rent3House, rent4Houses, rentHotel, costHouse, mortgage);
         }
@@ -360,8 +360,7 @@ public class BuyPropertyPopup extends Popup {
 
     @Override
     protected Label createHeader() {
-        Label title = new Label("Welcome to " + name + "!");
-        return title;
+        return new Label(myText.getString("buyHeader")+ name + "!");
     }
 
 

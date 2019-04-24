@@ -20,7 +20,7 @@
 #playerControlBox {
     -fx-background-color: #e1e1e1;
     -fx-padding: 15;
-    -fx-spacing: 20;
+    -fx-spacing: 10;
     -fx-pref-width: 400;
     -fx-pref-height: 500;
 }
@@ -30,7 +30,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 20pt;
     -fx-background-color: linear-gradient(#C4C4C4, #7D7D7D);
-    -fx-pref-width: 165px;
+    /*-fx-pref-width: 165px;*/
     -fx-pref-height: 55px;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
@@ -55,7 +55,6 @@
     -fx-text-fill: white;
 }
 
-
 #button3 {
     -fx-text-fill: black;
     -fx-font-weight: bold;
@@ -70,7 +69,6 @@
     -fx-background-color: linear-gradient(#a52121, #e02323);
     -fx-text-fill: white;
 }
-
 
 #button4 {
     -fx-text-fill: black;
@@ -87,7 +85,6 @@
     -fx-text-fill: white;
 }
 
-
 #flowPane {
     "-fx-alignment: center;"
 }
@@ -102,7 +99,6 @@
 
 }
 
-
 #boardPane {
     -fx-background-color: white;
 }
@@ -110,7 +106,6 @@
 
 #playerControlPane {
     -fx-background-color: pink;
-
 
 }
 

@@ -9,6 +9,11 @@
         <BoardSize>32</BoardSize>
         <Dimension>9</Dimension>
     </Board>
+    <OtherFiles>
+        <IndexToCoord>IndexToCoordHouseRules</IndexToCoord>
+        <Display>houseRulesDisplay</Display>
+        <PopUpText>HouseRulesPopUpText</PopUpText>
+    </OtherFiles>
     <!--Space type; index; name-->
     <!--Properties - property, name, colorgroup, group size, buyprice, rent-->
     <Properties>
@@ -234,7 +239,7 @@
         </Property>
         <Property type="ClassicColorProperty">
             <PropertyName>ST._LUCIA</PropertyName>
-            <ColorGroup>SPRING_GREEN</ColorGroup>
+            <ColorGroup>SPRINGGREEN</ColorGroup>
             <GroupSize>3</GroupSize>
             <BuyPrice>200</BuyPrice>
             <Rent>
@@ -253,7 +258,7 @@
         </Property>
         <Property type="ClassicColorProperty">
             <PropertyName>ST._MARTIN</PropertyName>
-            <ColorGroup>SPRING_GREEN</ColorGroup>
+            <ColorGroup>SPRINGGREEN</ColorGroup>
             <GroupSize>3</GroupSize>
             <BuyPrice>200</BuyPrice>
             <Rent>
@@ -287,7 +292,7 @@
         </Property>
         <Property type="ClassicColorProperty">
             <PropertyName>ST._VINCENT</PropertyName>
-            <ColorGroup>SPRING_GREEN</ColorGroup>
+            <ColorGroup>SPRINGGREEN</ColorGroup>
             <GroupSize>3</GroupSize>
             <BuyPrice>220</BuyPrice>
             <Rent>
@@ -344,7 +349,7 @@
         </Property>
         <Property type="ClassicColorProperty">
             <PropertyName>BORA_BORA</PropertyName>
-            <ColorGroup>SKYBLUE</ColorGroup>
+            <ColorGroup>TEAL</ColorGroup>
             <GroupSize>2</GroupSize>
             <BuyPrice>270</BuyPrice>
             <Rent>
@@ -378,7 +383,7 @@
         </Property>
         <Property type="ClassicColorProperty">
             <PropertyName>BALI</PropertyName>
-            <ColorGroup>SKYBLUE</ColorGroup>
+            <ColorGroup>TEAL</ColorGroup>
             <GroupSize>2</GroupSize>
             <BuyPrice>280</BuyPrice>
             <Rent>
@@ -635,7 +640,7 @@
         <Space type="ActionCardSpace">
             <Index>28</Index>
             <SpaceGroup>ACTION</SpaceGroup>
-            <SpaceName>TREASURE_CHEST</SpaceName>
+            <SpaceName>LUAU_GIFT_BAG</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
