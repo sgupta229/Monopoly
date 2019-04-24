@@ -85,7 +85,7 @@ public class Bank implements Transfer, Serializable {
      * @param amount
      * @param receiver
      */
-    public void makePayment(double amount, Transfer receiver){
+    public void makePayment(Bank bank, double amount, Transfer receiver){
         if(myBalance-amount>0){
             myBalance -= amount;
             receiver.receivePayment(amount);
@@ -130,7 +130,7 @@ public class Bank implements Transfer, Serializable {
     public void mortgageProperty(Property property){
         if(checkIfCanMortgage(property)){
             AbstractPlayer propOwner = ownedPropsMap.get(property);
-            this.makePayment(property.getMortgageAmount(), propOwner);
+            this.makePayment(this, property.getMortgageAmount(), propOwner);
             property.setIsMortgaged(true);
         }
     }
@@ -138,7 +138,7 @@ public class Bank implements Transfer, Serializable {
 
     public void unMortgageProperty(Property property){
         AbstractPlayer propOwner = ownedPropsMap.get(property);
-        propOwner.makePayment(property.getMortgageAmount()*1.1, this);
+        propOwner.makePayment(this, property.getMortgageAmount()*1.1, this);
         property.setIsMortgaged(false);
     }
 
@@ -197,7 +197,7 @@ public class Bank implements Transfer, Serializable {
                 AbstractPlayer propOwner = propertyOwnedBy(property);
                 totalBuildingMap.put(building, totalBuildingMap.get(building) - 1);
                 property.addBuilding(building);
-                propOwner.makePayment(property.getBuildingPrice(building), this);
+                propOwner.makePayment(this, property.getBuildingPrice(building), this);
             }
         }
     }
@@ -206,7 +206,7 @@ public class Bank implements Transfer, Serializable {
         AbstractPlayer propOwner = propertyOwnedBy(property);
         totalBuildingMap.put(building, totalBuildingMap.get(building)+1);
         property.removeBuilding(building, 1);
-        this.makePayment(property.getBuildingPrice(building)/2, propOwner);
+        this.makePayment(this, property.getBuildingPrice(building)/2, propOwner);
     }
 
     public void unbuildForUpgrade(Property property, BuildingType building){

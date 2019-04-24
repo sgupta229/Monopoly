@@ -11,7 +11,7 @@ public interface Transfer {
      * @param amount
      * @param receiver
      */
-    public void makePayment(double amount, Transfer receiver);
+    public void makePayment(Bank bank, double amount, Transfer receiver);
 
     /***
      * Allows anyone that implements Transfer to receive a payment from another

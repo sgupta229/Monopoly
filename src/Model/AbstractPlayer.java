@@ -49,9 +49,23 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
     @Override
-    public void makePayment(double amount, Transfer receiver) {
+    public void makePayment(Bank bank, double amount, Transfer receiver) {
         if(this.funds < amount) {
-            throw new IllegalArgumentException("Not enough money to pay");
+            double moneyNeeded = amount - funds;
+            double moneyAccumulated = 0;
+
+        }
+        while(true) {
+            for(Property p : properties) {
+                for(BuildingType b : p.getBuildingMap().keySet()) {
+                    while(p.getBuildingMap().get(b) != 0) {
+                        bank.sellBackBuildings(p, b);
+                        if(this.funds >= amount) {
+                            break;
+                        }
+                    }
+                }
+            }
         }
         setFunds(this.funds - amount);
         System.out.println("receiveer is going to get this amount: " + amount);
