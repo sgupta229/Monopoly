@@ -58,8 +58,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
                     while(p.getBuildingMap().get(b) != 0) {
                         bank.sellBackBuildings(p, b);
                         if(this.funds >= amount) {
-                            setFunds(this.funds - amount);
-                            receiver.receivePayment(amount);
                             break;
                         }
                     }
@@ -67,8 +65,6 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
                 if(bank.checkIfCanMortgage(p)) {
                     bank.mortgageProperty(p);
                     if(this.funds >= amount) {
-                        setFunds(this.funds - amount);
-                        receiver.receivePayment(amount);
                         break;
                     }
                 }
@@ -77,8 +73,11 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
                 cantPayBool = true;
                 setFunds(0);
                 receiver.receivePayment(this.funds);
+                return;
             }
         }
+        setFunds(this.funds - amount);
+        receiver.receivePayment(amount);
     }
 
     @Override
