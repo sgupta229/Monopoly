@@ -613,7 +613,7 @@
             <Index>24</Index>
             <SpaceGroup>GO_TO_JAIL</SpaceGroup>
             <SpaceName>GO_SHARK_DIVING</SpaceName>
-            <ExtraString>JAIL</ExtraString>
+            <ExtraString>SHARK_DIVING</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
         <Space type="ClassicPropSpace">
@@ -948,12 +948,4 @@
         <RollsInJail>3</RollsInJail>
         <SnakeEyes>0</SnakeEyes>
     </Rules>
-    <Files>
-        <PropertyFile>PopUpText.properties</PropertyFile>
-        <PropertyFile>Messages.properties</PropertyFile>
-        <PropertyFile>IndexToCoordinate.properties</PropertyFile>
-        <PropertyFile>GeneralInfo.properties</PropertyFile>
-        <PropertyFile>GameTypes.properties</PropertyFile>
-        <PropertyFile>classicBoardDisplay.properties</PropertyFile>
-    </Files>
 </Game>
