@@ -49,7 +49,8 @@ public class Controller {
 
 /*        try{
             myGame = (AbstractGame) Class.forName("Controller.ClassicGame").getConstructor(String.class).newInstance(myGameType);
-        } catch (InstantiationException e) {
+        }
+        catch (InstantiationException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
@@ -57,6 +58,14 @@ public class Controller {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        } catch(XmlReaderException e){
+            String msg = e.getMessage();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("XML Config");
+            alert.setHeaderText("XML Config File Error");
+            alert.setContentText(msg);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }*/
