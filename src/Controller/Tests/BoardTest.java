@@ -16,7 +16,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
-    ConfigReader cr = new ConfigReader("Normal_Config_Old.xml");
+    ConfigReader cr;
+
+    {
+        try {
+            cr = new ConfigReader("Normal_Config_Old.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
+    }
+
     Board board;
 
     @BeforeEach

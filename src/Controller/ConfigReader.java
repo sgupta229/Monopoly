@@ -58,43 +58,88 @@ public class ConfigReader {
 
 
 
-    DocumentBuilder dBuilder;
-    Document doc;
-    ConfigReaderErrorHandling errorChecker;
+    //private DocumentBuilder dBuilder;
+    private Document doc;
+    private ConfigReaderErrorHandling errorChecker;
+    private int BoardSize;
 
     //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
-    public ConfigReader(String filename) {
+    public ConfigReader(String filename) throws XmlReaderException{
         //File inputFile = new File(filename);
-        try {
-            File inputFile = new File(this.getClass().getClassLoader().getResource(filename).toURI());
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(inputFile);
-            errorChecker = new ConfigReaderErrorHandling(doc);
-
+        if(checkFileExists(filename)){
+            try {
+                System.out.println(checkFileExists(filename));
+                File inputFile = new File(this.getClass().getClassLoader().getResource(filename).toURI());
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                doc = dBuilder.parse(inputFile);
+                errorChecker = new ConfigReaderErrorHandling(doc);
+                //errorChecker.checkFileExists(filename);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        else{
+            throw new XmlReaderException(filename + " is not a valid name for a config file.");
         }
     }
 
     public int parseBoard() throws XmlReaderException {
-        int boardSize = Integer.parseInt(doc.getElementsByTagName(BOARD_SIZE_TAG).item(0).getTextContent());
-        return boardSize;
+        if(errorChecker.checkTagName(BOARD_SIZE_TAG)){
+            String boardSize = doc.getElementsByTagName(BOARD_SIZE_TAG).item(0).getTextContent();
+            if(errorChecker.checkValuesAreNumbers(boardSize)){
+                BoardSize = Integer.parseInt(boardSize);
+                return BoardSize;
+            }
+            else{
+                throw getXmlReadNumberException(BOARD_SIZE_TAG);
+            }
+        }
+        else{
+            throw getXmlReaderException(BOARD_SIZE_TAG);
+        }
     }
 
     public List<Double> parseBank() throws XmlReaderException {
-        List<Double> bankInfo = new ArrayList<>();
-        double bankFunds = Double.parseDouble(doc.getElementsByTagName(BANK_FUNDS_TAG).item(0).getTextContent());
-        bankInfo.add(bankFunds);
-        return bankInfo;
+        if(errorChecker.checkTagName(BANK_FUNDS_TAG)){
+            List<Double> bankInfo = new ArrayList<>();
+            String bankFunds = doc.getElementsByTagName(BANK_FUNDS_TAG).item(0).getTextContent();
+            if(errorChecker.checkValuesAreNumbers(bankFunds)){
+                double bankFundsInt = Double.parseDouble(bankFunds);
+                bankInfo.add(bankFundsInt);
+                return bankInfo;
+            }
+            else{
+                throw getXmlReadNumberException(BANK_FUNDS_TAG);
+            }
+        }
+        else{
+            throw getXmlReaderException(BANK_FUNDS_TAG);
+        }
     }
 
     public List<Die> parseDice() throws XmlReaderException {
+        if(!errorChecker.checkTagName(DICE_SIDES_TAG)){
+            throw getXmlReaderException(DICE_SIDES_TAG);
+        }
+        if(!errorChecker.checkTagName(DICE_NUMBER_TAG)){
+            throw getXmlReaderException(DICE_NUMBER_TAG);
+        }
         List<Die> dice = new ArrayList<>();
 
-        int numberOfDice = Integer.parseInt(doc.getElementsByTagName(DICE_NUMBER_TAG).item(0).getTextContent());
-        int numberOfSides = Integer.parseInt(doc.getElementsByTagName(DICE_SIDES_TAG).item(0).getTextContent());
+        //Check valid input
+        String numDice = doc.getElementsByTagName(DICE_NUMBER_TAG).item(0).getTextContent();
+        String numSides = doc.getElementsByTagName(DICE_SIDES_TAG).item(0).getTextContent();
+        List<String> checkList = List.of(numDice, numSides);
+        for(String s: checkList){
+            if(!errorChecker.checkValuesAreNumbers(s)){
+                throw getXmlReadNumberException(DICE_NUMBER_TAG + " and/or " + DICE_SIDES_TAG);
+            }
+        }
+
+        int numberOfDice = Integer.parseInt(numDice);
+        int numberOfSides = Integer.parseInt(numSides);
 
         for(int i=0; i<numberOfDice; i++){
             int[] sideValues = new int[numberOfSides];
@@ -110,6 +155,9 @@ public class ConfigReader {
     }
 
     public List<ActionDeck> parseActionDecks() throws XmlReaderException {
+        if(!errorChecker.checkTagName(ACTION_DECK_TAG)){
+            throw getXmlReaderException(ACTION_DECK_TAG);
+        }
         List<ActionDeck> decks = new ArrayList<>();
 
         NodeList actionDeckList = doc.getElementsByTagName(ACTION_DECK_TAG);
@@ -121,13 +169,13 @@ public class ConfigReader {
                 //String deckName = deck.getElementsByTagName("ActionDeck").item(0).getTextContent();
                 String deckName = deck.getTextContent();
                 //Check if deckName in DeckType enum before getting enum
-                if(!checkDeckType(deckName)){
-                    throw new XmlReaderException(deckName + " is not a valid action deck. Please check the data file.");
-                }
-                else{
+                if(errorChecker.checkDeckType(deckName)){
                     DeckType dt = DeckType.valueOf(deckName);
                     ActionDeck tempDeck = new ActionDeck(dt);
                     decks.add(tempDeck);
+                }
+                else{
+                    throw new XmlReaderException(deckName + " is not a valid DeckType enum. Please check the data file.");
                 }
             }
         }
@@ -136,53 +184,88 @@ public class ConfigReader {
 
 //    public List<AbstractActionCard> parseActionCards() throws XmlReaderException{
     public List<AbstractActionCard> parseActionCards() throws XmlReaderException {
-        //Feed this allActionCards list into fillLiveDeck() in deck class after initializing empty decks
-        List<AbstractActionCard> allActionCards = new ArrayList<>();
+        String errorCheck = errorChecker.checkTagName(List.of(ACTION_CARD_TAG, DECK_TYPE_TAG, MESSAGE_TAG, HOLDABLE_TAG, EXTRA_STRINGS_TAG, EXTRA_DOUBLES_TAG));
+        if(errorCheck.equalsIgnoreCase("VALID")){
+            //Feed this allActionCards list into fillLiveDeck() in deck class after initializing empty decks
+            List<AbstractActionCard> allActionCards = new ArrayList<>();
+            NodeList actionCardList = doc.getElementsByTagName(ACTION_CARD_TAG);
+            for(int i = 0; i<actionCardList.getLength(); i++){
+                Node ac = actionCardList.item(i);
+                if(ac.getNodeType() == Node.ELEMENT_NODE){
+                    Element card = (Element) ac;
+                    String deckName = card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent();
+                    if(errorChecker.checkDeckType(deckName)){
 
-        NodeList actionCardList = doc.getElementsByTagName(ACTION_CARD_TAG);
-        for(int i = 0; i<actionCardList.getLength(); i++){
-            Node ac = actionCardList.item(i);
-            if(ac.getNodeType() == Node.ELEMENT_NODE){
-                Element card = (Element) ac;
-                String deckName = card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent();
-                if(!checkDeckType(deckName)){
-                    throw new XmlReaderException(deckName + "not a valid action deck. Please check the data file.");
-                }
+                        //All types of action cards have these fields
+                        DeckType dt = DeckType.valueOf(card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent());
+                        String msg = card.getElementsByTagName(MESSAGE_TAG).item(0).getTextContent();
+                        //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
+                        Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName(HOLDABLE_TAG).item(0).getTextContent());
+                        List<String> extraStrings = List.of(card.getElementsByTagName(EXTRA_STRINGS_TAG).item(0).getTextContent().split(","));
+                        //System.out.println(extraStrings.get(0) + " AND " + extraStrings.get(1));
+                        //Get list of doubles
+                        String[] extraDubTemp = card.getElementsByTagName(EXTRA_DOUBLES_TAG).item(0).getTextContent().split(",");
+                        helpCheckDoublesTag(List.of(extraDubTemp));
 
-                //All types of action cards have these fields
-                DeckType dt = DeckType.valueOf(card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent());
-                String msg = card.getElementsByTagName(MESSAGE_TAG).item(0).getTextContent();
-                //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
-                Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName(HOLDABLE_TAG).item(0).getTextContent());
-                List<String> extraStrings = List.of(card.getElementsByTagName(EXTRA_STRINGS_TAG).item(0).getTextContent().split(","));
-                //System.out.println(extraStrings.get(0) + " AND " + extraStrings.get(1));
-                //Get list of doubles
-                String[] extraDubTemp = card.getElementsByTagName(EXTRA_DOUBLES_TAG).item(0).getTextContent().split(",");
+                        List<Double> extraDubs = listDoubleConverter(extraDubTemp);
 
-                List<Double> extraDubs = listDoubleConverter(extraDubTemp);
-
-                String className = card.getAttribute(TYPE_TAG);
-                //Reflection to create action cards
-                try {
-                    AbstractActionCard newAC = (AbstractActionCard) Class.forName(ACTION_CARD_PATH + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
-                    allActionCards.add(newAC);
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                        String className = card.getAttribute(TYPE_TAG);
+                        //Reflection to create action cards
+                        try {
+                            AbstractActionCard newAC = (AbstractActionCard) Class.forName(ACTION_CARD_PATH + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
+                            allActionCards.add(newAC);
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        } catch (ClassNotFoundException e) {
+                            throw new XmlReaderException(className + " was not a valid class name... please check the data file's ActionCard 'type' attributes to ensure they match the class names");
+                            //e.printStackTrace();
+                        }
+                    }
+                    else{
+                        throw new XmlReaderException(deckName + "not a valid action deck. Please check the data file.");
+                    }
                 }
             }
+            return allActionCards;
         }
-        return allActionCards;
+        else{
+            throw getXmlReaderException(errorCheck);
+        }
     }
 
-    public List<Property> parseAllProps(){
+
+
+
+
+
+
+    //Helper to reduce duplication
+    private XmlReaderException getXmlReaderException(String errorCheck) {
+        return new XmlReaderException(errorCheck + " is not a valid tag. Please check the xml config file");
+    }
+    //Helper to reduce duplication
+    private XmlReaderException getXmlReadNumberException(String errorCheck) {
+        return new XmlReaderException(errorCheck + " is not a valid input. Value must be a number, not a string or character.");
+    }
+
+
+
+
+
+
+
+    public List<Property> parseAllProps()throws XmlReaderException{
+        //BuildingPrices might be empty list so don't check that
+        String errorCheck = errorChecker.checkTagName(List.of(PROPERTY_TAG, PROPERTY_NAME_TAG, COLOR_GROUP_TAG, GROUP_SIZE_TAG, BUY_PRICE_TAG, RENT_TAG));
+        if(!errorCheck.equalsIgnoreCase("VALID")){
+            throw new XmlReaderException(errorCheck + " is not a valid tag. Please check the xml config file.");
+        }
         List<Property> propsList = new ArrayList<>();
         NodeList propTypeList = doc.getElementsByTagName(PROPERTY_TAG);
         for(int i = 0; i<propTypeList.getLength(); i++){
@@ -192,8 +275,13 @@ public class ConfigReader {
                 String name = prop.getElementsByTagName(PROPERTY_NAME_TAG).item(0).getTextContent();
                 //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
                 String color = prop.getElementsByTagName(COLOR_GROUP_TAG).item(0).getTextContent();
-                int groupSize = Integer.parseInt(prop.getElementsByTagName(GROUP_SIZE_TAG).item(0).getTextContent());
-                double buyPrice = Double.parseDouble(prop.getElementsByTagName(BUY_PRICE_TAG).item(0).getTextContent());
+                String groupSizeString = prop.getElementsByTagName(GROUP_SIZE_TAG).item(0).getTextContent();
+                String buyPriceString = prop.getElementsByTagName(BUY_PRICE_TAG).item(0).getTextContent();
+                if(!errorChecker.checkValuesAreNumbers(List.of(groupSizeString, buyPriceString))){
+                    throw getXmlReadNumberException(GROUP_SIZE_TAG + " and/or " + BUY_PRICE_TAG);
+                }
+                int groupSize = Integer.parseInt(groupSizeString);
+                double buyPrice = Double.parseDouble(buyPriceString);
 
                 //get all rent numbers
                 ArrayList<Double> rentNumbers = new ArrayList<>();
@@ -205,8 +293,13 @@ public class ConfigReader {
 
                 for(int x=1; x<rentNums.getLength(); x=x+2){
                     Node currRentNum = rentNums.item(x);
-                    Double rentVal = Double.parseDouble(currRentNum.getTextContent());
-                    rentNumbers.add(rentVal);
+                    if(errorChecker.checkValuesAreNumbers(currRentNum.getTextContent())){
+                        Double rentVal = Double.parseDouble(currRentNum.getTextContent());
+                        rentNumbers.add(rentVal);
+                    }
+                    else{
+                        throw getXmlReadNumberException(RENT_TAG + " Children");
+                    }
                 }
 
                 //get all building numbers
@@ -217,9 +310,20 @@ public class ConfigReader {
                 for(int x=1; x<priceNums.getLength(); x=x+2){
                     Node currPriceNum = priceNums.item(x);
                     Element c = (Element) currPriceNum;
-                    BuildingType bType = (BuildingType.valueOf(c.getAttribute(TYPE_TAG)));
-                    double priceVal = Double.parseDouble(currPriceNum.getTextContent());
-                    BuildingPrices.put(bType, priceVal);
+                    String buildingType = c.getAttribute(TYPE_TAG);
+                    if(errorChecker.checkBuildingType(buildingType)){
+                        BuildingType bType = (BuildingType.valueOf(c.getAttribute(TYPE_TAG)));
+                        if(errorChecker.checkValuesAreNumbers(currPriceNum.getTextContent())){
+                            double priceVal = Double.parseDouble(currPriceNum.getTextContent());
+                            BuildingPrices.put(bType, priceVal);
+                        }
+                        else{
+                            throw getXmlReadNumberException(BUILDING_PRICES_TAG);
+                        }
+                    }
+                    else{
+                        throw getXmlReaderException(buildingType);
+                    }
                 }
 
                 String className = prop.getAttribute(TYPE_TAG);
@@ -238,30 +342,47 @@ public class ConfigReader {
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException(className + " was not a valid class name... please check the data file's Property 'type' attributes to ensure they match the class names");
+                    //e.printStackTrace();
                 }
             }
         }
         return propsList;
     }
 
-    public List<AbstractSpace> parseNewSpaces(List<Property> propsList){
+    public List<AbstractSpace> parseNewSpaces(List<Property> propsList) throws XmlReaderException{
+        String errorString = errorChecker.checkTagName(List.of(SPACE_TAG, INDEX_TAG, SPACE_GROUP_TAG, SPACE_NAME_TAG, EXTRA_STRINGS_TAG, EXTRA_DOUBLES_TAG));
+        if(!errorString.equalsIgnoreCase("VALID")){
+            throw getXmlReaderException(errorString);
+        }
         List<AbstractSpace> allSpaces = new ArrayList<>();
-
         NodeList spaceList = doc.getElementsByTagName(SPACE_TAG);
+        if(!errorChecker.checkBoardSizeAndSpaces(BoardSize, spaceList.getLength())){
+            throw new XmlReaderException("Board Size and Number of Spaces listed in the xml config file to not match.");
+        }
+        
         for(int i = 0; i < spaceList.getLength(); i++) {
             Node s = spaceList.item(i);
             if (s.getNodeType() == Node.ELEMENT_NODE) {
                 Element space = (Element) s;
-                int index = Integer.parseInt(space.getElementsByTagName(INDEX_TAG).item(0).getTextContent());
+                String dexString = space.getElementsByTagName(INDEX_TAG).item(0).getTextContent();
+                if(!errorChecker.checkValuesAreNumbers(dexString)){
+                    throw getXmlReadNumberException(INDEX_TAG);
+                }
+                int index = Integer.parseInt(dexString);
                 String spaceGroupString = space.getElementsByTagName(SPACE_GROUP_TAG).item(0).getTextContent().strip();
+                if(!errorChecker.checkSpaceGroup(spaceGroupString)){
+                    throw new XmlReaderException(spaceGroupString + " is not a valid SpaceGroup enum. Please check the config file");
+                }
+                SpaceGroup sg = SpaceGroup.valueOf(spaceGroupString);
                 String spaceName = space.getElementsByTagName(SPACE_NAME_TAG).item(0).getTextContent().strip();
                 String extraString = space.getElementsByTagName(EXTRA_STRINGS_TAG).item(0).getTextContent().strip();
                 String[] extraDubTemp = space.getElementsByTagName(EXTRA_DOUBLES_TAG).item(0).getTextContent().split(",");
-
+                //Help check if values in EXTRA_DOUBLES_TAG are numbers separated by a comma
+                helpCheckDoublesTag(List.of(extraDubTemp));
                 List<Double> extraDubs = listDoubleConverter(extraDubTemp);
 
-                Property myProp = findLinkedProperty(propsList, spaceName);
+                Property myProp = findLinkedProperty(propsList, spaceName, sg);
 
                 String className = space.getAttribute(TYPE_TAG);
 
@@ -280,7 +401,7 @@ public class ConfigReader {
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException(className + " was not a valid class name... please check the data file's Space 'type' attributes to ensure they match the class names");
                 }
 
             }
@@ -288,20 +409,23 @@ public class ConfigReader {
         return allSpaces;
     }
 
-    private Property findLinkedProperty(List<Property> allProperties, String name){
-        HashMap<String, Property> allPropsAndNames = new HashMap<>();
+    private Property findLinkedProperty(List<Property> allProperties, String name, SpaceGroup sg) throws XmlReaderException{
+        Map<String, Property> allPropsAndNames = new HashMap<>();
         for(Property prop:allProperties){
             allPropsAndNames.put(prop.getName(), prop);
         }
-        if(allPropsAndNames.containsKey(name)){
-            return allPropsAndNames.get(name);
+        if(sg != SpaceGroup.RAILROAD && sg != SpaceGroup.UTILITY && sg != SpaceGroup.COLOR){
+            return null;
+        }
+        else if(errorChecker.checkLinkedProperty(allPropsAndNames, name) != null){
+            return errorChecker.checkLinkedProperty(allPropsAndNames, name);
         }
         else{
-            return null;
+            throw new XmlReaderException(name + " does not match a property name, check for typos in xml between space names and property names.");
         }
     }
 
-    public List<List> parseSpaces(){
+    public List<List> parseSpaces() throws XmlReaderException{
         List<List> allSpacesAndProps = new ArrayList<>();
         List<Property> allProps = parseAllProps();
         List<AbstractSpace> allSpaces = parseNewSpaces(allProps);
@@ -315,49 +439,63 @@ public class ConfigReader {
 
 
     public List<String> parseTokens() throws XmlReaderException {
-        List<String> allTokens = new ArrayList<>();
+        if(errorChecker.checkTagName(TOKEN_TAG)){
+            List<String> allTokens = new ArrayList<>();
 
-        NodeList tokenList = doc.getElementsByTagName(TOKEN_TAG);
-        for(int i = 0; i<tokenList.getLength(); i++) {
-            Node tk = tokenList.item(i);
-            if (tk.getNodeType() == Node.ELEMENT_NODE) {
-                Element tok = (Element) tk;
-                String tokName = tok.getTextContent();
-                allTokens.add(tokName);
+            NodeList tokenList = doc.getElementsByTagName(TOKEN_TAG);
+            for(int i = 0; i<tokenList.getLength(); i++) {
+                Node tk = tokenList.item(i);
+                if (tk.getNodeType() == Node.ELEMENT_NODE) {
+                    Element tok = (Element) tk;
+                    String tokName = tok.getTextContent();
+                    allTokens.add(tokName);
+                }
             }
-        }
-        if(!allTokens.isEmpty()){
-//            System.out.println(allTokens);
             return allTokens;
         }
         else{
-            throw new XmlReaderException("BadTag");
+            throw getXmlReaderException(TOKEN_TAG);
         }
     }
 
-    public double getRuleDouble(String attribute) {
-        NodeList list = doc.getElementsByTagName(attribute);
-        Node node = list.item(0);
-        if(node.getNodeType() == Node.ELEMENT_NODE) {
-            Element element = (Element) node;
-            String stringValue = element.getTextContent();
-            return Double.parseDouble(stringValue);
+    public double getRuleDouble(String attribute) throws XmlReaderException{
+        if(errorChecker.checkTagName(attribute)){
+            NodeList list = doc.getElementsByTagName(attribute);
+            Node node = list.item(0);
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String stringValue = element.getTextContent();
+                if(errorChecker.checkValuesAreNumbers(stringValue)){
+                    return Double.parseDouble(stringValue);
+                }
+                else{
+                    throw getXmlReadNumberException(attribute);
+                }
+            }
+            return -1;
         }
-        return -1;
+        else{
+            throw getXmlReaderException(attribute);
+        }
     }
 
-    public boolean getRuleBool(String attribute){
-        NodeList list = doc.getElementsByTagName(attribute);
-        Node node = list.item(0);
-        if(node.getNodeType() == Node.ELEMENT_NODE) {
-            Element element = (Element) node;
-            String stringValue = element.getTextContent();
-            return Boolean.parseBoolean(stringValue);
+    public boolean getRuleBool(String attribute) throws XmlReaderException{
+        if(errorChecker.checkTagName(attribute)){
+            NodeList list = doc.getElementsByTagName(attribute);
+            Node node = list.item(0);
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String stringValue = element.getTextContent();
+                return Boolean.parseBoolean(stringValue);
+            }
+            return false;
         }
-        return false;
+        else{
+            throw getXmlReaderException(attribute);
+        }
     }
 
-    public List<Map<BuildingType, Integer>> getBuildingProperties() {
+    public List<Map<BuildingType, Integer>> getBuildingProperties() throws XmlReaderException{
         List<Map<BuildingType, Integer>> buildingProperties = new ArrayList<>();
         Map<BuildingType, Integer> buildingTotalAmount = new TreeMap<>();
         Map<BuildingType, Integer> buildingMaxAmount = new TreeMap<>();
@@ -368,11 +506,18 @@ public class ConfigReader {
             Node bL = buildingList.item(x);
             if (bL.getNodeType() == Node.ELEMENT_NODE) {
                 Element building = (Element) bL;
-                BuildingType bType = BuildingType.valueOf(building.getAttribute("type"));
-                int total = Integer.parseInt(building.getElementsByTagName(TOTAL_AMOUNT_TAG).item(0).getTextContent());
-                buildingTotalAmount.put(bType, total);
-                int max = Integer.parseInt(building.getElementsByTagName(MAX_AMOUNT_TAG).item(0).getTextContent());
-                buildingMaxAmount.put(bType, max);
+                BuildingType bType = BuildingType.valueOf(building.getAttribute(TYPE_TAG));
+                String totalString = building.getElementsByTagName(TOTAL_AMOUNT_TAG).item(0).getTextContent();
+                String maxString = building.getElementsByTagName(MAX_AMOUNT_TAG).item(0).getTextContent();
+                if(errorChecker.checkValuesAreNumbers(List.of(totalString, maxString))){
+                    int total = Integer.parseInt(totalString);
+                    buildingTotalAmount.put(bType, total);
+                    int max = Integer.parseInt(maxString);
+                    buildingMaxAmount.put(bType, max);
+                }
+                else{
+                    throw getXmlReadNumberException(TOTAL_AMOUNT_TAG + " and/or " + MAX_AMOUNT_TAG);
+                }
             }
         }
 
@@ -382,7 +527,12 @@ public class ConfigReader {
     }
 
     //Helper method converts list of strings to list of doubles for parsing
-    private List<Double> listDoubleConverter(String[] stringList){
+    private List<Double> listDoubleConverter(String[] stringList) throws XmlReaderException{
+        for(String s: stringList){
+            if(!errorChecker.checkValuesAreNumbers(s)){
+                throw new XmlReaderException(s + " - not a valid inputs.  Must be number value, not character or string");
+            }
+        }
         List<Double> doubleList = new ArrayList<>();
         for(String n:stringList){
             doubleList.add(Double.parseDouble(n));
@@ -390,37 +540,31 @@ public class ConfigReader {
         return doubleList;
     }
 
-    //Helper method to check if deck type found is a legal deck type enum -- for error handling
-    private boolean checkDeckType(String deckName){
-        for(DeckType dtype : DeckType.values()) {
-            if (dtype.name().equalsIgnoreCase(deckName)) {
+    //Helper method for checking EXTRA_DOUBLES check
+    private void helpCheckDoublesTag(List<String> args) throws XmlReaderException{
+        if(errorChecker.checkValuesAreNumbers(args)){
+            return;
+        }
+        else{
+            throw getXmlReadNumberException(EXTRA_DOUBLES_TAG);
+        }
+    }
+
+    private boolean checkFileExists(String filename){
+        File[] files = new File("data").listFiles();
+        for(File file : files){
+            if(file.isFile() && file.getName().equals(filename)){
+                //System.out.println(file.getName());
                 return true;
             }
         }
         return false;
     }
 
-    //Helper method to check if building type found is a legal building type enum -- for error handling
-    private boolean checkBuildingType(String buildingType){
-        for(BuildingType btype : BuildingType.values()) {
-            if (btype.name().equalsIgnoreCase(buildingType)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    //Helper method to check if tag name being searched for is in the xml documnet -- for error handling
-    private boolean checkTagName(String tagName){
-        NodeList listCheck = doc.getElementsByTagName(tagName);
-        System.out.println(listCheck.getLength());
-        //If length == 0, return false because tagName not in xml
-        return (listCheck.getLength() != 0);
-    }
 
     public static void main(String[] args) {
-        ConfigReader c = new ConfigReader("Junior_Config.xml");
         try{
+            ConfigReader c = new ConfigReader("Junior_Config.xml");
             c.parseSpaces();
             c.parseActionCards();
             c.parseActionDecks();

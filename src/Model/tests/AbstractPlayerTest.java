@@ -11,7 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractPlayerTest {
 
-    ConfigReader cr = new ConfigReader("Normal_Config_Old.xml");
+    ConfigReader cr;
+
+    {
+        try {
+            cr = new ConfigReader("Normal_Config_Old.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
+    }
+
     AbstractPlayer p1;
     AbstractPlayer p2;
     int boardSize;

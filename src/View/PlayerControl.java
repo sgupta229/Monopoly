@@ -4,7 +4,6 @@ import Controller.Controller;
 import Model.AbstractPlayer;
 import Model.properties.Property;
 import View.PopUps.BuildOrSellPopup;
-import View.PopUps.TradePopup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
