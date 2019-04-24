@@ -8,14 +8,14 @@ import javafx.scene.layout.Pane;
 
 public class RightPropertyDisplay extends PropertyDisplay {
 
-    public RightPropertyDisplay(String propName,String propPrice, String propColor,String baseColor){
-        super(propName,propPrice,propColor,baseColor);
-        myPropStackPane.getChildren().addAll(createPropColor(Board.BOARD_HEIGHT/13,Board.BOARD_HEIGHT/13), createText());
+    public RightPropertyDisplay(String propName,String propPrice, String propColor,String baseColor, int boardHeight){
+        super(propName,propPrice,propColor,baseColor, boardHeight);
+        myPropStackPane.getChildren().addAll(createPropColor(myBoardHeight/myBoardDimen,myBoardHeight/myBoardDimen), createText());
     }
 
-    public RightPropertyDisplay(String baseColor, String image) {
-        super(baseColor, image);
-        myPropStackPane.getChildren().addAll(createImagePane(Board.BOARD_HEIGHT/13,Board.BOARD_HEIGHT/13));
+    public RightPropertyDisplay(String baseColor, String image, int boardHeight) {
+        super(baseColor, image, boardHeight);
+        myPropStackPane.getChildren().addAll(createImagePane(myBoardHeight/myBoardDimen,myBoardHeight/myBoardDimen));
     }
 
     @Override

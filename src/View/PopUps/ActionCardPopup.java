@@ -31,7 +31,7 @@ public class ActionCardPopup extends Popup {
         super();
         this.propLocation = propLocation;
         this.myController = controller;
-        this.myText = super.getMessages();
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
         BoardConfigReader indexToName = new BoardConfigReader(myController.getGame());
         spaces = indexToName.getSpaces();
         for (AbstractSpace sp : spaces){

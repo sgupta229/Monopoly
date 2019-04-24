@@ -176,6 +176,9 @@ public class Bank implements Transfer, Serializable {
                 }
             }
         }
+        if(property.getIsMortgaged()){
+            return false;
+        }
         if(!propertyOwnedBy(property).checkMonopoly(property)){
             return false;
         }

@@ -33,7 +33,7 @@ public class CornerPopup extends Popup {
         this.myController = controller;
         BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         spaces = spaceInfo.getSpaces();
-        this.myText = super.getMessages();
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
         for (AbstractSpace sp : spaces) {
             if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;

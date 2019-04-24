@@ -9,6 +9,11 @@
         <BoardSize>40</BoardSize>
         <Dimension>11</Dimension>
     </Board>
+    <OtherFiles>
+        <IndexToCoord>IndexToCoordinate</IndexToCoord>
+        <Display>classicBoardDisplay</Display>
+        <PopUpText>PopUpText</PopUpText>
+    </OtherFiles>
     <!--Space type; index; name-->
     <!--Properties - property, name, colorgroup, group size, buyprice, rent-->
     <Properties>
