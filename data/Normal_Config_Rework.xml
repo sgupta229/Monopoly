@@ -880,14 +880,14 @@
             <DeckType>CHANCE</DeckType>
             <Message>GO TO JAIL. GO DIRECTLY TO JAIL. DO NOT PASS GO, DO NOT COLLECT $200</Message>
             <Holdable>False</Holdable>
-            <ExtraString>NA</ExtraString>
+            <ExtraString>JAIL</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
         <ActionCardType type="GoToJailAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>GO TO JAIL. GO DIRECTLY TO JAIL. DO NOT PASS GO, DO NOT COLLECT $200</Message>
             <Holdable>False</Holdable>
-            <ExtraString>NA</ExtraString>
+            <ExtraString>JAIL</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
         <ActionCardType type="GetOutJailAC">
