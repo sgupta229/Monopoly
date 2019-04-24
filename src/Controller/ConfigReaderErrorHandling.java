@@ -100,14 +100,4 @@ public class ConfigReaderErrorHandling {
     public boolean checkBoardSizeAndSpaces(int boardSize, int spaces){
         return (boardSize == spaces);
     }
-
-    public boolean checkTokenExists(String tokenName){
-        File[] files = new File("data").listFiles();
-        for(File file : files){
-            if(file.getName().equals(tokenName) && file.getName().toLowerCase().endsWith(".png")){
-                return true;
-            }
-        }
-        return false;
-    }
 }

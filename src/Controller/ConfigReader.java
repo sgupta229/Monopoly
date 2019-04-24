@@ -66,7 +66,7 @@ public class ConfigReader {
     //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
     public ConfigReader(String filename) throws XmlReaderException{
         //File inputFile = new File(filename);
-        if(checkFileExists(filename)){
+        if(checkFileExists(filename, ".xml")){
             try {
                 File inputFile = new File(this.getClass().getClassLoader().getResource(filename).toURI());
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -446,7 +446,7 @@ public class ConfigReader {
                 if (tk.getNodeType() == Node.ELEMENT_NODE) {
                     Element tok = (Element) tk;
                     String tokName = tok.getTextContent();
-                    if(errorChecker.checkTokenExists(tokName)){
+                    if(checkFileExists(tokName, ".png")){
                         allTokens.add(tokName);
                     }
                     else{
@@ -553,10 +553,10 @@ public class ConfigReader {
         }
     }
 
-    private boolean checkFileExists(String filename){
+    public boolean checkFileExists(String fileName, String fileEnding){
         File[] files = new File("data").listFiles();
         for(File file : files){
-            if(file.getName().equals(filename) && file.getName().toLowerCase().endsWith(".xml")){
+            if(file.getName().equals(fileName) && file.getName().toLowerCase().endsWith(fileEnding.toLowerCase())){
                 return true;
             }
         }
@@ -570,11 +570,6 @@ public class ConfigReader {
             c.parseSpaces();
             c.parseActionCards();
             c.parseActionDecks();
-            /*c.parseBank();
-            c.parseBoard();
-            c.parseDice();
-            c.parseTokens();
-            c.getBuildingProperties();*/
         }
         catch(XmlReaderException e){
         }
