@@ -17,12 +17,14 @@ public class TaxSpace extends AbstractSpace {
     private Transfer taxReceiver;
     private final int TAKE_FIXED_AMOUNT=0;
     private final int TAKE_PERCENTAGE=1;
+    private static final String myPopString = "Tax";
 
     public TaxSpace(int locationIndex, String spaceName, String spaceGroup,
                     String jumpToSpace, List<Double> taxNums, Property myProp){
         super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
         flatRate = taxNums.get(0);
         percentageTaken = taxNums.get(1)/100;
+        setPopString(myPopString);
         //taxReceiver = myTaxReceiver;
         //assuming that tax goes to the bank
     }
@@ -51,7 +53,13 @@ public class TaxSpace extends AbstractSpace {
      */
     public void doAction(AbstractGame game, int userChoice){
         double amountTaxed;
-        taxReceiver = game.getBank();
+        if(game.getFreeParkingRule()){
+            taxReceiver = game.getFreeParking();
+        }
+        else{
+            taxReceiver = game.getBank();
+        }
+
         AbstractPlayer currentPlayer = game.getCurrPlayer();
         double playersWealth = currentPlayer.getFunds();
         if(userChoice==TAKE_FIXED_AMOUNT){
@@ -61,6 +69,10 @@ public class TaxSpace extends AbstractSpace {
             amountTaxed = playersWealth * percentageTaken;
         }
         currentPlayer.makePayment(amountTaxed, taxReceiver);
+    }
+
+    public String getPopString(AbstractGame game){
+        return myPopString;
     }
 
 

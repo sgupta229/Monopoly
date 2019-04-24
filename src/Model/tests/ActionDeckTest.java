@@ -1,10 +1,10 @@
 package Model.tests;
 
 import Controller.ConfigReader;
+import Model.XmlReaderException;
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
 import Model.actioncards.DeckType;
-import Model.XmlTagException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,13 +13,22 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ActionDeckTest {
-    ConfigReader cr = new ConfigReader("Normal_Config_Rework.xml");
+    ConfigReader cr;
+
+    {
+        try {
+            cr = new ConfigReader("Normal_Config_Rework.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
+    }
+
     ActionDeck chanceDeck;
     ActionDeck communityChestDeck;
     List<AbstractActionCard> actionCardList;
 
     @BeforeEach
-    void setUp() throws XmlTagException {
+    void setUp() throws XmlReaderException {
         chanceDeck = new ActionDeck(DeckType.CHANCE);
         communityChestDeck = new ActionDeck(DeckType.COMMUNITY_CHEST);
         actionCardList = cr.parseActionCards();

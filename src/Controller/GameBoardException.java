@@ -1,10 +1,11 @@
 package Controller;
 
-public class GameBoardException extends IndexOutOfBoundsException{
-    public GameBoardException (int index){
-        super (index);
+public class GameBoardException extends RuntimeException{
+    public GameBoardException (String message){
+        super (message);
     }
-    public GameBoardException(String spaceName){
-        super(spaceName);
+    public GameBoardException(String message, Object values){
+        super(String.format(message, values));
     }
+
 }

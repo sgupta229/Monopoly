@@ -16,7 +16,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ActionCardSpaceTest {
-    ConfigReader conf = new ConfigReader("Normal_Config_Rework.xml");
+    ConfigReader conf;
+
+    {
+        try {
+            conf = new ConfigReader("Normal_Config_Rework.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
+    }
+
     List<AbstractActionCard> actionCardList;
     ActionDeck chanceDeck = new ActionDeck(DeckType.CHANCE);
     ActionDeck communityChestDeck = new ActionDeck(DeckType.COMMUNITY_CHEST);
@@ -25,7 +34,7 @@ public class ActionCardSpaceTest {
     ClassicPlayer player1;
 
     @BeforeEach
-    void setUp() throws XmlTagException {
+    void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         actionCardList = conf.parseActionCards();
         spaceList = conf.parseSpaces().get(0);

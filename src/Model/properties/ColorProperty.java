@@ -3,7 +3,6 @@ package Model.properties;
 import Model.AbstractPlayer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +24,7 @@ public abstract class ColorProperty extends Property {
             //pricePerHouse = paymentInformation.get(6);
             //pricePerHotel = paymentInformation.get(7);
             setMortgageAmount(paymentInformationCopy.get(paymentInformationCopy.size()-1));
-            rentNumbers = paymentInformationCopy.subList(0, paymentInformationCopy.size()-1);
+            rentNumbers = new ArrayList<>(paymentInformationCopy.subList(0, paymentInformationCopy.size()-1));
 
     }
 
@@ -47,7 +46,7 @@ public abstract class ColorProperty extends Property {
 
     public abstract void addBuilding(BuildingType building);
 
-    public abstract void removeBuilding(BuildingType building);
+    public abstract void removeBuilding(BuildingType building, int amount);
 
     public abstract int getNumBuilding(BuildingType building);
 }

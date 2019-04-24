@@ -4,7 +4,7 @@ import Controller.ClassicGame;
 import Controller.ConfigReader;
 import Model.Bank;
 import Model.ClassicPlayer;
-import Model.XmlTagException;
+import Model.XmlReaderException;
 import Model.properties.BuildingType;
 import Model.properties.Property;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ClassicColorPropertyTest {
 
-    ConfigReader conf = new ConfigReader("Normal_Config_Rework.xml");
+    ConfigReader conf;
+
+    {
+        try {
+            conf = new ConfigReader("Normal_Config_Rework.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
+    }
+
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
@@ -25,7 +34,7 @@ class ClassicColorPropertyTest {
     int lastDiceRoll;
 
     @BeforeEach
-    void setUp() throws XmlTagException {
+    void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         propsList = conf.parseSpaces().get(1);
         player1 = new ClassicPlayer();
@@ -115,7 +124,7 @@ class ClassicColorPropertyTest {
         player1.addProperty(lightBlueProp3);
         lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
         lightBlueProp2.addBuilding(BuildingType.valueOf("HOUSE"));
-        lightBlueProp2.removeBuilding(BuildingType.valueOf("HOUSE"));
+        lightBlueProp2.removeBuilding(BuildingType.valueOf("HOUSE"), 1);
         var actualNumHouses = lightBlueProp2.getNumBuilding(BuildingType.valueOf("HOUSE"));
         var expectedNumHouses = 1;
         assertEquals(expectedNumHouses, actualNumHouses);

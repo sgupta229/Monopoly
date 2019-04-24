@@ -36,17 +36,17 @@ public class AddPlayersScreen {
     private double myHeight;
     private Group myRoot;
     private Controller myController;
-    private ObservableList<AbstractPlayer> myPlayers;
-    private ObservableList<String> availableTokens;
+    transient private ObservableList<AbstractPlayer> myPlayers;
+    transient private ObservableList<String> availableTokens;
     private AnchorPane anchorPane = new AnchorPane();
 
     private ComboBox myIconMenu;
     private TextField myPlayerNameField;
 
-    public AddPlayersScreen(double width, double height, String style, Controller controller, ObservableList<AbstractPlayer> players, ObservableList<String> tokens) {
+    public AddPlayersScreen(double width, double height, String style, Controller controller, ObservableList<AbstractPlayer> players) {
         this.myController = controller;
         this.myPlayers = players;
-        this.availableTokens = tokens;
+        this.availableTokens = FXCollections.observableList(myController.getGame().getPossibleTokens());
         this.myWidth = width;
         this.myHeight = height;
         this.myRoot = new Group();
@@ -130,6 +130,7 @@ public class AddPlayersScreen {
         icon.setButtonCell(new ImageListCell());
         icon.setCellFactory(listView -> new ImageListCell());
         icon.setPrefSize(100,60);
+        if(availableTokens.size()>=1) icon.setPromptText(availableTokens.get(0));
         return icon;
     }
 
@@ -173,6 +174,7 @@ public class AddPlayersScreen {
             String name = myPlayerNameField.getText();
             myPlayerNameField.clear();
             String icon = (String) myIconMenu.getValue();
+            if (icon == null || name==null) return;
             myController.addPlayer(name,icon);
             System.out.println("added player");
             //remove icon from observablelist

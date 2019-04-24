@@ -1,12 +1,9 @@
 package Model.Tests;
 
-import Controller.AbstractGame;
-import Controller.ClassicGame;
 import Controller.ConfigReader;
-import Controller.Token;
 import Model.AbstractPlayer;
 import Model.ClassicPlayer;
-import Model.XmlTagException;
+import Model.XmlReaderException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,13 +11,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractPlayerTest {
 
-    ConfigReader cr = new ConfigReader("Normal_Config_Old.xml");
+    ConfigReader cr;
+
+    {
+        try {
+            cr = new ConfigReader("Normal_Config_Old.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
+    }
+
     AbstractPlayer p1;
     AbstractPlayer p2;
     int boardSize;
 
     @BeforeEach
-    void setup() throws XmlTagException {
+    void setup() throws XmlReaderException {
         boardSize = cr.parseBoard();
 
         p1 = new ClassicPlayer();

@@ -6,10 +6,12 @@ import Model.actioncards.ActionDeck;
 import Model.properties.BuildingType;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
+import Model.spaces.SpaceGroup;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+
 import java.util.*;
 
 public abstract class AbstractGame implements Serializable {
@@ -24,6 +26,7 @@ public abstract class AbstractGame implements Serializable {
     private double jailBail;
     private double passGo;
     private AbstractActionCard currentActionCard;
+    private double snakeEyes;
 
     private List<AbstractPlayer> players;
     private Bank bank;
@@ -35,21 +38,25 @@ public abstract class AbstractGame implements Serializable {
     private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     private List<String> possibleTokens;
-    private int numRollsInJail = 0;
+    private List frontEndFiles = new ArrayList();
+    private double bankFunds;
     private int rollsInJailRule;
     private boolean evenBuildingRule;
     private boolean freeParkingRule;
-
-    public AbstractGame(String filename) {
+    private boolean landOnGoMult;
+    private Transfer freeParking = new FreeParkingFunds();
+    private int lastDiceRoll = 0;
+    
+    public AbstractGame(String filename) throws XmlReaderException {
         parseXMLFile(filename);
         for(int i = 0; i < dice.size(); i++) {
             diceHistory.put(i, new ArrayList<>());
         }
     }
 
-    private void parseXMLFile(String filename) {
-        ConfigReader configReader = new ConfigReader(filename);
+    private void parseXMLFile(String filename) throws XmlReaderException {
         try {
+            ConfigReader configReader = new ConfigReader(filename);
             decks = configReader.parseActionDecks();
             List<AbstractActionCard> allCards = configReader.parseActionCards();
             for(ActionDeck d : decks) {
@@ -58,7 +65,7 @@ public abstract class AbstractGame implements Serializable {
             possibleTokens = configReader.parseTokens();
             dice = configReader.parseDice();
             List<Double> funds = configReader.parseBank();
-
+            bankFunds = funds.get(0);
             boardSize = configReader.parseBoard();
             List<List> spaceProps= configReader.parseSpaces();
             spaces = spaceProps.get(0);
@@ -68,16 +75,18 @@ public abstract class AbstractGame implements Serializable {
             //Map<BuildingType, Integer> buildingMaxAmount = buildingInfo.get(1);
             bank = new Bank(funds, properties, buildingInfo);
             board = new Board(boardSize, spaceProps.get(0));
-
+            frontEndFiles = configReader.parseOtherFiles();
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
             evenBuildingRule = configReader.getRuleBool("EvenBuilding");
             freeParkingRule = configReader.getRuleBool("FreeParking");
             rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
+            snakeEyes = configReader.getRuleDouble("SnakeEyes");
+
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (XmlReaderException e) {
+            throw new XmlReaderException(e.getMessage() + ": Check data file " + filename);
         }
     }
 
@@ -135,12 +144,16 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public List<Integer> rollDice() {
+        int val = 0;
         List<Integer> rolls = new ArrayList<>();
         for(int i = 0; i < dice.size(); i++) {
             int roll = dice.get(i).rollDie();
             rolls.add(roll);
+            val += roll;
             diceHistory.get(i).add(roll);
         }
+        lastDiceRoll = val;
+
         return rolls;
     }
 
@@ -155,6 +168,7 @@ public abstract class AbstractGame implements Serializable {
     public void startNextTurn() {
         int index = players.indexOf(this.getLeftPlayer());
         setCurrPlayer(index);
+        //clearDiceHistory();
     }
 
     public boolean checkDoubles() {
@@ -168,6 +182,17 @@ public abstract class AbstractGame implements Serializable {
             }
         }
         return true;
+    }
+
+    public boolean checkNeedToPayBail() {
+        System.out.println(currPlayer.getNumRollsInJail());
+        if(!(checkDoubles())) {
+            if(currPlayer.getNumRollsInJail() == getRollsInJailRule()) {
+                currPlayer.resetNumRollsInJail();
+                return true;
+            }
+        }
+        return false;
     }
 
     public abstract boolean checkDoublesForJail();
@@ -212,7 +237,10 @@ public abstract class AbstractGame implements Serializable {
         if(oldIndex != currPlayer.getCurrentLocation()) {
             throw new IllegalArgumentException("The old index provided is not correct");
         }
-        checkPassGo(oldIndex, newIndex);
+        SpaceGroup prevSpace = board.getSpaceAt(oldIndex).getMyGroup();
+        if(prevSpace != SpaceGroup.ACTION && prevSpace != SpaceGroup.GO_TO_JAIL){
+            checkPassGo(oldIndex, newIndex);
+        }
         currPlayer.moveTo(newIndex);
         AbstractSpace oldSpace = getBoard().getSpaceAt(oldIndex);
         oldSpace.removeOccupant(getCurrPlayer());
@@ -222,7 +250,35 @@ public abstract class AbstractGame implements Serializable {
 
     public void checkPassGo(int oldIndex, int newIndex) {
         if(newIndex < oldIndex) {
-            getCurrPlayer().addFunds(getPassGo());
+            bank.makePayment(passGo, currPlayer);
+        }
+    }
+
+    public void checkSnakeEyes(List<Integer> diceRoll) {
+        for(Integer i : diceRoll) {
+            if(i != 1) {
+                return;
+            }
+        }
+        bank.makePayment(snakeEyes, currPlayer);
+    }
+
+    public void handleMoveInJail(int oldIndex, int newIndex) {
+        if(!currPlayer.isInJail()) {
+            this.movePlayer(oldIndex, newIndex);
+        }
+
+        else {
+            currPlayer.incrementNumRollsinJail();
+            if(checkDoubles()) {
+                this.movePlayer(oldIndex, newIndex);
+                currPlayer.setJail(false);
+                currPlayer.resetNumRollsInJail();
+            }
+            else if(currPlayer.getNumRollsInJail() == getRollsInJailRule()){
+                this.movePlayer(oldIndex, newIndex);
+                currPlayer.setJail(false);
+            }
         }
     }
 
@@ -237,50 +293,73 @@ public abstract class AbstractGame implements Serializable {
         return diceHistory;
     }
 
-    public void startAuction() {
+    public Property handleAuction(AbstractPlayer p, int bid, int propLocation) {        //TODO change method return type back to void, figure out how to get property in AuctionPopUp
+        Property prop = board.getSpaceAt(propLocation).getMyProp();
+        bank.setPropertyOwner(prop, p);
+        p.makePayment(bid, bank);
+        p.addProperty(prop);
+        System.out.println(bank.propertyOwnedBy(prop).getName());
 
+        return prop;
+/*        AbstractPlayer maxPlayer = null;
+        double maxBid = 0;
+        for(AbstractPlayer p : bidMap.keySet()){
+            if(bidMap.get(p) > maxBid){
+                maxBid = bidMap.get(p);
+                maxPlayer = p;
+            }
+        }
+        if(maxBid > 0 && maxPlayer!=null){
+            bank.setPropertyOwner(prop, maxPlayer);
+            maxPlayer.makePayment(maxBid, bank);
+        }*/
     }
 
     public void clearDiceHistory() {
         diceHistory = new HashMap<>();
+        for(int i = 0; i < dice.size(); i++) {
+            diceHistory.put(i, new ArrayList<>());
+        }
     }
 
     public int getLastDiceRoll() {
-        int value = 0;
-        for(int i = 0; i < dice.size(); i++) {
-            ArrayList<Integer> rollList = diceHistory.get(i);
-            if(rollList.size() == 0) {
-                throw new IllegalArgumentException("The dice has not been rolled");
-            }
-            else {
-                value += rollList.get(rollList.size() - 1);
-            }
-        }
-        return value;
+        return lastDiceRoll;
     }
 
     //Getters and setters for rules to be changed by user
+
     public boolean getEvenBuildingRule(){
         return evenBuildingRule;
     }
+
     public void setEvenBuildingRule(boolean bool){
+        bank.setEvenBuildingRule(bool);
         this.evenBuildingRule = bool;
     }
+
     public boolean getFreeParkingRule(){
         return freeParkingRule;
     }
+
     public void setFreeParkingRule(boolean bool){
         this.freeParkingRule = bool;
     }
+
+    public void setLandOnGoMult(boolean bool){this.landOnGoMult=bool;}
+    public boolean getLandOnGoMult(){return landOnGoMult;}
+
     public int getRollsInJailRule() {
         return rollsInJailRule;
     }
+
     public void setRollsInJailRule(int rollsInJailRule) {
         this.rollsInJailRule = rollsInJailRule;
     }
+
     public double getStartFunds() {
         return startFunds;
     }
+
     public void setStartFunds(double startFunds) {
         this.startFunds = startFunds;
     }
@@ -305,5 +384,49 @@ public abstract class AbstractGame implements Serializable {
         this.name = name;
     }
 
+    public Transfer getFreeParking(){
+        return freeParking;
+    }
 
+    public double getBankFunds(){
+        return bankFunds;
+    }
+
+    public void setBankFunds(double amount){
+        bank.setFunds(amount);
+    }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public List<AbstractSpace> getSpaces() {
+        return spaces;
+    }
+
+    public void forfeitHandler(AbstractPlayer playerOut){
+        this.players.remove(playerOut);
+        List<Property> propSet = playerOut.getProperties();
+        Set<BuildingType> bTypes = bank.getTotalBuildingMap().keySet();
+        for(Property p : propSet){
+            for(BuildingType bt : bTypes){
+                bank.setTotalBuildingMap(bt, p.getNumBuilding(bt));
+                //p.removeBuilding(bt, p.getNumBuilding(bt));
+            }
+            bank.sellBackProperty(p, this);
+        }
+        playerOut.makePayment(playerOut.getFunds(), bank);
+    }
+
+    public void setSnakeEyes(double d) {
+        snakeEyes = d;
+    }
+
+    public double getSnakeEyes() {
+        return snakeEyes;
+    }
+
+    public List getFrontEndFiles() {
+        return frontEndFiles;
+    }
 }

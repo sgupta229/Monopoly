@@ -10,18 +10,20 @@ import javafx.scene.text.Text;
 
 public abstract class SpaceDisplay {
 
-    protected String myBaseColor;
+    private String myBaseColor;
     protected String myImage;
-    protected Rectangle myRectangle;
-    protected StackPane myPropertyStackPane;
-    protected Pane myImagePane;
+    private Rectangle myRectangle;
+    private StackPane myPropertyStackPane;
+    private Pane myImagePane;
+    private int myBoardHeight;
 
 
-    public SpaceDisplay(String baseColor,String image) {
+    public SpaceDisplay(String baseColor,String image,int boardDimen, int boardHeight) {
         this.myBaseColor = baseColor;
         this.myImage = image;
         myPropertyStackPane = new StackPane();
-        myPropertyStackPane.getChildren().addAll(createProp(Board.BOARD_HEIGHT/13,Board.BOARD_HEIGHT/13));
+        this.myBoardHeight = boardHeight;
+        myPropertyStackPane.getChildren().addAll(createProp(myBoardHeight/boardDimen,myBoardHeight/boardDimen));
 
     }
 

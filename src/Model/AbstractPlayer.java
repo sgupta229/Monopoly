@@ -3,31 +3,35 @@ package Model;
 import Model.properties.Property;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.BuildingType;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public abstract class AbstractPlayer implements Transfer, Serializable {
-    private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
 
+    transient private PropertyChangeSupport myPCS = new PropertyChangeSupport(this);
     private String name;
     private String tokenImage;
     private int numRollsInJail = 0;
     private boolean inJail;
     private double funds;
-    private ObservableList<Property> properties;
-    private List<AbstractActionCard> actionCards;
+    transient private ObservableList<Property> properties;
+    transient private ObservableList<AbstractActionCard> actionCards;
     private int currentLocation;
 
 
     public AbstractPlayer() {
         this.inJail = false;
         properties = FXCollections.observableArrayList();
-        actionCards = new ArrayList<>();
+        actionCards = FXCollections.observableArrayList();
     }
 
     public AbstractPlayer(String name, String image) {
@@ -37,13 +41,14 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
     public void addProperty(Property property) {
-        properties.add(property);
+        if(!properties.contains(property)){
+            properties.add(property);
+        }
     }
 
     public void removeProperty(Property property) {
         properties.remove(property);
     }
-
 
     @Override
     public void makePayment(double amount, Transfer receiver) {
@@ -51,6 +56,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
             throw new IllegalArgumentException("Not enough money to pay");
         }
         setFunds(this.funds - amount);
+        System.out.println("receiveer is going to get this amount: " + amount);
         receiver.receivePayment(amount);
     }
 
@@ -68,6 +74,9 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
                 count++;
             }
         }
+        System.out.println("I own :" + count + "props");
+        System.out.println("And my group has :" + groupSize + "props");
+
         if(count == groupSize) {
             return true;
         }
@@ -144,21 +153,21 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         myPCS.addPropertyChangeListener(propertyName,listener);
     }
 
-    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-        myPCS.removePropertyChangeListener(propertyName,listener);
-    }
-
-    public int getPropertiesOfType(String type) {
-        int count = 0;
+    public List<Property> getPropertiesOfType(String type) {
         String checkType = type.toLowerCase();
+        List<Property> propsList = new ArrayList<>();
         for(Property p : properties) {
-            System.out.println(p.getGroup());
+            //System.out.println(p.getGroup());
             if(p.getGroup().toLowerCase().equals(checkType)) {
-                count++;
+                propsList.add(p);
             }
         }
-        return count;
+        return propsList;
     }
+
+
+
+
 
     public ObservableList<Property> getProperties() {
         return properties;

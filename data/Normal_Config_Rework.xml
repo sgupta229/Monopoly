@@ -9,6 +9,11 @@
         <BoardSize>40</BoardSize>
         <Dimension>11</Dimension>
     </Board>
+    <OtherFiles>
+        <IndexToCoord>IndexToCoordinate</IndexToCoord>
+        <Display>classicBoardDisplay</Display>
+        <PopUpText>PopUpText</PopUpText>
+    </OtherFiles>
     <!--Space type; index; name-->
     <!--Properties - property, name, colorgroup, group size, buyprice, rent-->
     <Properties>
@@ -526,7 +531,7 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>1</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>MEDITERRANEAN_AVE</SpaceName>
@@ -540,7 +545,7 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>3</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>BALTIC_AVE</SpaceName>
@@ -554,14 +559,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>200,10</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>5</Index>
             <SpaceGroup>RAILROAD</SpaceGroup>
             <SpaceName>READING_RAILROAD</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>6</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>ORIENTAL_AVE</SpaceName>
@@ -575,14 +580,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>8</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>VERMONT_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>9</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>CONNECTICUT_AVE</SpaceName>
@@ -596,42 +601,42 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>11</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>ST._CHARLES_PLACE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>12</Index>
             <SpaceGroup>UTILITY</SpaceGroup>
             <SpaceName>ELECTRIC_COMPANY</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>13</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>STATES_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>14</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>VIRGINIA_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>15</Index>
             <SpaceGroup>RAILROAD</SpaceGroup>
             <SpaceName>PENNSYLVANIA_RAILROAD</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>16</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>ST._JAMES_PLACE</SpaceName>
@@ -645,14 +650,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>18</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>TENNESSEE_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>19</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>NEW_YORK_AVE</SpaceName>
@@ -666,7 +671,7 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>21</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>KENTUCKY_AVE</SpaceName>
@@ -680,49 +685,49 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>23</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>INDIANA_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>24</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>ILLINOIS_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>25</Index>
             <SpaceGroup>RAILROAD</SpaceGroup>
             <SpaceName>B._&amp;_O._RAILROAD</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>26</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>ATLANTIC_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>27</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>VENTNOR_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>28</Index>
             <SpaceGroup>UTILITY</SpaceGroup>
             <SpaceName>WATER_WORKS</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>29</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>MARVIN_GARDENS</SpaceName>
@@ -736,14 +741,14 @@
             <ExtraString>JAIL</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>31</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>PACIFIC_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>32</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>CAROLINA_AVE</SpaceName>
@@ -757,14 +762,14 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>34</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>PENNSYLVANIA_AVE</SpaceName>
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>35</Index>
             <SpaceGroup>RAILROAD</SpaceGroup>
             <SpaceName>SHORT_LINE_RAILROAD</SpaceName>
@@ -778,7 +783,7 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>37</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>PARK_PLACE</SpaceName>
@@ -792,7 +797,7 @@
             <ExtraString>NA</ExtraString>
             <ExtraDoubles>200,10</ExtraDoubles>
         </Space>
-        <Space type="PropSpace">
+        <Space type="ClassicPropSpace">
             <Index>39</Index>
             <SpaceGroup>COLOR</SpaceGroup>
             <SpaceName>BOARDWALK</SpaceName>
@@ -837,7 +842,7 @@
         <ActionCardType type="MoveToNearestAC">
             <DeckType>CHANCE</DeckType>
             <Message>ADVANCE TOKEN TO NEAREST UTILITY. IF UNOWNED, YOU MAY BUY IT FROM THE BANK.
-                IF OWNED, THROW DICE AND PAY OWNER 10 TIMES THE AMOUNT THROWN</Message>
+                IF OWNED, PAY THE OWNER HIS/HER RENT.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>UTILITY</ExtraString>
             <ExtraDoubles>200</ExtraDoubles>
@@ -1042,16 +1047,16 @@
     </ActionCards>
     <Bank>
         <BankFunds>10000000</BankFunds>
-        <Houses>50</Houses>
-        <Hotels>25</Hotels>
+        <Houses>32</Houses>
+        <Hotels>12</Hotels>
     </Bank>
     <Buildings>
         <BuildingType type="HOUSE">
-            <TotalAmount>50</TotalAmount>
+            <TotalAmount>32</TotalAmount>
             <MaxAmount>4</MaxAmount>
         </BuildingType>
         <BuildingType type="HOTEL">
-            <TotalAmount>25</TotalAmount>
+            <TotalAmount>12</TotalAmount>
             <MaxAmount>1</MaxAmount>
         </BuildingType>
     </Buildings>
@@ -1066,12 +1071,13 @@
         <Token>wheelbarrow.png</Token>
     </Tokens>
     <Rules>
-        <StartFunds>2500</StartFunds>
+        <StartFunds>1500</StartFunds>
         <JailBail>50</JailBail>
         <PassGo>200</PassGo>
         <MaxHouses>4</MaxHouses>
         <EvenBuilding>false</EvenBuilding>
         <FreeParking>false</FreeParking>
         <RollsInJail>3</RollsInJail>
+        <SnakeEyes>0</SnakeEyes>
     </Rules>
 </Game>

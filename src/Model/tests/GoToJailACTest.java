@@ -4,6 +4,7 @@ import Controller.AbstractGame;
 import Controller.ClassicGame;
 import Model.AbstractPlayer;
 import Model.ClassicPlayer;
+import Model.XmlReaderException;
 import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
 import Model.actioncards.DeckType;
@@ -25,7 +26,11 @@ class GoToJailACTest {
     void setUp(){
         p1 = new ClassicPlayer();
         p2 = new ClassicPlayer();
-        game = new ClassicGame("Normal_Config_Rework.xml");
+        try {
+            game = new ClassicGame("Normal_Config_Rework.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
         game.setPlayers(List.of(p1, p2));
         game.setCurrPlayer(1);
 

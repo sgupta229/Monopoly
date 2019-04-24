@@ -16,7 +16,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class BankTest {
-    ConfigReader conf = new ConfigReader("Normal_Config_Rework.xml");
+    ConfigReader conf;
+
+    {
+        try {
+            conf = new ConfigReader("Normal_Config_Rework.xml");
+        } catch (XmlReaderException e) {
+            e.printStackTrace();
+        }
+    }
+
     ClassicGame gameClass;
     ClassicPlayer player1;
     ClassicPlayer player2;
@@ -31,7 +40,7 @@ class BankTest {
 
 
     @BeforeEach
-    void setUp() throws XmlTagException {
+    void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         spaceList = conf.parseSpaces().get(0);
         propsList = conf.parseSpaces().get(1);

@@ -1,6 +1,5 @@
 package View.SpaceDisplay;
 
-import Controller.Controller;
 import View.Board;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,29 +16,37 @@ import javafx.scene.text.TextAlignment;
 
 public abstract class PropertyDisplay {
 
-    protected Pane myPropertyPane;
+    private Pane myPropertyPane;
     protected Pane myPropStackPane;
-    protected Pane myImagePane;
+    private Pane myImagePane;
 
-    protected String myPropName;
-    protected String myPropPrice;
-    protected String myImage;
-    protected String myPropColor;
-    protected String myBaseColor;
+    private String myPropName;
+    private String myPropPrice;
+    private String myImage;
+    private String myPropColor;
+    private String myBaseColor;
+    private HBox propColor;
     protected Rectangle myRectangle;
+    protected int myBoardDimen;
+    protected int myBoardHeight;
 
-    public PropertyDisplay(String propName, String propPrice, String propColor, String baseColor){
+    public PropertyDisplay(String propName, String propPrice, String propColor, String baseColor, int boardHeight){
         this.myPropName = propName;
         this.myPropPrice = propPrice;
         this.myPropColor = propColor;
         this.myBaseColor = baseColor;
         myPropertyPane = new Pane();
+        this.myBoardDimen = 11;
+        this.myBoardHeight = boardHeight;
+
         myPropStackPane = new StackPane();
     }
 
-    public PropertyDisplay(String baseColor, String image){
+    public PropertyDisplay(String baseColor, String image, int boardHeight){
         this.myBaseColor = baseColor;
         this.myImage = image;
+        this.myBoardDimen = 11;
+        this.myBoardHeight = boardHeight;
         myPropertyPane = new Pane();
         myPropStackPane = new StackPane();
     }
@@ -56,11 +63,11 @@ public abstract class PropertyDisplay {
     public Pane createText(){
         FlowPane textPane = new FlowPane();
         Text t = new Text(myPropName);
-        t.setWrappingWidth(Board.BOARD_HEIGHT/13);
+        t.setWrappingWidth(myBoardHeight/myBoardDimen);
         t.setTextAlignment(TextAlignment.CENTER);
         Text priceProp = new Text("$"+myPropPrice);
         textPane.setId("propText");
-        textPane.setPrefWrapLength(Board.BOARD_HEIGHT/13);
+        textPane.setPrefWrapLength(myBoardHeight/myBoardDimen);
         textPane.setAlignment(Pos.CENTER);
         textLocation(textPane);
         textPane.setVgap(10);
@@ -75,7 +82,7 @@ public abstract class PropertyDisplay {
             myPropertyPane.getChildren().addAll(myRectangle);
         }
         else{
-            HBox propColor = new HBox();
+            propColor = new HBox();
             propColorLocation(propColor);
             propColor.setId("propColor");
             propColor.setStyle(  " -fx-background-color:" + myPropColor);
@@ -104,4 +111,7 @@ public abstract class PropertyDisplay {
 
     public Pane getMyPropStackPane(){ return myPropStackPane; }
 
+    public String getMyPropColor() {
+        return myPropColor;
+    }
 }

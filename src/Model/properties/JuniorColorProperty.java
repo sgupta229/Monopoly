@@ -30,7 +30,7 @@ public class JuniorColorProperty extends ColorProperty {
 
     public List getInfo(){
         ArrayList ret = new ArrayList();
-        ret.addAll(Arrays.asList(myColor, this.getPrice()));
+        ret.addAll(Arrays.asList(getColor(), this.getPrice()));
         ret.add(getRentNumbers().get(0));
         ret.add(this.getMortgageAmount());
         ret.add(this.getName());
@@ -53,11 +53,16 @@ public class JuniorColorProperty extends ColorProperty {
      */
     @Override
     public double calculateRent(AbstractPlayer propOwner, int lastDiceRoll){
+        double rentNums;
         if(this.getIsMortgaged()){
-            return 0.0;
+            return  0.0;
         }
         else{
-            return getRentNumbers().get(0);
+            rentNums = getRentNumbers().get(0);
+            if(propOwner.checkMonopoly(this)){
+                rentNums = rentNums*2;
+            }
+            return rentNums;
         }
     }
 
@@ -65,7 +70,7 @@ public class JuniorColorProperty extends ColorProperty {
 
     }
 
-    public void removeBuilding(BuildingType building){
+    public void removeBuilding(BuildingType building, int amount){
 
     }
 

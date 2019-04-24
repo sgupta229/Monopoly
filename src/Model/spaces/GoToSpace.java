@@ -13,11 +13,13 @@ public class GoToSpace extends AbstractSpace {
 
     private String spaceToMoveTo;
     private int spacesLocation;
+    private static final String myPopString = "Corner";
 
     public GoToSpace(int locationIndex, String spaceName, String spaceGroup,
                      String jumpToSpace, List<Double> taxNums, Property myProp){
         super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
         spaceToMoveTo = jumpToSpace;
+        setPopString(myPopString);
     }
 
     public GoToSpace(int locationIndex, String spaceName, String jumpToSpace){
@@ -51,5 +53,9 @@ public class GoToSpace extends AbstractSpace {
         if(spaceToMoveTo.equalsIgnoreCase("JAIL")){
             game.getCurrPlayer().setJail(true);
         }
+    }
+
+    public String getPopString(AbstractGame game){
+        return myPopString;
     }
 }

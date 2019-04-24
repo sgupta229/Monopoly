@@ -1,7 +1,8 @@
 package View;
 
-import Controller.Controller;
 import Controller.AbstractGame;
+import Controller.Controller;
+import Controller.ConfigReader;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import util.NumberSpinner;
 
 import java.io.File;
+import java.util.ResourceBundle;
 
 public class RulesPopup {
     private AbstractGame myGame;
@@ -21,13 +23,19 @@ public class RulesPopup {
     private VBox myLayout;
     private ToggleGroup buildingToggle;
     private ToggleGroup freeParkingToggle;
+    private ToggleGroup landOnGoBonus;
+    private NumberSpinner snakeEyesMoney;
     private NumberSpinner jailRolls;
     private NumberSpinner startFunds;
     private NumberSpinner jailBail;
     private NumberSpinner passGo;
+    private NumberSpinner bankFunds;
     private Button applyButton;
 
+    private ResourceBundle messages;
+
     public RulesPopup(AbstractGame game){
+        messages = ResourceBundle.getBundle("Messages");
         myGame = game;
     }
 
@@ -36,30 +44,41 @@ public class RulesPopup {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Edit Rules");
 
-        myLayout = new VBox(10);
-        buildingToggle = makeToggleGroup("YES","NO");
-        freeParkingToggle = makeToggleGroup("YES","NO");
-        jailRolls = new NumberSpinner(3,1);
-        startFunds = new NumberSpinner(500,100);
-        jailBail = new NumberSpinner(800,100);
-        passGo = new NumberSpinner(200,50);
+        setUpLayout();
 
-        applyButton = new Button("Apply");
-        applyButton.setOnAction(new ApplyButtonHandler());
-
-        myLayout.getChildren().addAll(makeRuleView("Have to build evenly",makeToggleBox(buildingToggle)),
-                makeRuleView("Get Money on Free Parking",makeToggleBox(freeParkingToggle)),
-                makeRuleView("Number of rolls to get out of jail",jailRolls),
-                makeRuleView("Starting Balance",startFunds),
-                makeRuleView("Bail jail amount",jailBail),
-                makeRuleView("Amount when passing GO",passGo),
-                applyButton);
-
-        Scene scene1= new Scene(myLayout, Controller.WIDTH/2, Controller.HEIGHT* 0.8);
+        Scene scene1= new Scene(myLayout, Controller.WIDTH/2, Controller.HEIGHT);
         scene1.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
 
         window.setScene(scene1);
         window.showAndWait();
+    }
+
+    private void setUpLayout(){
+        myLayout = new VBox(10);
+
+        buildingToggle = makeToggleGroup("YES","NO");
+        freeParkingToggle = makeToggleGroup("YES","NO");
+        landOnGoBonus = makeToggleGroup("YES","NO");
+        snakeEyesMoney = new NumberSpinner((int)myGame.getSnakeEyes(),1);
+        jailRolls = new NumberSpinner(myGame.getRollsInJailRule(),1);
+        startFunds = new NumberSpinner((int)myGame.getStartFunds(),100);    //TODO is it okay to cast to int
+        jailBail = new NumberSpinner((int)myGame.getJailBail(),50);
+        passGo = new NumberSpinner((int)myGame.getPassGo(),50);
+        bankFunds = new NumberSpinner((int)myGame.getBankFunds(),500);
+
+        applyButton = new Button("Apply");
+        applyButton.setOnAction(new ApplyButtonHandler());
+
+        myLayout.getChildren().addAll(makeRuleView(messages.getString("buildingRule"),makeToggleBox(buildingToggle)),
+                makeRuleView(messages.getString("freeParkingRule"),makeToggleBox(freeParkingToggle)),
+                makeRuleView(messages.getString("landOnGo"),makeToggleBox(landOnGoBonus)),
+                makeRuleView(messages.getString("jailRollsRule"),jailRolls),
+                makeRuleView(messages.getString("startingFundsRule"),startFunds),
+                makeRuleView(messages.getString("jailBailRule"),jailBail),
+                makeRuleView(messages.getString("passGoRule"),passGo),
+                makeRuleView(messages.getString("bankFundsRule"),bankFunds),
+                makeRuleView(messages.getString("snakeEyesRule"),snakeEyesMoney),
+                applyButton);
     }
 
     private VBox makeRuleView(String rule, Node buttons){
@@ -92,21 +111,31 @@ public class RulesPopup {
         public void handle(ActionEvent event) {
             String buildingChoiceString = ((ToggleButton)buildingToggle.getSelectedToggle()).getText();
             String freeParkingChoiceString = ((ToggleButton)freeParkingToggle.getSelectedToggle()).getText();
+            String landOnGoChoiceString = ((ToggleButton)landOnGoBonus.getSelectedToggle()).getText();
+
             boolean buildingChoice = false;
             boolean freeParkingChoice = false;
+            boolean landOnGoChoice = false;
             if (buildingChoiceString.equalsIgnoreCase("yes")) buildingChoice = true;
             if (freeParkingChoiceString.equalsIgnoreCase("yes")) freeParkingChoice = true;
+            if (landOnGoChoiceString.equalsIgnoreCase("yes")) landOnGoChoice = true;
+
             int jailRollsChoice = jailRolls.getNumber();
             int startFundsChoice = startFunds.getNumber();
             int jailBailChoice = jailBail.getNumber();
             int passGoChoice = passGo.getNumber();
+            int bankFundsChoice = bankFunds.getNumber();
+            int snakeEyesChoice = snakeEyesMoney.getNumber();
 
             myGame.setEvenBuildingRule(buildingChoice);
             myGame.setFreeParkingRule(freeParkingChoice);
+            myGame.setLandOnGoMult(landOnGoChoice);
             myGame.setRollsInJailRule(jailRollsChoice);
             myGame.setStartFunds(startFundsChoice);
             myGame.setJailBail(jailBailChoice);
             myGame.setPassGo(passGoChoice);
+            myGame.setBankFunds(bankFundsChoice);
+            myGame.setSnakeEyes(snakeEyesChoice);
 
             window.close();
         }

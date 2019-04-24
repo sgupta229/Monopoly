@@ -32,11 +32,12 @@ public class MoveToOpenAC extends AbstractActionCard {
             Property p = tempSpace.getMyProp();
 
             if(p!=null && myTargetSpaces.contains(p.getColor())){
-                System.out.println("HERE");
+                //System.out.println("HERE");
                 //property is unowned -- move here and get property for free (junior monopoly only)
                 if(game.getBank().getUnOwnedProps().contains(p)){
                     game.movePlayer(prevLocation, i);
                     game.getBank().setPropertyOwner(p,curr);
+                    p.setIsOwned(true);
                     d.discardCard(this);
                     return;
                 }

@@ -2,6 +2,8 @@ package Model.spaces;
 import Controller.*;
 import Model.AbstractPlayer;
 import Model.properties.Property;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.*;
@@ -15,9 +17,10 @@ import java.util.*;
 public abstract class AbstractSpace implements Serializable {
     private int myLocation;
     private String myName;
-    List<AbstractPlayer> myOccupants = new ArrayList<>();
+    transient ObservableList<AbstractPlayer> myOccupants = FXCollections.observableArrayList();
     private SpaceGroup myGroup;
     private Property myProp;
+    private String myPopString;
 
     public AbstractSpace(int locationIndex, String spaceName, String spaceGroup,
     String jumpToSpace, List<Double> taxNums, Property prop){
@@ -45,7 +48,7 @@ public abstract class AbstractSpace implements Serializable {
      * Getter method that gets all the players on the given space
      * @return the list of Occupants
      */
-    public List<AbstractPlayer> getOccupants(){
+    public ObservableList<AbstractPlayer> getOccupants(){
         return myOccupants;
     }
 
@@ -107,4 +110,12 @@ public abstract class AbstractSpace implements Serializable {
             myOccupants.remove(occupantToRemove);
         }
     }
+
+    public abstract  String getPopString(AbstractGame game);
+
+    protected void setPopString(String popupString){
+        myPopString = popupString;
+    }
+
+    //public abstract PopUps generatePopUp();
 }

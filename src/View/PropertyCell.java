@@ -53,10 +53,7 @@
 //}
 package View;
 
-import Model.properties.ClassicColorProperty;
 import Model.properties.Property;
-import Model.properties.RailRoadProperty;
-import Model.properties.UtilityProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -99,6 +96,10 @@ public class PropertyCell extends ListCell<Property> {
             color.setWidth(60);
             System.out.println(item.getColor());
             color.setFill(Paint.valueOf(item.getColor()));
+
+            if (item.getIsMortgaged()==true){
+                myHBox.setDisable(true);
+            }
             setGraphic(myHBox);
         }
     }

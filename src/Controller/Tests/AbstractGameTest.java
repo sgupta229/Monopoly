@@ -3,6 +3,7 @@ package Controller.Tests;
 import Controller.*;
 import Model.AbstractPlayer;
 import Model.ClassicPlayer;
+import Model.XmlReaderException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ class AbstractGameTest {
     ClassicPlayer p4;
 
     @BeforeEach
-    void setup() {
+    void setup() throws XmlReaderException {
         game = new ClassicGame("Normal_Config_Rework.xml");
         p1 = new ClassicPlayer();
         p1.setName("Sahil");
@@ -96,7 +97,7 @@ class AbstractGameTest {
         game.getDiceHistory().get(0).add(1);
         game.getDiceHistory().get(1).add(1);
         game.getDiceHistory().get(0).add(1);
-        boolean actual = game.checkThreeDoublesInRow();
+        boolean actual = game.checkDoublesForJail();
         boolean expected = true;
         assertEquals(actual, expected);
     }
@@ -120,10 +121,13 @@ class AbstractGameTest {
 
     @Test
     void getLastDiceRoll() {
-        game.getDiceHistory().get(0).add(2);
-        game.getDiceHistory().get(1).add(3);
+        List<Integer> rolls = game.rollDice();
+        int val = 0;
+        for(int i = 0; i < rolls.size(); i++) {
+            val += rolls.get(i);
+        }
         int actual = game.getLastDiceRoll();
-        int expected = 5;
+        int expected = val;
         assertEquals(actual, expected);
     }
 

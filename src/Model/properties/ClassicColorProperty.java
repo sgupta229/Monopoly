@@ -9,9 +9,7 @@ import java.util.Map;
 
 public class ClassicColorProperty extends ColorProperty {
 
-    //private int numHouse;
     private int numHotel;
-    //private List<Double> rentNumbers;
     private static final int INFO_NUM = 7;
     private static final int SIX = 6;
     private static final int HOTEL_RENT_INDEX = 5;
@@ -34,7 +32,7 @@ public class ClassicColorProperty extends ColorProperty {
 
     public List getInfo(){
         ArrayList ret = new ArrayList();
-        ret.addAll(Arrays.asList(myColor, this.getPrice()));
+        ret.addAll(Arrays.asList(getColor(), this.getPrice()));
         for(double num:getRentNumbers()){
             ret.add(num);
         }
@@ -80,13 +78,13 @@ public class ClassicColorProperty extends ColorProperty {
             getBuildingMap().put(building, 0);
         }
         getBuildingMap().put(building, getBuildingMap().get(building)+1);
-        System.out.println(building );
+        System.out.println(building);
         System.out.println(getBuildingMap().get(building));
     }
 
-    public void removeBuilding(BuildingType building){
+    public void removeBuilding(BuildingType building, int amount){
         if(getBuildingMap().get(building)>0){
-            getBuildingMap().put(building, getBuildingMap().get(building)-1);
+            getBuildingMap().put(building, getBuildingMap().get(building)-amount);
         }
     }
 
