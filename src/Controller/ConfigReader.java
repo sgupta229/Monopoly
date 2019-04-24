@@ -1,7 +1,9 @@
 package Controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -9,6 +11,7 @@ import java.util.TreeMap;
 import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
 
 import Model.*;
 
@@ -21,6 +24,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import static javax.xml.datatype.DatatypeFactory.newInstance;
 
@@ -56,8 +60,6 @@ public class ConfigReader {
     private static final String TOTAL_AMOUNT_TAG = "TotalAmount";
     private static final String MAX_AMOUNT_TAG = "MaxAmount";
 
-
-
     //private DocumentBuilder dBuilder;
     private Document doc;
     private ConfigReaderErrorHandling errorChecker;
@@ -75,8 +77,15 @@ public class ConfigReader {
                 errorChecker = new ConfigReaderErrorHandling(doc);
                 //errorChecker.checkFileExists(filename);
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            catch (ParserConfigurationException e) {
+                throw new XmlReaderException(e.getMessage());
+            }
+            catch(IOException e) {
+                throw new XmlReaderException(e.getMessage());
+            } catch (URISyntaxException e) {
+                throw new XmlReaderException(e.getMessage());
+            } catch (SAXException e) {
+                throw new XmlReaderException(e.getMessage());
             }
         }
         else{
