@@ -84,6 +84,7 @@ public class Controller {
                 alert.setContentText(msg);
                 alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 alert.showAndWait();
+                System.exit(0);
             }
             gameStyle = fileToStylesheetString(new File("data/GUI.css"));
             availableTokens = FXCollections.observableList(myGame.getPossibleTokens());
