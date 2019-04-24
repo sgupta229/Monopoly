@@ -1,4 +1,4 @@
-package Model.tests;
+package Model.Tests;
 
 import Controller.ClassicGame;
 import Controller.ConfigReader;
@@ -87,7 +87,7 @@ class BankTest {
     public void makePaymentNormal() {
         double payAmount = 10;
         double newBal = startBalance-payAmount;
-        gameBank.makePayment(payAmount, player1);
+        gameBank.makePayment(gameBank, payAmount, player1);
         assertEquals(gameBank.getBankBalance(), newBal);
         assertEquals(payAmount, player1.getFunds());
     }
@@ -96,7 +96,7 @@ class BankTest {
     public void makePaymentMoreThanBankHas() {
         double payAmount = startBalance*2;
         double newBal = 0;
-        gameBank.makePayment(payAmount, player1);
+        gameBank.makePayment(gameBank, payAmount, player1);
         assertEquals(gameBank.getBankBalance(), newBal);
         assertEquals(startBalance, player1.getFunds());
     }

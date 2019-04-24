@@ -36,7 +36,7 @@ public class GoSpace extends AbstractSpace {
     public void doAction(AbstractGame game, int userChoice){
         if(game.getLandOnGoMult()){
             double goAmount = game.getPassGo();
-            game.getBank().makePayment(goAmount, game.getCurrPlayer());
+            game.getBank().makePayment(game.getBank(), goAmount, game.getCurrPlayer());
         }
     }
 

@@ -250,7 +250,7 @@ public abstract class AbstractGame implements Serializable {
 
     public void checkPassGo(int oldIndex, int newIndex) {
         if(newIndex < oldIndex) {
-            bank.makePayment(passGo, currPlayer);
+            bank.makePayment(bank, passGo, currPlayer);
         }
     }
 
@@ -260,7 +260,7 @@ public abstract class AbstractGame implements Serializable {
                 return;
             }
         }
-        bank.makePayment(snakeEyes, currPlayer);
+        bank.makePayment(bank, snakeEyes, currPlayer);
     }
 
     public void handleMoveInJail(int oldIndex, int newIndex) {
@@ -296,7 +296,7 @@ public abstract class AbstractGame implements Serializable {
     public Property handleAuction(AbstractPlayer p, int bid, int propLocation) {        //TODO change method return type back to void, figure out how to get property in AuctionPopUp
         Property prop = board.getSpaceAt(propLocation).getMyProp();
         bank.setPropertyOwner(prop, p);
-        p.makePayment(bid, bank);
+        p.makePayment(bank, bid, bank);
         p.addProperty(prop);
         System.out.println(bank.propertyOwnedBy(prop).getName());
 
@@ -415,7 +415,7 @@ public abstract class AbstractGame implements Serializable {
             }
             bank.sellBackProperty(p, this);
         }
-        playerOut.makePayment(playerOut.getFunds(), bank);
+        playerOut.makePayment(bank, playerOut.getFunds(), bank);
     }
 
     public void setSnakeEyes(double d) {
