@@ -68,6 +68,7 @@ public class RulesPopup {
 
         applyButton = new Button("Apply");
         applyButton.setOnAction(new ApplyButtonHandler());
+
         myLayout.getChildren().addAll(makeRuleView(messages.getString("buildingRule"),makeToggleBox(buildingToggle)),
                 makeRuleView(messages.getString("freeParkingRule"),makeToggleBox(freeParkingToggle)),
                 makeRuleView(messages.getString("landOnGo"),makeToggleBox(landOnGoBonus)),

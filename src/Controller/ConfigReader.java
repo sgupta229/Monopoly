@@ -100,6 +100,14 @@ public class ConfigReader {
         }
     }
 
+    public List<String> parseOtherFiles() throws XmlReaderException {
+        List<String> frontEndFiles = new ArrayList<>();
+        frontEndFiles.add(doc.getElementsByTagName("IndexToCoord").item(0).getTextContent());
+        frontEndFiles.add(doc.getElementsByTagName("Display").item(0).getTextContent());
+        frontEndFiles.add(doc.getElementsByTagName("PopUpText").item(0).getTextContent());
+        return frontEndFiles;
+    }
+
     public List<Double> parseBank() throws XmlReaderException {
         if(errorChecker.checkTagName(BANK_FUNDS_TAG)){
             List<Double> bankInfo = new ArrayList<>();

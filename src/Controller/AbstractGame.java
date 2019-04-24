@@ -38,6 +38,7 @@ public abstract class AbstractGame implements Serializable {
     private List<ActionDeck> decks;
     private HashMap<Integer, ArrayList<Integer>> diceHistory = new HashMap<>();
     private List<String> possibleTokens;
+    private List frontEndFiles = new ArrayList();
     private double bankFunds;
     private int rollsInJailRule;
     private boolean evenBuildingRule;
@@ -74,7 +75,7 @@ public abstract class AbstractGame implements Serializable {
             //Map<BuildingType, Integer> buildingMaxAmount = buildingInfo.get(1);
             bank = new Bank(funds, properties, buildingInfo);
             board = new Board(boardSize, spaceProps.get(0));
-
+            frontEndFiles = configReader.parseOtherFiles();
             startFunds = configReader.getRuleDouble("StartFunds");
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
@@ -82,6 +83,7 @@ public abstract class AbstractGame implements Serializable {
             freeParkingRule = configReader.getRuleBool("FreeParking");
             rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
             snakeEyes = configReader.getRuleDouble("SnakeEyes");
+
         }
         catch (XmlReaderException e) {
             throw new XmlReaderException(e.getMessage() + ": Check data file " + filename);
@@ -421,5 +423,9 @@ public abstract class AbstractGame implements Serializable {
 
     public double getSnakeEyes() {
         return snakeEyes;
+    }
+
+    public List getFrontEndFiles() {
+        return frontEndFiles;
     }
 }

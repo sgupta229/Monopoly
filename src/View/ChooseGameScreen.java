@@ -90,7 +90,7 @@ public class ChooseGameScreen {
         myFlowPane.setPrefWrapLength(Controller.WIDTH);
         myFlowPane.setId("flowPane");
 
-        gameTypeButtons = new ArrayList<>(Arrays.asList("classic", "mega", "junior", "starWars"));
+        gameTypeButtons = new ArrayList<>(Arrays.asList("classic", "tropical", "junior"));
 
         for (String type : gameTypeButtons) {
             myFlowPane.getChildren().add(createButton(type));

@@ -76,6 +76,12 @@ public class Controller {
         if(myGameType.equalsIgnoreCase("classic")){
             try{
                 myGame = new ClassicGame("Normal_Config_Rework.xml");
+//                myGame = new ClassicGame("House_Rules_Config.xml");
+
+//            } catch (XmlReaderException e) {
+//                //Give popup with exception message displayed;
+//                e.getMessage();
+//                e.printStackTrace();
             }catch(XmlReaderException e){
                 String msg = e.getMessage();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
