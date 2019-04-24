@@ -214,13 +214,13 @@ public class ConfigReader {
                             AbstractActionCard newAC = (AbstractActionCard) Class.forName(ACTION_CARD_PATH + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
                             allActionCards.add(newAC);
                         } catch (InstantiationException e) {
-                            e.printStackTrace();
+                            throw new XmlReaderException("Instantiation error");
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         } catch (InvocationTargetException e) {
                             e.printStackTrace();
                         } catch (NoSuchMethodException e) {
-                            e.printStackTrace();
+                            throw new XmlReaderException("Method reflection not found");
                         } catch (ClassNotFoundException e) {
                             throw new XmlReaderException(className + " was not a valid class name... please check the data file's ActionCard 'type' attributes to ensure they match the class names");
                             //e.printStackTrace();
@@ -333,13 +333,13 @@ public class ConfigReader {
                     propsList.add(newProp);
                     newProp.setIsMortgaged(false);
                 } catch (InstantiationException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException("Instantiation error");
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException("Method reflection not found");
                 } catch (ClassNotFoundException e) {
                     throw new XmlReaderException(className + " was not a valid class name... please check the data file's Property 'type' attributes to ensure they match the class names");
                     //e.printStackTrace();
@@ -392,13 +392,13 @@ public class ConfigReader {
                     //newSpace.setMyProp(myProp);
                     allSpaces.add(newSpace);
                 } catch (InstantiationException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException("Instantiation error");
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
+                    throw new XmlReaderException("Method reflection not found");
                 } catch (ClassNotFoundException e) {
                     throw new XmlReaderException(className + " was not a valid class name... please check the data file's Space 'type' attributes to ensure they match the class names");
                 }
@@ -432,7 +432,6 @@ public class ConfigReader {
         allSpacesAndProps.add(allSpaces);
         allSpacesAndProps.add(allProps);
 
-
         return allSpacesAndProps;
     }
 
@@ -447,7 +446,12 @@ public class ConfigReader {
                 if (tk.getNodeType() == Node.ELEMENT_NODE) {
                     Element tok = (Element) tk;
                     String tokName = tok.getTextContent();
-                    allTokens.add(tokName);
+                    if(errorChecker.checkTokenExists(tokName)){
+                        allTokens.add(tokName);
+                    }
+                    else{
+                        throw new XmlReaderException(tokName + " is not a token image found in doc directory or has the incorrect suffix. Fix data file");
+                    }
                 }
             }
             return allTokens;
@@ -552,8 +556,7 @@ public class ConfigReader {
     private boolean checkFileExists(String filename){
         File[] files = new File("data").listFiles();
         for(File file : files){
-            if(file.getName().equals(filename) && file.getName().endsWith(".xml")){
-                //System.out.println(file.getName());
+            if(file.getName().equals(filename) && file.getName().toLowerCase().endsWith(".xml")){
                 return true;
             }
         }
