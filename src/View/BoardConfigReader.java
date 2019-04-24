@@ -40,6 +40,7 @@ public class BoardConfigReader {
             alert.setContentText(msg);
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
+            System.exit(0);
         }
 
         spaces = game.getSpaces();
