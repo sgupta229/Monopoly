@@ -239,8 +239,12 @@ public class Bank implements Transfer, Serializable {
         myBalance = amount;
     }
 
-    public Map<BuildingType, Integer> getTotalBuildingMap() {
-        return totalBuildingMap;
+    //public Map<BuildingType, Integer> getTotalBuildingMap() {
+      //  return totalBuildingMap;
+    //}
+
+    public List<BuildingType> getBuildingTypes(){
+        return typesOfBuildings;
     }
 
     public void setTotalBuildingMap(BuildingType bt, Integer amnt) {

@@ -422,7 +422,7 @@ public abstract class AbstractGame implements Serializable {
     public void forfeitHandler(AbstractPlayer playerOut){
         this.players.remove(playerOut);
         List<Property> propSet = playerOut.getProperties();
-        Set<BuildingType> bTypes = bank.getTotalBuildingMap().keySet();
+        List<BuildingType> bTypes = bank.getBuildingTypes();
         for(Property p : propSet){
             for(BuildingType bt : bTypes){
                 bank.setTotalBuildingMap(bt, p.getNumBuilding(bt));
