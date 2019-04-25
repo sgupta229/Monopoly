@@ -84,6 +84,7 @@ public class Board implements PropertyChangeListener {
 
         try {
             String popClass = playersSpace.getPopString(myController.getGame());
+            System.out.println(popClass);
             if(popClass!=null){
                 myPopup = (Popup) Class.forName("View.PopUps." + popClass+"Popup").getConstructor(int.class, Controller.class).newInstance(playerLocation,
                         myController);
