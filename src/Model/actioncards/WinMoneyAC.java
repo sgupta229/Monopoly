@@ -28,6 +28,10 @@ public class WinMoneyAC extends AbstractActionCard {
         amountWin = extraDoubles.get(0);
     };
 
+    /**
+     * check who is making the payment ("ALL" or "BANK") and make payment to current
+     * @param game to get bank and players
+     */
     @Override
     public void doCardAction(AbstractGame game) {
         AbstractPlayer curr = game.getCurrPlayer();

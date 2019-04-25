@@ -28,6 +28,10 @@ public class MoveToAC extends AbstractActionCard {
         passGo = extraDoubles.get(0);
     }
 
+    /**
+     * make payment if pass go, move player to specified space
+     * @param game
+     */
     @Override
     public void doCardAction(AbstractGame game) {
         AbstractPlayer curr = game.getCurrPlayer();

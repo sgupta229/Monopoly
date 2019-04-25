@@ -16,6 +16,10 @@ public class MoveToNearestAC extends AbstractActionCard {
         passGo = extraDoubles.get(0);
     };
 
+    /**
+     * Starting at my location, find nearest of specified target group and move there
+     * @param game to find spaces and players
+     */
     @Override
     public void doCardAction(AbstractGame game) {
         AbstractPlayer curr = game.getCurrPlayer();

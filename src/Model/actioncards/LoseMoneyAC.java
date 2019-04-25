@@ -35,6 +35,10 @@ public class LoseMoneyAC extends AbstractActionCard {
 
     //public LoseMoneyAC(DeckType deckType, String message, Boolean holdable, String extraString, List<Double> extraDoubles){}
 
+    /**
+     * Checks if multi pay or double pay (by house/hotel) then calls helper method
+     * @param game takes in game to find players and bank
+     */
     @Override
     public void doCardAction(AbstractGame game) {
         if(amountLose.size() == 1){
@@ -47,7 +51,8 @@ public class LoseMoneyAC extends AbstractActionCard {
         d.discardCard(this);
     }
 
-    public void singlePay(AbstractGame game){
+    //Helper method for payments of single cost (not per house/per hotel)
+    private void singlePay(AbstractGame game){
         double amnt = amountLose.get(0);
         AbstractPlayer currP = game.getCurrPlayer();
         if(loseMoneyTo.equalsIgnoreCase("bank")){
@@ -63,7 +68,7 @@ public class LoseMoneyAC extends AbstractActionCard {
     }
 
     //If paying per house/hotel -- always to bank
-    public void multiPay(AbstractGame game){
+    private void multiPay(AbstractGame game){
         AbstractPlayer currP = game.getCurrPlayer();
         double payment = 0;
         Map<BuildingType, Integer> buildingsMap = currP.getNumBuildings();

@@ -22,6 +22,11 @@ public class MoveToOpenAC extends AbstractActionCard {
         myPossibleSpaces = new ArrayList<>();
     }
 
+    /**
+     * Like move to nearest but only make move if property is unowned
+     * This is in junior monopoly only and player gets this unowned property for free
+     * @param game to get board and locations
+     */
     @Override
     public void doCardAction(AbstractGame game) {
         AbstractPlayer curr = game.getCurrPlayer();
