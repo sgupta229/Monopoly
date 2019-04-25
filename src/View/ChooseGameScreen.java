@@ -24,10 +24,7 @@ import java.util.*;
 public class ChooseGameScreen {
     private Controller myController;
 
-    private static final String LOGO_PATH = "logo.png";
-
     private Scene myScene;
-    private BorderPane myLogoPane;
     private ResourceBundle gameTypeNames;
     private ResourceBundle messages;
     private Enumeration<String> gameTypeNamesKeys;
@@ -49,7 +46,6 @@ public class ChooseGameScreen {
         myScene = new Scene(myRoot, width, height, Color.WHITE);
         myScene.getStylesheets().add(style);
 
-        createMonopolyLogo();
         addFlowPane();
         createLoadHBox();
 
@@ -105,13 +101,6 @@ public class ChooseGameScreen {
         return myFlowPane;
     }
 
-    private BorderPane createMonopolyLogo(){
-        myLogoPane = new BorderPane();
-        myLogoPane.setPrefSize(Controller.WIDTH, Controller.HEIGHT/1.5);
-        var logo = new Image(this.getClass().getClassLoader().getResourceAsStream(LOGO_PATH));
-        myLogoPane.setCenter(new ImageView(logo));
-        return myLogoPane;
-    }
 
     private void createLoadHBox(){
         loadHBox = new HBox(10);
