@@ -880,14 +880,14 @@
             <DeckType>CHANCE</DeckType>
             <Message>GO TO JAIL. GO DIRECTLY TO JAIL. DO NOT PASS GO, DO NOT COLLECT $200</Message>
             <Holdable>False</Holdable>
-            <ExtraString>NA</ExtraString>
+            <ExtraString>JAIL</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
         <ActionCardType type="GoToJailAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>GO TO JAIL. GO DIRECTLY TO JAIL. DO NOT PASS GO, DO NOT COLLECT $200</Message>
             <Holdable>False</Holdable>
-            <ExtraString>NA</ExtraString>
+            <ExtraString>JAIL</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
         <ActionCardType type="GetOutJailAC">
@@ -1080,12 +1080,4 @@
         <RollsInJail>3</RollsInJail>
         <SnakeEyes>0</SnakeEyes>
     </Rules>
-    <Files>
-        <PropertyFile>PopUpText.properties</PropertyFile>
-        <PropertyFile>Messages.properties</PropertyFile>
-        <PropertyFile>IndexToCoordinate.properties</PropertyFile>
-        <PropertyFile>GeneralInfo.properties</PropertyFile>
-        <PropertyFile>GameTypes.properties</PropertyFile>
-        <PropertyFile>classicBoardDisplay.properties</PropertyFile>
-    </Files>
 </Game>

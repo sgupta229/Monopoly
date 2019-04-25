@@ -49,7 +49,7 @@ public class ClassicPropSpace extends AbstractPropSpace {
             if (userChoice == 0) { //aka buy property
                 bank.setPropertyOwner(myProperty, currPlayer);
                 myProperty.setIsOwned(true);
-                currPlayer.makePayment(propertyPrice, bank);
+                currPlayer.makePayment(game.getBank(), propertyPrice, bank);
                 currPlayer.addProperty(myProperty); //have to update the players assets
                 //front end updates this somewhere?
             } else {
@@ -59,7 +59,7 @@ public class ClassicPropSpace extends AbstractPropSpace {
         } else { //property is owned by someone, what are the choices?
             //pay rent or...
             System.out.println("PAYING RENT");
-            currPlayer.makePayment(myProperty.calculateRent(propOwner, lastDiceRoll), propOwner);
+            currPlayer.makePayment(game.getBank(), myProperty.calculateRent(propOwner, lastDiceRoll), propOwner);
         }
         //else()
     }

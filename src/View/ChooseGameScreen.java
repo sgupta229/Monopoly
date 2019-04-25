@@ -17,10 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class ChooseGameScreen {
@@ -30,9 +27,9 @@ public class ChooseGameScreen {
 
     private Scene myScene;
     private BorderPane myLogoPane;
-    private ResourceBundle myResourceBundle;
+    private ResourceBundle gameTypeNames;
     private ResourceBundle messages;
-    private List<String> gameTypeButtons;
+    private Enumeration<String> gameTypeNamesKeys;
     private Group myRoot;
     private FlowPane myFlowPane;
     private HBox loadHBox;
@@ -43,7 +40,7 @@ public class ChooseGameScreen {
 
 
     public ChooseGameScreen(double width, double height, String style, Controller controller) {
-        myResourceBundle = ResourceBundle.getBundle("GameTypes");
+        gameTypeNames = ResourceBundle.getBundle("GameTypes");
         messages = ResourceBundle.getBundle("Messages");
         this.myRoot = new Group();
         this.myController = controller;
@@ -61,22 +58,22 @@ public class ChooseGameScreen {
     }
 
     private Button createButton(String text) {
-        Button button = new Button(myResourceBundle.getString(text));
+        Button button = new Button(text);
         button.setId("button1");
         button.setOnAction(new ButtonHandler(text));
         return button;
     }
 
     class ButtonHandler implements EventHandler<ActionEvent> {
-        private final String gameType;
+        private final String key;
 
-        ButtonHandler(String game) {
-            this.gameType = game;
+        ButtonHandler(String gameName) {
+            this.key = gameName;
         }
         @Override
         public void handle(ActionEvent event) {
-            System.out.print(gameType);
-            myController.setGame(gameType);
+            System.out.print(key);
+            myController.setGame(gameTypeNames.getString(key));
             myController.goToAddPlayersScreen();
         }
     }
@@ -90,11 +87,15 @@ public class ChooseGameScreen {
         myFlowPane.setPrefWrapLength(Controller.WIDTH);
         myFlowPane.setId("flowPane");
 
-        gameTypeButtons = new ArrayList<>(Arrays.asList("classic", "tropical", "junior"));
-
-        for (String type : gameTypeButtons) {
-            myFlowPane.getChildren().add(createButton(type));
+//        gameTypeNamesKeys = new ArrayList<>(Arrays.asList("Junior", "mega", "junior", "starWars"));
+        gameTypeNamesKeys = gameTypeNames.getKeys();
+        while (gameTypeNamesKeys.hasMoreElements()){
+            myFlowPane.getChildren().add(createButton(gameTypeNamesKeys.nextElement()));
         }
+
+//        for (String type : gameTypeNamesKeys) {
+//            myFlowPane.getChildren().add(createButton(type));
+//        }
         return myFlowPane;
     }
 

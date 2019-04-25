@@ -76,7 +76,7 @@ public class RulesPopup {
                 makeRuleView(messages.getString("startingFundsRule"),startFunds),
                 makeRuleView(messages.getString("jailBailRule"),jailBail),
                 makeRuleView(messages.getString("passGoRule"),passGo),
-                makeRuleView(messages.getString("startBankFunds"),bankFunds),
+                makeRuleView(messages.getString("bankFundsRule"),bankFunds),
                 makeRuleView(messages.getString("snakeEyesRule"),snakeEyesMoney),
                 applyButton);
     }

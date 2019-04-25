@@ -45,7 +45,7 @@ public class JuniorPropSpace extends AbstractPropSpace {
         if (propOwner == null) {
             if(currPlayer.getFunds()>myProperty.getPrice()){
                 currPlayer.addProperty(myProperty); //have to update the players assets
-                currPlayer.makePayment(propertyPrice, bank);
+                currPlayer.makePayment(game.getBank(), propertyPrice, bank);
                 bank.setPropertyOwner(myProperty, currPlayer);
                 myProperty.setIsOwned(true);
                 //front end updates this somewhere?
@@ -56,10 +56,10 @@ public class JuniorPropSpace extends AbstractPropSpace {
                 //they wont be able to make the payment, and
                 //some popup will show up saying, you dont have enough,
                 //you go bankrupt, game over, player with most money wins
-                currPlayer.makePayment(propertyPrice, bank);
+                currPlayer.makePayment(game.getBank(), propertyPrice, bank);
             }
         } else { //property is owned by someone, what are the choices?
-            currPlayer.makePayment(myProperty.calculateRent(propOwner, lastDiceRoll), propOwner);
+            currPlayer.makePayment(game.getBank(), myProperty.calculateRent(propOwner, lastDiceRoll), propOwner);
         }
         //else()
     }

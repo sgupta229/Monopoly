@@ -1,7 +1,9 @@
 package Controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -9,6 +11,7 @@ import java.util.TreeMap;
 import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
 
 import Model.*;
 
@@ -21,11 +24,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import static javax.xml.datatype.DatatypeFactory.newInstance;
 
 public class ConfigReader {
     private static final String BOARD_SIZE_TAG = "BoardSize";
+    private static final String INDEX_COORD_TAG = "IndexToCoord";
+    private static final String DISPLAY_FILE_TAG = "Display";
+    private static final String POPUP_FILE_TAG = "PopUpText";
     private static final String BANK_FUNDS_TAG = "BankFunds";
     private static final String DICE_NUMBER_TAG = "Number";
     private static final String DICE_SIDES_TAG = "Sides";
@@ -56,8 +63,6 @@ public class ConfigReader {
     private static final String TOTAL_AMOUNT_TAG = "TotalAmount";
     private static final String MAX_AMOUNT_TAG = "MaxAmount";
 
-
-
     //private DocumentBuilder dBuilder;
     private Document doc;
     private ConfigReaderErrorHandling errorChecker;
@@ -75,8 +80,15 @@ public class ConfigReader {
                 errorChecker = new ConfigReaderErrorHandling(doc);
                 //errorChecker.checkFileExists(filename);
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            catch (ParserConfigurationException e) {
+                throw new XmlReaderException(e.getMessage());
+            }
+            catch(IOException e) {
+                throw new XmlReaderException(e.getMessage());
+            } catch (URISyntaxException e) {
+                throw new XmlReaderException(e.getMessage());
+            } catch (SAXException e) {
+                throw new XmlReaderException(e.getMessage());
             }
         }
         else{
@@ -84,6 +96,11 @@ public class ConfigReader {
         }
     }
 
+    /**
+     * Get board size while checking for valid inputs
+     * @return return board size
+     * @throws XmlReaderException check valid tag name and values are numerics
+     */
     public int parseBoard() throws XmlReaderException {
         if(errorChecker.checkTagName(BOARD_SIZE_TAG)){
             String boardSize = doc.getElementsByTagName(BOARD_SIZE_TAG).item(0).getTextContent();
@@ -100,14 +117,34 @@ public class ConfigReader {
         }
     }
 
+    /**
+     * Get property files for front end use (check valid inputs)
+     * @return list of file names
+     * @throws XmlReaderException check valid tag name and file exists
+     */
     public List<String> parseOtherFiles() throws XmlReaderException {
-        List<String> frontEndFiles = new ArrayList<>();
-        frontEndFiles.add(doc.getElementsByTagName("IndexToCoord").item(0).getTextContent());
-        frontEndFiles.add(doc.getElementsByTagName("Display").item(0).getTextContent());
-        frontEndFiles.add(doc.getElementsByTagName("PopUpText").item(0).getTextContent());
-        return frontEndFiles;
+        if(errorChecker.checkTagName(List.of(INDEX_COORD_TAG, DISPLAY_FILE_TAG, POPUP_FILE_TAG)).equalsIgnoreCase("VALID")){
+            List<String> frontEndFiles = new ArrayList<>();
+            frontEndFiles.add(doc.getElementsByTagName(INDEX_COORD_TAG).item(0).getTextContent());
+            frontEndFiles.add(doc.getElementsByTagName(DISPLAY_FILE_TAG).item(0).getTextContent());
+            frontEndFiles.add(doc.getElementsByTagName(POPUP_FILE_TAG).item(0).getTextContent());
+            for(String filename: frontEndFiles){
+                if(!checkFileExists(filename + ".properties", ".properties")){
+                    throw new XmlReaderException(filename + " is not a valid file found in doc directory. Check xml config file");
+                }
+            }
+            return frontEndFiles;
+        }
+        else{
+            throw getXmlReaderException(INDEX_COORD_TAG + " and/or " + DISPLAY_FILE_TAG + " and/or " + POPUP_FILE_TAG);
+        }
     }
 
+    /**
+     * Get bank info (starting funds) while checking for valid inputs
+     * @return List of bank information
+     * @throws XmlReaderException check valid tag names and values are numerics
+     */
     public List<Double> parseBank() throws XmlReaderException {
         if(errorChecker.checkTagName(BANK_FUNDS_TAG)){
             List<Double> bankInfo = new ArrayList<>();
@@ -126,6 +163,11 @@ public class ConfigReader {
         }
     }
 
+    /**
+     * Get dice information (number of dice and number of sides) while checking for valid inputs
+     * @return list of die inormation
+     * @throws XmlReaderException check valid tag names and inputs are numerics
+     */
     public List<Die> parseDice() throws XmlReaderException {
         if(!errorChecker.checkTagName(DICE_SIDES_TAG)){
             throw getXmlReaderException(DICE_SIDES_TAG);
@@ -161,6 +203,11 @@ public class ConfigReader {
         return dice;
     }
 
+    /**
+     * Get the types of decks from xml while checking they are valid enums
+     * @return list of action decks
+     * @throws XmlReaderException check valid tag name and deck type
+     */
     public List<ActionDeck> parseActionDecks() throws XmlReaderException {
         if(!errorChecker.checkTagName(ACTION_DECK_TAG)){
             throw getXmlReaderException(ACTION_DECK_TAG);
@@ -189,7 +236,13 @@ public class ConfigReader {
         return decks;
     }
 
-//    public List<AbstractActionCard> parseActionCards() throws XmlReaderException{
+
+    /**
+     * Get list of all action cards from xml checking for valid inputs
+     * Fill action decks later on
+     * @return list of abstract action cards
+     * @throws XmlReaderException checks valid tag name; valid deck types; move to targets are valid
+     */
     public List<AbstractActionCard> parseActionCards() throws XmlReaderException {
         String errorCheck = errorChecker.checkTagName(List.of(ACTION_CARD_TAG, DECK_TYPE_TAG, MESSAGE_TAG, HOLDABLE_TAG, EXTRA_STRINGS_TAG, EXTRA_DOUBLES_TAG));
         if(errorCheck.equalsIgnoreCase("VALID")){
@@ -213,10 +266,11 @@ public class ConfigReader {
                         //Get list of doubles
                         String[] extraDubTemp = card.getElementsByTagName(EXTRA_DOUBLES_TAG).item(0).getTextContent().split(",");
                         helpCheckDoublesTag(List.of(extraDubTemp));
-
                         List<Double> extraDubs = listDoubleConverter(extraDubTemp);
-
                         String className = card.getAttribute(TYPE_TAG);
+                        if(!errorChecker.checkMoveToTargets(className, extraStrings)){
+                            throw new XmlReaderException(extraStrings + ": is not a valid target move to space group, color, or name.");
+                        }
                         //Reflection to create action cards
                         try {
                             AbstractActionCard newAC = (AbstractActionCard) Class.forName(ACTION_CARD_PATH + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
@@ -245,27 +299,6 @@ public class ConfigReader {
             throw getXmlReaderException(errorCheck);
         }
     }
-
-
-
-
-
-
-
-    //Helper to reduce duplication
-    private XmlReaderException getXmlReaderException(String errorCheck) {
-        return new XmlReaderException(errorCheck + " is not a valid tag. Please check the xml config file");
-    }
-    //Helper to reduce duplication
-    private XmlReaderException getXmlReadNumberException(String errorCheck) {
-        return new XmlReaderException(errorCheck + " is not a valid input. Value must be a number, not a string or character.");
-    }
-
-
-
-
-
-
 
     public List<Property> parseAllProps()throws XmlReaderException{
         //BuildingPrices might be empty list so don't check that
@@ -416,6 +449,7 @@ public class ConfigReader {
         return allSpaces;
     }
 
+    //Helper to find linked property; checks that no typos between links
     private Property findLinkedProperty(List<Property> allProperties, String name, SpaceGroup sg) throws XmlReaderException{
         Map<String, Property> allPropsAndNames = new HashMap<>();
         for(Property prop:allProperties){
@@ -443,7 +477,11 @@ public class ConfigReader {
         return allSpacesAndProps;
     }
 
-
+    /**
+     * Get list of token image names to use in front end
+     * @return List of token file names
+     * @throws XmlReaderException checks tag name; file exists
+     */
     public List<String> parseTokens() throws XmlReaderException {
         if(errorChecker.checkTagName(TOKEN_TAG)){
             List<String> allTokens = new ArrayList<>();
@@ -469,6 +507,12 @@ public class ConfigReader {
         }
     }
 
+    /**
+     * Method used in abstract game to get numeric rules from xml
+     * @param attribute tag in xml to get rule from
+     * @return double representing a rule
+     * @throws XmlReaderException checks tag name and values are numbers
+     */
     public double getRuleDouble(String attribute) throws XmlReaderException{
         if(errorChecker.checkTagName(attribute)){
             NodeList list = doc.getElementsByTagName(attribute);
@@ -490,6 +534,12 @@ public class ConfigReader {
         }
     }
 
+    /**
+     * Method used in abstract game to get true/false rules from xml
+     * @param attribute tag in xml to get info from
+     * @return boolean representing a rule
+     * @throws XmlReaderException checks tag name
+     */
     public boolean getRuleBool(String attribute) throws XmlReaderException{
         if(errorChecker.checkTagName(attribute)){
             NodeList list = doc.getElementsByTagName(attribute);
@@ -561,7 +611,8 @@ public class ConfigReader {
         }
     }
 
-    public boolean checkFileExists(String fileName, String fileEnding){
+    //Helper method to check files being found exist in the module
+    private boolean checkFileExists(String fileName, String fileEnding){
         File[] files = new File("data").listFiles();
         for(File file : files){
             if(file.getName().equals(fileName) && file.getName().toLowerCase().endsWith(fileEnding.toLowerCase())){
@@ -569,6 +620,15 @@ public class ConfigReader {
             }
         }
         return false;
+    }
+
+    //Helper to reduce duplication
+    private XmlReaderException getXmlReaderException(String errorCheck) {
+        return new XmlReaderException(errorCheck + " is not a valid tag. Please check the xml config file");
+    }
+    //Helper to reduce duplication
+    private XmlReaderException getXmlReadNumberException(String errorCheck) {
+        return new XmlReaderException(errorCheck + " is not a valid input. Value must be a number, not a string or character.");
     }
 
 
@@ -582,7 +642,6 @@ public class ConfigReader {
         catch(XmlReaderException e){
         }
     }
-
 }
 
 

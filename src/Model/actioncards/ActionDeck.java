@@ -18,10 +18,11 @@ public class ActionDeck implements Serializable {
         myDeadCards = new ArrayList<>();
     }
 
+    /**
+     * Fill empty live deck and shuffle (contains CHANCE and COMMUNITY_CHEST cards -- sorted here)
+     * @param cards list of action cards
+     */
     //Uses a stack for logical drawing of top card sense
-    //First initialize empty decks
-    //Pass in list of all action cards read from data --> fill all empty initialized decks with this master list
-    //Will fill cards into correct decks based on myDeckType
     public void fillLiveDeck(List<AbstractActionCard> cards){
         for(AbstractActionCard cd : cards){
             if(cd.getMyDeckType() == this.myDeckType) {
@@ -32,6 +33,10 @@ public class ActionDeck implements Serializable {
         Collections.shuffle(myLiveCards);
     }
 
+    /**
+     * Used by action spaces to draw top card from deck
+     * @return top abstract action card
+     */
     public AbstractActionCard drawCard(){
         AbstractActionCard topCard = myLiveCards.pop();
         if(myLiveCards.isEmpty()){
@@ -40,20 +45,27 @@ public class ActionDeck implements Serializable {
         return topCard;
     }
 
+    /**
+     * adds a card to its correct dead card pile
+     * @param card action card to return
+     */
     //ASSUMPTION/SIMPLIFICATION -- discard to discard pile -- not to bottom of deck; then shuffle when live deck is empty
     //Call this in the AbstractActionCard doCardAction() method == myDeck.discardCard(this);
     public void discardCard(AbstractActionCard card){
         myDeadCards.add(card);
     }
 
+    //fillLiveDeck shuffles the cards, just gotta refill here
     //https://www.geeksforgeeks.org/collections-shuffle-java-examples/
-    public void shuffleDeck(){
-        //Collections.shuffle(myDeadCards);
-        //myLiveCards = new Stack<>();
+    private void shuffleDeck(){
         this.fillLiveDeck(myDeadCards);
         myDeadCards = new ArrayList<>();
     }
 
+    /**
+     * Getters for deckType; list of live cards; list of dead cards
+     * @return DeckType; List of abstract action card
+     */
     public DeckType getMyDeckType(){
         return myDeckType;
     }
