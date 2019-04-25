@@ -8,9 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ConfigReaderErrorHandling {
     Document myDoc;
@@ -99,5 +97,32 @@ public class ConfigReaderErrorHandling {
 
     public boolean checkBoardSizeAndSpaces(int boardSize, int spaces){
         return (boardSize == spaces);
+    }
+
+    //"MoveToAC", "MoveToNearestAC", "GoToJailAC", "MoveToOpenAC" checks
+    public boolean checkMoveToTargets(String cardType, List<String> targetSpaces){
+        Set<String> classSet = Set.of("MoveToAC", "MoveToNearestAC", "GoToJailAC", "MoveToOpenAC");
+        if(!classSet.contains(cardType)){
+            return true;
+        }
+        Set<String> propColorSet = getSetFromXml(myDoc.getElementsByTagName("ColorGroup"));
+        Set<String> spaceNameSet = getSetFromXml(myDoc.getElementsByTagName("SpaceName"));
+        Set<String> spaceGroupSet = getSetFromXml(myDoc.getElementsByTagName("SpaceGroup"));
+
+        for(String s : targetSpaces){
+            if(propColorSet.contains(s) || spaceNameSet.contains(s) || spaceGroupSet.contains(s)){
+                return true;
+            }
+            System.out.println(s);
+        }
+        return false;
+    }
+
+    private Set<String> getSetFromXml(NodeList nl){
+        Set<String> res = new HashSet<>();
+        for(int i=0; i<nl.getLength(); i++){
+            res.add(nl.item(i).getTextContent());
+        }
+        return res;
     }
 }

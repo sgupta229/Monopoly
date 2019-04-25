@@ -239,6 +239,10 @@ public class ConfigReader {
                         List<Double> extraDubs = listDoubleConverter(extraDubTemp);
 
                         String className = card.getAttribute(TYPE_TAG);
+
+                        if(!errorChecker.checkMoveToTargets(className, extraStrings)){
+                            throw new XmlReaderException(extraStrings + ": is not a valid target move to space group, color, or name.");
+                        }
                         //Reflection to create action cards
                         try {
                             AbstractActionCard newAC = (AbstractActionCard) Class.forName(ACTION_CARD_PATH + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
