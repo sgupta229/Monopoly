@@ -1,7 +1,5 @@
 package View.SpaceDisplay;
 
-import Controller.Controller;
-import View.Board;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -21,17 +19,17 @@ public class LeftPropertyDisplay extends PropertyDisplay {
     @Override
     public void propColorLocation(HBox propColor) {
         propColor.setPrefHeight(super.myRectangle.getWidth());
-        propColor.setPrefWidth(super.myRectangle.getHeight()/4);
-        propColor.setLayoutX(super.myRectangle.getWidth()-(super.myRectangle.getHeight()/4));
+        propColor.setPrefWidth(super.myRectangle.getHeight()/PROP_SIZE);
+        propColor.setLayoutX(super.myRectangle.getWidth()-(super.myRectangle.getHeight()/PROP_SIZE));
     }
 
     @Override
     public void imageLocation(Pane image){
-        image.setRotate(90);
+        image.setRotate(ROTATION_90);
     }
 
     @Override
     public void textLocation(FlowPane textPane) {
-        textPane.setRotate(90);
+        textPane.setRotate(ROTATION_90);
     }
 }

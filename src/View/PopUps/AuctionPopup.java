@@ -22,7 +22,6 @@ public class AuctionPopup implements PropertyChangeListener {
     private ResourceBundle messages;
     private String name;
     private List<AbstractPlayer> myPlayers;
-    private AbstractPlayer myCurrPlayer;
     private Stage oldPopUp;
     private BidBoxGroup myBidBoxGroup;
     private SimpleBooleanProperty auctionOver;
@@ -39,8 +38,6 @@ public class AuctionPopup implements PropertyChangeListener {
         this.name = name;
         this.myPlayers = players;
         this.oldPopUp = popUpWindow;
-        this.myCurrPlayer = currPlayer;
-
         this.myLayout = new VBox(VBoxSpacing);
 
         setUpLayout();
