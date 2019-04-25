@@ -27,6 +27,8 @@ public class AuctionPopup implements PropertyChangeListener {
     private SimpleBooleanProperty auctionOver;
     private Controller myController;
     private int myPropLocation;
+    private int VBoxSpacing = 20;
+    private int buttonSpacing = 3;
 
     public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow, List<AbstractPlayer> players, AbstractPlayer currPlayer) {
         this.myController = controller;
@@ -37,7 +39,7 @@ public class AuctionPopup implements PropertyChangeListener {
         this.oldPopUp = popUpWindow;
         this.myCurrPlayer = currPlayer;
 
-        this.myLayout = new VBox(20);
+        this.myLayout = new VBox(VBoxSpacing);
 
         setUpLayout();
 
@@ -64,7 +66,7 @@ public class AuctionPopup implements PropertyChangeListener {
 
     private VBox createBidBox(){
         VBox buttonBox = new VBox();
-        buttonBox.setSpacing(3);
+        buttonBox.setSpacing(buttonSpacing);
 
         myBidBoxGroup = new BidBoxGroup();
         myBidBoxGroup.addPropertyChangeListener("endAuction",this);
@@ -97,7 +99,7 @@ public class AuctionPopup implements PropertyChangeListener {
     }
 
     private void displayWinnerOfAuction(int winningBid, AbstractPlayer winningBidder){
-        myLayout = new VBox(20);
+        myLayout = new VBox(VBoxSpacing);
         Label msg = new Label(winningBidder.getName() + " won the Auction");
         Label msg2 = new Label("bought " + "NAME_OF_PROP"+ " for "+winningBid);
         Button ok = new Button("OK");

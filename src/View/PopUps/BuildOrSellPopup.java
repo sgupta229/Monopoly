@@ -1,7 +1,6 @@
 package View.PopUps;
 
 import Controller.Controller;
-import Model.properties.BuildingType;
 import Model.properties.Property;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -47,7 +46,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         buildTab.setContent(setBuildInfo(popUpWindow, myText.getString("buyHouse"), myText.getString("buyHotel"),myText.getString("BuildMessage")));
 
         Tab sellTab = new Tab(myText.getString("sellTab"));
-        HBox sellInfo = new HBox(10);
+        HBox sellInfo = new HBox(HBoxSpacing);
         myMortgage = createIndividualButton(popUpWindow,myText.getString("mortgageButton"));
         myMortgage.setDisable(true);
         myMortgage.setOnAction(e -> {
