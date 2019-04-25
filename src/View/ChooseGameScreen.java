@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -51,7 +52,12 @@ public class ChooseGameScreen {
         createMonopolyLogo();
         addFlowPane();
         createLoadHBox();
-        myRoot.getChildren().addAll(myLogoPane, myFlowPane, loadHBox);
+
+        Image img = new Image("welcome.jpg");
+        ImagePattern pattern = new ImagePattern(img);
+        myScene.setFill(pattern);
+
+        myRoot.getChildren().addAll(myFlowPane, loadHBox);
     }
     public Scene getScene(){
         return myScene;
@@ -82,9 +88,9 @@ public class ChooseGameScreen {
         myFlowPane = new FlowPane();
         myFlowPane.setVgap(50);
         myFlowPane.setHgap(50);
-        myFlowPane.setLayoutX(Controller.WIDTH/7.5);
-        myFlowPane.setLayoutY(Controller.HEIGHT/2);
-        myFlowPane.setPrefWrapLength(Controller.WIDTH);
+        myFlowPane.setLayoutX(Controller.WIDTH/2);
+        myFlowPane.setLayoutY(Controller.HEIGHT/1.2);
+        myFlowPane.setPrefWrapLength(Controller.WIDTH/2);
         myFlowPane.setId("flowPane");
 
 //        gameTypeNamesKeys = new ArrayList<>(Arrays.asList("Junior", "mega", "junior", "starWars"));
@@ -120,6 +126,8 @@ public class ChooseGameScreen {
         chosenFile = new Label("");
 
         loadHBox.getChildren().addAll(loadButton,goButton,chosenFile);
+        loadHBox.setLayoutX(Controller.WIDTH/5);
+        loadHBox.setLayoutY(Controller.HEIGHT/3);
     }
 
     private class LoadButtonHandler implements EventHandler<ActionEvent> {
