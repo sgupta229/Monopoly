@@ -38,12 +38,12 @@ public class WinMoneyAC extends AbstractActionCard {
         if(winMoneyFrom.equalsIgnoreCase("ALL")){
             for(AbstractPlayer p : game.getPlayers()){
                 if(!p.equals(curr)){
-                    p.makePayment(amountWin, curr);
+                    p.makePayment(game.getBank(), amountWin, curr);
                 }
             }
         }
         else{
-            game.getBank().makePayment(amountWin, curr);
+            game.getBank().makePayment(game.getBank(), amountWin, curr);
         }
         ActionDeck d = this.getMyDeck();
         d.discardCard(this);
