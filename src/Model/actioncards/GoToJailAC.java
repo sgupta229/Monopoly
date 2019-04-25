@@ -22,6 +22,10 @@ public class GoToJailAC extends AbstractActionCard {
         targetSpace = extraStrings.get(0);
     }
 
+    /**
+     * Move player to jail space and set player's "InJail" variable to true
+     * @param game takes in game to find board and player
+     */
     @Override
     public void doCardAction(AbstractGame game) {
         AbstractPlayer curr = game.getCurrPlayer();
