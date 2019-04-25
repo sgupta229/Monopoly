@@ -1,6 +1,5 @@
 package View.SpaceDisplay;
 
-import View.Board;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -12,9 +11,7 @@ public abstract class SpaceDisplay {
 
     private String myBaseColor;
     protected String myImage;
-    private Rectangle myRectangle;
     private StackPane myPropertyStackPane;
-    private Pane myImagePane;
     private int myBoardHeight;
 
 
@@ -28,8 +25,8 @@ public abstract class SpaceDisplay {
     }
 
     public Pane createProp(int w, int h){
-        myImagePane = new Pane();
-        myRectangle = new Rectangle(w,h);
+        Pane myImagePane = new Pane();
+        Rectangle myRectangle = new Rectangle(w,h);
         myRectangle.setFill(Color.web(this.myBaseColor));
         myRectangle.setStroke(Color.BLACK);
         ImageView image = createImage();
