@@ -251,6 +251,26 @@ public class BuyPropertyPopup extends Popup {
 
     @Override
     protected Pane createImage(Scene scene, Stage popUpWindow) {
+//        Pane imagePane = new Pane();
+//        Rectangle rectangle = new Rectangle(scene.getWidth() / 2.5, scene.getHeight() / 1.5);
+//        rectangle.setFill(Color.WHITE);
+//        rectangle.setStroke(Color.BLACK);
+//        if (mySpace.getMyGroup().equals(SpaceGroup.RAILROAD)) {
+//            var imageFile = new Image(this.getClass().getClassLoader().getResourceAsStream(myText.getString("buyRailroad")));
+//            ImageView image = new ImageView(imageFile);
+//            imagePane = new Pane(rectangle, image);
+//        } else if (mySpace.getMyGroup().equals(SpaceGroup.UTILITY)) {
+//            imagePane = new Pane(rectangle);
+//        } else {
+//            Rectangle propColor = new Rectangle(scene.getWidth() / 2.5, scene.getHeight() / 7);
+//            propColor.setStroke(Color.BLACK);
+//            propColor.setFill(Color.web(myDetails.get(0).toString()));
+//            imagePane = new Pane(rectangle, propColor);
+//        }
+        return new StackPane(createPropImage(scene), propertyInfo(scene));
+    }
+
+    protected Pane createPropImage(Scene scene){
         Pane imagePane = new Pane();
         Rectangle rectangle = new Rectangle(scene.getWidth() / 2.5, scene.getHeight() / 1.5);
         rectangle.setFill(Color.WHITE);
@@ -267,7 +287,7 @@ public class BuyPropertyPopup extends Popup {
             propColor.setFill(Color.web(myDetails.get(0).toString()));
             imagePane = new Pane(rectangle, propColor);
         }
-        return new StackPane(imagePane, propertyInfo(scene));
+        return imagePane;
     }
 
     @Override

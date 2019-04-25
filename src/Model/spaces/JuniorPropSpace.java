@@ -11,7 +11,7 @@ public class JuniorPropSpace extends AbstractPropSpace {
 
 
     private Property myProperty;
-    private static final String myUnOwnedPopString = "BuyProperty";
+    private static final String myUnOwnedPopString = "JuniorBuyProperty";
     private static final String myOwnedPopString = "PayRent";
     private static final String myPopString = "ClassicProp";
 
