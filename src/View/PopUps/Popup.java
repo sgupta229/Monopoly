@@ -79,7 +79,7 @@ public abstract class Popup {
         layout.setCenter(all);
         all.setAlignment(Pos.CENTER);
         popUpWindow.setScene(scene1);
-        popUpWindow.showAndWait();
+        popUpWindow.show();
     }
 
     protected abstract Pane createImage(Scene scene, Stage popUpWindow);
