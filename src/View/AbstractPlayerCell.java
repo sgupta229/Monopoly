@@ -3,7 +3,6 @@ package View;
 import Model.AbstractPlayer;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -46,10 +45,8 @@ public class AbstractPlayerCell extends ListCell<AbstractPlayer> {
             if (item != null && !empty) {
                 label.setText(item.getName());
                 myImage.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream(item.getImage()),
-                        40.0,40.0,false,true));
+                        Board.TOKEN_SPACING,Board.TOKEN_SPACING,false,true));
                 setGraphic(myHBox);
             }
         }
-
-
     }

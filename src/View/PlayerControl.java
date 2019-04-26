@@ -4,6 +4,7 @@ import Controller.Controller;
 import Model.AbstractPlayer;
 import Model.properties.Property;
 import View.PopUps.BuildOrSellPopup;
+import View.PopUps.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -68,10 +69,10 @@ public abstract class PlayerControl implements PropertyChangeListener {
             }
         });
 
-        HBox manageTradeBox = new HBox(10);
+        HBox manageTradeBox = new HBox(Popup.HBOX_SPACING_TEN);
 
         Button manageProperty = new Button("Manage Property");
-        manageProperty.setOnAction(e -> new BuildOrSellPopup(39,myController).display());
+        manageProperty.setOnAction(e -> new BuildOrSellPopup(myController).display());
 
         Button trade = new Button("Trade");
 //        trade.setOnAction(e -> new TradePopup().display());
@@ -95,11 +96,11 @@ public abstract class PlayerControl implements PropertyChangeListener {
         });
 
         myVBox.setId("playerControlBox");
-        HBox nameAndEnd = new HBox(20);
+        HBox nameAndEnd = new HBox(Popup.PADDING_TWENTY);
         nameAndEnd.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(myPlayer.getName());
         Node playerIcon = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(myPlayer.getImage()),
-                40.0,40.0,false,true));
+                Board.TOKEN_SPACING,Board.TOKEN_SPACING,false,true));
         bailButton = new Button("Pay Bail");
         bailButton.setOnAction(e -> {
             myPlayer.payBail(myController.getGame().getBank());

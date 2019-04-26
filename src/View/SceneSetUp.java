@@ -5,8 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-
-
 public class SceneSetUp {
     private static final double FRAMES_PER_SECOND = 1;
     private static final double MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;

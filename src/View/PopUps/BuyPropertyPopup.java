@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class BuyPropertyPopup extends Popup {
-    static final double IMAGE_WIDTH_SPACING = 2.5;
-    static final int V_BOX_SPACING = 2;
 
     private int propLocation;
     private String name;
