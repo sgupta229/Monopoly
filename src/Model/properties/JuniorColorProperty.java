@@ -66,15 +66,17 @@ public class JuniorColorProperty extends ColorProperty {
         }
     }
 
-    public void addBuilding(BuildingType building){
+    public void addBuilding(BuildingType building) throws UnsupportedOperationException{
+        throw new UnsupportedOperationException("Junior Doesn't Build");
+    }
+
+    public void removeBuilding(BuildingType building, int amount) throws UnsupportedOperationException{
+        throw new UnsupportedOperationException("Junior Doesn't Build");
 
     }
 
-    public void removeBuilding(BuildingType building, int amount){
-
-    }
-
-    public int getNumBuilding(BuildingType building){
-        return 0;
+    public int getNumBuilding(BuildingType building)throws UnsupportedOperationException{
+        throw new UnsupportedOperationException("Junior Doesn't Build");
+        //return 0;
     }
 }

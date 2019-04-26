@@ -563,6 +563,7 @@ public class ConfigReader {
 
 
         NodeList buildingList = doc.getElementsByTagName(BUILDING_TYPE_TAG);
+
         for (int x = 0; x < buildingList.getLength(); x++) {
             Node bL = buildingList.item(x);
             if (bL.getNodeType() == Node.ELEMENT_NODE) {
