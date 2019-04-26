@@ -11,6 +11,7 @@ public class JuniorColorProperty extends ColorProperty {
 
     //private int numHouse;
     //private List<Double> rentNumbers;
+    private ArrayList ret;
 
 
     public JuniorColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
@@ -29,7 +30,7 @@ public class JuniorColorProperty extends ColorProperty {
     }*/
 
     public List getInfo(){
-        ArrayList ret = new ArrayList();
+        ret = new ArrayList();
         ret.addAll(Arrays.asList(getColor(), this.getPrice()));
 //        ret.add(getRentNumbers().get(0));
         ret.add(this.getMortgageAmount());
@@ -58,7 +59,8 @@ public class JuniorColorProperty extends ColorProperty {
             return  0.0;
         }
         else{
-            rentNums = getRentNumbers().get(0);
+//            rentNums = getRentNumbers().get(0);
+            rentNums = (double)ret.get(1);
             if(propOwner.checkMonopoly(this)){
                 rentNums = rentNums*2;
             }
