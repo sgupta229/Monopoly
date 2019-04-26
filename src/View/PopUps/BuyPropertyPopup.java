@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class BuyPropertyPopup extends Popup {
-    public static final double IMAGE_WIDTH_SPACING = 2.5;
-    public static final int V_BOX_SPACING = 2;
+    static final double IMAGE_WIDTH_SPACING = 2.5;
+    static final int V_BOX_SPACING = 2;
 
     private int propLocation;
     private String name;
@@ -36,10 +36,10 @@ public class BuyPropertyPopup extends Popup {
     private AbstractSpace mySpace;
     private List myDetails;
     private ResourceBundle myText;
-    private double imageHeightSpacing = 1.5;
-    private int propColorSpacing = 7;
     private int myPrice = 0;
     private int myRent = 1;
+    FlowPane textPane;
+    HBox priceProp;
 
     public BuyPropertyPopup(int propLocation, Controller controller) {
         super();
@@ -48,7 +48,7 @@ public class BuyPropertyPopup extends Popup {
         BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         allSpaces = spaceInfo.getSpaces();
         allProps = spaceInfo.getProperties();
-        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(POPUP_TEXT).toString());
         for (AbstractSpace sp : allSpaces) {
             if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;
@@ -67,9 +67,20 @@ public class BuyPropertyPopup extends Popup {
         return new StackPane(createPropImage(scene), propertyInfo(scene));
     }
 
+
+    protected void setTextPane(Scene scene){
+        textPane= new FlowPane();
+        priceProp = new HBox();
+        priceProp.setPrefWidth(scene.getWidth() / IMAGE_WIDTH_SPACING);
+        priceProp.setAlignment(Pos.CENTER);
+        textPane.setPrefWrapLength(scene.getWidth() / IMAGE_WIDTH_SPACING);
+        textPane.setId("propPopUp");
+        textPane.setPadding(new Insets(OK, OK, HBOX_SPACING_TEN, OK));
+    }
+
     protected Pane createPropImage(Scene scene){
         Pane imagePane = new Pane();
-        Rectangle rectangle = new Rectangle(scene.getWidth() / IMAGE_WIDTH_SPACING, scene.getHeight() / imageHeightSpacing);
+        Rectangle rectangle = new Rectangle(scene.getWidth() / IMAGE_WIDTH_SPACING, scene.getHeight() / IMAGE_HEIGHT_SPACING);
         rectangle.setFill(Color.WHITE);
         rectangle.setStroke(Color.BLACK);
         if (mySpace.getMyGroup().equals(SpaceGroup.RAILROAD)) {
@@ -79,7 +90,7 @@ public class BuyPropertyPopup extends Popup {
         } else if (mySpace.getMyGroup().equals(SpaceGroup.UTILITY)) {
             imagePane = new Pane(rectangle);
         } else {
-            Rectangle propColor = new Rectangle(scene.getWidth() / IMAGE_WIDTH_SPACING, scene.getHeight() / propColorSpacing);
+            Rectangle propColor = new Rectangle(scene.getWidth() / IMAGE_WIDTH_SPACING, scene.getHeight() / PROP_COLOR_SPACING);
             propColor.setStroke(Color.BLACK);
             propColor.setFill(Color.web(myDetails.get(0).toString()));
             imagePane = new Pane(rectangle, propColor);
@@ -99,7 +110,7 @@ public class BuyPropertyPopup extends Popup {
 
     @Override
     protected Pane createButtons(Stage popUpWindow) {
-        HBox buttons = new HBox(HBoxSpacing);
+        HBox buttons = new HBox(HBOX_SPACING_TEN);
         Button button1 = new Button(myText.getString("yesButton"));
         Button button2 = new Button(myText.getString("noButton"));
         button1.setId("button2");
@@ -109,7 +120,6 @@ public class BuyPropertyPopup extends Popup {
             AbstractPlayer currPlayer = myController.getGame().getCurrPlayer();
             AuctionPopup myPopup = new AuctionPopup(propLocation, name, myController, popUpWindow, players,currPlayer);
             myPopup.display();
-
         });
         button1.setOnAction(e -> {
             mySpace.doAction(myController.getGame(), OK);
@@ -119,12 +129,8 @@ public class BuyPropertyPopup extends Popup {
         return buttons;
     }
 
-
     private FlowPane propertyInfo(Scene scene) {
-        FlowPane textPane = new FlowPane();
-        HBox priceProp = new HBox();
-        priceProp.setPrefWidth(scene.getWidth() / IMAGE_WIDTH_SPACING);
-        priceProp.setAlignment(Pos.CENTER);
+        setTextPane(scene);
         if (mySpace.getMyGroup().equals(SpaceGroup.RAILROAD)) {
             createRailRoadInfo(priceProp, textPane);
         } else if (mySpace.getMyGroup().equals(SpaceGroup.UTILITY)) {
@@ -134,9 +140,6 @@ public class BuyPropertyPopup extends Popup {
         }
         textPane.setVgap(V_BOX_SPACING);
         textPane.setAlignment(Pos.BOTTOM_CENTER);
-        textPane.setPrefWrapLength(scene.getWidth() / IMAGE_WIDTH_SPACING);
-        textPane.setId("propPopUp");
-        textPane.setPadding(new Insets(OK, OK, HBoxSpacing, OK));
         return textPane;
     }
 

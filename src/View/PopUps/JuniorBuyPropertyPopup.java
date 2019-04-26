@@ -33,7 +33,7 @@ public class JuniorBuyPropertyPopup extends BuyPropertyPopup {
         BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         allSpaces = spaceInfo.getSpaces();
         allProps = spaceInfo.getProperties();
-        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(POPUP_TEXT).toString());
         for (AbstractSpace sp : allSpaces) {
             if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;
@@ -50,10 +50,7 @@ public class JuniorBuyPropertyPopup extends BuyPropertyPopup {
     }
 
     private FlowPane propertyInfo(Scene scene) {
-        FlowPane textPane = new FlowPane();
-        HBox priceProp = new HBox();
-        priceProp.setPrefWidth(scene.getWidth() / IMAGE_WIDTH_SPACING);
-        priceProp.setAlignment(Pos.CENTER);
+        super.setTextPane(scene);
         Text price = new Text(myText.getString("price") + myDetails.get(Integer.parseInt(myText.getString("priceNum"))));
         Text rent = new Text(myText.getString("rent") + myDetails.get(Integer.parseInt(myText.getString("rentNum"))));
         priceProp.getChildren().add(price);
@@ -63,7 +60,7 @@ public class JuniorBuyPropertyPopup extends BuyPropertyPopup {
         textPane.setLayoutY(scene.getHeight()/V_BOX_SPACING);
         textPane.setPrefWrapLength(scene.getWidth() / IMAGE_WIDTH_SPACING);
         textPane.setId("propPopUp");
-        textPane.setPadding(new Insets(OK, OK, HBoxSpacing, OK));
+        textPane.setPadding(new Insets(OK, OK, HBOX_SPACING_TEN, OK));
         return textPane;
     }
 
@@ -85,7 +82,7 @@ public class JuniorBuyPropertyPopup extends BuyPropertyPopup {
 
     @Override
     protected Pane createButtons(Stage popUpWindow) {
-        HBox buttons = new HBox(HBoxSpacing);
+        HBox buttons = new HBox(HBOX_SPACING_TEN);
         Button button1 = new Button(myText.getString("yesButton"));
         button1.setId("button2");
 
