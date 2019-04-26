@@ -2,7 +2,6 @@ package View;
 
 import Controller.Controller;
 import Model.AbstractPlayer;
-import javafx.scene.text.Text;
 
 public class ClassicPlayerControl extends PlayerControl {
 

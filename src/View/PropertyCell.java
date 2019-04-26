@@ -54,6 +54,7 @@
 package View;
 
 import Model.properties.Property;
+import View.PopUps.Popup;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -76,7 +77,7 @@ public class PropertyCell extends ListCell<Property> {
 
         color = new Rectangle();
         myHBox = new HBox();
-        myHBox.setSpacing(10);
+        myHBox.setSpacing(Popup.HBOX_SPACING_TEN);
         myHBox.setAlignment(Pos.CENTER_LEFT);
         myHBox.getChildren().addAll(label, pane, color);
         HBox.setHgrow(pane, Priority.ALWAYS);
@@ -94,13 +95,14 @@ public class PropertyCell extends ListCell<Property> {
             label.setText(name);
             color.setHeight(20);
             color.setWidth(60);
-            System.out.println(item.getColor());
             color.setFill(Paint.valueOf(item.getColor()));
-
+            setGraphic(myHBox);
             if (item.getIsMortgaged()==true){
                 myHBox.setDisable(true);
             }
-            setGraphic(myHBox);
+            else{
+                myHBox.setDisable(false);
+            }
         }
     }
 }

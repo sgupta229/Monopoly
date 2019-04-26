@@ -1,32 +1,16 @@
 package View;
 import Controller.Controller;
-import Controller.AbstractGame;
-import Controller.GameSaver;
-import Controller.ClassicGame;
 import Model.AbstractPlayer;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import View.PopUps.Popup;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -53,9 +37,9 @@ public class EndGameScreen {
     }
 
     private VBox addFlowPane(String winner, Stage window) {
-        myFlowPane = new VBox(20);
+        myFlowPane = new VBox(Popup.PADDING_TWENTY);
         myFlowPane.setLayoutX(Controller.WIDTH/8);
-        myFlowPane.setLayoutY(Controller.HEIGHT/3);
+        myFlowPane.setLayoutY(Controller.HEIGHT/Popup.VBOX_SPACING);
         myFlowPane.setId("flowPane");
         Button button = new Button(messages.getString("newGame"));
         button.setId("button3");

@@ -231,7 +231,7 @@ public class Bank implements Transfer, Serializable {
         if(property.getIsMortgaged()){
             return false;
         }
-        return (!propertyOwnedBy(property).checkMonopoly(property));
+        return (propertyOwnedBy(property).checkMonopoly(property));
 
     }
 
