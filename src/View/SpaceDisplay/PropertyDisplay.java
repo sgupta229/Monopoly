@@ -1,6 +1,5 @@
 package View.SpaceDisplay;
 
-import View.Board;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -16,6 +15,12 @@ import javafx.scene.text.TextAlignment;
 
 public abstract class PropertyDisplay {
 
+    public static final int SPACING=10;
+    public static final int ROTATION_90 = 90;
+    public static final int ROTATION_180 = 180;
+    public static final int NO_ROTATION = 0;
+    public static final int PROP_SIZE = 4;
+
     private Pane myPropertyPane;
     protected Pane myPropStackPane;
     private Pane myImagePane;
@@ -29,23 +34,24 @@ public abstract class PropertyDisplay {
     protected Rectangle myRectangle;
     protected int myBoardDimen;
     protected int myBoardHeight;
+    private int textPadding = 12;
 
-    public PropertyDisplay(String propName, String propPrice, String propColor, String baseColor, int boardHeight){
+    public PropertyDisplay(String propName, String propPrice, String propColor, String baseColor, int boardHeight, int boardDimen){
         this.myPropName = propName;
         this.myPropPrice = propPrice;
         this.myPropColor = propColor;
         this.myBaseColor = baseColor;
         myPropertyPane = new Pane();
-        this.myBoardDimen = 11;
+        this.myBoardDimen = boardDimen;
         this.myBoardHeight = boardHeight;
 
         myPropStackPane = new StackPane();
     }
 
-    public PropertyDisplay(String baseColor, String image, int boardHeight){
+    public PropertyDisplay(String baseColor, String image, int boardHeight, int boardDimen){
         this.myBaseColor = baseColor;
         this.myImage = image;
-        this.myBoardDimen = 11;
+        this.myBoardDimen = boardDimen;
         this.myBoardHeight = boardHeight;
         myPropertyPane = new Pane();
         myPropStackPane = new StackPane();
@@ -70,8 +76,8 @@ public abstract class PropertyDisplay {
         textPane.setPrefWrapLength(myBoardHeight/myBoardDimen);
         textPane.setAlignment(Pos.CENTER);
         textLocation(textPane);
-        textPane.setVgap(10);
-        textPane.setPadding(new Insets(12,0,0,0));
+        textPane.setVgap(SPACING);
+        textPane.setPadding(new Insets(textPadding,0,0,0));
         textPane.getChildren().addAll(t,priceProp);
         return textPane;
     }
@@ -111,7 +117,4 @@ public abstract class PropertyDisplay {
 
     public Pane getMyPropStackPane(){ return myPropStackPane; }
 
-    public String getMyPropColor() {
-        return myPropColor;
-    }
 }

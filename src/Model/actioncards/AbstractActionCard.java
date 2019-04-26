@@ -33,8 +33,12 @@ public abstract class AbstractActionCard implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AbstractActionCard)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof AbstractActionCard)){
+            return false;
+        }
         AbstractActionCard that = (AbstractActionCard) o;
         return myDeckType == that.myDeckType &&
                 Objects.equals(myDeck, that.myDeck) &&
@@ -47,25 +51,28 @@ public abstract class AbstractActionCard implements Serializable {
         return Objects.hash(myDeckType, myDeck, myMessage, isHoldable);
     }
 
+    //sets the card's deck for returning
     public void setDeck(ActionDeck deck){
         myDeck = deck;
     }
 
+    //abstract filled out in each subclass
     public abstract void doCardAction(AbstractGame game);
-    //public abstract void doCardAction(AbstractGame game, int userChoice);
 
+    /**
+     * Getters for deckType; isHoldable; MyMessage; MyDeck
+     * @return DeckType; boolean; string message; ActionDeck respectively
+     */
+    //Getters here
     public DeckType getMyDeckType(){
         return myDeckType;
     }
-
     public boolean getIsHoldable(){
         return isHoldable;
     }
-
     public String getMyMessage(){
         return myMessage;
     }
-
     public ActionDeck getMyDeck(){
         return myDeck;
     }

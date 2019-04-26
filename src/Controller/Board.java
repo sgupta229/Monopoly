@@ -20,9 +20,9 @@ public class Board implements Serializable {
     /**
      * Returns the specific space at the location specified
      * Used when a player rolls the dice and determins his/her new location on the board
-     * @param location
+     * @param location location on board
      * @return AbstractSpace
-     * @throws GameBoardException
+     * @throws GameBoardException if location is not on board
      */
     public AbstractSpace getSpaceAt(int location) throws GameBoardException{
         if(location > mySpaces.size()){
@@ -41,9 +41,9 @@ public class Board implements Serializable {
     /**
      * Given a AbstractSpace (such as Boarwalk), this returns the location of that space on the board
      * Used when a user draws a card that says "Move to this space"
-     * @param spaceName
+     * @param spaceName name of space to find on board
      * @return integer (or index) of location of the AbstractSpace parameter
-     * @throws GameBoardException
+     * @throws GameBoardException if name is not on board
      */
     public int getLocationOfSpace(String spaceName) throws GameBoardException{
         for(AbstractSpace sp : mySpaces){

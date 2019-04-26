@@ -1,8 +1,6 @@
 package Model.spaces;
 
 import Controller.AbstractGame;
-import Model.AbstractPlayer;
-import Model.Bank;
 import Model.properties.Property;
 
 import java.util.List;

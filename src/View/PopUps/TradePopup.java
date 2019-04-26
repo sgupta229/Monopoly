@@ -5,10 +5,8 @@ import Model.AbstractPlayer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -28,7 +26,7 @@ public class TradePopup extends BuyPropertyPopup {
     public TradePopup(int propLocation, String name, Controller controller, Stage popUpWindow, List<AbstractPlayer> players, AbstractPlayer currPlayer) {
         super(propLocation, controller);
         this.name = name;
-        this.myText = ResourceBundle.getBundle(controller.getGame().getFrontEndFiles().get(2).toString());
+        this.myText = ResourceBundle.getBundle(controller.getGame().getFrontEndFiles().get(POPUP_TEXT).toString());
         this.myPlayers = players;
         this.oldPopUp = popUpWindow;
         this.myCurrPlayer = currPlayer;
@@ -42,7 +40,7 @@ public class TradePopup extends BuyPropertyPopup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        HBox buttons = new HBox(HBoxSpacing);
+        HBox buttons = new HBox(HBOX_SPACING_TEN);
         Button button1 = new Button("");
         Button button2 = new Button("NO");
         button1.setId("button2");

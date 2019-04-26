@@ -880,14 +880,14 @@
             <DeckType>CHANCE</DeckType>
             <Message>GO TO JAIL. GO DIRECTLY TO JAIL. DO NOT PASS GO, DO NOT COLLECT $200</Message>
             <Holdable>False</Holdable>
-            <ExtraString>NA</ExtraString>
+            <ExtraString>JAIL</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
         <ActionCardType type="GoToJailAC">
             <DeckType>COMMUNITY_CHEST</DeckType>
             <Message>GO TO JAIL. GO DIRECTLY TO JAIL. DO NOT PASS GO, DO NOT COLLECT $200</Message>
             <Holdable>False</Holdable>
-            <ExtraString>NA</ExtraString>
+            <ExtraString>JAIL</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
         <ActionCardType type="GetOutJailAC">
@@ -1075,7 +1075,7 @@
         <JailBail>50</JailBail>
         <PassGo>200</PassGo>
         <MaxHouses>4</MaxHouses>
-        <EvenBuilding>false</EvenBuilding>
+        <EvenBuilding>true</EvenBuilding>
         <FreeParking>false</FreeParking>
         <RollsInJail>3</RollsInJail>
         <SnakeEyes>0</SnakeEyes>

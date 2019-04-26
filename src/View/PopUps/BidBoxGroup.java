@@ -52,7 +52,7 @@ public class BidBoxGroup extends ToggleButton {
             else moveCurrentBidToNext();
         }
         currentBid.disable(false);
-        currentBid.setInitalBidValue(getHighestBid() + 20);
+        currentBid.setInitalBidValue(getHighestBid() + Popup.BIDDING_STEP);
         if (myBids.size()-outOfAuction.size()<= 1 && highestBidder != null) {
             endAuction();
         }
@@ -68,7 +68,7 @@ public class BidBoxGroup extends ToggleButton {
             bidder.disable(true);
         }
         for (BidBox b:myBids){
-            b.setLowerBound(highestBid + 20);
+            b.setLowerBound(highestBid + Popup.BIDDING_STEP);
         }
         moveCurrentBidToNext();
     }

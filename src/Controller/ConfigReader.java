@@ -1,32 +1,33 @@
 package Controller;
 
+import Model.XmlReaderException;
+import Model.actioncards.AbstractActionCard;
+import Model.actioncards.ActionDeck;
+import Model.actioncards.DeckType;
+import Model.properties.BuildingType;
+import Model.properties.Property;
+import Model.spaces.AbstractSpace;
+import Model.spaces.SpaceGroup;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.HashMap;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
+import java.util.*;
 
-import Model.*;
+/*
+import java.util.logging;
+*/
 
-import Model.properties.*;
-import Model.spaces.*;
-
-import Model.actioncards.*;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-
-import static javax.xml.datatype.DatatypeFactory.newInstance;
+//imports
 
 public class ConfigReader {
     private static final String BOARD_SIZE_TAG = "BoardSize";
@@ -67,6 +68,7 @@ public class ConfigReader {
     private Document doc;
     private ConfigReaderErrorHandling errorChecker;
     private int BoardSize;
+    private Map<Exception, List<String>> ExceptionLog;
 
     //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
     public ConfigReader(String filename) throws XmlReaderException{
@@ -78,24 +80,34 @@ public class ConfigReader {
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 doc = dBuilder.parse(inputFile);
                 errorChecker = new ConfigReaderErrorHandling(doc);
+                ExceptionLog = new HashMap<>();
                 //errorChecker.checkFileExists(filename);
             }
-            catch (ParserConfigurationException e) {
+            catch (ParserConfigurationException | IOException | URISyntaxException  | SAXException e ) {
+                logException(e, e.getMessage());
                 throw new XmlReaderException(e.getMessage());
             }
-            catch(IOException e) {
+/*            catch(IOException e) {
+                logException(e, e.getMessage());
+                throw new XmlReaderException(e.getMessage());*/
+/*            } catch (URISyntaxException e) {
+                logException(e, e.getMessage());
                 throw new XmlReaderException(e.getMessage());
-            } catch (URISyntaxException e) {
+            } *//*catch (SAXException e) {
+                logException(e, e.getMessage());
                 throw new XmlReaderException(e.getMessage());
-            } catch (SAXException e) {
-                throw new XmlReaderException(e.getMessage());
-            }
+            }*/
         }
         else{
             throw new XmlReaderException(filename + " is not a valid name for a config file.");
         }
     }
 
+    /**
+     * Get board size while checking for valid inputs
+     * @return return board size
+     * @throws XmlReaderException check valid tag name and values are numerics
+     */
     public int parseBoard() throws XmlReaderException {
         if(errorChecker.checkTagName(BOARD_SIZE_TAG)){
             String boardSize = doc.getElementsByTagName(BOARD_SIZE_TAG).item(0).getTextContent();
@@ -112,6 +124,11 @@ public class ConfigReader {
         }
     }
 
+    /**
+     * Get property files for front end use (check valid inputs)
+     * @return list of file names
+     * @throws XmlReaderException check valid tag name and file exists
+     */
     public List<String> parseOtherFiles() throws XmlReaderException {
         if(errorChecker.checkTagName(List.of(INDEX_COORD_TAG, DISPLAY_FILE_TAG, POPUP_FILE_TAG)).equalsIgnoreCase("VALID")){
             List<String> frontEndFiles = new ArrayList<>();
@@ -130,6 +147,11 @@ public class ConfigReader {
         }
     }
 
+    /**
+     * Get bank info (starting funds) while checking for valid inputs
+     * @return List of bank information
+     * @throws XmlReaderException check valid tag names and values are numerics
+     */
     public List<Double> parseBank() throws XmlReaderException {
         if(errorChecker.checkTagName(BANK_FUNDS_TAG)){
             List<Double> bankInfo = new ArrayList<>();
@@ -148,6 +170,11 @@ public class ConfigReader {
         }
     }
 
+    /**
+     * Get dice information (number of dice and number of sides) while checking for valid inputs
+     * @return list of die inormation
+     * @throws XmlReaderException check valid tag names and inputs are numerics
+     */
     public List<Die> parseDice() throws XmlReaderException {
         if(!errorChecker.checkTagName(DICE_SIDES_TAG)){
             throw getXmlReaderException(DICE_SIDES_TAG);
@@ -183,6 +210,11 @@ public class ConfigReader {
         return dice;
     }
 
+    /**
+     * Get the types of decks from xml while checking they are valid enums
+     * @return list of action decks
+     * @throws XmlReaderException check valid tag name and deck type
+     */
     public List<ActionDeck> parseActionDecks() throws XmlReaderException {
         if(!errorChecker.checkTagName(ACTION_DECK_TAG)){
             throw getXmlReaderException(ACTION_DECK_TAG);
@@ -198,7 +230,8 @@ public class ConfigReader {
                 //String deckName = deck.getElementsByTagName("ActionDeck").item(0).getTextContent();
                 String deckName = deck.getTextContent();
                 //Check if deckName in DeckType enum before getting enum
-                if(errorChecker.checkDeckType(deckName)){
+                //if(errorChecker.checkDeckType(deckName)){
+                if(errorChecker.checkEnums(deckName, DeckType.values())){
                     DeckType dt = DeckType.valueOf(deckName);
                     ActionDeck tempDeck = new ActionDeck(dt);
                     decks.add(tempDeck);
@@ -211,7 +244,13 @@ public class ConfigReader {
         return decks;
     }
 
-//    public List<AbstractActionCard> parseActionCards() throws XmlReaderException{
+
+    /**
+     * Get list of all action cards from xml checking for valid inputs
+     * Fill action decks later on
+     * @return list of abstract action cards
+     * @throws XmlReaderException checks valid tag name; valid deck types; move to targets are valid
+     */
     public List<AbstractActionCard> parseActionCards() throws XmlReaderException {
         String errorCheck = errorChecker.checkTagName(List.of(ACTION_CARD_TAG, DECK_TYPE_TAG, MESSAGE_TAG, HOLDABLE_TAG, EXTRA_STRINGS_TAG, EXTRA_DOUBLES_TAG));
         if(errorCheck.equalsIgnoreCase("VALID")){
@@ -223,10 +262,10 @@ public class ConfigReader {
                 if(ac.getNodeType() == Node.ELEMENT_NODE){
                     Element card = (Element) ac;
                     String deckName = card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent();
-                    if(errorChecker.checkDeckType(deckName)){
-
+                    //if(errorChecker.checkDeckType(deckName)){
+                    if(errorChecker.checkEnums(deckName, DeckType.values())){
                         //All types of action cards have these fields
-                        DeckType dt = DeckType.valueOf(card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent());
+                       // DeckType dt = DeckType.valueOf(card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent());
                         String msg = card.getElementsByTagName(MESSAGE_TAG).item(0).getTextContent();
                         //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
                         Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName(HOLDABLE_TAG).item(0).getTextContent());
@@ -235,15 +274,22 @@ public class ConfigReader {
                         //Get list of doubles
                         String[] extraDubTemp = card.getElementsByTagName(EXTRA_DOUBLES_TAG).item(0).getTextContent().split(",");
                         helpCheckDoublesTag(List.of(extraDubTemp));
-
                         List<Double> extraDubs = listDoubleConverter(extraDubTemp);
-
                         String className = card.getAttribute(TYPE_TAG);
+                        DeckType dt = DeckType.valueOf(card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent());
+                        if(!errorChecker.checkMoveToTargets(className, extraStrings)){
+                            throw new XmlReaderException(extraStrings + ": is not a valid target move to space group, color, or name.");
+                        }
                         //Reflection to create action cards
                         try {
                             AbstractActionCard newAC = (AbstractActionCard) Class.forName(ACTION_CARD_PATH + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
                             allActionCards.add(newAC);
-                        } catch (InstantiationException e) {
+                        }
+                        catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException  | ClassNotFoundException e ) {
+                            logException(e, e.getMessage());
+                            throw new XmlReaderException(e.getMessage());
+                        }/*
+                        catch (InstantiationException e) {
                             throw new XmlReaderException("Instantiation error");
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
@@ -254,7 +300,7 @@ public class ConfigReader {
                         } catch (ClassNotFoundException e) {
                             throw new XmlReaderException(className + " was not a valid class name... please check the data file's ActionCard 'type' attributes to ensure they match the class names");
                             //e.printStackTrace();
-                        }
+                        }*/
                     }
                     else{
                         throw new XmlReaderException(deckName + "not a valid action deck. Please check the data file.");
@@ -267,27 +313,6 @@ public class ConfigReader {
             throw getXmlReaderException(errorCheck);
         }
     }
-
-
-
-
-
-
-
-    //Helper to reduce duplication
-    private XmlReaderException getXmlReaderException(String errorCheck) {
-        return new XmlReaderException(errorCheck + " is not a valid tag. Please check the xml config file");
-    }
-    //Helper to reduce duplication
-    private XmlReaderException getXmlReadNumberException(String errorCheck) {
-        return new XmlReaderException(errorCheck + " is not a valid input. Value must be a number, not a string or character.");
-    }
-
-
-
-
-
-
 
     public List<Property> parseAllProps()throws XmlReaderException{
         //BuildingPrices might be empty list so don't check that
@@ -340,7 +365,8 @@ public class ConfigReader {
                     Node currPriceNum = priceNums.item(x);
                     Element c = (Element) currPriceNum;
                     String buildingType = c.getAttribute(TYPE_TAG);
-                    if(errorChecker.checkBuildingType(buildingType)){
+                    //if(errorChecker.checkBuildingType(buildingType)){
+                    if(errorChecker.checkEnums(buildingType, BuildingType.values())){
                         BuildingType bType = (BuildingType.valueOf(c.getAttribute(TYPE_TAG)));
                         if(errorChecker.checkValuesAreNumbers(currPriceNum.getTextContent())){
                             double priceVal = Double.parseDouble(currPriceNum.getTextContent());
@@ -362,7 +388,12 @@ public class ConfigReader {
                             name, color, rentNumbers, groupSize, BuildingPrices);
                     propsList.add(newProp);
                     newProp.setIsMortgaged(false);
-                } catch (InstantiationException e) {
+                }catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException  | ClassNotFoundException e ) {
+                    logException(e, e.getMessage());
+                    throw new XmlReaderException(e.getMessage());
+                }
+
+                /*catch (InstantiationException e) {
                     throw new XmlReaderException("Instantiation error");
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -373,7 +404,7 @@ public class ConfigReader {
                 } catch (ClassNotFoundException e) {
                     throw new XmlReaderException(className + " was not a valid class name... please check the data file's Property 'type' attributes to ensure they match the class names");
                     //e.printStackTrace();
-                }
+                }*/
             }
         }
         return propsList;
@@ -400,7 +431,8 @@ public class ConfigReader {
                 }
                 int index = Integer.parseInt(dexString);
                 String spaceGroupString = space.getElementsByTagName(SPACE_GROUP_TAG).item(0).getTextContent().strip();
-                if(!errorChecker.checkSpaceGroup(spaceGroupString)){
+                //if(!errorChecker.checkSpaceGroup(spaceGroupString)){
+                if(!errorChecker.checkEnums(spaceGroupString, SpaceGroup.values())){
                     throw new XmlReaderException(spaceGroupString + " is not a valid SpaceGroup enum. Please check the config file");
                 }
                 SpaceGroup sg = SpaceGroup.valueOf(spaceGroupString);
@@ -421,7 +453,12 @@ public class ConfigReader {
                             spaceName, spaceGroupString, extraString, extraDubs, myProp);
                     //newSpace.setMyProp(myProp);
                     allSpaces.add(newSpace);
-                } catch (InstantiationException e) {
+                }catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException  | ClassNotFoundException e ) {
+                    logException(e, e.getMessage());
+                    throw new XmlReaderException(e.getMessage());
+                }
+
+                /*catch (InstantiationException e) {
                     throw new XmlReaderException("Instantiation error");
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -431,13 +468,14 @@ public class ConfigReader {
                     throw new XmlReaderException("Method reflection not found");
                 } catch (ClassNotFoundException e) {
                     throw new XmlReaderException(className + " was not a valid class name... please check the data file's Space 'type' attributes to ensure they match the class names");
-                }
+                }*/
 
             }
         }
         return allSpaces;
     }
 
+    //Helper to find linked property; checks that no typos between links
     private Property findLinkedProperty(List<Property> allProperties, String name, SpaceGroup sg) throws XmlReaderException{
         Map<String, Property> allPropsAndNames = new HashMap<>();
         for(Property prop:allProperties){
@@ -465,7 +503,11 @@ public class ConfigReader {
         return allSpacesAndProps;
     }
 
-
+    /**
+     * Get list of token image names to use in front end
+     * @return List of token file names
+     * @throws XmlReaderException checks tag name; file exists
+     */
     public List<String> parseTokens() throws XmlReaderException {
         if(errorChecker.checkTagName(TOKEN_TAG)){
             List<String> allTokens = new ArrayList<>();
@@ -491,6 +533,12 @@ public class ConfigReader {
         }
     }
 
+    /**
+     * Method used in abstract game to get numeric rules from xml
+     * @param attribute tag in xml to get rule from
+     * @return double representing a rule
+     * @throws XmlReaderException checks tag name and values are numbers
+     */
     public double getRuleDouble(String attribute) throws XmlReaderException{
         if(errorChecker.checkTagName(attribute)){
             NodeList list = doc.getElementsByTagName(attribute);
@@ -512,6 +560,12 @@ public class ConfigReader {
         }
     }
 
+    /**
+     * Method used in abstract game to get true/false rules from xml
+     * @param attribute tag in xml to get info from
+     * @return boolean representing a rule
+     * @throws XmlReaderException checks tag name
+     */
     public boolean getRuleBool(String attribute) throws XmlReaderException{
         if(errorChecker.checkTagName(attribute)){
             NodeList list = doc.getElementsByTagName(attribute);
@@ -535,6 +589,7 @@ public class ConfigReader {
 
 
         NodeList buildingList = doc.getElementsByTagName(BUILDING_TYPE_TAG);
+
         for (int x = 0; x < buildingList.getLength(); x++) {
             Node bL = buildingList.item(x);
             if (bL.getNodeType() == Node.ELEMENT_NODE) {
@@ -583,7 +638,8 @@ public class ConfigReader {
         }
     }
 
-    public boolean checkFileExists(String fileName, String fileEnding){
+    //Helper method to check files being found exist in the module
+    private boolean checkFileExists(String fileName, String fileEnding){
         File[] files = new File("data").listFiles();
         for(File file : files){
             if(file.getName().equals(fileName) && file.getName().toLowerCase().endsWith(fileEnding.toLowerCase())){
@@ -593,8 +649,27 @@ public class ConfigReader {
         return false;
     }
 
+    //Helper to reduce duplication
+    private XmlReaderException getXmlReaderException(String errorCheck) {
+        return new XmlReaderException(errorCheck + " is not a valid tag. Please check the xml config file");
+    }
+    //Helper to reduce duplication
+    private XmlReaderException getXmlReadNumberException(String errorCheck) {
+        return new XmlReaderException(errorCheck + " is not a valid input. Value must be a number, not a string or character.");
+    }
 
-    public static void main(String[] args) {
+    private void logException(Exception e, String msg){
+        if(ExceptionLog.keySet().contains(e)){
+            List<String> temp = ExceptionLog.get(e);
+            temp.add(msg);
+            ExceptionLog.put(e, temp);
+        }
+        else{
+            ExceptionLog.put(e, List.of(msg));
+        }
+    }
+
+/*    public static void main(String[] args) {
         try{
             ConfigReader c = new ConfigReader("Junior_Config.xml");
             c.parseSpaces();
@@ -602,8 +677,9 @@ public class ConfigReader {
             c.parseActionDecks();
         }
         catch(XmlReaderException e){
+
         }
-    }
+    }*/
 }
 
 

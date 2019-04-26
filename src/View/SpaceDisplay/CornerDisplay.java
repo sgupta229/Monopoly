@@ -2,7 +2,6 @@ package View.SpaceDisplay;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 public class CornerDisplay extends SpaceDisplay {

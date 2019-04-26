@@ -9,6 +9,11 @@
         <BoardSize>24</BoardSize>
         <Dimension>7</Dimension>
     </Board>
+    <OtherFiles>
+        <IndexToCoord>IndexToCoordinateJunior</IndexToCoord>
+        <Display>juniorDisplay</Display>
+        <PopUpText>juniorPopUpText</PopUpText>
+    </OtherFiles>
     <Properties>
         <Property type="JuniorColorProperty">
             <PropertyName>BURGER_JOINT</PropertyName>
@@ -498,5 +503,6 @@
         <EvenBuilding>false</EvenBuilding>
         <FreeParking>false</FreeParking>
         <RollsInJail>0</RollsInJail>
+        <SnakeEyes>0</SnakeEyes>
     </Rules>
 </Game>

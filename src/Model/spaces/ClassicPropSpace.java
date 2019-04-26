@@ -2,11 +2,9 @@ package Model.spaces;
 
 import Controller.AbstractGame;
 import Model.properties.Property;
-import Model.spaces.AbstractSpace;
 import Model.AbstractPlayer;
 import Model.Bank;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClassicPropSpace extends AbstractPropSpace {
@@ -69,7 +67,7 @@ public class ClassicPropSpace extends AbstractPropSpace {
         if(myProperty.getIsOwned() && game.getBank().propertyOwnedBy(myProperty)!=game.getCurrPlayer()){
             return myOwnedPopString;
         }
-        else if(game.getBank().propertyOwnedBy(myProperty)==game.getCurrPlayer()){
+        else if(game.getBank().propertyOwnedBy(myProperty)==game.getCurrPlayer() || myProperty.getIsMortgaged()){
             return null;
         }
         return myUnOwnedPopString;

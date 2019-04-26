@@ -19,7 +19,7 @@ public abstract class ColorProperty extends Property {
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException{
-        List<Double> paymentInformationCopy = paymentInformation;
+        List<Double> paymentInformationCopy = List.copyOf(paymentInformation);
 
             //pricePerHouse = paymentInformation.get(6);
             //pricePerHotel = paymentInformation.get(7);
@@ -31,7 +31,7 @@ public abstract class ColorProperty extends Property {
     public abstract List getInfo();
 
     public List<Double> getRentNumbers(){
-        return rentNumbers;
+        return List.copyOf(rentNumbers);
     }
 
 
