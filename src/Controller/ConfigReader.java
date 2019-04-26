@@ -230,7 +230,8 @@ public class ConfigReader {
                 //String deckName = deck.getElementsByTagName("ActionDeck").item(0).getTextContent();
                 String deckName = deck.getTextContent();
                 //Check if deckName in DeckType enum before getting enum
-                if(errorChecker.checkDeckType(deckName)){
+                //if(errorChecker.checkDeckType(deckName)){
+                if(errorChecker.checkEnums(deckName, DeckType.values())){
                     DeckType dt = DeckType.valueOf(deckName);
                     ActionDeck tempDeck = new ActionDeck(dt);
                     decks.add(tempDeck);
@@ -261,8 +262,8 @@ public class ConfigReader {
                 if(ac.getNodeType() == Node.ELEMENT_NODE){
                     Element card = (Element) ac;
                     String deckName = card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent();
-                    if(errorChecker.checkDeckType(deckName)){
-
+                    //if(errorChecker.checkDeckType(deckName)){
+                    if(errorChecker.checkEnums(deckName, DeckType.values())){
                         //All types of action cards have these fields
                        // DeckType dt = DeckType.valueOf(card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent());
                         String msg = card.getElementsByTagName(MESSAGE_TAG).item(0).getTextContent();
@@ -364,7 +365,8 @@ public class ConfigReader {
                     Node currPriceNum = priceNums.item(x);
                     Element c = (Element) currPriceNum;
                     String buildingType = c.getAttribute(TYPE_TAG);
-                    if(errorChecker.checkBuildingType(buildingType)){
+                    //if(errorChecker.checkBuildingType(buildingType)){
+                    if(errorChecker.checkEnums(buildingType, BuildingType.values())){
                         BuildingType bType = (BuildingType.valueOf(c.getAttribute(TYPE_TAG)));
                         if(errorChecker.checkValuesAreNumbers(currPriceNum.getTextContent())){
                             double priceVal = Double.parseDouble(currPriceNum.getTextContent());
@@ -429,7 +431,8 @@ public class ConfigReader {
                 }
                 int index = Integer.parseInt(dexString);
                 String spaceGroupString = space.getElementsByTagName(SPACE_GROUP_TAG).item(0).getTextContent().strip();
-                if(!errorChecker.checkSpaceGroup(spaceGroupString)){
+                //if(!errorChecker.checkSpaceGroup(spaceGroupString)){
+                if(!errorChecker.checkEnums(spaceGroupString, SpaceGroup.values())){
                     throw new XmlReaderException(spaceGroupString + " is not a valid SpaceGroup enum. Please check the config file");
                 }
                 SpaceGroup sg = SpaceGroup.valueOf(spaceGroupString);
@@ -570,6 +573,7 @@ public class ConfigReader {
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 String stringValue = element.getTextContent();
+                System.out.println("rule bool was true "+attribute);
                 return Boolean.parseBoolean(stringValue);
             }
             return false;

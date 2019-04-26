@@ -14,6 +14,7 @@ public class GoToSpace extends AbstractSpace {
     private String spaceToMoveTo;
     private int spacesLocation;
     private static final String myPopString = "Corner";
+    private List<String> jailTypes = List.of("JAIL", "SHARK_DIVING");
 
     public GoToSpace(int locationIndex, String spaceName, String spaceGroup,
                      String jumpToSpace, List<Double> taxNums, Property myProp){
@@ -50,9 +51,12 @@ public class GoToSpace extends AbstractSpace {
         //game.getBoard().getSpaceAt(spacesLocation).addOccupant(currPlayer);
         game.movePlayer(oldLocation, spacesLocation);
         System.out.println("moved to jail");
-        if(spaceToMoveTo.equalsIgnoreCase("JAIL")){
-            game.getCurrPlayer().setJail(true);
+        for(String jailName:jailTypes){
+            if(spaceToMoveTo.equalsIgnoreCase(jailName)){
+                game.getCurrPlayer().setJail(true);
+            }
         }
+
     }
 
     public String getPopString(AbstractGame game){
