@@ -27,6 +27,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     transient private ObservableList<AbstractActionCard> actionCards;
     private int currentLocation;
     private boolean cantPayBool;
+    private double jailBail;
 
     public AbstractPlayer() {
         this.inJail = false;
@@ -124,7 +125,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
     public void payBail(Bank b) {
-        this.makePayment(b, 50, b);
+        this.makePayment(b, jailBail, b);
         this.inJail = false;
     }
 
@@ -231,5 +232,9 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
 
     public void setCantPayBool(boolean bool) {
         cantPayBool=bool;
+    }
+
+    public void setJailBail(double bail){
+        jailBail = bail;
     }
 }
