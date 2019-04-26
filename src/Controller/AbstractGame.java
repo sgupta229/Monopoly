@@ -80,7 +80,9 @@ public abstract class AbstractGame implements Serializable {
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
             evenBuildingRule = configReader.getRuleBool("EvenBuilding");
+            setEvenBuildingRule(evenBuildingRule);
             freeParkingRule = configReader.getRuleBool("FreeParking");
+            setFreeParkingRule(freeParkingRule);
             rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
             snakeEyes = configReader.getRuleDouble("SnakeEyes");
 

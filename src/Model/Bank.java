@@ -180,9 +180,11 @@ public class Bank implements Transfer, Serializable {
      * @param property
      */
     public void unMortgageProperty(Property property){
-        AbstractPlayer propOwner = ownedPropsMap.get(property);
-        propOwner.makePayment(this, property.getMortgageAmount()*ONE_POINT_ONE, this);
-        property.setIsMortgaged(false);
+        if(property.getIsMortgaged()){
+            AbstractPlayer propOwner = ownedPropsMap.get(property);
+            propOwner.makePayment(this, property.getMortgageAmount()*ONE_POINT_ONE, this);
+            property.setIsMortgaged(false);
+        }
     }
 
 
@@ -207,30 +209,33 @@ public class Bank implements Transfer, Serializable {
             }
         }
         System.out.println("this is the building to build" + building);
-        for(BuildingType bt:typesOfBuildings){
-            System.out.println("these are the buildings the bank knows of: " + bt);
 
-        }
         if(maxBuildingsPerProp.get(building)==property.getNumBuilding(building)){
+            System.out.println("1");
             return false;
         }
         if(totalBuildingMap.get(building)==0){
+            System.out.println("2");
             return false;
         }
         if(ownedPropsMap.get(property).getFunds() < property.getBuildingPrice(building)){
+            System.out.println("3");
             return false;
         }
         if(evenBuildingRule){
             List<Property> otherProps = propertyOwnedBy(property).getPropertiesOfType(property.getColor());
             for(Property p: otherProps){
                 if(p.getNumBuilding(building)==property.getNumBuilding(building)-1){
+                    System.out.println("4");
                     return false;
                 }
             }
         }
         if(property.getIsMortgaged()){
+            System.out.println("5");
             return false;
         }
+        System.out.println("6");
         return (propertyOwnedBy(property).checkMonopoly(property));
 
     }
@@ -243,6 +248,7 @@ public class Bank implements Transfer, Serializable {
      */
     public void build(Property property, BuildingType building){
         if(checkIfCanBuild(property, building)){
+            System.out.println("can buildd");
             if(typesOfBuildings.indexOf(building)>0 && property.getNumBuilding(building)==0){
                 BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
                 int numOfPrevBuildings = property.getNumBuilding(bBefore);
