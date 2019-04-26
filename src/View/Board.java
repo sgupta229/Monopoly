@@ -25,8 +25,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Board implements PropertyChangeListener {
-    private static final double TOKEN_SPACING=40.0;
-    private static final int ZERO=0;
+    protected static final double TOKEN_SPACING=40.0;
+    protected static final int ZERO=0;
 
     private int myBoardHeight;
     private Controller myController;

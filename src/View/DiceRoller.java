@@ -2,6 +2,7 @@ package View;
 
 import Controller.Controller;
 import Controller.Die;
+import View.PopUps.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -29,7 +30,7 @@ public class DiceRoller {
         myDie = new Die(6);
         diceValues = new ArrayList<>();
         myHBox = new HBox();
-        myHBox.setSpacing(40.0);
+        myHBox.setSpacing(Popup.HBOX_SPACING_FORTY);
         myEndTurn = endTurn;
         myPayBail = payBail;
         createDiceView();

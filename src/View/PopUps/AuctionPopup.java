@@ -29,17 +29,16 @@ public class AuctionPopup implements PropertyChangeListener {
     private Controller myController;
     private Property myProperty;
     private int myPropLocation;
-    private int VBoxSpacing = 20;
-    private int buttonSpacing = 3;
+
 
     public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow, List<AbstractPlayer> players, AbstractPlayer currPlayer) {
         this.myController = controller;
         this.myPropLocation = propLocation;
-        this.messages = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
+        this.messages = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(Popup.POPUP_TEXT).toString());
         this.name = name;
         this.myPlayers = players;
         this.oldPopUp = popUpWindow;
-        this.myLayout = new VBox(VBoxSpacing);
+        this.myLayout = new VBox(Popup.PADDING_TWENTY);
 
         setUpLayout();
 
@@ -66,7 +65,7 @@ public class AuctionPopup implements PropertyChangeListener {
 
     private VBox createBidBox(){
         VBox buttonBox = new VBox();
-        buttonBox.setSpacing(buttonSpacing);
+        buttonBox.setSpacing(Popup.VBOX_SPACING);
 
         myBidBoxGroup = new BidBoxGroup();
         myBidBoxGroup.addPropertyChangeListener("endAuction",this);
@@ -96,7 +95,7 @@ public class AuctionPopup implements PropertyChangeListener {
     }
 
     private void displayWinnerOfAuction(int winningBid, AbstractPlayer winningBidder){
-        myLayout = new VBox(VBoxSpacing);
+        myLayout = new VBox(Popup.PADDING_TWENTY);
         Label msg = new Label(winningBidder.getName() + " won the Auction");
         Label msg2 = new Label("bought " + myProperty.getName() + " for "+winningBid);
         Button ok = new Button("OK");
@@ -114,7 +113,7 @@ public class AuctionPopup implements PropertyChangeListener {
     }
 
     public void display(){
-        Scene scene = new Scene(myLayout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
+        Scene scene = new Scene(myLayout, Controller.WIDTH/Popup.V_BOX_SPACING, Controller.HEIGHT/Popup.IMAGE_HEIGHT_SPACING);
         scene.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
         oldPopUp.setScene(scene);
     }

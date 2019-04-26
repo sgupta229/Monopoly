@@ -27,8 +27,8 @@ public class BidBox {
         VBox v = new VBox();
 
         playerName = new Label(myPlayer.getName());
-        spinner = new NumberSpinner(20,20);
-        spinner.setLowerBound(20);
+        spinner = new NumberSpinner(Popup.BIDDING_STEP,Popup.BIDDING_STEP);
+        spinner.setLowerBound(Popup.BIDDING_STEP);
         HBox buttonBox = createButtonsHBox();
 
         v.getChildren().addAll(playerName,spinner,buttonBox);

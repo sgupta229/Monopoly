@@ -15,13 +15,17 @@ import java.io.File;
 
 
 public abstract class Popup {
-
+    public static final double IMAGE_WIDTH_SPACING = 2.5;
+    public static final int V_BOX_SPACING = 2;
     public static final int HBOX_SPACING_TEN = 10;
     public static final int HBOX_SPACING_FORTY = 40;
     public static final int PADDING_TWENTY = 20;
+    public static final int BIDDING_STEP = 20;
     public static final int POPUP_TEXT = 2;
-    static final double IMAGE_HEIGHT_SPACING = 1.5;
-    static final int PROP_COLOR_SPACING = 7;
+    public static final double IMAGE_HEIGHT_SPACING = 1.5;
+    public static final int PROP_COLOR_SPACING = 7;
+    public static final int VBOX_SPACING = 3;
+
 
 
     public static final int OK = 0;

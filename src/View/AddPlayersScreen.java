@@ -2,18 +2,19 @@ package View;
 
 import Controller.Controller;
 import Model.AbstractPlayer;
+import View.PopUps.Popup;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableListValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -23,9 +24,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -87,7 +85,7 @@ public class AddPlayersScreen {
     }
 
     private HBox createBottomButtons(){
-        HBox box = new HBox(30);
+        HBox box = new HBox(Popup.HBOX_SPACING_FORTY);
 
         Button rules = new Button(messages.getString("edit-rules"));
         rules.setOnAction(e -> new RulesPopup(myController.getGame()).display());
@@ -110,7 +108,7 @@ public class AddPlayersScreen {
         myPlayerNameField = createPlayerNameField();
         HBox nameAndIcon = new HBox(myIconMenu,myPlayerNameField);
         nameAndIcon.setAlignment(Pos.CENTER_LEFT);
-        nameAndIcon.setSpacing(20);
+        nameAndIcon.setSpacing(Popup.PADDING_TWENTY);
 
         ComboBox playerTypes = new ComboBox();
         playerTypes.setPromptText(messages.getString("choose-player-type"));
