@@ -1,32 +1,33 @@
 package Controller;
 
+import Model.XmlReaderException;
+import Model.actioncards.AbstractActionCard;
+import Model.actioncards.ActionDeck;
+import Model.actioncards.DeckType;
+import Model.properties.BuildingType;
+import Model.properties.Property;
+import Model.spaces.AbstractSpace;
+import Model.spaces.SpaceGroup;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.HashMap;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
+import java.util.*;
 
-import Model.*;
+/*
+import java.util.logging;
+*/
 
-import Model.properties.*;
-import Model.spaces.*;
-
-import Model.actioncards.*;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-
-import static javax.xml.datatype.DatatypeFactory.newInstance;
+//imports
 
 public class ConfigReader {
     private static final String BOARD_SIZE_TAG = "BoardSize";
@@ -82,17 +83,20 @@ public class ConfigReader {
                 ExceptionLog = new HashMap<>();
                 //errorChecker.checkFileExists(filename);
             }
-            catch (ParserConfigurationException e) {
+            catch (ParserConfigurationException | IOException | URISyntaxException  | SAXException e ) {
                 logException(e, e.getMessage());
                 throw new XmlReaderException(e.getMessage());
             }
-            catch(IOException e) {
+/*            catch(IOException e) {
+                logException(e, e.getMessage());
+                throw new XmlReaderException(e.getMessage());*/
+/*            } catch (URISyntaxException e) {
+                logException(e, e.getMessage());
                 throw new XmlReaderException(e.getMessage());
-            } catch (URISyntaxException e) {
+            } *//*catch (SAXException e) {
+                logException(e, e.getMessage());
                 throw new XmlReaderException(e.getMessage());
-            } catch (SAXException e) {
-                throw new XmlReaderException(e.getMessage());
-            }
+            }*/
         }
         else{
             throw new XmlReaderException(filename + " is not a valid name for a config file.");
@@ -279,7 +283,12 @@ public class ConfigReader {
                         try {
                             AbstractActionCard newAC = (AbstractActionCard) Class.forName(ACTION_CARD_PATH + className).getConstructor(DeckType.class, String.class, Boolean.class, List.class, List.class).newInstance(dt, msg, holdable, extraStrings, extraDubs);
                             allActionCards.add(newAC);
-                        } catch (InstantiationException e) {
+                        }
+                        catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException  | ClassNotFoundException e ) {
+                            logException(e, e.getMessage());
+                            throw new XmlReaderException(e.getMessage());
+                        }/*
+                        catch (InstantiationException e) {
                             throw new XmlReaderException("Instantiation error");
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
@@ -290,7 +299,7 @@ public class ConfigReader {
                         } catch (ClassNotFoundException e) {
                             throw new XmlReaderException(className + " was not a valid class name... please check the data file's ActionCard 'type' attributes to ensure they match the class names");
                             //e.printStackTrace();
-                        }
+                        }*/
                     }
                     else{
                         throw new XmlReaderException(deckName + "not a valid action deck. Please check the data file.");
@@ -377,7 +386,12 @@ public class ConfigReader {
                             name, color, rentNumbers, groupSize, BuildingPrices);
                     propsList.add(newProp);
                     newProp.setIsMortgaged(false);
-                } catch (InstantiationException e) {
+                }catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException  | ClassNotFoundException e ) {
+                    logException(e, e.getMessage());
+                    throw new XmlReaderException(e.getMessage());
+                }
+
+                /*catch (InstantiationException e) {
                     throw new XmlReaderException("Instantiation error");
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -388,7 +402,7 @@ public class ConfigReader {
                 } catch (ClassNotFoundException e) {
                     throw new XmlReaderException(className + " was not a valid class name... please check the data file's Property 'type' attributes to ensure they match the class names");
                     //e.printStackTrace();
-                }
+                }*/
             }
         }
         return propsList;
@@ -436,7 +450,12 @@ public class ConfigReader {
                             spaceName, spaceGroupString, extraString, extraDubs, myProp);
                     //newSpace.setMyProp(myProp);
                     allSpaces.add(newSpace);
-                } catch (InstantiationException e) {
+                }catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException  | ClassNotFoundException e ) {
+                    logException(e, e.getMessage());
+                    throw new XmlReaderException(e.getMessage());
+                }
+
+                /*catch (InstantiationException e) {
                     throw new XmlReaderException("Instantiation error");
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -446,7 +465,7 @@ public class ConfigReader {
                     throw new XmlReaderException("Method reflection not found");
                 } catch (ClassNotFoundException e) {
                     throw new XmlReaderException(className + " was not a valid class name... please check the data file's Space 'type' attributes to ensure they match the class names");
-                }
+                }*/
 
             }
         }
@@ -647,8 +666,7 @@ public class ConfigReader {
         }
     }
 
-
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         try{
             ConfigReader c = new ConfigReader("Junior_Config.xml");
             c.parseSpaces();
@@ -656,8 +674,9 @@ public class ConfigReader {
             c.parseActionDecks();
         }
         catch(XmlReaderException e){
+
         }
-    }
+    }*/
 }
 
 
