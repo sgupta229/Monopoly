@@ -33,7 +33,7 @@ public class CornerPopup extends Popup {
         this.myController = controller;
         BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         spaces = spaceInfo.getSpaces();
-        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(POPUP_TEXT).toString());
         for (AbstractSpace sp : spaces) {
             if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;
@@ -66,7 +66,7 @@ public class CornerPopup extends Popup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        HBox buttons = new HBox(HBoxSpacing);
+        HBox buttons = new HBox(HBOX_SPACING_TEN);
         Button button1= new Button("OK");
         button1.setId("button1");
         button1.setOnAction(new EventHandler<ActionEvent>() {
