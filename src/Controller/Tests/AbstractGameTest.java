@@ -67,7 +67,7 @@ class AbstractGameTest {
 
     @Test
     void rollDice() {
-        List<Integer> values = game.rollDice();
+        List<Integer> values = game.rollAndCheck();
         assertTrue(0 < values.get(0));
         assertTrue(values.get(0) < 7);
         assertTrue(0 < values.get(1));
@@ -121,7 +121,7 @@ class AbstractGameTest {
 
     @Test
     void getLastDiceRoll() {
-        List<Integer> rolls = game.rollDice();
+        List<Integer> rolls = game.rollAndCheck();
         int val = 0;
         for(int i = 0; i < rolls.size(); i++) {
             val += rolls.get(i);

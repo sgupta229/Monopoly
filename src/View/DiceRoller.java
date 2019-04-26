@@ -72,7 +72,7 @@ public class DiceRoller {
     }
 
     private void rollDice(){
-        List<Integer> rolls = myController.getGame().rollDice();
+        List<Integer> rolls = myController.getGame().rollAndCheck();
         for(int i = 0; i < rolls.size(); i++) {
             diceValues.get(i).valueProperty.set(rolls.get(i));
 //            diceValues.get(i).setText(Integer.toString(rolls.get(i)));
@@ -96,8 +96,6 @@ public class DiceRoller {
 
     private void checkBailPopup() {
         if(myController.getGame().checkNeedToPayBail()) {
-            System.out.println("YOU NEED TO PAY");
-            System.out.println("TEST");
             Alert a = new Alert(Alert.AlertType.WARNING);
             a.setContentText("You paid bail!");
             a.show();
