@@ -77,7 +77,7 @@ public class DiceRoller {
             diceValues.get(i).valueProperty.set(rolls.get(i));
 //            diceValues.get(i).setText(Integer.toString(rolls.get(i)));
         }
-        if(!(myController.getGame().checkDoubles()) || myController.getGame().checkDoublesForJail()) {
+        if(!(myController.getGame().checkDoubles()) || myController.getGame().checkDoublesForJail() || myController.getGame().getCurrPlayer().getCantPayBool()) {
             rollButton.setDisable(true);
             myEndTurn.setDisable(false);
         }
