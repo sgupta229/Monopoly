@@ -36,17 +36,6 @@ public class GameSaver<T extends AbstractGame> {
         }
     }
 
-    public void savePlayer(AbstractPlayer player, File file) {
-        try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
-            os.writeObject(player);
-            os.close();
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) throws Exception {
         ClassicGame game = new ClassicGame("Normal_Config_Rework.xml");
         GameSaver<ClassicGame> gs = new GameSaver<ClassicGame>();

@@ -43,7 +43,7 @@ class ClassicPropSpaceTest {
         gameClass.setPlayers(playerList);
         player1.moveTo(1);
         gameBank = gameClass.getBank();
-        gameClass.rollDice();
+        gameClass.rollAndCheck();
         //player1.moveTo(30, gameClass.getBoardSize());
     }
 
