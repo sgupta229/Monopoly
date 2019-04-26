@@ -98,8 +98,11 @@ public abstract class AbstractGame implements Serializable {
         }
         players = p;
         setCurrPlayer(0);
-        for (AbstractPlayer pl : players)
+        for (AbstractPlayer pl : players){
             this.addPlayer(pl);
+            pl.setJailBail(jailBail);
+        }
+
     }
 
     public abstract boolean checkGameOver();
@@ -315,7 +318,8 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public boolean checkDoublesForJail() {
-        if(getDiceHistory().get(0).size() < 3) {
+
+        if(getDiceHistory().get(0).size() < 3 || dice.size()<2) {
             return false;
         }
         ArrayList<Integer> firstDie = getDiceHistory().get(0);
