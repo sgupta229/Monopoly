@@ -53,22 +53,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     @Override
     public void makePayment(Bank bank, double amount, Transfer receiver) {
         if(this.funds < amount) {
-            for(Property p : properties) {
-                for(BuildingType b : p.getBuildingMap().keySet()) {
-                    while(p.getBuildingMap().get(b) != 0) {
-                        bank.sellBackBuildings(p, b);
-                        if(this.funds >= amount) {
-                            break;
-                        }
-                    }
-                }
-                if(bank.checkIfCanMortgage(p)) {
-                    bank.mortgageProperty(p);
-                    if(this.funds >= amount) {
-                        break;
-                    }
-                }
-            }
+            sellBuildingsMortgageProps(bank, amount);
             if(this.funds < amount) {
                 cantPayBool = true;
                 setFunds(0);
@@ -78,6 +63,25 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         }
         setFunds(this.funds - amount);
         receiver.receivePayment(amount);
+    }
+
+    private void sellBuildingsMortgageProps(Bank bank, double amount){
+        for(Property p : properties) {
+            for(BuildingType b : p.getBuildingMap().keySet()) {
+                while(p.getBuildingMap().get(b) != 0) {
+                    bank.sellBackBuildings(p, b);
+                    if(this.funds >= amount) {
+                        break;
+                    }
+                }
+            }
+            if(bank.checkIfCanMortgage(p)) {
+                bank.mortgageProperty(p);
+                if(this.funds >= amount) {
+                    break;
+                }
+            }
+        }
     }
 
     @Override
@@ -90,17 +94,14 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         String group = property.getGroup().toLowerCase();
         int groupSize = property.getMyGroupSize();
         for(Property p : properties) {
-            if(p.getGroup().toLowerCase().equals(group)) {
+            if(p.getGroup().equalsIgnoreCase(group)) {
                 count++;
             }
         }
         System.out.println("I own :" + count + "props");
         System.out.println("And my group has :" + groupSize + "props");
 
-        if(count == groupSize) {
-            return true;
-        }
-        return false;
+        return (count == groupSize);
     }
 
     public double getFunds() {
@@ -178,7 +179,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         List<Property> propsList = new ArrayList<>();
         for(Property p : properties) {
             //System.out.println(p.getGroup());
-            if(p.getGroup().toLowerCase().equals(checkType)) {
+            if(p.getGroup().equalsIgnoreCase(checkType)) {
                 propsList.add(p);
             }
         }
@@ -226,5 +227,9 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
 
     public boolean getCantPayBool() {
         return cantPayBool;
+    }
+
+    public void setCantPayBool(boolean bool) {
+        cantPayBool=bool;
     }
 }

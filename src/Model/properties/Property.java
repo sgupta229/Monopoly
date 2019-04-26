@@ -3,7 +3,10 @@ package Model.properties;
 import Model.AbstractPlayer;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Objects;
 
 /***
  * This class holds all the information regarding a property such as its color, price, rent amount,
@@ -34,7 +37,7 @@ public abstract class Property implements Serializable {
         myPrice=price;
         myName = propName;
         myColor = color;
-        allPaymentInfo = paymentInfo;
+        allPaymentInfo = List.copyOf(paymentInfo);
         myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
         buildingPrices = buildingPriceMap;
@@ -51,7 +54,7 @@ public abstract class Property implements Serializable {
 //        isMortgaged = false;
         myPrice=price;
         myName = propName;
-        allPaymentInfo = paymentInfo;
+        allPaymentInfo = List.copyOf(paymentInfo);
         myGroupSize = groupSize;
         initializePaymentInfo(allPaymentInfo);
 
@@ -62,7 +65,7 @@ public abstract class Property implements Serializable {
         myPrice=price;
         myName = propName;
         myColor=color;
-        allPaymentInfo = paymentInfo;
+        allPaymentInfo = List.copyOf(paymentInfo);
         initializePaymentInfo(allPaymentInfo);
 
     }
@@ -166,8 +169,12 @@ public abstract class Property implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
         Property property = (Property) o;
         return Double.compare(property.myPrice, myPrice) == 0 &&
                 myGroup.equals(property.myGroup) &&

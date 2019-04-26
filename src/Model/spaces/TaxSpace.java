@@ -4,7 +4,6 @@ import Controller.AbstractGame;
 import Model.AbstractPlayer;
 import Model.Transfer;
 import Model.properties.Property;
-import Model.spaces.AbstractSpace;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +13,15 @@ public class TaxSpace extends AbstractSpace {
 
     private double flatRate;
     private double percentageTaken;
-    private Transfer taxReceiver;
-    private final int TAKE_FIXED_AMOUNT=0;
-    private final int TAKE_PERCENTAGE=1;
+    private static final int TAKE_FIXED_AMOUNT=0;
+    private static final int HUNDRED = 100;
     private static final String myPopString = "Tax";
 
     public TaxSpace(int locationIndex, String spaceName, String spaceGroup,
                     String jumpToSpace, List<Double> taxNums, Property myProp){
         super(locationIndex, spaceName, spaceGroup, jumpToSpace, taxNums, myProp);
         flatRate = taxNums.get(0);
-        percentageTaken = taxNums.get(1)/100;
+        percentageTaken = taxNums.get(1)/HUNDRED;
         setPopString(myPopString);
         //taxReceiver = myTaxReceiver;
         //assuming that tax goes to the bank
@@ -39,7 +37,7 @@ public class TaxSpace extends AbstractSpace {
 
     public List getInfo(){
         ArrayList ret = new ArrayList();
-        ret.addAll(Arrays.asList(flatRate, percentageTaken*100, percentageTaken));
+        ret.addAll(Arrays.asList(flatRate, percentageTaken*HUNDRED, percentageTaken));
         return new ArrayList();
     }
 
@@ -53,6 +51,7 @@ public class TaxSpace extends AbstractSpace {
      */
     public void doAction(AbstractGame game, int userChoice){
         double amountTaxed;
+        Transfer taxReceiver;
         if(game.getFreeParkingRule()){
             taxReceiver = game.getFreeParking();
         }

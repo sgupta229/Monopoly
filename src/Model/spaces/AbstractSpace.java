@@ -6,7 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 /***
  * This will be the interface that represents all the different kind of spaces
@@ -75,8 +76,12 @@ public abstract class AbstractSpace implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
         AbstractSpace that = (AbstractSpace) o;
         return myLocation == that.myLocation &&
                 myName.equals(that.myName);

@@ -33,8 +33,12 @@ public abstract class AbstractActionCard implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AbstractActionCard)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof AbstractActionCard)){
+            return false;
+        }
         AbstractActionCard that = (AbstractActionCard) o;
         return myDeckType == that.myDeckType &&
                 Objects.equals(myDeck, that.myDeck) &&

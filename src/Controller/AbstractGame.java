@@ -184,6 +184,24 @@ public abstract class AbstractGame implements Serializable {
         return true;
     }
 
+    public void completeTrade(Map<AbstractPlayer, List<Property>> tradeMap){
+        List<AbstractPlayer> playersInTrade = new ArrayList<>(tradeMap.keySet());
+        AbstractPlayer p1 = playersInTrade.get(0);
+        AbstractPlayer p2 = playersInTrade.get(1);
+        List<Property> p1Props = tradeMap.get(p1);
+        List<Property> p2Props = tradeMap.get(p2);
+        executeTrade(p1, p2, p1Props);
+        executeTrade(p2, p1, p2Props);
+    }
+
+    private void executeTrade(AbstractPlayer giver, AbstractPlayer receiver, List<Property> propsTraded){
+        for(Property prop:propsTraded){
+            bank.setPropertyOwner(prop, receiver);
+            giver.removeProperty(prop);
+            receiver.addProperty(prop);
+        }
+    }
+
     public boolean checkNeedToPayBail() {
         System.out.println(currPlayer.getNumRollsInJail());
         if(!(checkDoubles())) {
@@ -407,7 +425,7 @@ public abstract class AbstractGame implements Serializable {
     public void forfeitHandler(AbstractPlayer playerOut){
         this.players.remove(playerOut);
         List<Property> propSet = playerOut.getProperties();
-        Set<BuildingType> bTypes = bank.getTotalBuildingMap().keySet();
+        List<BuildingType> bTypes = bank.getBuildingTypes();
         for(Property p : propSet){
             for(BuildingType bt : bTypes){
                 bank.setTotalBuildingMap(bt, p.getNumBuilding(bt));
