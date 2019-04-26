@@ -11,6 +11,16 @@ public class JuniorPlayer extends AbstractPlayer {
     }
 
     @Override
-    public void makePayment()
+    public void makePayment(double amount, Transfer receiver, Bank bank){
+        if(amount>this.getFunds()){
+            this.setCantPayBool(true);
+            receiver.receivePayment(this.getFunds());
+            this.setFunds(0);
+        }
+        else{
+            receiver.receivePayment(amount);
+            this.setFunds(this.getFunds()-amount);
+        }
+    }
 
 }
