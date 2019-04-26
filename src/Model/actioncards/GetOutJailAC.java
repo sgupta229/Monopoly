@@ -19,6 +19,11 @@ public class GetOutJailAC extends AbstractActionCard {
         super(deckType, message, holdable);
     }
 
+    /**
+     * If player is currently in jail and this is used, sets jail to false
+     * If player is on chance/community chest space and draws this (therefore not in jail), it is added to their action cards
+     * @param game takes in game to find current player
+     */
     @Override
     public void doCardAction(AbstractGame game) {
         AbstractPlayer curr = game.getCurrPlayer();

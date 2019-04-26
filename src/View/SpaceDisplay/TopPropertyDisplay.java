@@ -8,13 +8,13 @@ import javafx.scene.layout.Pane;
 
 public class TopPropertyDisplay extends PropertyDisplay {
 
-    public TopPropertyDisplay(String propName, String propPrice, String propColor,String baseColor, int boardHeight) {
-        super(propName, propPrice, propColor,baseColor, boardHeight);
+    public TopPropertyDisplay(String propName, String propPrice, String propColor,String baseColor, int boardHeight, int boardDimen) {
+        super(propName, propPrice, propColor,baseColor, boardHeight, boardDimen);
         myPropStackPane.getChildren().addAll(createPropColor(myBoardHeight/myBoardDimen,myBoardHeight/myBoardDimen), createText());
     }
 
-    public TopPropertyDisplay(String baseColor, String image, int boardHeight) {
-        super(baseColor, image, boardHeight);
+    public TopPropertyDisplay(String baseColor, String image, int boardHeight, int boardDimen) {
+        super(baseColor, image, boardHeight, boardDimen);
         myPropStackPane.getChildren().addAll(createImagePane(myBoardHeight/myBoardDimen,myBoardHeight/myBoardDimen));
     }
 
@@ -22,10 +22,10 @@ public class TopPropertyDisplay extends PropertyDisplay {
     public void propColorLocation(HBox propColor) {
         propColor.setPrefWidth(super.myRectangle.getWidth());
         propColor.setPrefHeight(super.myRectangle.getHeight()/4);
-        propColor.setLayoutY(super.myRectangle.getHeight()-(myBoardDimen+1));
+        propColor.setLayoutY(super.myRectangle.getHeight()-(super.myRectangle.getHeight()/4));
+
     }
 
-    //-14 for classic,
     @Override
     public void imageLocation(Pane image) {
         image.setRotate(180);

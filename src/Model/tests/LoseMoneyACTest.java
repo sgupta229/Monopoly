@@ -9,10 +9,14 @@ import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
 import Model.actioncards.DeckType;
 import Model.actioncards.LoseMoneyAC;
+import Model.properties.BuildingType;
+import Model.properties.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,11 +44,10 @@ class LoseMoneyACTest {
         ac1 = new LoseMoneyAC(DeckType.CHANCE, "Pay $40 per house and $100 per hotel you own", false, List.of("BANK"), List.of(40.0, 100.0));
         ac2 = new LoseMoneyAC(DeckType.COMMUNITY_CHEST, "Pay $50 to each player", false, List.of("ALL"), List.of(50.0));
 
-        for(ActionDeck d : game.getMyActionDecks()){
-            if(d.getMyDeckType() == DeckType.CHANCE){
+        for (ActionDeck d : game.getMyActionDecks()) {
+            if (d.getMyDeckType() == DeckType.CHANCE) {
                 ac1.setDeck(d);
-            }
-            else{
+            } else {
                 ac2.setDeck(d);
             }
         }
@@ -58,7 +61,7 @@ class LoseMoneyACTest {
         ac2.doCardAction(game);
 
         //2 other players in the game, should be $100 less than initial
-        var expected = initialFunds-100;
+        var expected = initialFunds - 100;
         var actual = curr.getFunds();
         assertEquals(expected, actual);
     }
@@ -80,5 +83,58 @@ class LoseMoneyACTest {
         var actual2P2 = players.get(2).getFunds();
         assertEquals(expected2, actual2P1, actual2P2);
     }
+
+    @Test
+    void multiPayPerHouse() {
+        AbstractPlayer curr = game.getCurrPlayer();
+        List<Property> props = new ArrayList<>(game.getBank().getUnOwnedProps());
+        for (Property p : props) {
+            if (p.getColor().equalsIgnoreCase("DARKBLUE")) {
+                curr.addProperty(p);
+                game.getBank().setPropertyOwner(p, curr);
+                p.setIsOwned(true);
+            }
+        }
+        //1 house on each property
+        for (Property p : curr.getProperties()) {
+            game.getBank().build(p, BuildingType.HOUSE);
+        }
+
+        var expected = curr.getFunds() - 80;
+        ac1.doCardAction(game);
+        var actual = curr.getFunds();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void multiPayPerHotel() {
+        AbstractPlayer curr = game.getCurrPlayer();
+        List<Property> props = new ArrayList<>(game.getBank().getUnOwnedProps());
+        for (Property p : props) {
+            if (p.getColor().equalsIgnoreCase("BROWN")) {
+                curr.addProperty(p);
+                game.getBank().setPropertyOwner(p, curr);
+                p.setIsOwned(true);
+            }
+        }
+
+        //1 hotel on one property, 4 houses first -- then hotel
+        for(int i=0; i<4; i++){
+            game.getBank().build(curr.getProperties().get(0), BuildingType.HOUSE);
+        }
+        game.getBank().build(curr.getProperties().get(0), BuildingType.HOTEL);
+
+        //4 houses on other property
+        for(int i =0; i<4; i++){
+            game.getBank().build(curr.getProperties().get(1), BuildingType.HOUSE);
+        }
+
+        //160 for 4 houses, 100 for hotel
+        var expected = curr.getFunds() - 260;
+        ac1.doCardAction(game);
+        var actual = curr.getFunds();
+        assertEquals(expected, actual);
+    }
+
 
 }

@@ -48,9 +48,7 @@ public class Board implements PropertyChangeListener {
 //        boardInfo = ResourceBundle.getBundle("classicBoardDisplay");
         boardInfo = ResourceBundle.getBundle(myFiles.get(1).toString());
 
-
         myBoardHeight = Integer.parseInt(boardInfo.getString("boardHeight"));
-
         boardDimension = Integer.parseInt(boardInfo.getString("dimension"));
         for (AbstractPlayer p : controller.getPlayers()) {
             p.addPropertyChangeListener("currentLocation",this);
@@ -86,6 +84,7 @@ public class Board implements PropertyChangeListener {
 
         try {
             String popClass = playersSpace.getPopString(myController.getGame());
+            System.out.println(popClass);
             if(popClass!=null){
                 myPopup = (Popup) Class.forName("View.PopUps." + popClass+"Popup").getConstructor(int.class, Controller.class).newInstance(playerLocation,
                         myController);
@@ -133,7 +132,7 @@ public class Board implements PropertyChangeListener {
         String price = nameToPrice.get(name).toString();
         String color = nameToColor.get(name);
         try {
-            PropertyDisplay propSpace = (PropertyDisplay) Class.forName("View.SpaceDisplay." + boardEdge).getConstructor(String.class, String.class, String.class, String.class, int.class).newInstance(name, price, color, baseColor, myBoardHeight);
+            PropertyDisplay propSpace = (PropertyDisplay) Class.forName("View.SpaceDisplay." + boardEdge).getConstructor(String.class, String.class, String.class, String.class, int.class, int.class).newInstance(name, price, color, baseColor, myBoardHeight, boardDimension);
             myGridPane.add(propSpace.getMyPropStackPane(), (int) entry.getKey().getX(), (int) entry.getKey().getY());
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -158,7 +157,7 @@ public class Board implements PropertyChangeListener {
 
         private void createNonPropSpace (String image,String boardEdge, Map.Entry<Point2D.Double, AbstractSpace> entry) {
             try {
-            PropertyDisplay propSpace = (PropertyDisplay) Class.forName("View.SpaceDisplay." + boardEdge).getConstructor(String.class, String.class, int.class).newInstance(baseColor, image, myBoardHeight);
+            PropertyDisplay propSpace = (PropertyDisplay) Class.forName("View.SpaceDisplay." + boardEdge).getConstructor(String.class, String.class, int.class, int.class).newInstance(baseColor, image, myBoardHeight, boardDimension);
             myGridPane.add(propSpace.getMyPropStackPane(), (int) entry.getKey().getX(), (int) entry.getKey().getY());
         } catch(InstantiationException e){
             e.printStackTrace();
@@ -212,8 +211,8 @@ public class Board implements PropertyChangeListener {
     public ImageView getLogo() {
         var logo = new Image(this.getClass().getClassLoader().getResourceAsStream(boardInfo.getString("boardLogo")));
         boardLogo = new ImageView(logo);
-        boardLogo.setFitWidth((705/ (boardDimension+2)) * (boardDimension-2));
-        boardLogo.setFitHeight((705 / (boardDimension+2)) * (boardDimension-2));
+        boardLogo.setFitWidth(((myBoardHeight)/ (boardDimension)) * (boardDimension-2));
+        boardLogo.setFitHeight(((myBoardHeight)/ (boardDimension)) * (boardDimension-2));
         boardLogo.setId("boardLogo");
         return boardLogo;
     }

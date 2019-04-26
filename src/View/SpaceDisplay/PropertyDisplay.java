@@ -11,8 +11,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+
+import java.util.ResourceBundle;
 
 public abstract class PropertyDisplay {
 
@@ -30,22 +33,22 @@ public abstract class PropertyDisplay {
     protected int myBoardDimen;
     protected int myBoardHeight;
 
-    public PropertyDisplay(String propName, String propPrice, String propColor, String baseColor, int boardHeight){
+    public PropertyDisplay(String propName, String propPrice, String propColor, String baseColor, int boardHeight, int boardDimen){
         this.myPropName = propName;
         this.myPropPrice = propPrice;
         this.myPropColor = propColor;
         this.myBaseColor = baseColor;
         myPropertyPane = new Pane();
-        this.myBoardDimen = 11;
+        this.myBoardDimen = boardDimen;
         this.myBoardHeight = boardHeight;
 
         myPropStackPane = new StackPane();
     }
 
-    public PropertyDisplay(String baseColor, String image, int boardHeight){
+    public PropertyDisplay(String baseColor, String image, int boardHeight, int boardDimen){
         this.myBaseColor = baseColor;
         this.myImage = image;
-        this.myBoardDimen = 11;
+        this.myBoardDimen = boardDimen;
         this.myBoardHeight = boardHeight;
         myPropertyPane = new Pane();
         myPropStackPane = new StackPane();
