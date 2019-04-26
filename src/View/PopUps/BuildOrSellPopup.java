@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
-
 public class BuildOrSellPopup extends Popup {
 
     private TabPane tabPane;
@@ -44,16 +43,14 @@ public class BuildOrSellPopup extends Popup {
         HBox layout = new HBox();
         layout.setStyle(  " -fx-background-color: skyblue");
         layout.setPrefHeight(Controller.WIDTH);
-
         Tab buildTab = new Tab(myText.getString("buildTab"));
-        buildTab.setContent(setBuildInfo(popUpWindow, myText.getString("buyHouse"), myText.getString("buyHotel"),myText.getString("BuildMessage")));
-
+        buildTab.setContent(setTabInfo(popUpWindow, myText.getString("buyHouse"), myText.getString("buyHotel"),myText.getString("BuildMessage"), "BUILD"));
         Tab sellTab = new Tab(myText.getString("sellTab"));
         sellInfo = new VBox(HBOX_SPACING_TEN);
 
         createMortgageButtons(popUpWindow);
 
-        sellInfo.getChildren().addAll(setSellInfo(popUpWindow, myText.getString("sellHouse"), myText.getString("sellHotel"),myText.getString("SellMessage")),myMortgage, unMortgage);
+        sellInfo.getChildren().addAll(setTabInfo(popUpWindow, myText.getString("sellHouse"), myText.getString("sellHotel"),myText.getString("SellMessage"), "SELL"),myMortgage, unMortgage);
         sellTab.setContent(sellInfo);
         sellInfo.setSpacing(50);
         tabPane.getTabs().addAll(buildTab,sellTab);
@@ -66,18 +63,19 @@ public class BuildOrSellPopup extends Popup {
         myMortgage = createIndividualButton(myText.getString("mortgageButton"));
         unMortgage = createIndividualButton(myText.getString("unMortgage"));
         unMortgage.setOnAction(e ->{
-            mortgageHandler(popUpWindow,myText.getString("unMortgageText"));
+            myController.getGame().getBank().unMortgageProperty(myProperty);
+            createAlert(popUpWindow,myText.getString("unMortgageText"));
         });
         myMortgage.setDisable(true);
         unMortgage.setDisable(true);
         myMortgage.setOnAction(e -> {
-            mortgageHandler(popUpWindow,myText.getString("mortgageText"));
+            myController.getGame().getBank().mortgageProperty(myProperty);
+            createAlert(popUpWindow,myText.getString("mortgageText"));
         });
     }
 
-    private void mortgageHandler(Stage popUpWindow, String key){
+    private void createAlert(Stage popUpWindow, String key){
         Alert a = new Alert(Alert.AlertType.NONE);
-        myController.getGame().getBank().mortgageProperty(myProperty);
         a.setContentText(key + myProperty.getName() + "!");
         popUpWindow.close();
         a.setAlertType(Alert.AlertType.INFORMATION);
@@ -91,23 +89,44 @@ public class BuildOrSellPopup extends Popup {
         a.setContentText(myText.getString("bought") + key + " for " + myProperty.getName() + "! " +myText.getString("totalMessage") +myProperty.getNumBuilding(BuildingType.valueOf(key))+ " " + key + myText.getString("additional") );
         a.setAlertType(Alert.AlertType.INFORMATION);
         a.show();
-
     }
 
-    private Pane setBuildInfo(Stage popUpWindow, String key1, String key2, String message) {
+    private void sellHandler(Stage popUpWindow,String key){
+        myController.getGame().getBank().sellBackBuildings(myProperty,BuildingType.valueOf(key));
+        popUpWindow.close();
+        Alert a = new Alert(Alert.AlertType.NONE);
+        a.setContentText(myText.getString("sold") + key  + " on " + myProperty.getName() + "! " +myText.getString("totalMessage") +myProperty.getNumBuilding(BuildingType.valueOf(key))+ " " + key + myText.getString("additional"));
+        a.setAlertType(Alert.AlertType.INFORMATION);
+        a.show();
+    }
+
+    private Pane setTabInfo(Stage popUpWindow, String key1, String key2, String message, String infoType) {
         BorderPane pane = new BorderPane();
         HBox props = createPropComboBox();
         pane.setTop(props);
         pane.setAlignment(props,Pos.CENTER);
-
         HBox propDetails = new HBox(HBOX_SPACING_TEN);
         VBox property = new VBox(HBOX_SPACING_TEN);
         property.setId("propVBox");
-
         VBox incrementer = new VBox();
+        Pane myButtons;
+        if (infoType.equals("BUILD")){
+            myButtons = createBuildButtons(popUpWindow, key1, key2);
+        }
+        else{
+            myButtons = createSellButtons(popUpWindow, key1, key2);
+        }
+        Label mess = new Label(message);
+        incrementer.getChildren().addAll(mess,myButtons);
+        incrementer.setAlignment(Pos.CENTER);
+        incrementer.setId("buildIncrementerVBox");
+        propDetails.getChildren().addAll(property,incrementer);
+        pane.setCenter(propDetails);
+        return pane;
+    }
 
+    private Pane createBuildButtons(Stage popUpWindow, String key1, String key2){
         Pane myButtons = createButtons(popUpWindow);
-
         button = createIndividualButton(key1);
         button.setDisable(true);
         button.setOnAction(e -> {
@@ -118,60 +137,24 @@ public class BuildOrSellPopup extends Popup {
         button2.setOnAction(e -> {
             buildHandler(popUpWindow, myText.getString("buildingLevel1"));
         });
-
         myButtons.getChildren().addAll(button,button2);
-
-        Label mess = new Label(message);
-        incrementer.getChildren().addAll(mess,myButtons);
-        incrementer.setAlignment(Pos.CENTER);
-        incrementer.setId("buildIncrementerVBox");
-        propDetails.getChildren().addAll(property,incrementer);
-        pane.setCenter(propDetails);
-
-        return pane;
+        return myButtons;
     }
 
-    private Pane setSellInfo(Stage popUpWindow, String key1, String key2, String message){
-        BorderPane pane = new BorderPane();
-        HBox props = createPropComboBox();
-        pane.setTop(props);
-        pane.setAlignment(props,Pos.CENTER);
-        HBox propDetails = new HBox(HBOX_SPACING_TEN);
-        VBox property = new VBox(HBOX_SPACING_TEN);
-        property.setId("propVBox");
-        VBox incrementer = new VBox();
+    private Pane createSellButtons(Stage popUpWindow, String key1, String key2){
         Pane myButtons = createButtons(popUpWindow);
-
         button3 = createIndividualButton(key1);
         button3.setDisable(true);
         button3.setOnAction(e -> {
-            myController.getGame().getBank().sellBackBuildings(myProperty,BuildingType.valueOf(myText.getString("buildingLevel0")));
-            popUpWindow.close();
-            Alert a = new Alert(Alert.AlertType.NONE);
-            a.setContentText("You sold a " + myText.getString("building1") + " on " + myProperty.getName() + "! " + "You have a total of " +myProperty.getNumBuilding(BuildingType.valueOf(myText.getString("buildingLevel0")))+ " " + myText.getString("building1")+ "(s) on this property." );
-            a.setAlertType(Alert.AlertType.INFORMATION);
-            a.show();
+            sellHandler(popUpWindow,myText.getString("buildingLevel0"));
         });
         button4 = createIndividualButton(key2);
         button4.setDisable(true);
         button4.setOnAction(e -> {
-            myController.getGame().getBank().sellBackBuildings(myProperty,BuildingType.valueOf(myText.getString("buildingLevel1")));
-            popUpWindow.close();
-            Alert a = new Alert(Alert.AlertType.NONE);
-            a.setContentText("You sold a " + myText.getString("building2") + " on " + myProperty.getName() + "! " + "You have a total of " +myProperty.getNumBuilding(BuildingType.valueOf(myText.getString("buildingLevel1")))+ " " + myText.getString("building2")+ "(s) on this property." );
-            a.setAlertType(Alert.AlertType.INFORMATION);
-            a.show();
+            sellHandler(popUpWindow,myText.getString("buildingLevel1"));
         });
         myButtons.getChildren().addAll(button3,button4);
-
-        Label mess = new Label(message);
-        incrementer.getChildren().addAll(mess,myButtons);
-        incrementer.setAlignment(Pos.CENTER);
-        incrementer.setId("buildIncrementerVBox");
-        propDetails.getChildren().addAll(property,incrementer);
-        pane.setCenter(propDetails);
-
-        return pane;
+        return myButtons;
     }
 
     private HBox createPropComboBox(){
