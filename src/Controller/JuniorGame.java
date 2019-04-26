@@ -47,7 +47,7 @@ public class JuniorGame extends AbstractGame {
 
     public boolean checkGameOver() {
         for(AbstractPlayer p : getPlayers()) {
-            if(p.getCantPayBool) {
+            if(p.getCantPayBool()) {
                 return true;
             }
         }

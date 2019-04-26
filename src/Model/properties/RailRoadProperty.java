@@ -3,7 +3,10 @@ package Model.properties;
 
 import Model.AbstractPlayer;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RailRoadProperty extends Property {
 
@@ -14,8 +17,8 @@ public class RailRoadProperty extends Property {
     //private double rent4;
     //private double mortgage;
     private List<Double> rentNumbers;
-    private final double INFO_NUM = 5;
-    private final int FOUR = 4;
+    private static final double INFO_NUM = 5;
+    private static final int FOUR = 4;
 
     public RailRoadProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
         super(price, propName, color, paymentInfo, groupSize, buildingPriceMap);
@@ -46,7 +49,7 @@ public class RailRoadProperty extends Property {
     }
 
     protected void initializePaymentInfo(List<Double> paymentInformation){
-        List<Double> paymentInformationCopy = paymentInformation;
+        List<Double> paymentInformationCopy = List.copyOf(paymentInformation);
         if(paymentInformation.size()>=INFO_NUM){
             //rent = paymentInformationCopy.get(0);
             //rent2 = paymentInformationCopy.get(1);

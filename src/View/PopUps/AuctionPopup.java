@@ -98,11 +98,9 @@ public class AuctionPopup implements PropertyChangeListener {
     private void displayWinnerOfAuction(int winningBid, AbstractPlayer winningBidder){
         myLayout = new VBox(VBoxSpacing);
         Label msg = new Label(winningBidder.getName() + " won the Auction");
-<<<<<<< HEAD
-        Label msg2 = new Label("bought " + myController.getGame().getBoard().getSpaceAt(myPropLocation).getMyName() + " for "+winningBid);
-=======
+
         Label msg2 = new Label("bought " + myProperty.getName() + " for "+winningBid);
->>>>>>> 0a8179afbed289cc9938a94c8d0dae31422b7739
+
         Button ok = new Button("OK");
         ok.setOnAction(e -> oldPopUp.close());
         myLayout.getChildren().addAll(msg,msg2,ok);

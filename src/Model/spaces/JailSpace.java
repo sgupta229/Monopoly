@@ -34,7 +34,8 @@ public class JailSpace extends AbstractSpace {
      */
 
     public void doAction(AbstractGame game, int userChoice){
-
+        //our jail space does nothing, however if we wanted it
+        //to, we would implement that here
     }
 
     public String getPopString(AbstractGame game){
