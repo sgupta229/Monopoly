@@ -573,6 +573,7 @@ public class ConfigReader {
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 String stringValue = element.getTextContent();
+                System.out.println("rule bool was true "+attribute);
                 return Boolean.parseBoolean(stringValue);
             }
             return false;

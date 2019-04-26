@@ -80,7 +80,9 @@ public abstract class AbstractGame implements Serializable {
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
             evenBuildingRule = configReader.getRuleBool("EvenBuilding");
+            setEvenBuildingRule(evenBuildingRule);
             freeParkingRule = configReader.getRuleBool("FreeParking");
+            setFreeParkingRule(freeParkingRule);
             rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
             snakeEyes = configReader.getRuleDouble("SnakeEyes");
 
@@ -96,8 +98,11 @@ public abstract class AbstractGame implements Serializable {
         }
         players = p;
         setCurrPlayer(0);
-        for (AbstractPlayer pl : players)
+        for (AbstractPlayer pl : players){
             this.addPlayer(pl);
+            pl.setJailBail(jailBail);
+        }
+
     }
 
     public abstract boolean checkGameOver();
@@ -313,7 +318,8 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public boolean checkDoublesForJail() {
-        if(getDiceHistory().get(0).size() < 3) {
+
+        if(getDiceHistory().get(0).size() < 3 || dice.size()<2) {
             return false;
         }
         ArrayList<Integer> firstDie = getDiceHistory().get(0);
@@ -343,6 +349,7 @@ public abstract class AbstractGame implements Serializable {
 
     public Property handleAuction(AbstractPlayer p, int bid, int propLocation) {        //TODO change method return type back to void, figure out how to get property in AuctionPopUp
         Property prop = board.getSpaceAt(propLocation).getMyProp();
+        prop.setIsOwned(true);
         bank.setPropertyOwner(prop, p);
         p.makePayment(bank, bid, bank);
         p.addProperty(prop);
