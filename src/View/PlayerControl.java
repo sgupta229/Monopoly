@@ -78,7 +78,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         Button manageProperty = new Button("Manage Property");
         manageProperty.setOnAction(e -> new BuildOrSellPopup(myController).display());
         Button trade = new Button("Trade");
-//        trade.setOnAction(e -> new TradePopup().display());
+        trade.setOnAction(e -> new TradePopup(myPlayer).display());
         //TODO make a trade pop up
         manageTradeBox.getChildren().addAll(manageProperty,trade);
 

@@ -4,62 +4,54 @@ import Controller.Controller;
 import Model.AbstractPlayer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class TradePopup extends BuyPropertyPopup {
+public class TradePopup {
+    private ResourceBundle messages;
+    private Stage myStage;
+    private AbstractPlayer currentPlayer;
+    private Pane myLayout;
 
-    private String name;
-    private int prefWidthTextBox=125;
-    private ResourceBundle myText;
-    private List<AbstractPlayer> myPlayers;
-    private AbstractPlayer myCurrPlayer;
-    private Stage oldPopUp;
+    public TradePopup(AbstractPlayer player){
+        this.messages = ResourceBundle.getBundle("Messages");
+        this.myStage = new Stage();
+        this.currentPlayer = player;
+        this.myLayout = new Pane();
 
+        setUpLayout();
 
-
-    public TradePopup(int propLocation, String name, Controller controller, Stage popUpWindow, List<AbstractPlayer> players, AbstractPlayer currPlayer) {
-        super(propLocation, controller);
-        this.name = name;
-        this.myText = ResourceBundle.getBundle(controller.getGame().getFrontEndFiles().get(POPUP_TEXT).toString());
-        this.myPlayers = players;
-        this.oldPopUp = popUpWindow;
-        this.myCurrPlayer = currPlayer;
     }
 
+    private void setUpLayout(){
+        HBox myHBox = new HBox();
 
-    @Override
-    protected Pane createImage(Scene scene, Stage popUpWindow) {
-        return super.createImage(scene, popUpWindow);
+
+
+        myHBox.getChildren().addAll();
+        myLayout.getChildren().addAll(myHBox);
     }
 
-    @Override
-    protected Pane createButtons(Stage window) {
-        HBox buttons = new HBox(HBOX_SPACING_TEN);
-        Button button1 = new Button("");
-        Button button2 = new Button("NO");
-        button1.setId("button2");
-        button2.setId("button2");
-        return buttons;
+    private VBox playerTradeBox(){
+        VBox vBox = new VBox();
+
+        vBox.getChildren().addAll();
+        return vBox;
     }
 
-    @Override
-    protected String createMessage() {
-        return myText.getString("tradeMessage");
+    public void display(){
+        Scene scene = new Scene(myLayout, Controller.WIDTH/Popup.V_BOX_SPACING, Controller.HEIGHT/Popup.IMAGE_HEIGHT_SPACING);
+        scene.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
+        myStage.setScene(scene);
+        myStage.show();
     }
 
-    @Override
-    protected String createTitle() {
-        return myText.getString("auctionTitle");
-    }
-
-    @Override
-    protected Label createHeader() {
-        return new Label(myText.getString("auctionHeader") + name + "!");
-    }
 }
