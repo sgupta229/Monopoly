@@ -206,6 +206,11 @@ public class Bank implements Transfer, Serializable {
                 return false;
             }
         }
+        System.out.println("this is the building to build" + building);
+        for(BuildingType bt:typesOfBuildings){
+            System.out.println("these are the buildings the bank knows of: " + bt);
+
+        }
         if(maxBuildingsPerProp.get(building)==property.getNumBuilding(building)){
             return false;
         }
