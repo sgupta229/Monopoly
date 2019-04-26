@@ -302,7 +302,6 @@ public abstract class AbstractGame implements Serializable {
         if(!currPlayer.isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }
-
         else {
             currPlayer.incrementNumRollsinJail();
             if(checkDoubles()) {
