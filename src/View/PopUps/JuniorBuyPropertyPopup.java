@@ -84,15 +84,20 @@ public class JuniorBuyPropertyPopup extends BuyPropertyPopup {
     protected Pane createButtons(Stage popUpWindow) {
         HBox buttons = new HBox(HBOX_SPACING_TEN);
         Button button1 = new Button(myText.getString("yesButton"));
-        button1.setId("button2");
-
-        button1.setOnAction(e -> {
-                mySpace.doAction(myController.getGame(), OK);
-                popUpWindow.close();
-        });
+        createButtonHandler(button1,popUpWindow);
         buttons.getChildren().addAll(button1);
 
         return buttons;
+    }
+
+
+    protected void createButtonHandler(Button button1, Stage popUpWindow){
+        button1.setId("button2");
+
+        button1.setOnAction(e -> {
+            mySpace.doAction(myController.getGame(), OK);
+            popUpWindow.close();
+        });
     }
 
 

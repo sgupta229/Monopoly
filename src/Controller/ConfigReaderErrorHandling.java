@@ -1,13 +1,9 @@
 package Controller;
 
-import Model.actioncards.DeckType;
-import Model.properties.BuildingType;
 import Model.properties.Property;
-import Model.spaces.SpaceGroup;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import java.io.File;
 import java.util.*;
 
 public class ConfigReaderErrorHandling {
@@ -17,30 +13,16 @@ public class ConfigReaderErrorHandling {
         myDoc = doc;
     }
 
-    /**
-     * Used to check that deck types in xml are valid enums
-     * @param deckName deckName from xml
-     * @return true if valid; false if not
-     */
-    //Helper method to check if deck type found is a legal deck type enum -- for error handling
-    public boolean checkDeckType(String deckName){
-        for(DeckType dtype : DeckType.values()) {
-            if (dtype.name().equalsIgnoreCase(deckName)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
-     * Used to check that building types in xml are valid enums
-     * @param buildingType buildingType from xml
-     * @return true if valid; false if not
+     * Combines checkDeckType, checkSpaceGroup, and checkBuildingType into one method
+     * @param arg string to check
+     * @param checkList list of enum values to check against
+     * @return true if string is valid enum; false otherwise
      */
-    //Helper method to check if building type found is a legal building type enum -- for error handling
-    public boolean checkBuildingType(String buildingType){
-        for(BuildingType btype : BuildingType.values()) {
-            if (btype.name().equalsIgnoreCase(buildingType)) {
+    public boolean checkEnums(String arg, Enum[] checkList){
+        for(Enum en : checkList){
+            if(en.name().equalsIgnoreCase(arg)){
                 return true;
             }
         }
@@ -55,8 +37,6 @@ public class ConfigReaderErrorHandling {
     //Helper method to check if tag name being searched for is in the xml documnet -- for error handling
     public boolean checkTagName(String tagName){
         NodeList listCheck = myDoc.getElementsByTagName(tagName);
-        //System.out.println(listCheck.getLength());
-        //If length == 0, return false because tagName not in xml
         return (listCheck.getLength() != 0);
     }
 
@@ -122,19 +102,6 @@ public class ConfigReaderErrorHandling {
         }
     }
 
-    /**
-     * Used to check that space groups in xml are valid enums
-     * @param spaceName string to check
-     * @return true if valid; false if not
-     */
-    public boolean checkSpaceGroup(String spaceName){
-        for(SpaceGroup sg : SpaceGroup.values()) {
-            if (sg.name().equalsIgnoreCase(spaceName)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Ensure that number of spaces listed matches board size listed
@@ -166,7 +133,6 @@ public class ConfigReaderErrorHandling {
             if(propColorSet.contains(s) || spaceNameSet.contains(s) || spaceGroupSet.contains(s)){
                 return true;
             }
-            System.out.println(s);
         }
         return false;
     }
