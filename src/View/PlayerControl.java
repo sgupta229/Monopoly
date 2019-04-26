@@ -2,11 +2,14 @@ package View;
 
 import Controller.Controller;
 import Model.AbstractPlayer;
+import Model.ActionCard;
+import Model.actioncards.AbstractActionCard;
 import Model.properties.Property;
 import View.PopUps.BuildOrSellPopup;
 import View.PopUps.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -39,8 +42,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         myPlayer.addPropertyChangeListener("funds",this);
 
         messages = ResourceBundle.getBundle("Messages");
-        endTurnButton = new Button(messages.getString("end-turn"));
-        endTurnButton.setDisable(true);
+
         setUpLayout();
     }
 
@@ -58,14 +60,15 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
     private VBox createVBox(){
         myVBox = new VBox();
-        endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                myController.getGame().startNextTurn();
-                myDiceRoller.setDisable(false);
-                if (myController.getGame().checkGameOver()){
-                    myController.endGame(myController.getGame().getWinner());
-                }
+        myVBox.setId("playerControlBox");
+
+        endTurnButton = new Button(messages.getString("end-turn"));
+        endTurnButton.setDisable(true);
+        endTurnButton.setOnAction(e -> {
+            myController.getGame().startNextTurn();
+            myDiceRoller.setDisable(false);
+            if (myController.getGame().checkGameOver()) {
+                myController.endGame(myController.getGame().getWinner());
             }
         });
 
@@ -77,11 +80,11 @@ public abstract class PlayerControl implements PropertyChangeListener {
         Button trade = new Button("Trade");
 //        trade.setOnAction(e -> new TradePopup().display());
         //TODO make a trade pop up
-
         manageTradeBox.getChildren().addAll(manageProperty,trade);
 
         HBox moveBox = new HBox();
         TextField moveTo = new TextField();
+        moveTo.setPrefWidth(80);
         Button move = new Button("MOVE");
         moveBox.getChildren().addAll(moveTo,move);
         move.setOnAction(e -> myController.getGame().movePlayer(myPlayer.getCurrentLocation(),Integer.parseInt(moveTo.getText())));
@@ -95,7 +98,9 @@ public abstract class PlayerControl implements PropertyChangeListener {
             myDiceRoller.setDisable(false);
         });
 
-        myVBox.setId("playerControlBox");
+        HBox forfeitAndMove = new HBox(10);
+        forfeitAndMove.getChildren().addAll(forfeit,moveBox);
+
         HBox nameAndEnd = new HBox(Popup.PADDING_TWENTY);
         nameAndEnd.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(myPlayer.getName());
@@ -114,20 +119,23 @@ public abstract class PlayerControl implements PropertyChangeListener {
             bailButton.setVisible(false);
         }
         nameAndEnd.getChildren().addAll(playerIcon,playerName,endTurnButton,bailButton);
-        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(), moveBox,manageTradeBox,createAssetsListView(),forfeit);
+
+        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(),manageTradeBox,
+                createAssetsListView(),createActionCardsListView(),forfeitAndMove);
         return myVBox;
     }
 
     private ListView createAssetsListView(){
         ListView<Property> assetsListView = new ListView<>(myPlayer.getProperties());
-
-        assetsListView.setCellFactory(new Callback<ListView<Property>, ListCell<Property>>() {
-            @Override
-            public ListCell<Property> call(ListView<Property> list) {
-                return new PropertyCell();
-            }
-        });
+        assetsListView.setCellFactory(list -> new PropertyCell());
         return assetsListView;
+    }
+
+    private ListView createActionCardsListView(){
+        ListView<AbstractActionCard> cardsListView = new ListView<>(myPlayer.getActionCards());
+        cardsListView.setOrientation(Orientation.HORIZONTAL);
+        cardsListView.setCellFactory(list -> new ActionCardCell(myController.getGame()));
+        return cardsListView;
     }
 
     private Text createBalanceText(){
@@ -141,14 +149,11 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        myFunds.setText("$ "+Double.toString(myPlayer.getFunds()));
+        myFunds.setText("$ "+ myPlayer.getFunds());
     }
 
     public VBox getMyVBox() {
         return myVBox;
     }
 
-    public Button getEndTurnButton() {
-        return endTurnButton;
-    }
 }

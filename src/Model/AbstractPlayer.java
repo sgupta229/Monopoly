@@ -204,11 +204,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         return numRollsInJail;
     }
 
-    public List<AbstractActionCard> getActionsCards() {
-        return actionCards;
-    }
-
-    public List<AbstractActionCard> getActionCards(){return actionCards;}
+    public ObservableList<AbstractActionCard> getActionCards(){return actionCards;}
 
     public void setImage(String img) {
         tokenImage = img;
