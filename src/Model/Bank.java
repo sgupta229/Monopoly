@@ -142,6 +142,7 @@ public class Bank implements Transfer, Serializable {
         ownedPropsMap.remove(property);
         unOwnedProps.add(property);
         propOwner.removeProperty(property);
+        property.setIsOwned(false);
         //game.startAuction();
     }
 
