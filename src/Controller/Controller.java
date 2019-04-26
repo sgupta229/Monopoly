@@ -57,7 +57,7 @@ public class Controller {
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
             System.exit(0);
-        } 
+        }
 
         //TODO: make gameFactory or use reflection to create concrete Game class based on gameType
         //gameType = ClassicGame, MegaGame

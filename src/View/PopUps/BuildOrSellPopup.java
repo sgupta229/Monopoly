@@ -1,11 +1,15 @@
 package View.PopUps;
 
 import Controller.Controller;
-import Model.properties.BuildingType;
 import Model.properties.Property;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -19,7 +23,6 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
 
     private TabPane tabPane;
     private Controller myController;
-    private double tabPaneWidth = 1.5;
     private ResourceBundle myText;
     private Property myProperty;
     private Button myMortgage;
@@ -34,7 +37,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
     public BuildOrSellPopup(int propLocation, Controller controller) {
         super(propLocation);
         tabPane = new TabPane();
-        tabPane.setPrefWidth(Controller.WIDTH/tabPaneWidth);
+        tabPane.setPrefWidth(Controller.WIDTH/IMAGE_HEIGHT_SPACING);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         this.myController = controller;
         this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
@@ -47,7 +50,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         buildTab.setContent(setBuildInfo(popUpWindow, myText.getString("buyHouse"), myText.getString("buyHotel"),myText.getString("BuildMessage")));
 
         Tab sellTab = new Tab(myText.getString("sellTab"));
-        HBox sellInfo = new HBox(10);
+        HBox sellInfo = new HBox(HBOX_SPACING_TEN);
         myMortgage = createIndividualButton(popUpWindow,myText.getString("mortgageButton"));
         myMortgage.setDisable(true);
         myMortgage.setOnAction(e -> {
@@ -75,8 +78,8 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         pane.setTop(props);
         pane.setAlignment(props,Pos.CENTER);
 
-        HBox propDetails = new HBox(HBoxSpacing);
-        VBox property = new VBox(HBoxSpacing);
+        HBox propDetails = new HBox(HBOX_SPACING_TEN);
+        VBox property = new VBox(HBOX_SPACING_TEN);
         property.setId("propVBox");
 
         VBox incrementer = new VBox();
@@ -121,8 +124,8 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
         pane.setTop(props);
         pane.setAlignment(props,Pos.CENTER);
 
-        HBox propDetails = new HBox(HBoxSpacing);
-        VBox property = new VBox(HBoxSpacing);
+        HBox propDetails = new HBox(HBOX_SPACING_TEN);
+        VBox property = new VBox(HBOX_SPACING_TEN);
         property.setId("propVBox");
 
         VBox incrementer = new VBox();
@@ -209,7 +212,7 @@ public class BuildOrSellPopup extends BuyPropertyPopup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        Pane buttons = new HBox(HBoxSpacing);
+        Pane buttons = new HBox(HBOX_SPACING_TEN);
         return buttons;
     }
 

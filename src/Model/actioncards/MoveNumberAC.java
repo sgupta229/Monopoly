@@ -15,6 +15,10 @@ public class MoveNumberAC extends AbstractActionCard {
         passGo = extraDoubles.get(0);
     };
 
+    /**
+     * Move's player to new location based on number specified
+     * @param game to find player and board and locations
+     */
     @Override
     public void doCardAction(AbstractGame game) {
         AbstractPlayer curr = game.getCurrPlayer();
@@ -25,6 +29,7 @@ public class MoveNumberAC extends AbstractActionCard {
         d.discardCard(this);
     }
 
+    //If move loops past "GO" space, number must be reset to stay within board range
     private int getIndexOnBoard(int start, int change, int boardSize){
         int newDex = start + change;
         if(newDex >= boardSize){

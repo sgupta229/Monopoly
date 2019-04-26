@@ -3,8 +3,6 @@ package View.PopUps;
 import Controller.Controller;
 import Model.spaces.AbstractSpace;
 import View.BoardConfigReader;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,7 +29,7 @@ public class ActionCardPopup extends Popup {
         super();
         this.propLocation = propLocation;
         this.myController = controller;
-        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(POPUP_TEXT).toString());
         BoardConfigReader indexToName = new BoardConfigReader(myController.getGame());
         spaces = indexToName.getSpaces();
         for (AbstractSpace sp : spaces){
@@ -74,17 +72,13 @@ public class ActionCardPopup extends Popup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        HBox buttons = new HBox(HBoxSpacing);
+        HBox buttons = new HBox(HBOX_SPACING_TEN);
         Button button1= new Button(myText.getString("okButton"));
         button1.setId("button1");
 
-        button1.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
+        button1.setOnAction(e ->{
                 myController.getGame().getCurrentActionCard().doCardAction(myController.getGame());
                 window.close();
-            }
         });
         buttons.getChildren().add(button1);
         return buttons;

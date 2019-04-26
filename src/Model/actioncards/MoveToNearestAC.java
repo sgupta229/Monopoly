@@ -16,6 +16,10 @@ public class MoveToNearestAC extends AbstractActionCard {
         passGo = extraDoubles.get(0);
     };
 
+    /**
+     * Starting at my location, find nearest of specified target group and move there
+     * @param game to find spaces and players
+     */
     @Override
     public void doCardAction(AbstractGame game) {
         AbstractPlayer curr = game.getCurrPlayer();
@@ -29,7 +33,7 @@ public class MoveToNearestAC extends AbstractActionCard {
             if(game.getBoard().getSpaceAt(i).getMyGroup() == sg){
                 game.movePlayer(prevLocation, i);
                 if(prevLocation > i){
-                    game.getBank().makePayment(passGo, curr);
+                    game.getBank().makePayment(game.getBank(), passGo, curr);
                 }
                 break;
             }

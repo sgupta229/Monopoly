@@ -12,7 +12,6 @@ public class LoseMoneyAC extends AbstractActionCard {
     String loseMoneyTo;
     List<Double> amountLose;
 
-
     //Deprecate -- was Double amount, now List<Double> amount
     @Deprecated
     public LoseMoneyAC(DeckType deckType, String message, Boolean holdable, String loseTo, Double amount) {
@@ -35,6 +34,10 @@ public class LoseMoneyAC extends AbstractActionCard {
 
     //public LoseMoneyAC(DeckType deckType, String message, Boolean holdable, String extraString, List<Double> extraDoubles){}
 
+    /**
+     * Checks if multi pay or double pay (by house/hotel) then calls helper method
+     * @param game takes in game to find players and bank
+     */
     @Override
     public void doCardAction(AbstractGame game) {
         if(amountLose.size() == 1){
@@ -47,23 +50,24 @@ public class LoseMoneyAC extends AbstractActionCard {
         d.discardCard(this);
     }
 
-    public void singlePay(AbstractGame game){
+    //Helper method for payments of single cost (not per house/per hotel)
+    private void singlePay(AbstractGame game){
         double amnt = amountLose.get(0);
         AbstractPlayer currP = game.getCurrPlayer();
         if(loseMoneyTo.equalsIgnoreCase("bank")){
-            currP.makePayment(amnt,game.getBank());
+            currP.makePayment(game.getBank(), amnt,game.getBank());
         }
         else{
             for(AbstractPlayer p: game.getPlayers()){
                 if(!p.equals(currP)){
-                    currP.makePayment(amnt, p);
+                    currP.makePayment(game.getBank(), amnt, p);
                 }
             }
         }
     }
 
     //If paying per house/hotel -- always to bank
-    public void multiPay(AbstractGame game){
+    private void multiPay(AbstractGame game){
         AbstractPlayer currP = game.getCurrPlayer();
         double payment = 0;
         Map<BuildingType, Integer> buildingsMap = currP.getNumBuildings();
@@ -75,6 +79,6 @@ public class LoseMoneyAC extends AbstractActionCard {
             //Price per house at index 0; pp hotel at index 1
             payment += numB * amountLose.get(bt.getBuildingLevel());
         }
-        currP.makePayment(payment, game.getBank());
+        currP.makePayment(game.getBank(), payment, game.getBank());
     }
 }

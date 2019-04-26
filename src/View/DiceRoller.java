@@ -88,7 +88,7 @@ public class DiceRoller {
             Alert a = new Alert(Alert.AlertType.WARNING);
             a.setContentText("You paid bail!");
             a.show();
-            myController.getGame().getCurrPlayer().makePayment(myController.getGame().getJailBail(), myController.getGame().getBank());
+            myController.getGame().getCurrPlayer().makePayment(myController.getGame().getBank(), myController.getGame().getJailBail(), myController.getGame().getBank());
         }
     }
 

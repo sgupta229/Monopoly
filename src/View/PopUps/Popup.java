@@ -1,7 +1,6 @@
 package View.PopUps;
 
 import Controller.Controller;
-import View.BoardConfigReader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,13 +12,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Pane;
 import java.io.File;
-import java.util.List;
-import java.util.ResourceBundle;
 
 
 public abstract class Popup {
 
-    public static final int HBoxSpacing = 10;
+    public static final int HBOX_SPACING_TEN = 10;
+    public static final int HBOX_SPACING_FORTY = 40;
+    public static final int PADDING_TWENTY = 20;
+    public static final int POPUP_TEXT = 2;
+    static final double IMAGE_HEIGHT_SPACING = 1.5;
+    static final int PROP_COLOR_SPACING = 7;
+
+
     public static final int OK = 0;
     public static final int NO = 1;
 
@@ -34,9 +38,9 @@ public abstract class Popup {
         popUpWindow.setTitle(createTitle());
 
         BorderPane layout = new BorderPane();
-        HBox all = new HBox(40);
+        HBox all = new HBox(HBOX_SPACING_FORTY);
 
-        Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/1.5);
+        Scene scene1= new Scene(layout, Controller.WIDTH/2, Controller.HEIGHT/IMAGE_HEIGHT_SPACING);
         scene1.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
 
         Label label1= new Label(createMessage());
@@ -46,7 +50,7 @@ public abstract class Popup {
 
         VBox text= new VBox();
 
-        VBox image= new VBox(HBoxSpacing);
+        VBox image= new VBox(HBOX_SPACING_TEN);
         Pane buttons = createButtons(popUpWindow);
         Pane fullImage = createImage(scene1, popUpWindow);
 
@@ -57,7 +61,7 @@ public abstract class Popup {
             all.getChildren().addAll(image, text);
             layout.setTop(title);
             layout.setAlignment(title, Pos.CENTER);
-            layout.setMargin(title, new Insets(20,20,0,20));
+            layout.setMargin(title, new Insets(PADDING_TWENTY,PADDING_TWENTY,OK,PADDING_TWENTY));
             image.getChildren().addAll(fullImage);
             image.setAlignment(Pos.CENTER_LEFT);
             text.getChildren().addAll(label1, buttons);

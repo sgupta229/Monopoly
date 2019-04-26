@@ -748,14 +748,14 @@
             <DeckType>LUAU_GIFT_BAG</DeckType>
             <Message>YOU'RE GOING SHARK DIVING. GO DIRECTLY TO THE SHARK CAGE. DO NOT PASS GO, DO NOT COLLECT $200!</Message>
             <Holdable>False</Holdable>
-            <ExtraString>NA</ExtraString>
+            <ExtraString>SHARK_DIVING</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
         <ActionCardType type="GoToJailAC">
             <DeckType>TREASURE_CHEST</DeckType>
             <Message>YOU'RE GOING SHARK DIVING. GO DIRECTLY TO THE SHARK CAGE. DO NOT PASS GO, DO NOT COLLECT $200!</Message>
             <Holdable>False</Holdable>
-            <ExtraString>NA</ExtraString>
+            <ExtraString>SHARK_DIVING</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
         <ActionCardType type="GetOutJailAC">

@@ -7,7 +7,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -22,13 +23,14 @@ public class AuctionPopup implements PropertyChangeListener {
     private ResourceBundle messages;
     private String name;
     private List<AbstractPlayer> myPlayers;
-    private AbstractPlayer myCurrPlayer;
     private Stage oldPopUp;
     private BidBoxGroup myBidBoxGroup;
     private SimpleBooleanProperty auctionOver;
     private Controller myController;
     private Property myProperty;
     private int myPropLocation;
+    private int VBoxSpacing = 20;
+    private int buttonSpacing = 3;
 
     public AuctionPopup(int propLocation, String name, Controller controller, Stage popUpWindow, List<AbstractPlayer> players, AbstractPlayer currPlayer) {
         this.myController = controller;
@@ -37,9 +39,7 @@ public class AuctionPopup implements PropertyChangeListener {
         this.name = name;
         this.myPlayers = players;
         this.oldPopUp = popUpWindow;
-        this.myCurrPlayer = currPlayer;
-
-        this.myLayout = new VBox(20);
+        this.myLayout = new VBox(VBoxSpacing);
 
         setUpLayout();
 
@@ -66,7 +66,7 @@ public class AuctionPopup implements PropertyChangeListener {
 
     private VBox createBidBox(){
         VBox buttonBox = new VBox();
-        buttonBox.setSpacing(3);
+        buttonBox.setSpacing(buttonSpacing);
 
         myBidBoxGroup = new BidBoxGroup();
         myBidBoxGroup.addPropertyChangeListener("endAuction",this);
@@ -96,7 +96,7 @@ public class AuctionPopup implements PropertyChangeListener {
     }
 
     private void displayWinnerOfAuction(int winningBid, AbstractPlayer winningBidder){
-        myLayout = new VBox(20);
+        myLayout = new VBox(VBoxSpacing);
         Label msg = new Label(winningBidder.getName() + " won the Auction");
 <<<<<<< HEAD
         Label msg2 = new Label("bought " + myController.getGame().getBoard().getSpaceAt(myPropLocation).getMyName() + " for "+winningBid);

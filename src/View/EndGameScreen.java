@@ -15,7 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -32,7 +34,7 @@ public class EndGameScreen {
     private Scene myScene;
     private ResourceBundle messages;
     private Group myRoot;
-    private FlowPane myFlowPane;
+    private VBox myFlowPane;
 
 
     public EndGameScreen(double width, double height, String style, AbstractPlayer winner, Stage window) {
@@ -41,19 +43,19 @@ public class EndGameScreen {
         myScene = new Scene(myRoot, width, height, Color.WHITE);
         myScene.getStylesheets().add(style);
         addFlowPane(winner.getName(),window);
+        Image img = new Image("winner.jpg");
+        ImagePattern pattern = new ImagePattern(img);
+        myScene.setFill(pattern);
         myRoot.getChildren().addAll(myFlowPane);
     }
     public Scene getScene(){
         return myScene;
     }
 
-    private FlowPane addFlowPane(String winner,Stage window) {
-        myFlowPane = new FlowPane();
-        myFlowPane.setVgap(50);
-        myFlowPane.setHgap(50);
-        myFlowPane.setLayoutX(Controller.WIDTH/7.5);
-        myFlowPane.setLayoutY(Controller.HEIGHT/2);
-        myFlowPane.setPrefWrapLength(Controller.WIDTH);
+    private VBox addFlowPane(String winner, Stage window) {
+        myFlowPane = new VBox(20);
+        myFlowPane.setLayoutX(Controller.WIDTH/8);
+        myFlowPane.setLayoutY(Controller.HEIGHT/3);
         myFlowPane.setId("flowPane");
         Button button = new Button(messages.getString("newGame"));
         button.setId("button3");

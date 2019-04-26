@@ -3,8 +3,6 @@ package View.PopUps;
 import Controller.Controller;
 import Model.spaces.AbstractSpace;
 import View.BoardConfigReader;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,14 +21,13 @@ public class TaxPopup extends Popup {
     private int propLocation;
     private Controller myController;
     private AbstractSpace mySpace;
-    private int bottomPadding = 50;
     private ResourceBundle myText;
 
     public TaxPopup(int propLocation, Controller controller) {
         super();
         this.propLocation = propLocation;
         this.myController = controller;
-        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(POPUP_TEXT).toString());
         BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         spaces = spaceInfo.getSpaces();
         for (AbstractSpace sp : spaces) {
@@ -65,32 +62,23 @@ public class TaxPopup extends Popup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        VBox buttons = new VBox(HBoxSpacing);
+        VBox buttons = new VBox(HBOX_SPACING_TEN);
         Button button1= new Button(myText.getString("taxButton1"));
         Button button2= new Button(myText.getString("taxButton2"));
 
         button1.setId("button3");
         button2.setId("button3");
 
-        button1.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                mySpace.doAction(myController.getGame(),OK);
-                window.close();
-            }
-        });
-        button2.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                mySpace.doAction(myController.getGame(),NO);
-                window.close();
-            }
-        });
+        button1.setOnAction(e -> buttonHandler(OK,window));
+        button2.setOnAction(e -> buttonHandler(NO,window));
         buttons.getChildren().addAll(button1,button2);
-        buttons.setPadding(new Insets(OK,OK,bottomPadding,OK));
+        buttons.setPadding(new Insets(OK,OK,HBOX_SPACING_FORTY,OK));
         return buttons;
+    }
+
+    private void buttonHandler(int num, Stage window){
+        mySpace.doAction(myController.getGame(),num);
+        window.close();
     }
 
     @Override
