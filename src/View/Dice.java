@@ -14,10 +14,12 @@ public class Dice extends StackPane {
 
     public Dice() {
         Rectangle rect = new Rectangle(80, 80);
+        rect.setStroke(Color.BLACK);
+        rect.setFill(Color.LINEN);
         Text text = new Text();
-        text.setFill(Color.WHITE);
+        text.setFill(Color.BLACK);
+        text.setId("header2");
         text.textProperty().bind(valueProperty.asString());
-
         this.setAlignment(Pos.CENTER);
         getChildren().addAll(rect, text);
     }

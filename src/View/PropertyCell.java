@@ -103,7 +103,6 @@ public class PropertyCell extends ListCell<Property> {
             else{
                 myHBox.setDisable(false);
             }
-            System.out.println("***"+name +" mortgaged? "+ item.getIsMortgaged());
         }
     }
 }
