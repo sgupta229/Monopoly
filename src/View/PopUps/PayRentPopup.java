@@ -28,7 +28,7 @@ public class PayRentPopup extends BuyPropertyPopup {
         BoardConfigReader spaceInfo = new BoardConfigReader(myController.getGame());
         allSpaces = spaceInfo.getSpaces();
         allProps = spaceInfo.getProperties();
-        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(2).toString());
+        this.myText = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(POPUP_TEXT).toString());
         for (AbstractSpace sp : allSpaces) {
             if (sp.getMyLocation() == propLocation) {
                 mySpace = sp;
@@ -48,7 +48,7 @@ public class PayRentPopup extends BuyPropertyPopup {
 
     @Override
     protected Pane createButtons(Stage window) {
-        HBox buttons = new HBox(HBoxSpacing);
+        HBox buttons = new HBox(HBOX_SPACING_TEN);
         Button button2= new Button(myText.getString("payButton"));
         button2.setId("button2");
         button2.setOnAction(e -> window.close());

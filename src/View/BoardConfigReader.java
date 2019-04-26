@@ -5,7 +5,10 @@ import Model.spaces.AbstractSpace;
 import Model.properties.Property;
 
 import java.awt.geom.Point2D;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public class BoardConfigReader {
 

@@ -24,7 +24,6 @@ public class PlayerTabs implements PropertyChangeListener {
     private Tab statsTab;
     private Tab rulesTab;
     private Tab saveTab;
-    private StatsTab stats;
     private AbstractPlayer currPlayer;
 
     private ResourceBundle messages;

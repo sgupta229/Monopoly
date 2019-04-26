@@ -1075,7 +1075,7 @@
         <JailBail>50</JailBail>
         <PassGo>200</PassGo>
         <MaxHouses>4</MaxHouses>
-        <EvenBuilding>false</EvenBuilding>
+        <EvenBuilding>true</EvenBuilding>
         <FreeParking>false</FreeParking>
         <RollsInJail>3</RollsInJail>
         <SnakeEyes>0</SnakeEyes>

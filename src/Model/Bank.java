@@ -23,6 +23,7 @@ public class Bank implements Transfer, Serializable {
     private Map<BuildingType, Integer> maxBuildingsPerProp;
     private boolean evenBuildingRule;
     List<BuildingType> typesOfBuildings = new ArrayList<>();
+    private static final double ONE_POINT_ONE = 1.1;
 
     public Bank(List<Double> allInfo, List<Property> properties, List<Map<BuildingType, Integer>> buildingInfo){
         myBalance=allInfo.get(0);
@@ -142,7 +143,7 @@ public class Bank implements Transfer, Serializable {
 
     public void unMortgageProperty(Property property){
         AbstractPlayer propOwner = ownedPropsMap.get(property);
-        propOwner.makePayment(this, property.getMortgageAmount()*1.1, this);
+        propOwner.makePayment(this, property.getMortgageAmount()*ONE_POINT_ONE, this);
         property.setIsMortgaged(false);
     }
 
@@ -183,10 +184,7 @@ public class Bank implements Transfer, Serializable {
         if(property.getIsMortgaged()){
             return false;
         }
-        if(!propertyOwnedBy(property).checkMonopoly(property)){
-            return false;
-        }
-        return true;
+        return (propertyOwnedBy(property).checkMonopoly(property));
 
     }
 
@@ -223,12 +221,6 @@ public class Bank implements Transfer, Serializable {
 
     }
 
-    /***
-     * Auctions off a property to the list of players at the auction
-     * @param property
-     * @param auctionGoers
-     */
-    public void auctionProperty(Property property, List<AbstractPlayer> auctionGoers){}
 
     public double getBankBalance(){
         return myBalance;
@@ -246,8 +238,12 @@ public class Bank implements Transfer, Serializable {
         myBalance = amount;
     }
 
-    public Map<BuildingType, Integer> getTotalBuildingMap() {
-        return totalBuildingMap;
+    //public Map<BuildingType, Integer> getTotalBuildingMap() {
+      //  return totalBuildingMap;
+    //}
+
+    public List<BuildingType> getBuildingTypes(){
+        return typesOfBuildings;
     }
 
     public void setTotalBuildingMap(BuildingType bt, Integer amnt) {

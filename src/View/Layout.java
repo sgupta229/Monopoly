@@ -1,6 +1,8 @@
 package View;
 
-import Controller.*;
+import Controller.AbstractGame;
+import Controller.Controller;
+import View.PopUps.Popup;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 
@@ -58,7 +60,7 @@ public class Layout {
         ImageView logo = myBoard.getLogo();
         myGameBoard.getChildren().addAll(gameBoard, logo);
 
-        gameBoard.setPadding(new Insets(10,20,10,20));
+        gameBoard.setPadding(new Insets(Popup.HBOX_SPACING_TEN,Popup.PADDING_TWENTY,Popup.HBOX_SPACING_TEN,Popup.PADDING_TWENTY));
         myBoardPane.getChildren().addAll(myGameBoard);
 
         return myBoardPane;

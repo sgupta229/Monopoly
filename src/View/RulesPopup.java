@@ -2,13 +2,14 @@ package View;
 
 import Controller.AbstractGame;
 import Controller.Controller;
-import Controller.ConfigReader;
+import View.PopUps.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,7 +21,10 @@ import java.util.ResourceBundle;
 public class RulesPopup {
     private AbstractGame myGame;
     private Stage window;
-    private VBox myLayout;
+    private VBox myLayout1;
+    private VBox myLayout2;
+    private Pane myNewLayout;
+    private HBox myHBox;
     private ToggleGroup buildingToggle;
     private ToggleGroup freeParkingToggle;
     private ToggleGroup landOnGoBonus;
@@ -46,15 +50,24 @@ public class RulesPopup {
 
         setUpLayout();
 
-        Scene scene1= new Scene(myLayout, Controller.WIDTH/2, Controller.HEIGHT);
+        Scene scene1= new Scene(myNewLayout, Controller.WIDTH*.75, Controller.HEIGHT);
         scene1.getStylesheets().add(( new File("data/GUI.css") ).toURI().toString());
 
         window.setScene(scene1);
         window.showAndWait();
     }
 
+    //pane
+    //hbox
+    //vbox
+
     private void setUpLayout(){
-        myLayout = new VBox(10);
+
+        myNewLayout = new Pane();
+        myHBox = new HBox(Popup.PADDING_TWENTY);
+
+        myLayout1 = new VBox(Popup.HBOX_SPACING_TEN);
+        myLayout2 = new VBox(Popup.HBOX_SPACING_TEN);
 
         buildingToggle = makeToggleGroup("YES","NO");
         freeParkingToggle = makeToggleGroup("YES","NO");
@@ -68,21 +81,23 @@ public class RulesPopup {
 
         applyButton = new Button("Apply");
         applyButton.setOnAction(new ApplyButtonHandler());
-
-        myLayout.getChildren().addAll(makeRuleView(messages.getString("buildingRule"),makeToggleBox(buildingToggle)),
+        myLayout1.getChildren().addAll(makeRuleView(messages.getString("buildingRule"),makeToggleBox(buildingToggle)),
                 makeRuleView(messages.getString("freeParkingRule"),makeToggleBox(freeParkingToggle)),
                 makeRuleView(messages.getString("landOnGo"),makeToggleBox(landOnGoBonus)),
-                makeRuleView(messages.getString("jailRollsRule"),jailRolls),
-                makeRuleView(messages.getString("startingFundsRule"),startFunds),
+                makeRuleView(messages.getString("jailRollsRule"),jailRolls));
+        myLayout2.getChildren().addAll(makeRuleView(messages.getString("startingFundsRule"),startFunds),
                 makeRuleView(messages.getString("jailBailRule"),jailBail),
                 makeRuleView(messages.getString("passGoRule"),passGo),
                 makeRuleView(messages.getString("bankFundsRule"),bankFunds),
                 makeRuleView(messages.getString("snakeEyesRule"),snakeEyesMoney),
                 applyButton);
+        myHBox.getChildren().addAll(myLayout1,myLayout2);
+        myNewLayout.getChildren().addAll(myHBox);
+
     }
 
     private VBox makeRuleView(String rule, Node buttons){
-        VBox ret = new VBox(3);
+        VBox ret = new VBox(Popup.VBOX_SPACING);
         Label label = new Label(rule);
         ret.getChildren().addAll(label,buttons);
         return ret;
@@ -99,7 +114,7 @@ public class RulesPopup {
     }
     private HBox makeToggleBox(ToggleGroup group){
         HBox buttonBox = new HBox();
-        buttonBox.setSpacing(3);
+        buttonBox.setSpacing(Popup.VBOX_SPACING);
         for (Toggle toggle: group.getToggles()){
             buttonBox.getChildren().add((ToggleButton)toggle);
         }

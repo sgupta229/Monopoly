@@ -1,6 +1,5 @@
 package View.SpaceDisplay;
 
-import View.Board;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -20,17 +19,17 @@ public class BottomPropertyDisplay extends PropertyDisplay {
     @Override
     public void propColorLocation(HBox propColor) {
         propColor.setPrefWidth(myRectangle.getWidth());
-        propColor.setPrefHeight(myRectangle.getHeight()/4);
+        propColor.setPrefHeight(myRectangle.getHeight()/PROP_SIZE);
     }
 
     @Override
     public void textLocation(FlowPane textPane) {
-        textPane.setRotate(0);
+        textPane.setRotate(NO_ROTATION);
     }
 
     @Override
     public void imageLocation(Pane image) {
-        image.setRotate(0);
+        image.setRotate(NO_ROTATION);
     }
 
 }

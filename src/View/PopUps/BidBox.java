@@ -1,15 +1,11 @@
 package View.PopUps;
 
 import Model.AbstractPlayer;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import util.NumberSpinner;
 
 public class BidBox {
@@ -31,8 +27,8 @@ public class BidBox {
         VBox v = new VBox();
 
         playerName = new Label(myPlayer.getName());
-        spinner = new NumberSpinner(20,20);
-        spinner.setLowerBound(20);
+        spinner = new NumberSpinner(Popup.BIDDING_STEP,Popup.BIDDING_STEP);
+        spinner.setLowerBound(Popup.BIDDING_STEP);
         HBox buttonBox = createButtonsHBox();
 
         v.getChildren().addAll(playerName,spinner,buttonBox);

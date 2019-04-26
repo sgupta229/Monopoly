@@ -1,7 +1,6 @@
 package Model.spaces;
 
 import Controller.AbstractGame;
-import Model.FreeParkingFunds;
 import Model.Transfer;
 import Model.properties.Property;
 import Model.AbstractPlayer;

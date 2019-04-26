@@ -9,9 +9,6 @@ import java.util.Map;
 
 public class ClassicColorProperty extends ColorProperty {
 
-    private int numHotel;
-    private static final int INFO_NUM = 7;
-    private static final int SIX = 6;
     private static final int HOTEL_RENT_INDEX = 5;
 
 
@@ -62,6 +59,7 @@ public class ClassicColorProperty extends ColorProperty {
             return 0.0;
         }
         double rentTotal = 0.0;
+        int numHotel;
         numHotel = getNumBuilding(BuildingType.valueOf("HOTEL"));
         if(numHotel>0){
             rentTotal+= numHotel*getRentNumbers().get(HOTEL_RENT_INDEX);
