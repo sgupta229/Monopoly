@@ -67,6 +67,7 @@ public class ConfigReader {
     private Document doc;
     private ConfigReaderErrorHandling errorChecker;
     private int BoardSize;
+    private Map<Exception, List<String>> ExceptionLog;
 
     //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
     public ConfigReader(String filename) throws XmlReaderException{
@@ -78,9 +79,11 @@ public class ConfigReader {
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 doc = dBuilder.parse(inputFile);
                 errorChecker = new ConfigReaderErrorHandling(doc);
+                ExceptionLog = new HashMap<>();
                 //errorChecker.checkFileExists(filename);
             }
             catch (ParserConfigurationException e) {
+                logException(e, e.getMessage());
                 throw new XmlReaderException(e.getMessage());
             }
             catch(IOException e) {
@@ -257,7 +260,7 @@ public class ConfigReader {
                     if(errorChecker.checkDeckType(deckName)){
 
                         //All types of action cards have these fields
-                        DeckType dt = DeckType.valueOf(card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent());
+                       // DeckType dt = DeckType.valueOf(card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent());
                         String msg = card.getElementsByTagName(MESSAGE_TAG).item(0).getTextContent();
                         //http://www.java67.com/2018/03/java-convert-string-to-boolean.html
                         Boolean holdable = Boolean.parseBoolean(card.getElementsByTagName(HOLDABLE_TAG).item(0).getTextContent());
@@ -268,6 +271,7 @@ public class ConfigReader {
                         helpCheckDoublesTag(List.of(extraDubTemp));
                         List<Double> extraDubs = listDoubleConverter(extraDubTemp);
                         String className = card.getAttribute(TYPE_TAG);
+                        DeckType dt = DeckType.valueOf(card.getElementsByTagName(DECK_TYPE_TAG).item(0).getTextContent());
                         if(!errorChecker.checkMoveToTargets(className, extraStrings)){
                             throw new XmlReaderException(extraStrings + ": is not a valid target move to space group, color, or name.");
                         }
@@ -630,6 +634,17 @@ public class ConfigReader {
     //Helper to reduce duplication
     private XmlReaderException getXmlReadNumberException(String errorCheck) {
         return new XmlReaderException(errorCheck + " is not a valid input. Value must be a number, not a string or character.");
+    }
+
+    private void logException(Exception e, String msg){
+        if(ExceptionLog.keySet().contains(e)){
+            List<String> temp = ExceptionLog.get(e);
+            temp.add(msg);
+            ExceptionLog.put(e, temp);
+        }
+        else{
+            ExceptionLog.put(e, List.of(msg));
+        }
     }
 
 
