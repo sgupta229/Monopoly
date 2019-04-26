@@ -2,6 +2,7 @@ package View;
 import Controller.Controller;
 import Controller.GameSaver;
 import Controller.ClassicGame;
+import View.PopUps.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -9,8 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -18,7 +17,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.ResourceBundle;
 
 
 public class ChooseGameScreen {
@@ -82,28 +82,23 @@ public class ChooseGameScreen {
 
     private FlowPane addFlowPane() {
         myFlowPane = new FlowPane();
-        myFlowPane.setVgap(50);
-        myFlowPane.setHgap(50);
-        myFlowPane.setLayoutX(Controller.WIDTH/2);
+        myFlowPane.setVgap(Popup.HBOX_SPACING_FORTY);
+        myFlowPane.setHgap(Popup.HBOX_SPACING_FORTY);
+        myFlowPane.setLayoutX(Controller.WIDTH/ Popup.V_BOX_SPACING);
         myFlowPane.setLayoutY(Controller.HEIGHT/1.2);
-        myFlowPane.setPrefWrapLength(Controller.WIDTH/2);
+        myFlowPane.setPrefWrapLength(Controller.WIDTH/Popup.V_BOX_SPACING);
         myFlowPane.setId("flowPane");
-
-//        gameTypeNamesKeys = new ArrayList<>(Arrays.asList("Junior", "mega", "junior", "starWars"));
         gameTypeNamesKeys = gameTypeNames.getKeys();
         while (gameTypeNamesKeys.hasMoreElements()){
             myFlowPane.getChildren().add(createButton(gameTypeNamesKeys.nextElement()));
         }
 
-//        for (String type : gameTypeNamesKeys) {
-//            myFlowPane.getChildren().add(createButton(type));
-//        }
         return myFlowPane;
     }
 
 
     private void createLoadHBox(){
-        loadHBox = new HBox(10);
+        loadHBox = new HBox(Popup.HBOX_SPACING_TEN);
 
         loadButton = new Button(messages.getString("load"));
         loadButton.setOnAction(new LoadButtonHandler());
@@ -116,7 +111,7 @@ public class ChooseGameScreen {
 
         loadHBox.getChildren().addAll(loadButton,goButton,chosenFile);
         loadHBox.setLayoutX(Controller.WIDTH/5);
-        loadHBox.setLayoutY(Controller.HEIGHT/3);
+        loadHBox.setLayoutY(Controller.HEIGHT/Popup.VBOX_SPACING);
     }
 
     private class LoadButtonHandler implements EventHandler<ActionEvent> {

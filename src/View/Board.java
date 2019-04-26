@@ -7,6 +7,7 @@ import Model.spaces.AbstractSpace;
 import Model.spaces.SpaceGroup;
 import View.PopUps.Popup;
 import View.SpaceDisplay.PropertyDisplay;
+import javafx.animation.PauseTransition;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,6 +15,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.util.Duration;
 
 import java.awt.geom.Point2D;
 import java.beans.PropertyChangeEvent;
@@ -25,8 +27,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Board implements PropertyChangeListener {
-    private static final double TOKEN_SPACING=40.0;
-    private static final int ZERO=0;
+    protected static final double TOKEN_SPACING=40.0;
+    protected static final int ZERO=0;
 
     private int myBoardHeight;
     private Controller myController;
@@ -87,7 +89,9 @@ public class Board implements PropertyChangeListener {
             if(popClass!=null){
                 myPopup = (Popup) Class.forName("View.PopUps." + popClass+"Popup").getConstructor(int.class, Controller.class).newInstance(playerLocation,
                         myController);
-                myPopup.display();
+                PauseTransition pause = new PauseTransition(Duration.seconds(0.75));
+                pause.setOnFinished(event -> myPopup.display());
+                pause.play();
             }
         } catch(InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException  e){
             e.printStackTrace();

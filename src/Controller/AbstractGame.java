@@ -143,7 +143,7 @@ public abstract class AbstractGame implements Serializable {
         return players;
     }
 
-    public List<Integer> rollDice() {
+    public List<Integer> roll() {
         int val = 0;
         List<Integer> rolls = new ArrayList<>();
         for(int i = 0; i < dice.size(); i++) {
@@ -154,6 +154,18 @@ public abstract class AbstractGame implements Serializable {
         }
         lastDiceRoll = val;
 
+        return rolls;
+    }
+
+    public List<Integer> rollAndCheck() {
+        int oldIndex = getCurrPlayer().getCurrentLocation();
+        List<Integer> rolls = roll();
+        int rollVal = getLastDiceRoll();
+        int newIndex = getNewIndex(oldIndex, rollVal);
+        handleMoveInJail(oldIndex, newIndex);
+        checkPassGo(oldIndex, newIndex);
+        checkSnakeEyes(rolls);
+        checkDoublesForJail();
         return rolls;
     }
 
@@ -172,6 +184,9 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public boolean checkDoubles() {
+        if(dice.size() == 1) {
+            return false;
+        }
         ArrayList<Integer> firstDie = diceHistory.get(0);
         int check = firstDie.get(firstDie.size() - 1);
         for(Integer key : diceHistory.keySet()) {
@@ -203,8 +218,7 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public boolean checkNeedToPayBail() {
-        System.out.println(currPlayer.getNumRollsInJail());
-        if(!(checkDoubles())) {
+        if(currPlayer.isInJail() && !(checkDoubles())) {
             if(currPlayer.getNumRollsInJail() == getRollsInJailRule()) {
                 currPlayer.resetNumRollsInJail();
                 return true;
@@ -212,8 +226,6 @@ public abstract class AbstractGame implements Serializable {
         }
         return false;
     }
-
-    public abstract boolean checkDoublesForJail();
 
     public List<ActionDeck> getMyActionDecks(){return decks;}
 
@@ -298,6 +310,24 @@ public abstract class AbstractGame implements Serializable {
                 currPlayer.setJail(false);
             }
         }
+    }
+
+    public boolean checkDoublesForJail() {
+        if(getDiceHistory().get(0).size() < 3) {
+            return false;
+        }
+        ArrayList<Integer> firstDie = getDiceHistory().get(0);
+        List<Integer> check = new ArrayList<>(firstDie.subList(firstDie.size() - 3, firstDie.size()));
+        for(Integer key : getDiceHistory().keySet()) {
+            ArrayList<Integer> otherDie = getDiceHistory().get(key);
+            List<Integer> other = new ArrayList<>(otherDie.subList(otherDie.size() - 3, otherDie.size()));
+            if(!check.equals(other)) {
+                return false;
+            }
+        }
+        movePlayer(getCurrPlayer().getCurrentLocation(), 10);
+        getCurrPlayer().setJail(true);
+        return true;
     }
 
     @Deprecated

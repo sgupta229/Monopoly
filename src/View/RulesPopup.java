@@ -2,7 +2,7 @@ package View;
 
 import Controller.AbstractGame;
 import Controller.Controller;
-import Controller.ConfigReader;
+import View.PopUps.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -62,11 +62,12 @@ public class RulesPopup {
     //vbox
 
     private void setUpLayout(){
-        myNewLayout = new Pane();
-        myHBox = new HBox(20);
 
-        myLayout1 = new VBox(10);
-        myLayout2 = new VBox(10);
+        myNewLayout = new Pane();
+        myHBox = new HBox(Popup.PADDING_TWENTY);
+
+        myLayout1 = new VBox(Popup.HBOX_SPACING_TEN);
+        myLayout2 = new VBox(Popup.HBOX_SPACING_TEN);
 
         buildingToggle = makeToggleGroup("YES","NO");
         freeParkingToggle = makeToggleGroup("YES","NO");
@@ -96,7 +97,7 @@ public class RulesPopup {
     }
 
     private VBox makeRuleView(String rule, Node buttons){
-        VBox ret = new VBox(3);
+        VBox ret = new VBox(Popup.VBOX_SPACING);
         Label label = new Label(rule);
         ret.getChildren().addAll(label,buttons);
         return ret;
@@ -113,7 +114,7 @@ public class RulesPopup {
     }
     private HBox makeToggleBox(ToggleGroup group){
         HBox buttonBox = new HBox();
-        buttonBox.setSpacing(3);
+        buttonBox.setSpacing(Popup.VBOX_SPACING);
         for (Toggle toggle: group.getToggles()){
             buttonBox.getChildren().add((ToggleButton)toggle);
         }
