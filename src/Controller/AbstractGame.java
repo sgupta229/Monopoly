@@ -313,6 +313,7 @@ public abstract class AbstractGame implements Serializable {
 
     public Property handleAuction(AbstractPlayer p, int bid, int propLocation) {        //TODO change method return type back to void, figure out how to get property in AuctionPopUp
         Property prop = board.getSpaceAt(propLocation).getMyProp();
+        prop.setIsOwned(true);
         bank.setPropertyOwner(prop, p);
         p.makePayment(bank, bid, bank);
         p.addProperty(prop);

@@ -27,30 +27,32 @@ public class ClassicColorProperty extends ColorProperty {
 
     }*/
 
+    /***
+     * returns an array with specific crucial info for this property, such as
+     * price, color, the different rent numbers
+     * @return
+     */
     public List getInfo(){
         ArrayList ret = new ArrayList();
         ret.addAll(Arrays.asList(getColor(), this.getPrice()));
         for(double num:getRentNumbers()){
             ret.add(num);
         }
-        ret.add(getBuildingPrices().get(BuildingType.valueOf("HOUSE")));
+        List<BuildingType> bTypes = new ArrayList<>();
+        bTypes.addAll(getBuildingPrices().keySet());
+        ret.add(getBuildingPrices().get(bTypes.get(0)));
         ret.add(this.getMortgageAmount());
         ret.add(this.getName());
         return ret;
     }
 
 
-/*    *//***
-     * Allows for users to see the color of a property which is crucial for monopolies
-     * @return the color of this property
-     *//*
-    public String getPropertyColor(){
-        return myColor;
-    }*/
 
     /***
      * A method that utilizes the member variables to calculate how
      * much it costs when someone lands on this property
+     * @param propOwner the person that owns the property
+     * @param lastDiceRoll
      * @return the total rent value to be paid
      */
     @Override
@@ -71,6 +73,10 @@ public class ClassicColorProperty extends ColorProperty {
         return rentTotal;
     }
 
+    /***
+     * adds a specific building to the property, increases the building's count by 1
+     * @param building the type of building we are erecting
+     */
     public void addBuilding(BuildingType building){
         if(!getBuildingMap().containsKey(building)){
             getBuildingMap().put(building, 0);
@@ -80,12 +86,21 @@ public class ClassicColorProperty extends ColorProperty {
         System.out.println(getBuildingMap().get(building));
     }
 
+    /***
+     * decrements the properties building count of this building by the specified amount
+     * @param building the building we are gettting rid of
+     * @param amount how many we are getting rid of
+     */
     public void removeBuilding(BuildingType building, int amount){
         if(getBuildingMap().get(building)>0){
             getBuildingMap().put(building, getBuildingMap().get(building)-amount);
         }
     }
 
+    /***
+     * returns the number of the specified building a property currently has on it
+     * @param building the building we want to know about
+     */
     public int getNumBuilding(BuildingType building){
         if(!getBuildingMap().containsKey(building)){
             getBuildingMap().put(building, 0);
