@@ -27,6 +27,10 @@ Connected front and back end in terms of popUps with the space?s associated doAc
 Abby Zhang:
 View - AddPlayersScreen, DiceRoller, PlayerControl, PlayerTabs, Editing rules, Trading pop up - view and integration, Auctioning pop up - view and integration
 Controller - Integrating front end and back end
+Dezmanique Martin:
+Data - Wrote Normal_Config.xml
+Tests - GUI Testing
+Controller - ConfigReader, connecting front end and back end, started SaveandLoadData and SaveData
 
 ### Resources Used
 Parse Boolean: http://www.java67.com/2018/03/java-convert-string-to-boolean.html
