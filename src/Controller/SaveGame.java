@@ -26,7 +26,7 @@ public class SaveGame {
         for(int i = 0; i < game.getPlayers().size(); i++) {
             AbstractPlayer p = game.getPlayers().get(i);
             JSONObject play_o = new JSONObject();
-            play_o.put("name", p.getName());
+            play_o.put("name", p.getName().toLowerCase());
             play_o.put("funds", p.getFunds());
             play_o.put("location", p.getCurrentLocation());
             play_o.put("token", p.getImage());
@@ -35,8 +35,8 @@ public class SaveGame {
 
         for(Property p : game.getBank().getOwnedPropsMap().keySet()) {
             JSONObject prop_o = new JSONObject();
-            prop_o.put("name", p.getName());
-            prop_o.put("owner", game.getBank().getOwnedPropsMap().get(p));
+            prop_o.put("name", p.getName().toLowerCase());
+            prop_o.put("owner", game.getBank().getOwnedPropsMap().get(p).getName().toLowerCase());
             prop_o.put("buildings", p.getBuildingMap());
             prop_o.put("owned", p.getIsOwned());
             prop_o.put("mortgaged", p.getIsMortgaged());
@@ -45,7 +45,7 @@ public class SaveGame {
 
         for(Property p : game.getBank().getUnOwnedProps()) {
             JSONObject prop_o = new JSONObject();
-            prop_o.put("name", p.getName());
+            prop_o.put("name", p.getName().toLowerCase());
             prop_o.put("owner", null);
             prop_o.put("buildings", null);
             prop_o.put("owned", false);
@@ -76,7 +76,7 @@ public class SaveGame {
                 p.setName((String) person.get("name"));
                 p.setFunds((Double) person.get("funds"));
                 p.setCurrentLocation(((Long) person.get("location")).intValue());
-                p.setImage((String) person.get("image"));
+                p.setImage((String) person.get("token"));
                 players.add(p);
             }
 

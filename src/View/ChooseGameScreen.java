@@ -140,6 +140,7 @@ public class ChooseGameScreen {
             try {
                 ClassicGame newGame = sg.load(openedFile.getAbsolutePath(), "Normal_Config_Rework.xml");
                 myController.setGame(newGame);
+                myController.startGame();
             }
             catch (Exception e){
                 e.printStackTrace();

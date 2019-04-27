@@ -32,7 +32,7 @@ public class Layout {
         this.myGame = myGame;
 
         myScene = new Scene(myRoot,width,height);
-        myScene.getStylesheets().add(style);
+        //myScene.getStylesheets().add(style);
 
         setUpLayout();
         myRoot.getChildren().addAll(myLayout);
