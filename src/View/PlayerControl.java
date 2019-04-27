@@ -7,6 +7,7 @@ import Model.actioncards.AbstractActionCard;
 import Model.properties.Property;
 import View.PopUps.BuildOrSellPopup;
 import View.PopUps.Popup;
+import View.PopUps.TradePopup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -90,9 +91,8 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
         Button manageProperty = new Button("Manage Property");
         manageProperty.setOnAction(e -> new BuildOrSellPopup(myController).display());
-
         Button trade = new Button("Trade");
-//        trade.setOnAction(e -> new TradePopup().display());
+        trade.setOnAction(e -> new TradePopup(myPlayer,myController.getPlayers(),myController.getGame()).display());
         //TODO make a trade pop up
         manageTradeBox.getChildren().addAll(manageProperty,trade);
 
