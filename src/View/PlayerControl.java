@@ -59,7 +59,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         AnchorPane.setBottomAnchor(diceRollerView,20.0);
     }
 
-    private VBox createVBox(){
+    private VBox createVBox() {
         myVBox = new VBox();
         myVBox.setId("playerControlBox");
 
