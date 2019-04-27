@@ -100,11 +100,12 @@ public class SaveGame {
                     }
                 }
             }
+            return game;
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return game;
+        return null;
     }
 
     public static void main(String[] args) throws Exception {
