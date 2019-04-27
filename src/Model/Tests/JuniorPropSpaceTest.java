@@ -1,28 +1,30 @@
 package Model.Tests;
 
-import Controller.ClassicGame;
-import Model.AbstractPlayer;
-import Model.ClassicPlayer;
+import Controller.JuniorGame;
+import Controller.ConfigReader;
 import Model.Bank;
-import Model.properties.Property;
+import Model.JuniorPlayer;
+import Model.AbstractPlayer;
+import java.util.ArrayList;
 import Model.XmlReaderException;
-import Model.spaces.ClassicPropSpace;
+import Model.properties.BuildingType;
+import Model.properties.Property;
+import Model.spaces.JuniorPropSpace;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ClassicPropSpaceTest {
+class JuniorPropSpaceTest {
 
-    ClassicGame gameClass;
-    ClassicPlayer player1;
-    ClassicPlayer player2;
-    ClassicPropSpace classicPropSpace;
+    JuniorGame gameClass;
+    JuniorPlayer player1;
+    JuniorPlayer player2;
+    JuniorPropSpace juniorPropSpace;
     //List<AbstractSpace> spaceList;
     //List<Property> propsList;
     Bank gameBank;
@@ -35,10 +37,10 @@ class ClassicPropSpaceTest {
 
     @BeforeEach
     void setUp() throws XmlReaderException {
-        gameClass = new ClassicGame("Normal_Config_Rework.xml");
-        classicPropSpace = (ClassicPropSpace) gameClass.getBoard().getSpaceAt(1);
-        player1 = new ClassicPlayer();
-        player2 = new ClassicPlayer();
+        gameClass = new JuniorGame("Junior_Config.xml");
+        juniorPropSpace = (JuniorPropSpace) gameClass.getBoard().getSpaceAt(1);
+        player1 = new JuniorPlayer();
+        player2 = new JuniorPlayer();
         ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
         playerList.add(player1);
         playerList.add(player2);
@@ -50,8 +52,8 @@ class ClassicPropSpaceTest {
     }
 
     AbstractPlayer buyProperty(){
-        classicPropSpace.doAction(gameClass, 0);
-        AbstractPlayer propOwner = gameBank.propertyOwnedBy(classicPropSpace.getMyProperty());
+        juniorPropSpace.doAction(gameClass, 0);
+        AbstractPlayer propOwner = gameBank.propertyOwnedBy(juniorPropSpace.getMyProperty());
         return propOwner;
     }
 
@@ -67,17 +69,17 @@ class ClassicPropSpaceTest {
         gameClass.setCurrPlayer(1);
         double player2OldFunds= player2.getFunds();
         double player1OldFunds= player1.getFunds();
-        classicPropSpace.doAction(gameClass, 2);
-        double player2NewFunds = player2.getFunds();
+        juniorPropSpace.doAction(gameClass, 2);
         double player1NewFunds = player1.getFunds();
-        assertTrue(player2OldFunds>player2NewFunds);
+        double player2NewFunds = player2.getFunds();
         assertTrue(player1OldFunds<player1NewFunds);
+        assertTrue(player2OldFunds>player2NewFunds);
     }
 
     @Test
     void getMyProperty(){
         buyProperty();
-        Property linkedProperty = classicPropSpace.getMyProperty();
+        Property linkedProperty = juniorPropSpace.getMyProperty();
         Property expectedProp = player1.getProperties().get(0);
         assertEquals(linkedProperty, expectedProp);
     }

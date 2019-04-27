@@ -51,7 +51,7 @@ public class Board implements PropertyChangeListener {
 
         myBoardHeight = Integer.parseInt(boardInfo.getString("boardHeight"));
         boardDimension = Integer.parseInt(boardInfo.getString("dimension"));
-        for (AbstractPlayer p : controller.getPlayers()) {
+        for (AbstractPlayer p : controller.getGame().getPlayers()) {
             p.addPropertyChangeListener("currentLocation",this);
         }
 
@@ -75,7 +75,7 @@ public class Board implements PropertyChangeListener {
             myGridPane.getChildren().remove(i);
         }
         int playerLocation = 0;
-        for (AbstractPlayer pl : myController.getPlayers()){
+        for (AbstractPlayer pl : myController.getGame().getPlayers()){
             addTokenToIndex(pl.getCurrentLocation(),new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(pl.getImage()),
                     TOKEN_SPACING,TOKEN_SPACING,false,true)));
         }
@@ -99,7 +99,7 @@ public class Board implements PropertyChangeListener {
     }
 
     private void addTokensToGo(){
-        for (AbstractPlayer p : myController.getPlayers()){
+        for (AbstractPlayer p : myController.getGame().getPlayers()){
             Node img = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(p.getImage()),
                     TOKEN_SPACING,TOKEN_SPACING,false,true));
             addTokenToIndex(ZERO,img);

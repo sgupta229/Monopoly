@@ -1,6 +1,6 @@
 <?xml version = "1.0"?>
 <Game>
-    <GameType>ClassicGame</GameType>
+    <GameType>Classic</GameType>
     <Dice>
         <Number>2</Number>
         <Sides>6</Sides>

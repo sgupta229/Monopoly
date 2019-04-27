@@ -7,6 +7,7 @@ import Model.properties.BuildingType;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import Model.spaces.SpaceGroup;
+import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -28,7 +29,7 @@ public abstract class AbstractGame implements Serializable {
     private AbstractActionCard currentActionCard;
     private double snakeEyes;
 
-    private List<AbstractPlayer> players;
+    private ObservableList<AbstractPlayer> players;
     private Bank bank;
     private Board board;
     private List<AbstractSpace> spaces;
@@ -80,7 +81,9 @@ public abstract class AbstractGame implements Serializable {
             jailBail = configReader.getRuleDouble("JailBail");
             passGo = configReader.getRuleDouble("PassGo");
             evenBuildingRule = configReader.getRuleBool("EvenBuilding");
+            setEvenBuildingRule(evenBuildingRule);
             freeParkingRule = configReader.getRuleBool("FreeParking");
+            setFreeParkingRule(freeParkingRule);
             rollsInJailRule = (int) configReader.getRuleDouble("RollsInJail");
             snakeEyes = configReader.getRuleDouble("SnakeEyes");
 
@@ -90,14 +93,17 @@ public abstract class AbstractGame implements Serializable {
         }
     }
 
-    public void setPlayers(List<AbstractPlayer> p){
+    public void setPlayers(ObservableList<AbstractPlayer> p){
         if (p.size() <=0 ) {
             //TODO: throw some "can't initialize players w empty list" exception
         }
         players = p;
         setCurrPlayer(0);
-        for (AbstractPlayer pl : players)
+        for (AbstractPlayer pl : players){
             this.addPlayer(pl);
+            pl.setJailBail(jailBail);
+        }
+
     }
 
     public abstract boolean checkGameOver();
@@ -139,7 +145,7 @@ public abstract class AbstractGame implements Serializable {
         return players.get(rightIndex);
     }
 
-    public List<AbstractPlayer> getPlayers() {
+    public ObservableList<AbstractPlayer> getPlayers() {
         return players;
     }
 
@@ -297,7 +303,6 @@ public abstract class AbstractGame implements Serializable {
         if(!currPlayer.isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }
-
         else {
             currPlayer.incrementNumRollsinJail();
             if(checkDoubles()) {
@@ -313,7 +318,8 @@ public abstract class AbstractGame implements Serializable {
     }
 
     public boolean checkDoublesForJail() {
-        if(getDiceHistory().get(0).size() < 3) {
+
+        if(getDiceHistory().get(0).size() < 3 || dice.size()<2) {
             return false;
         }
         ArrayList<Integer> firstDie = getDiceHistory().get(0);
@@ -343,6 +349,7 @@ public abstract class AbstractGame implements Serializable {
 
     public Property handleAuction(AbstractPlayer p, int bid, int propLocation) {        //TODO change method return type back to void, figure out how to get property in AuctionPopUp
         Property prop = board.getSpaceAt(propLocation).getMyProp();
+        prop.setIsOwned(true);
         bank.setPropertyOwner(prop, p);
         p.makePayment(bank, bid, bank);
         p.addProperty(prop);
@@ -454,12 +461,13 @@ public abstract class AbstractGame implements Serializable {
 
     public void forfeitHandler(AbstractPlayer playerOut){
         this.players.remove(playerOut);
-        List<Property> propSet = playerOut.getProperties();
+        List<Property> propSet = List.copyOf(playerOut.getProperties());
         List<BuildingType> bTypes = bank.getBuildingTypes();
+
         for(Property p : propSet){
             for(BuildingType bt : bTypes){
                 bank.setTotalBuildingMap(bt, p.getNumBuilding(bt));
-                //p.removeBuilding(bt, p.getNumBuilding(bt));
+                p.removeBuilding(bt, p.getNumBuilding(bt));
             }
             bank.sellBackProperty(p, this);
         }

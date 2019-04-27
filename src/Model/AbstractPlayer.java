@@ -27,6 +27,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     transient private ObservableList<AbstractActionCard> actionCards;
     private int currentLocation;
     private boolean cantPayBool;
+    private double jailBail;
 
     public AbstractPlayer() {
         this.inJail = false;
@@ -56,6 +57,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
             sellBuildingsMortgageProps(bank, amount);
             if(this.funds < amount) {
                 cantPayBool = true;
+                System.out.println("Player: " + this + " BOOL: " + cantPayBool);
                 setFunds(0);
                 receiver.receivePayment(this.funds);
                 return;
@@ -124,7 +126,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     }
 
     public void payBail(Bank b) {
-        this.makePayment(b, 50, b);
+        this.makePayment(b, jailBail, b);
         this.inJail = false;
     }
 
@@ -203,11 +205,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
         return numRollsInJail;
     }
 
-    public List<AbstractActionCard> getActionsCards() {
-        return actionCards;
-    }
-
-    public List<AbstractActionCard> getActionCards(){return actionCards;}
+    public ObservableList<AbstractActionCard> getActionCards(){return actionCards;}
 
     public void setImage(String img) {
         tokenImage = img;
@@ -231,5 +229,9 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
 
     public void setCantPayBool(boolean bool) {
         cantPayBool=bool;
+    }
+
+    public void setJailBail(double bail){
+        jailBail = bail;
     }
 }

@@ -31,6 +31,7 @@ import java.util.logging;
 
 public class ConfigReader {
     private static final String BOARD_SIZE_TAG = "BoardSize";
+    private static final String GAME_TYPE_TAG = "GameType";
     private static final String INDEX_COORD_TAG = "IndexToCoord";
     private static final String DISPLAY_FILE_TAG = "Display";
     private static final String POPUP_FILE_TAG = "PopUpText";
@@ -101,6 +102,11 @@ public class ConfigReader {
         else{
             throw new XmlReaderException(filename + " is not a valid name for a config file.");
         }
+    }
+
+    public String parseGameType(){
+        String gameType = doc.getElementsByTagName(GAME_TYPE_TAG).item(0).getTextContent();
+        return gameType;
     }
 
     /**
@@ -573,6 +579,7 @@ public class ConfigReader {
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 String stringValue = element.getTextContent();
+                System.out.println("rule bool was true "+attribute);
                 return Boolean.parseBoolean(stringValue);
             }
             return false;

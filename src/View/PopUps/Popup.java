@@ -75,7 +75,6 @@ public abstract class Popup {
             image.getChildren().addAll(fullImage);
             image.setAlignment(Pos.TOP_LEFT);
         }
-
         layout.setCenter(all);
         all.setAlignment(Pos.CENTER);
         popUpWindow.setScene(scene1);

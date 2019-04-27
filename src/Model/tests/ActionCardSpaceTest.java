@@ -1,4 +1,4 @@
-package Model.tests;
+package Model.Tests;
 
 import Controller.ConfigReader;
 import Model.*;
@@ -37,7 +37,7 @@ public class ActionCardSpaceTest {
     void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         actionCardList = conf.parseActionCards();
-        spaceList = conf.parseSpaces().get(0);
+        spaceList = gameClass.getSpaces();
         chanceDeck.fillLiveDeck(actionCardList);
         communityChestDeck.fillLiveDeck(actionCardList);
         player1 = new ClassicPlayer();
