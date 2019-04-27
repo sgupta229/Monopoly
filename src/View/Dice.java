@@ -14,6 +14,8 @@ public class Dice extends StackPane {
 
     public Dice() {
         Rectangle rect = new Rectangle(80, 80);
+        rect.setArcWidth(30.0);
+        rect.setArcHeight(20.0);
         rect.setStroke(Color.BLACK);
         rect.setFill(Color.LINEN);
         Text text = new Text();
