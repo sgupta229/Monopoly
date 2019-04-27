@@ -8,6 +8,7 @@ import View.PopUps.Popup;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -49,28 +50,20 @@ public class RespondToTradePopup {
 
     public void setUpLayout(){
         VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setId("box");
         Label currentPlayerName = new Label(currentPlayer.getName());
-        Text text1 = new Text("wants to trade");
+        Text text1 = new Text(messages.getString("wants-to-trade"));
 
-        List<String> offersStrings = new ArrayList<>();
-        for (Property p:currentPlayerOffers){
-            offersStrings.add(p.getName());
-        }
-        String offers = String.join(", ",offersStrings);
-        Text offersText = new Text(offers);
+        Text offersText = makeText(currentPlayerOffers);
 
-        Text text2 = new Text("for your properties: ");
-        List<String> wantsStrings = new ArrayList<>();
-        for (Property p:currentPlayerWants){
-            wantsStrings.add(p.getName());
-        }
-        String wants = String.join(", ",wantsStrings);
-        Text wantsText = new Text(wants);
+        Text text2 = new Text(messages.getString("for-your-properties"));
+        Text wantsText = makeText(currentPlayerWants);
 
         HBox buttons = new HBox();
-        Button make = new Button("Make Trade");
+        Button make = new Button(messages.getString("make-trade"));
         make.setOnAction(new MakeTradeHandler());
-        Button decline = new Button("Decline Trade");
+        Button decline = new Button(messages.getString("decline-trade"));
         decline.setOnAction(e->{
             myStage.close();
         });
@@ -78,6 +71,17 @@ public class RespondToTradePopup {
 
         vBox.getChildren().addAll(currentPlayerName,text1,offersText,text2,wantsText,buttons);
         myLayout.getChildren().addAll(vBox);
+    }
+
+    private Text makeText(Set<Property> set) {
+        List<String> offersStrings = new ArrayList<>();
+        for (Property p : set) {
+            offersStrings.add(p.getName());
+        }
+        String offers = String.join(messages.getString("props-delimiter"), offersStrings);
+        Text ret = new Text(offers);
+        ret.setWrappingWidth(myStage.getWidth());
+        return ret;
     }
 
     public void display(){

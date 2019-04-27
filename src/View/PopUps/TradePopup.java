@@ -114,6 +114,7 @@ public class TradePopup {
 
     private VBox createPlayerTradeBox(AbstractPlayer player, Set<Property> propSet){
         VBox vBox = new VBox();
+        vBox.setId("box");
 
         Label playerName = new Label(player.getName());
         List<Property> playerProperties = player.getProperties();
