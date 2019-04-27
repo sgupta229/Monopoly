@@ -159,12 +159,7 @@ public class AddPlayersScreen {
         ListView playerList = new ListView(myPlayers);
         playerList.setMaxHeight(180.0);
 
-        playerList.setCellFactory(new Callback<ListView<AbstractPlayer>,ListCell<AbstractPlayer>>() {
-            @Override
-            public ListCell<AbstractPlayer> call(ListView<AbstractPlayer> list) {
-                return new AbstractPlayerCell(availableTokens);
-            }
-        });
+        playerList.setCellFactory((Callback<ListView<AbstractPlayer>, ListCell<AbstractPlayer>>) list -> new AbstractPlayerCell(availableTokens));
 
         editPlayerList.getChildren().addAll(editPlayerListTitle,playerList);
         return editPlayerList;
@@ -181,7 +176,7 @@ public class AddPlayersScreen {
     private class AddButtonHandler implements EventHandler<ActionEvent>{
         @Override
         public void handle(ActionEvent event) {
-            String name = myPlayerNameField.getText();
+            try{String name = myPlayerNameField.getText();
             myPlayerNameField.clear();
             String icon = (String) myIconMenu.getValue();
             if (icon == null || name==null) return;
@@ -189,6 +184,10 @@ public class AddPlayersScreen {
             System.out.println("added player");
             //remove icon from observablelist
             availableTokens.remove(myIconMenu.getValue());
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
     }
 

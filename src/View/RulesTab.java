@@ -19,7 +19,8 @@ public class RulesTab {
         ResourceBundle myRules = ResourceBundle.getBundle("rules");
 
         Label label = new Label(myRules.getString("title"));
-        BigDecimal bankFunds = new BigDecimal(myGame.getBankFunds());
+        int bankFunds = new BigDecimal(myGame.getBankFunds()).intValue();
+
         Label evenBuilding = new Label(myRules.getString("evenBuilding")+ (myGame.getEvenBuildingRule()));
         Label freeParking = new Label(myRules.getString("freeParking") + (myGame.getFreeParkingRule()));
         Label landOnGo = new Label(myRules.getString("passGo")+ (myGame.getLandOnGoMult()));
@@ -28,7 +29,7 @@ public class RulesTab {
         Label jailBail = new Label(myRules.getString("jailBail")+(myGame.getJailBail()) + myRules.getString("jailBail2"));
         Label passGo = new Label(myRules.getString("go")+ (myGame.getPassGo()) + myRules.getString("go2"));
         Label snakeEyes = new Label(myRules.getString("snakeEyes")+(myGame.getSnakeEyes())+ myRules.getString("snakeEyes2"));
-        myLayout.getChildren().addAll(label, startFunds,new Label(myRules.getString("bankFunds")+ bankFunds.toPlainString()),evenBuilding,freeParking,landOnGo,rollsInJail,jailBail,passGo,snakeEyes);
+        myLayout.getChildren().addAll(label, startFunds,new Label(myRules.getString("bankFunds")+ bankFunds ),evenBuilding,freeParking,landOnGo,rollsInJail,jailBail,passGo,snakeEyes);
     }
 
     public VBox getView(){

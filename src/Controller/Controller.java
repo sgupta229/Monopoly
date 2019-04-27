@@ -15,6 +15,7 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class Controller {
     private AbstractGame myGame;
     private String myGameConfigFile;
     private String gameStyle;
+    private String className;
     transient private ObservableList<AbstractPlayer> newPlayers = FXCollections.observableArrayList();
 
     private Stage window;
@@ -41,21 +43,26 @@ public class Controller {
         window.show();
     }
 
-    public void setGame(String gameConfigFile){
+    public void setGame(String gameConfigFile) throws XmlReaderException{
         myGameConfigFile = gameConfigFile;
-
+        ConfigReader cfr = new ConfigReader(myGameConfigFile);
+        className = cfr.parseGameType();
         try{
-            myGame = new ClassicGame(myGameConfigFile);
-            //(AbstractGame) Class.forName("Controller.ClassicGame").getConstructor(String.class).newInstance(myGameConfigFile);
-        } catch(XmlReaderException e){
-            String msg = e.getMessage();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("XML Config");
-            alert.setHeaderText("XML Config File Error");
-            alert.setContentText(msg);
-            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-            alert.showAndWait();
-            System.exit(0);
+
+            //myGame = new ClassicGame(myGameConfigFile);
+            myGame = (AbstractGame) Class.forName("Controller."+className+"Game").getConstructor(String.class).newInstance(myGameConfigFile);
+        }
+         catch (InstantiationException e) {
+            //throw new XmlReaderException("Instantiation error");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            //throw new XmlReaderException("Method reflection not found");
+        } catch (ClassNotFoundException e) {
+            throw new XmlReaderException(className + " was not a valid class name... please check the data file's ActionCard 'type' attributes to ensure they match the class names");
+            //e.printStackTrace();
         }
 
         //TODO: make gameFactory or use reflection to create concrete Game class based on gameType
@@ -88,17 +95,29 @@ public class Controller {
         return window;
     }
 
-    public void addPlayer(String name, String image){
+    public void addPlayer(String name, String image) throws XmlReaderException{
         //create player depending on game type
         AbstractPlayer newP;
-        if (myGameConfigFile.equalsIgnoreCase("Classic")){
-            newP = new ClassicPlayer(name,image);
+        try{
+
+            //myGame = new ClassicGame(myGameConfigFile);
+            newP = (AbstractPlayer) Class.forName("Model."+className+"Player").getConstructor(String.class, String.class).newInstance(name, image);
+            newPlayers.add(newP);
         }
-        else{
-            newP = new ClassicPlayer(name,image);   //TODO
+        catch (InstantiationException e) {
+            //throw new XmlReaderException("Instantiation error");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            //throw new XmlReaderException("Method reflection not found");
+        } catch (ClassNotFoundException e) {
+            throw new XmlReaderException(className + " was not a valid class name... please check the data file's ActionCard 'type' attributes to ensure they match the class names");
+            //e.printStackTrace();
         }
         //add player to arraylist
-        newPlayers.add(newP);
+
         // on startgame, initialize players in game with setPlayers
     }
 

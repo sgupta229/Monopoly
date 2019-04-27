@@ -302,7 +302,6 @@ public abstract class AbstractGame implements Serializable {
         if(!currPlayer.isInJail()) {
             this.movePlayer(oldIndex, newIndex);
         }
-
         else {
             currPlayer.incrementNumRollsinJail();
             if(checkDoubles()) {
@@ -461,12 +460,13 @@ public abstract class AbstractGame implements Serializable {
 
     public void forfeitHandler(AbstractPlayer playerOut){
         this.players.remove(playerOut);
-        List<Property> propSet = playerOut.getProperties();
+        List<Property> propSet = List.copyOf(playerOut.getProperties());
         List<BuildingType> bTypes = bank.getBuildingTypes();
+
         for(Property p : propSet){
             for(BuildingType bt : bTypes){
                 bank.setTotalBuildingMap(bt, p.getNumBuilding(bt));
-                //p.removeBuilding(bt, p.getNumBuilding(bt));
+                p.removeBuilding(bt, p.getNumBuilding(bt));
             }
             bank.sellBackProperty(p, this);
         }

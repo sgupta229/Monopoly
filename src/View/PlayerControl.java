@@ -2,13 +2,9 @@ package View;
 
 import Controller.Controller;
 import Model.AbstractPlayer;
-import Model.ActionCard;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.Property;
-import View.PopUps.BuildOrSellPopup;
 import View.PopUps.Popup;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -23,6 +19,7 @@ import javafx.util.Callback;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public abstract class PlayerControl implements PropertyChangeListener {
@@ -71,8 +68,20 @@ public abstract class PlayerControl implements PropertyChangeListener {
             if (myController.getGame().checkGameOver()) {
                 myController.endGame(myController.getGame().getWinner());
             }
+            if(myController.getGame().getRightPlayer().getCantPayBool()) {
+                Alert removePlayer = new Alert(Alert.AlertType.WARNING);
+                removePlayer.setContentText("You went bankrupt :(");
+                removePlayer.show();
+                Optional<ButtonType> result = removePlayer.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    myController.getGame().getPlayers().remove(myController.getGame().getCurrPlayer());
+                    myController.getGame().forfeitHandler(myController.getGame().getCurrPlayer());
+                    myController.getGame().startNextTurn();
+                    myDiceRoller.setDisable(true);
+                    endTurnButton.setDisable(false);
+                }
+            }
         });
-
 
         HBox nameAndEnd = new HBox(Popup.PADDING_TWENTY);
         nameAndEnd.setAlignment(Pos.CENTER_LEFT);
