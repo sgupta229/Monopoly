@@ -57,6 +57,7 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
             sellBuildingsMortgageProps(bank, amount);
             if(this.funds < amount) {
                 cantPayBool = true;
+                System.out.println("Player: " + this + " BOOL: " + cantPayBool);
                 setFunds(0);
                 receiver.receivePayment(this.funds);
                 return;
