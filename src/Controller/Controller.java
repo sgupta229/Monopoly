@@ -110,7 +110,7 @@ public class Controller {
 
     //maybe should pass game directly in constructors? to make dependency clearer?
     public AbstractGame getGame(){return myGame;}
-    public ObservableList<AbstractPlayer> getPlayers(){ return newPlayers;}
+//    public ObservableList<AbstractPlayer> getPlayers(){ return newPlayers;}
 
     private String fileToStylesheetString ( File stylesheetFile ) {
         try {

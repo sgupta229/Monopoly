@@ -7,9 +7,12 @@ import Model.Bank;
 import Model.ClassicPlayer;
 import Model.XmlReaderException;
 import Model.actioncards.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +31,9 @@ class WinMoneyACTest {
         p2 = new ClassicPlayer();
         p3 = new ClassicPlayer();
         game = new ClassicGame("Normal_Config_Rework.xml");
-        game.setPlayers(List.of(p1, p2, p3));
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
+        playerList.addAll(p1,p2,p3);
+        game.setPlayers(playerList);
         game.setCurrPlayer(0);
 
         ac1 = new WinMoneyAC(DeckType.CHANCE, "Bank pays dividend of $75!", false, List.of("BANK"), List.of(75.0));

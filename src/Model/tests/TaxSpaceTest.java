@@ -3,6 +3,8 @@ package Model.tests;
 import Controller.ClassicGame;
 import Model.*;
 import Model.spaces.AbstractSpace;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +32,7 @@ class TaxSpaceTest {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         taxSpace = gameClass.getBoard().getSpaceAt(38);
         player1 = new ClassicPlayer();
-        List<AbstractPlayer> playerList = new ArrayList<>();
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
         playerList.add(player1);
         //player1.receivePayment(100);
         gameClass.setPlayers(playerList);
