@@ -5,6 +5,7 @@ import Controller.Controller;
 import Model.AbstractPlayer;
 import Model.properties.Property;
 import View.AbstractPlayerCell;
+import View.RespondToTradePopup;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -140,11 +141,8 @@ public class TradePopup {
         @Override
         public void handle(ActionEvent actionEvent) {
             if (otherPlayer == null) return;
-            Map<AbstractPlayer,List<Property>> trade = new HashMap<>();
-            trade.put(currentPlayer,new ArrayList<>(currentPlayerOffers));
-            trade.put(otherPlayer, new ArrayList<>(currentPlayerWants));
-            myGame.completeTrade(trade);
-            myStage.close();
+
+            new RespondToTradePopup(myStage,currentPlayer,otherPlayer,currentPlayerOffers,currentPlayerWants,myGame).display();
         }
     }
 
