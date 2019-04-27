@@ -28,7 +28,7 @@ public abstract class AbstractGame implements Serializable {
     private AbstractActionCard currentActionCard;
     private double snakeEyes;
 
-    private List<AbstractPlayer> players;
+    private List<AbstractPlayer> players = new ArrayList<>();
     private Bank bank;
     private Board board;
     private List<AbstractSpace> spaces;

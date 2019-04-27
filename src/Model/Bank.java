@@ -344,4 +344,8 @@ public class Bank implements Transfer, Serializable {
     public void setTotalBuildingMap(BuildingType bt, Integer amnt) {
         this.totalBuildingMap.put(bt, totalBuildingMap.get(bt)+amnt);
     }
+
+    public Map<Property, AbstractPlayer> getOwnedPropsMap() {
+        return ownedPropsMap;
+    }
 }

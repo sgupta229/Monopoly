@@ -75,6 +75,7 @@ public class Controller {
 
     public void setGame(AbstractGame game){
         myGame = game;
+        gameStyle = fileToStylesheetString(new File("data/GUI.css"));
     }
 
     public void goToAddPlayersScreen(){
