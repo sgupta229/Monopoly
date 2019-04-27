@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.beans.PropertyChangeEvent;
@@ -25,6 +26,7 @@ public class PlayerTabs implements PropertyChangeListener {
     private Tab rulesTab;
     private Tab saveTab;
     private AbstractPlayer currPlayer;
+    private VBox stats;
 
     private ResourceBundle messages;
 
@@ -42,9 +44,10 @@ public class PlayerTabs implements PropertyChangeListener {
         // create Play Tab
         playTab = new Tab("Play");
         setPlayTab();
-
-        statsTab = new Tab("Stats");
-        setStatsTab();
+//
+//        stats = new StatsTab(myController.getGame()).getView();
+//        statsTab = new Tab("Stats");
+//        setStatsTab();
 
         rulesTab = new Tab("Rules");
         setRulesTab();
@@ -52,7 +55,7 @@ public class PlayerTabs implements PropertyChangeListener {
         saveTab = new Tab("Save");
         setSaveTab();
 
-        tabPane.getTabs().addAll(playTab,statsTab,rulesTab,saveTab);
+        tabPane.getTabs().addAll(playTab,rulesTab,saveTab);
 
 //            tabPane.getSelectionModel().select(2); example of how to select the third tab
     }
@@ -61,16 +64,17 @@ public class PlayerTabs implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         currPlayer = (AbstractPlayer) evt.getNewValue();
         setPlayTab();
+        setStatsTab();
     }
 
     private void setPlayTab(){
         playTab.setContent(new ClassicPlayerControl(currPlayer,myController).getPlayerControlView());
     }
     private void setStatsTab(){
-        statsTab.setContent(new StatsTab(myController.getGame().getBank()).getView());
+        statsTab.setContent(stats);
     }
     private void setRulesTab(){
-        rulesTab.setContent(new Label("rules"));
+        rulesTab.setContent(new RulesTab(myController.getGame()).getView());
     }
     private void setSaveTab(){
         Button saveGameButton = new Button("Save game for later");
