@@ -1,5 +1,6 @@
 package View.PopUps;
 
+import Controller.AbstractGame;
 import Controller.Controller;
 import Model.AbstractPlayer;
 import Model.properties.Property;
@@ -30,6 +31,7 @@ public class TradePopup {
     private AbstractPlayer currentPlayer;
     private AbstractPlayer otherPlayer;
     private ObservableList<AbstractPlayer> allPlayers;
+    private AbstractGame myGame;
 
     private Set<Property> currentPlayerOffers;
     private Set<Property> currentPlayerWants;
@@ -37,17 +39,17 @@ public class TradePopup {
     private VBox otherPlayerTradeBox;
     private Pane otherPlayerPane;
 
-    public TradePopup(AbstractPlayer player, ObservableList<AbstractPlayer> players){
+    public TradePopup(AbstractPlayer player, ObservableList<AbstractPlayer> players, AbstractGame game){
         this.messages = ResourceBundle.getBundle("Messages");
         this.myStage = new Stage();
         this.currentPlayer = player;
         this.allPlayers = players;
+        this.myGame = game;
         this.myLayout = new Pane();
 
         this.currentPlayerOffers = new HashSet<>();
         this.currentPlayerWants = new HashSet<>();
         this.otherPlayerPane = new Pane();
-        otherPlayerPane.getChildren().addAll(new Label("other player pane"));
 
         setUpLayout();
 
@@ -98,9 +100,11 @@ public class TradePopup {
         if (selectedPlayer == null) {
             otherPlayerPane.getChildren().clear();
             System.out.println("null chosen");
+            otherPlayer = null;
             return;
         }
         System.out.println("player chosen: "+selectedPlayer.getName());
+        otherPlayer = selectedPlayer;
         currentPlayerWants.clear();
         otherPlayerPane.getChildren().clear();
         otherPlayerTradeBox = createPlayerTradeBox(selectedPlayer,currentPlayerWants);
@@ -135,8 +139,12 @@ public class TradePopup {
     private class ProposeButtonHandler implements EventHandler<ActionEvent>{
         @Override
         public void handle(ActionEvent actionEvent) {
+            if (otherPlayer == null) return;
             Map<AbstractPlayer,List<Property>> trade = new HashMap<>();
-
+            trade.put(currentPlayer,new ArrayList<>(currentPlayerOffers));
+            trade.put(otherPlayer, new ArrayList<>(currentPlayerWants));
+            myGame.completeTrade(trade);
+            myStage.close();
         }
     }
 
