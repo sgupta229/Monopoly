@@ -75,6 +75,7 @@ public class Controller {
 
     public void setGame(AbstractGame game){
         myGame = game;
+        gameStyle = fileToStylesheetString(new File("data/GUI.css"));
     }
 
     public void goToAddPlayersScreen(){
@@ -128,7 +129,7 @@ public class Controller {
 
     //maybe should pass game directly in constructors? to make dependency clearer?
     public AbstractGame getGame(){return myGame;}
-    public ObservableList<AbstractPlayer> getPlayers(){ return newPlayers;}
+//    public ObservableList<AbstractPlayer> getPlayers(){ return newPlayers;}
 
     private String fileToStylesheetString ( File stylesheetFile ) {
         try {

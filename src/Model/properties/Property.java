@@ -63,6 +63,10 @@ public abstract class Property implements Serializable {
 
     }
 
+    public Property() {
+
+    }
+
     @Deprecated
     public Property(double price, String propName, String color, List<Double> paymentInfo){
         myPrice=price;

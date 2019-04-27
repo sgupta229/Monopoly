@@ -9,9 +9,12 @@ import Model.XmlReaderException;
 import Model.actioncards.*;
 import Model.properties.Property;
 import Model.spaces.ClassicPropSpace;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,7 +36,9 @@ class MoveToOpenACTest {
         } catch (XmlReaderException e) {
             e.printStackTrace();
         }
-        game.setPlayers(List.of(p1, p2));
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
+        playerList.addAll(p1,p2);
+        game.setPlayers(playerList);
         game.setCurrPlayer(0);
 
         ac1 = new MoveToOpenAC(DeckType.CHANCE, "ADVANCE TO A BROWN OR YELLOW SPACE. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.", false, List.of("BROWN","YELLOW"), List.of(0.0));

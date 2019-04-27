@@ -7,6 +7,8 @@ import Model.Bank;
 import Model.properties.Property;
 import Model.XmlReaderException;
 import Model.spaces.ClassicPropSpace;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +39,7 @@ class ClassicPropSpaceTest {
         classicPropSpace = (ClassicPropSpace) gameClass.getBoard().getSpaceAt(1);
         player1 = new ClassicPlayer();
         player2 = new ClassicPlayer();
-        List<AbstractPlayer> playerList = new ArrayList<>();
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
         playerList.add(player1);
         playerList.add(player2);
         gameClass.setPlayers(playerList);

@@ -4,6 +4,8 @@ import Controller.*;
 import Model.AbstractPlayer;
 import Model.ClassicPlayer;
 import Model.XmlReaderException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +42,9 @@ class AbstractGameTest {
         p2.moveTo(2);
         p3.moveTo(3);
         p4.moveTo(4);
-        game.setPlayers(List.of(p1, p2, p3, p4));
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
+        playerList.addAll(p1,p2,p3,p4);
+        game.setPlayers(playerList);
     }
 
     @Test

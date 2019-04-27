@@ -11,6 +11,8 @@ import Model.actioncards.DeckType;
 import Model.actioncards.LoseMoneyAC;
 import Model.properties.BuildingType;
 import Model.properties.Property;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +40,9 @@ class LoseMoneyACTest {
         } catch (XmlReaderException e) {
             e.printStackTrace();
         }
-        game.setPlayers(List.of(p1, p2, p3));
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
+        playerList.addAll(p1,p2,p3);
+        game.setPlayers(playerList);
         game.setCurrPlayer(0);
 
         ac1 = new LoseMoneyAC(DeckType.CHANCE, "Pay $40 per house and $100 per hotel you own", false, List.of("BANK"), List.of(40.0, 100.0));

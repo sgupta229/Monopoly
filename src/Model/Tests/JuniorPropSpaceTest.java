@@ -10,6 +10,8 @@ import Model.XmlReaderException;
 import Model.properties.BuildingType;
 import Model.properties.Property;
 import Model.spaces.JuniorPropSpace;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +41,7 @@ class JuniorPropSpaceTest {
         juniorPropSpace = (JuniorPropSpace) gameClass.getBoard().getSpaceAt(1);
         player1 = new JuniorPlayer();
         player2 = new JuniorPlayer();
-        List<AbstractPlayer> playerList = new ArrayList<>();
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
         playerList.add(player1);
         playerList.add(player2);
         gameClass.setPlayers(playerList);

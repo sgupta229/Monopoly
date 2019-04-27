@@ -9,9 +9,12 @@ import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
 import Model.actioncards.DeckType;
 import Model.actioncards.GetOutJailAC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,7 +36,9 @@ class GetOutJailACTest {
         } catch (XmlReaderException e) {
             e.printStackTrace();
         }
-        game.setPlayers(List.of(p1, p2, p3));
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
+        playerList.addAll(p1,p2,p3);
+        game.setPlayers(playerList);
         game.setCurrPlayer(0);
 
         ac = new GetOutJailAC(DeckType.CHANCE, "Get out of jail free!", true);

@@ -5,6 +5,8 @@ import Model.AbstractPlayer;
 import Model.spaces.AbstractSpace;
 import Model.ClassicPlayer;
 import Model.XmlReaderException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +37,7 @@ class GoToSpaceTest {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         goToJail = gameClass.getBoard().getSpaceAt(30);
         player1 = new ClassicPlayer();
-        List<AbstractPlayer> playerList = new ArrayList<>();
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
         playerList.add(player1);
         gameClass.setPlayers(playerList);
         player1.moveTo(30);
