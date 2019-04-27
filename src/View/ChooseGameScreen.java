@@ -19,6 +19,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
+import Controller.SaveGame;
 
 
 public class ChooseGameScreen {
@@ -132,9 +133,18 @@ public class ChooseGameScreen {
         @Override
         public void handle(ActionEvent event) {
             //TODO: fix to create GameSaver of dynamic game type
-            GameSaver<ClassicGame> mySaver = new GameSaver<ClassicGame>();
-            ClassicGame newGame = mySaver.reload(openedFile);
-            myController.setGame(newGame);
+//            GameSaver<ClassicGame> mySaver = new GameSaver<ClassicGame>();
+//            ClassicGame newGame = mySaver.reload(openedFile);
+//            myController.setGame(newGame);
+            SaveGame sg = new SaveGame();
+            try {
+                ClassicGame newGame = sg.load(openedFile.getAbsolutePath(), "Normal_Config_Rework.xml");
+                myController.setGame(newGame);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
     }
 }

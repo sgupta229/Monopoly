@@ -3,7 +3,9 @@ package View;
 import Controller.Controller;
 import Controller.GameSaver;
 import Controller.ClassicGame;
+import Controller.SaveGame;
 import Model.AbstractPlayer;
+import Model.XmlReaderException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -80,17 +82,34 @@ public class PlayerTabs implements PropertyChangeListener {
 
     private class saveButtonHandler implements EventHandler<ActionEvent> {
         @Override
+//        public void handle(ActionEvent event) {
+//            FileChooser fileChooser = new FileChooser();
+//            fileChooser.setTitle(messages.getString("save-game"));
+//            fileChooser.getExtensionFilters().addAll(
+//                    new FileChooser.ExtensionFilter("Serializable", "*.ser"));
+//            fileChooser.setInitialFileName(".ser");
+//            //TODO make generic
+//            GameSaver<ClassicGame> mySaver = new GameSaver<ClassicGame>();
+//            File openedFile = fileChooser.showSaveDialog(myController.getStage());
+//            //TODO don't cast
+//            mySaver.saveGame((ClassicGame)myController.getGame(),openedFile);
+//        }
+
         public void handle(ActionEvent event) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle(messages.getString("save-game"));
             fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Serializable", "*.ser"));
-            fileChooser.setInitialFileName(".ser");
-            //TODO make generic
-            GameSaver<ClassicGame> mySaver = new GameSaver<ClassicGame>();
+                    new FileChooser.ExtensionFilter("Serializable","*.txt"));
+            fileChooser.setInitialFileName(".txt");
             File openedFile = fileChooser.showSaveDialog(myController.getStage());
-            //TODO don't cast
-            mySaver.saveGame((ClassicGame)myController.getGame(),openedFile);
+            SaveGame sg = new SaveGame();
+            try {
+                sg.save(myController.getGame(), openedFile.getAbsolutePath());
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
