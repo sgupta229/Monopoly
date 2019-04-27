@@ -64,14 +64,17 @@ public class ClassicColorProperty extends ColorProperty {
         int numHotel;
         List<BuildingType> buildingTypes = new ArrayList<>();
         buildingTypes.addAll(getBuildingPrices().keySet());
-        numHotel = getNumBuilding(buildingTypes.get(1));
-        if(numHotel>0){
-            rentTotal+= numHotel*getRentNumbers().get(HOTEL_RENT_INDEX);
+        for(int buildings=1; buildings<buildingTypes.size(); buildings++){
+            numHotel = getNumBuilding(buildingTypes.get(buildings));
+            if(numHotel>0){
+                rentTotal+= numHotel*getRentNumbers().get(HOTEL_RENT_INDEX+(buildings-1)+(numHotel-1));
+            }
         }
-        else{
-
+        if(rentTotal==0.0){
             rentTotal+= getRentNumbers().get(getNumBuilding(buildingTypes.get(0)));
         }
+
+
 
         return rentTotal;
     }

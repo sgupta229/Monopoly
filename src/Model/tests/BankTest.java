@@ -92,11 +92,11 @@ class BankTest {
 
     @Test
     public void makePaymentNormal() {
-        double payAmount = 2010;
+        double payAmount = 3010;
         double newBal = startBalance-payAmount;
         gameBank.makePayment(gameBank, payAmount, player1);
         assertEquals(gameBank.getBankBalance(), newBal);
-        assertEquals(payAmount, player1.getFunds());
+        assertEquals(payAmount+1000, player1.getFunds());
     }
 
     @Test

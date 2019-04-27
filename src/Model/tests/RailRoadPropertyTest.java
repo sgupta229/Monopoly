@@ -1,4 +1,4 @@
-package Model.tests;
+package Model.Tests;
 
 import Controller.ClassicGame;
 import Controller.ConfigReader;
@@ -39,8 +39,8 @@ class RailRoadPropertyTest {
     void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
         //gameClass.get
-        spaceList = conf.parseSpaces().get(0);
-        propsList = conf.parseSpaces().get(1);
+        spaceList = gameClass.getSpaces();
+        propsList = gameClass.getProperties();
         player1 = new ClassicPlayer();
         //player2 = new ClassicPlayer();
         gameBank = gameClass.getBank();
