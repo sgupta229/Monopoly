@@ -47,6 +47,7 @@ public class TradePopup {
         this.currentPlayerOffers = new HashSet<>();
         this.currentPlayerWants = new HashSet<>();
         this.otherPlayerPane = new Pane();
+        otherPlayerPane.getChildren().addAll(new Label("other player pane"));
 
         setUpLayout();
 
@@ -58,7 +59,11 @@ public class TradePopup {
 
         currPlayerTradeBox = createPlayerTradeBox(currentPlayer,currentPlayerOffers);
 
-        ObservableList<AbstractPlayer> allPlayersExceptCurrent = FXCollections.observableList(allPlayers);
+        List<AbstractPlayer> copy = new ArrayList<>();
+        for (AbstractPlayer p : allPlayers){
+            copy.add(p);
+        }
+        ObservableList<AbstractPlayer> allPlayersExceptCurrent = FXCollections.observableList(copy);
         allPlayersExceptCurrent.remove(currentPlayer);
         ComboBox<AbstractPlayer> players = new ComboBox<>(allPlayersExceptCurrent);
         players.setButtonCell(new PlayerCell());
