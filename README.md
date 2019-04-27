@@ -31,6 +31,14 @@ Abby Zhang:
 * View - AddPlayersScreen, DiceRoller, PlayerControl, PlayerTabs, Editing rules, Trading pop up - view and integration, Auctioning pop up - view and integration
 * Controller - Integrating front end and back end
 
+Sahil Gupta:
+* Model - worked with the player hierararchy and functionality. Made AbstractPlayer and ClassicPlayer.
+* Controller - developed AbstractGame class and set appropriate abstractions to easily extend other games (also made ClassicGame).
+Made the dice class and the GameSaver class (which is responsible for saving and loading the game). 
+Initially wrote methods in ConfigReader to parse data, which was later redone with better design by Dylan and Ryan.
+* View - added some basic tweaks/error checking and added a few alerts when certain actions occur in the backend and
+the player should be notified.
+
 Dezmanique Martin:
 * Data - Wrote Normal_Config.xml
 * Tests - GUI Testing
