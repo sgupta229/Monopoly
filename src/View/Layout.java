@@ -13,6 +13,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
+import java.util.ResourceBundle;
+
 public class Layout {
 
     private Scene myScene;
@@ -68,6 +70,7 @@ public class Layout {
 
     private TabPane createPlayersTabs(){
         myPlayersTabs = new PlayerTabs(myController);
+
         return myPlayersTabs.getTabPane();
     }
 }

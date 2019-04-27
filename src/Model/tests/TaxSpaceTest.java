@@ -55,14 +55,16 @@ class TaxSpaceTest {
 
     @Test
     void doActionRemovesPlayerFundsPercent() {
-        var newFunds =player1.getFunds()-250;
+        var percentage = player1.getFunds()*.1;
+        var newFunds =player1.getFunds()-percentage;
         taxSpace.doAction(gameClass,1);
         assertEquals(newFunds, player1.getFunds());
     }
 
     @Test
     void doActionAddsBankFundsPercent() {
-        var newFunds =gameBank.getBankBalance()+250.0;
+        var percentage = player1.getFunds()*.1;
+        var newFunds =gameBank.getBankBalance()+percentage;
         taxSpace.doAction(gameClass,1);
         assertEquals(newFunds, gameBank.getBankBalance());
     }

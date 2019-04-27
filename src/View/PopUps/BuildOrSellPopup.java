@@ -98,6 +98,7 @@ public class BuildOrSellPopup extends Popup {
         a.setContentText(myText.getString("sold") + key  + " on " + myProperty.getName() + "! " +myText.getString("totalMessage") +myProperty.getNumBuilding(BuildingType.valueOf(key))+ " " + key + myText.getString("additional"));
         a.setAlertType(Alert.AlertType.INFORMATION);
         a.show();
+
     }
 
     private Pane setTabInfo(Stage popUpWindow, String key1, String key2, String message, String infoType) {
@@ -172,8 +173,11 @@ public class BuildOrSellPopup extends Popup {
                 }
             }
             checkIfCanMortgage();
-            checkIfCanBuild();
-            checkIfCanSell();
+            if (!myProperty.getGroup().equals("RAILROAD") && !myProperty.getGroup().equals("UTILITY")){
+                checkIfCanBuild();
+                checkIfCanSell();
+            }
+
         });
         combo.getChildren().addAll(props, okButton );
         return combo;

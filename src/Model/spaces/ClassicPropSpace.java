@@ -44,13 +44,14 @@ public class ClassicPropSpace extends AbstractPropSpace {
         double propertyPrice = myProperty.getPrice();
         int lastDiceRoll = game.getLastDiceRoll();
         if (propOwner == null) {
-            if (userChoice == 0) { //aka buy property
+            if (userChoice == 0 && currPlayer.getFunds()>myProperty.getPrice()) { //aka buy property
                 bank.setPropertyOwner(myProperty, currPlayer);
                 myProperty.setIsOwned(true);
                 currPlayer.makePayment(game.getBank(), propertyPrice, bank);
                 currPlayer.addProperty(myProperty); //have to update the players assets
                 //front end updates this somewhere?
             } else {
+                currPlayer.makePayment(game.getBank(), propertyPrice, bank);
                 //start auction process.
                 //game.startAuction();
             }

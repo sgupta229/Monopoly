@@ -17,6 +17,7 @@ public class JuniorColorProperty extends ColorProperty {
     public JuniorColorProperty(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
         super(price, propName, color, paymentInfo, groupSize, buildingPriceMap);
         setGroup(color);
+        getInfo();
     }
 
     /*protected void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException{
@@ -54,18 +55,13 @@ public class JuniorColorProperty extends ColorProperty {
      */
     @Override
     public double calculateRent(AbstractPlayer propOwner, int lastDiceRoll){
-        double rentNums;
-        if(this.getIsMortgaged()){
-            return  0.0;
+        double rentNums=0.0;
+        rentNums = (double)ret.get(1);
+        if(propOwner.checkMonopoly(this)){
+            rentNums = rentNums*2;
         }
-        else{
-//            rentNums = getRentNumbers().get(0);
-            rentNums = (double)ret.get(1);
-            if(propOwner.checkMonopoly(this)){
-                rentNums = rentNums*2;
-            }
-            return rentNums;
-        }
+        return rentNums;
+
     }
 
     public void addBuilding(BuildingType building) throws UnsupportedOperationException{

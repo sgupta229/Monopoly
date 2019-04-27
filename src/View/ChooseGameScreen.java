@@ -2,6 +2,7 @@ package View;
 import Controller.Controller;
 import Controller.GameSaver;
 import Controller.ClassicGame;
+import Model.XmlReaderException;
 import View.PopUps.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.Enumeration;
@@ -73,10 +75,15 @@ public class ChooseGameScreen {
             this.key = gameName;
         }
         @Override
-        public void handle(ActionEvent event) {
-            System.out.print(key);
-            myController.setGame(gameTypeNames.getString(key));
-            myController.goToAddPlayersScreen();
+        public void handle(ActionEvent event){
+            try {
+                System.out.print(key);
+                myController.setGame(gameTypeNames.getString(key));
+                myController.goToAddPlayersScreen();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
