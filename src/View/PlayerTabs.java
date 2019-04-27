@@ -9,7 +9,6 @@ import Model.XmlReaderException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.FileChooser;
@@ -23,16 +22,17 @@ public class PlayerTabs implements PropertyChangeListener {
     private Controller myController;
     private TabPane tabPane;
     private Tab playTab;
-    private Tab statsTab;
     private Tab rulesTab;
     private Tab saveTab;
     private AbstractPlayer currPlayer;
-
     private ResourceBundle messages;
+    private ResourceBundle display;
 
     public PlayerTabs(Controller controller){
         messages = ResourceBundle.getBundle("Messages");
         myController = controller;
+        display = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(1).toString());
+
         myController.getGame().addPropertyChangeListener("currPlayer",this);
 
         tabPane = new TabPane();
@@ -45,18 +45,13 @@ public class PlayerTabs implements PropertyChangeListener {
         playTab = new Tab("Play");
         setPlayTab();
 
-        statsTab = new Tab("Stats");
-        setStatsTab();
-
         rulesTab = new Tab("Rules");
         setRulesTab();
 
         saveTab = new Tab("Save");
         setSaveTab();
 
-        tabPane.getTabs().addAll(playTab,statsTab,rulesTab,saveTab);
-
-//            tabPane.getSelectionModel().select(2); example of how to select the third tab
+        tabPane.getTabs().addAll(playTab,rulesTab,saveTab);
     }
 
     @Override
@@ -66,13 +61,15 @@ public class PlayerTabs implements PropertyChangeListener {
     }
 
     private void setPlayTab(){
-        playTab.setContent(new ClassicPlayerControl(currPlayer,myController).getPlayerControlView());
-    }
-    private void setStatsTab(){
-        statsTab.setContent(new StatsTab(myController.getGame().getBank()).getView());
+        if (display.getString("myPlayerTab").equals("JUNIOR")){
+            playTab.setContent(new JuniorPlayerControl(currPlayer,myController).getPlayerControlView());
+        }
+        else{
+            playTab.setContent(new ClassicPlayerControl(currPlayer,myController).getPlayerControlView());
+        }
     }
     private void setRulesTab(){
-        rulesTab.setContent(new Label("rules"));
+        rulesTab.setContent(new RulesTab(myController.getGame()).getView());
     }
     private void setSaveTab(){
         Button saveGameButton = new Button("Save game for later");
@@ -117,3 +114,4 @@ public class PlayerTabs implements PropertyChangeListener {
         return tabPane;
     }
 }
+

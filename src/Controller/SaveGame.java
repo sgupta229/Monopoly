@@ -63,35 +63,37 @@ public class SaveGame {
     }
 
     public ClassicGame load(String file, String configFile) throws XmlReaderException {
-        ClassicGame game = new ClassicGame(configFile);
-        JSONParser parser = new JSONParser();
         try {
+            ClassicGame game = new ClassicGame(configFile);
+            JSONParser parser = new JSONParser();
             JSONObject a = (JSONObject) parser.parse(new FileReader(file));
             List<AbstractPlayer> players = new ArrayList<>();
-
             JSONArray playerArray = (JSONArray) a.get("players");
             for(Object o : playerArray) {
                 JSONObject person = (JSONObject) o;
                 AbstractPlayer p = new ClassicPlayer();
                 p.setName((String) person.get("name"));
                 p.setFunds((Double) person.get("funds"));
-                p.setCurrentLocation(((Long) person.get("location")).intValue());
+                p.moveTo(((Long) person.get("location")).intValue());
                 p.setImage((String) person.get("token"));
                 players.add(p);
             }
 
-            game.setPlayers(players);
+            for(AbstractPlayer p : players) {
+                game.getPlayers().add(p);
+            }
+            game.setCurrPlayer(0);
 
             JSONArray propertyArray = (JSONArray) a.get("properties");
             for(Object o : propertyArray) {
                 JSONObject prop = (JSONObject) o;
                 for(Property p : game.getProperties()) {
-                    if(p.getName().equals(prop.get("name"))) {
+                    if(p.getName().equals(prop.get("name").toString().toLowerCase())) {
                         p.setIsOwned((boolean) prop.get("owned"));
                         p.setIsMortgaged((boolean) prop.get("mortgaged"));
                         if(prop.get("owner") != null) {
                             for(AbstractPlayer player : game.getPlayers()) {
-                                if(player.getName().equals(prop.get("owner"))) {
+                                if(player.getName().toLowerCase().equals(prop.get("owner"))) {
                                     game.getBank().setPropertyOwner(p, player);
                                     player.addProperty(p);
                                 }
