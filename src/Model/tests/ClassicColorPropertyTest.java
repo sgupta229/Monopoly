@@ -36,7 +36,7 @@ class ClassicColorPropertyTest {
     @BeforeEach
     void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
-        propsList = conf.parseSpaces().get(1);
+        propsList = gameClass.getProperties();
         player1 = new ClassicPlayer();
         gameBank = gameClass.getBank();
     }

@@ -14,8 +14,10 @@ public class JuniorGame extends AbstractGame {
     }
 
     public boolean checkGameOver() {
+        System.out.println("junior checking game over");
         for(AbstractPlayer p : getPlayers()) {
             if(p.getCantPayBool()) {
+                System.out.println("in the loop");
                 return true;
             }
         }
@@ -30,6 +32,7 @@ public class JuniorGame extends AbstractGame {
         for(AbstractPlayer p : getPlayers()) {
             if(p.getFunds() > maxFunds) {
                 winner = p;
+                maxFunds = p.getFunds();
                 maxFundsPlayerNum = getPlayers().indexOf(p);
                 winnerPropNum = p.getProperties().size();
             }

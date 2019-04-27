@@ -169,7 +169,7 @@ public class AddPlayersScreen {
     private class AddButtonHandler implements EventHandler<ActionEvent>{
         @Override
         public void handle(ActionEvent event) {
-            String name = myPlayerNameField.getText();
+            try{String name = myPlayerNameField.getText();
             myPlayerNameField.clear();
             String icon = (String) myIconMenu.getValue();
             if (icon == null || name==null) return;
@@ -177,6 +177,10 @@ public class AddPlayersScreen {
             System.out.println("added player");
             //remove icon from observablelist
             availableTokens.remove(myIconMenu.getValue());
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
     }
 

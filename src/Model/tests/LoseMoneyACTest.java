@@ -129,8 +129,7 @@ class LoseMoneyACTest {
             game.getBank().build(curr.getProperties().get(1), BuildingType.HOUSE);
         }
 
-        //160 for 4 houses, 100 for hotel
-        var expected = curr.getFunds() - 260;
+        var expected = curr.getFunds() - 120;
         ac1.doCardAction(game);
         var actual = curr.getFunds();
         assertEquals(expected, actual);

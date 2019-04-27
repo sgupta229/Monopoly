@@ -58,10 +58,10 @@ class AbstractPlayerTest {
         assertEquals(actualp2, expectedp2);
     }
 
-    @Test
-    void checkInvalidPayment() {
-        assertThrows(IllegalArgumentException.class, () -> p1.makePayment(b, 700, p2));
-    }
+    //@Test
+    //void checkInvalidPayment() {
+        //assertThrows(IllegalArgumentException.class, () -> p1.makePayment(b, 700, p2));
+    //}
 
     @Test
     void checkMoveTo() {
