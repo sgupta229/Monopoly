@@ -50,8 +50,8 @@ class JuniorPropSpaceTest {
     }
 
     AbstractPlayer buyProperty(){
-        classicPropSpace.doAction(gameClass, 0);
-        AbstractPlayer propOwner = gameBank.propertyOwnedBy(classicPropSpace.getMyProperty());
+        juniorPropSpace.doAction(gameClass, 0);
+        AbstractPlayer propOwner = gameBank.propertyOwnedBy(juniorPropSpace.getMyProperty());
         return propOwner;
     }
 
@@ -67,17 +67,17 @@ class JuniorPropSpaceTest {
         gameClass.setCurrPlayer(1);
         double player2OldFunds= player2.getFunds();
         double player1OldFunds= player1.getFunds();
-        classicPropSpace.doAction(gameClass, 2);
-        double player2NewFunds = player2.getFunds();
+        juniorPropSpace.doAction(gameClass, 2);
         double player1NewFunds = player1.getFunds();
-        assertTrue(player2OldFunds>player2NewFunds);
+        double player2NewFunds = player2.getFunds();
         assertTrue(player1OldFunds<player1NewFunds);
+        assertTrue(player2OldFunds>player2NewFunds);
     }
 
     @Test
     void getMyProperty(){
         buyProperty();
-        Property linkedProperty = classicPropSpace.getMyProperty();
+        Property linkedProperty = juniorPropSpace.getMyProperty();
         Property expectedProp = player1.getProperties().get(0);
         assertEquals(linkedProperty, expectedProp);
     }
