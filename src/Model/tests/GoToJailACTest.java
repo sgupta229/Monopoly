@@ -9,6 +9,8 @@ import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
 import Model.actioncards.DeckType;
 import Model.actioncards.GoToJailAC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +35,9 @@ class GoToJailACTest {
         } catch (XmlReaderException e) {
             e.printStackTrace();
         }
-        game.setPlayers(List.of(p1, p2));
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
+        playerList.addAll(p1,p2);
+        game.setPlayers(playerList);
         game.setCurrPlayer(1);
         ArrayList<String> exStrings = new ArrayList<>();
         ArrayList<Double> extraDouble = new ArrayList<>();

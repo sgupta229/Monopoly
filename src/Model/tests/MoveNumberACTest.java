@@ -6,9 +6,12 @@ import Model.AbstractPlayer;
 import Model.ClassicPlayer;
 import Model.XmlReaderException;
 import Model.actioncards.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,7 +30,9 @@ class MoveNumberACTest {
         } catch (XmlReaderException e) {
             e.printStackTrace();
         }
-        game.setPlayers(List.of(p1));
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
+        playerList.addAll(p1);
+        game.setPlayers(playerList);
         game.setCurrPlayer(0);
 
         ac1 = new MoveNumberAC(DeckType.CHANCE, "Move back 3 spaces", false, List.of("-3"), List.of(0.0));

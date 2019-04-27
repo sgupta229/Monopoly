@@ -4,7 +4,9 @@ import Controller.Controller;
 import Model.AbstractPlayer;
 import Model.actioncards.AbstractActionCard;
 import Model.properties.Property;
+import View.PopUps.BuildOrSellPopup;
 import View.PopUps.Popup;
+import View.PopUps.TradePopup;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -24,7 +26,7 @@ import java.util.ResourceBundle;
 
 public abstract class PlayerControl implements PropertyChangeListener {
     private Controller myController;
-    private AbstractPlayer myPlayer;
+    protected AbstractPlayer myPlayer;
     private ResourceBundle messages;
     private AnchorPane myAnchorPane;
     private VBox myVBox;
@@ -84,6 +86,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
             }
         });
 
+//        HBox forfeitAndMove = addForfeitAndMove();
         HBox nameAndEnd = new HBox(Popup.PADDING_TWENTY);
         nameAndEnd.setAlignment(Pos.CENTER_LEFT);
         Text playerName = new Text(myPlayer.getName());
@@ -103,7 +106,8 @@ public abstract class PlayerControl implements PropertyChangeListener {
         }
         nameAndEnd.getChildren().addAll(playerIcon,playerName,endTurnButton,bailButton);
 
-        myVBox.getChildren().addAll(nameAndEnd,createBalanceText());
+        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(),
+                createAssetsListView(),createActionCardsListView());//,addForfeitAndMove());
         return myVBox;
     }
 
@@ -120,14 +124,13 @@ public abstract class PlayerControl implements PropertyChangeListener {
         forfeit.setId("button1");
         forfeit.setOnAction(e-> {
             myController.getGame().forfeitHandler(myController.getGame().getCurrPlayer());
-            //myController.getGame().getPlayers().remove(myController.getGame().getCurrPlayer());
+//            myController.getGame().getPlayers().remove(myController.getGame().getCurrPlayer());
             myController.getGame().startNextTurn();
             myDiceRoller.setDisable(false);
         });
 
         HBox forfeitAndMove = new HBox(10);
         forfeitAndMove.getChildren().addAll(forfeit,moveBox);
-        myVBox.getChildren().addAll(createAssetsListView(),createActionCardsListView());
         return forfeitAndMove;
     }
 

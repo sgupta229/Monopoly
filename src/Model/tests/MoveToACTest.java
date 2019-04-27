@@ -9,9 +9,12 @@ import Model.actioncards.AbstractActionCard;
 import Model.actioncards.ActionDeck;
 import Model.actioncards.DeckType;
 import Model.actioncards.MoveToAC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,8 +38,10 @@ class MoveToACTest {
         } catch (XmlReaderException e) {
             e.printStackTrace();
         }
-        tropical_game.setPlayers(List.of(p1));
-        normal_game.setPlayers(List.of(p1));
+        ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
+        playerList.addAll(p1);
+        tropical_game.setPlayers(playerList);
+        normal_game.setPlayers(playerList);
         tropical_game.setCurrPlayer(0);
         normal_game.setCurrPlayer(0);
 

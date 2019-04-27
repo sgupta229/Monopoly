@@ -7,6 +7,7 @@ import Model.properties.BuildingType;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import Model.spaces.SpaceGroup;
+import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -28,7 +29,7 @@ public abstract class AbstractGame implements Serializable {
     private AbstractActionCard currentActionCard;
     private double snakeEyes;
 
-    private List<AbstractPlayer> players = new ArrayList<>();
+    private ObservableList<AbstractPlayer> players;
     private Bank bank;
     private Board board;
     private List<AbstractSpace> spaces;
@@ -92,7 +93,7 @@ public abstract class AbstractGame implements Serializable {
         }
     }
 
-    public void setPlayers(List<AbstractPlayer> p){
+    public void setPlayers(ObservableList<AbstractPlayer> p){
         if (p.size() <=0 ) {
             //TODO: throw some "can't initialize players w empty list" exception
         }
@@ -144,7 +145,7 @@ public abstract class AbstractGame implements Serializable {
         return players.get(rightIndex);
     }
 
-    public List<AbstractPlayer> getPlayers() {
+    public ObservableList<AbstractPlayer> getPlayers() {
         return players;
     }
 
