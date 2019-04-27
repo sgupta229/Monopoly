@@ -36,8 +36,7 @@ Sahil Gupta:
 * Controller - developed AbstractGame class and set appropriate abstractions to easily extend other games (also made ClassicGame).
 Made the dice class and the GameSaver class (which is responsible for saving and loading the game). 
 Initially wrote methods in ConfigReader to parse data, which was later redone with better design by Dylan and Ryan.
-* View - added some basic tweaks/error checking and added a few alerts when certain actions occur in the backend and
-the player should be notified.
+* View - added some basic error checking/alerts.
 
 Dezmanique Martin:
 * Data - Wrote Normal_Config.xml
