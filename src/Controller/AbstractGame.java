@@ -466,7 +466,7 @@ public abstract class AbstractGame implements Serializable {
         for(Property p : propSet){
             for(BuildingType bt : bTypes){
                 bank.setTotalBuildingMap(bt, p.getNumBuilding(bt));
-                //p.removeBuilding(bt, p.getNumBuilding(bt));
+                p.removeBuilding(bt, p.getNumBuilding(bt));
             }
             bank.sellBackProperty(p, this);
         }

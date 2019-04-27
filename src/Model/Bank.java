@@ -197,7 +197,6 @@ public class Bank implements Transfer, Serializable {
      * @return true if they can build, false if not
      */
     public boolean checkIfCanBuild(Property property, BuildingType building){
-
         if(typesOfBuildings.indexOf(building)>0 && property.getNumBuilding(building)==0){
             BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
             if(property.getNumBuilding(bBefore)!=maxBuildingsPerProp.get(bBefore)){
@@ -226,7 +225,7 @@ public class Bank implements Transfer, Serializable {
         if(evenBuildingRule){
             List<Property> otherProps = propertyOwnedBy(property).getPropertiesOfType(property.getColor());
             for(Property p: otherProps){
-                if(p.getNumBuilding(building)==property.getNumBuilding(building)-1){
+                if(p.getNumBuilding(building)==property.getNumBuilding(building)-1 || !(checkIfCanUpgrade(property, building))){
                     System.out.println("4");
                     return false;
                 }
@@ -238,7 +237,20 @@ public class Bank implements Transfer, Serializable {
         }
         System.out.println("6");
         return (propertyOwnedBy(property).checkMonopoly(property));
+    }
 
+    private boolean checkIfCanUpgrade(Property property, BuildingType building){
+        if(typesOfBuildings.indexOf(building)>0){
+            List<Property> otherProps = propertyOwnedBy(property).getPropertiesOfType(property.getColor());
+            for(Property p: otherProps){
+                BuildingType bBefore = typesOfBuildings.get(typesOfBuildings.indexOf(building)-1);
+                if(p.getNumBuilding(bBefore)==property.getNumBuilding(bBefore)-1){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 
