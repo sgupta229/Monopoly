@@ -147,12 +147,7 @@ public class AddPlayersScreen {
         ListView playerList = new ListView(myPlayers);
         playerList.setMaxHeight(180.0);
 
-        playerList.setCellFactory(new Callback<ListView<AbstractPlayer>,ListCell<AbstractPlayer>>() {
-            @Override
-            public ListCell<AbstractPlayer> call(ListView<AbstractPlayer> list) {
-                return new AbstractPlayerCell(availableTokens);
-            }
-        });
+        playerList.setCellFactory((Callback<ListView<AbstractPlayer>, ListCell<AbstractPlayer>>) list -> new AbstractPlayerCell(availableTokens));
 
         editPlayerList.getChildren().addAll(editPlayerListTitle,playerList);
         return editPlayerList;
