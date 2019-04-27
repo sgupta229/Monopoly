@@ -58,6 +58,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
         AnchorPane.setBottomAnchor(diceRollerView,20.0);
     }
 
+
     private VBox createVBox(){
         myVBox = new VBox();
         myVBox.setId("playerControlBox");
@@ -72,34 +73,6 @@ public abstract class PlayerControl implements PropertyChangeListener {
             }
         });
 
-        HBox manageTradeBox = new HBox(Popup.HBOX_SPACING_TEN);
-
-        Button manageProperty = new Button("Manage Property");
-        manageProperty.setOnAction(e -> new BuildOrSellPopup(myController).display());
-
-        Button trade = new Button("Trade");
-//        trade.setOnAction(e -> new TradePopup().display());
-        //TODO make a trade pop up
-        manageTradeBox.getChildren().addAll(manageProperty,trade);
-
-        HBox moveBox = new HBox();
-        TextField moveTo = new TextField();
-        moveTo.setPrefWidth(80);
-        Button move = new Button("MOVE");
-        moveBox.getChildren().addAll(moveTo,move);
-        move.setOnAction(e -> myController.getGame().movePlayer(myPlayer.getCurrentLocation(),Integer.parseInt(moveTo.getText())));
-
-        Button forfeit = new Button("FORFEIT");
-        forfeit.setId("button1");
-        forfeit.setOnAction(e-> {
-            myController.getGame().forfeitHandler(myController.getGame().getCurrPlayer());
-            //myController.getGame().getPlayers().remove(myController.getGame().getCurrPlayer());
-            myController.getGame().startNextTurn();
-            myDiceRoller.setDisable(false);
-        });
-
-        HBox forfeitAndMove = new HBox(10);
-        forfeitAndMove.getChildren().addAll(forfeit,moveBox);
 
         HBox nameAndEnd = new HBox(Popup.PADDING_TWENTY);
         nameAndEnd.setAlignment(Pos.CENTER_LEFT);
@@ -120,9 +93,32 @@ public abstract class PlayerControl implements PropertyChangeListener {
         }
         nameAndEnd.getChildren().addAll(playerIcon,playerName,endTurnButton,bailButton);
 
-        myVBox.getChildren().addAll(nameAndEnd,createBalanceText(),manageTradeBox,
-                createAssetsListView(),createActionCardsListView(),forfeitAndMove);
+        myVBox.getChildren().addAll(nameAndEnd,createBalanceText());
         return myVBox;
+    }
+
+    protected HBox addForfeitAndMove(){
+
+        HBox moveBox = new HBox();
+        TextField moveTo = new TextField();
+        moveTo.setPrefWidth(80);
+        Button move = new Button("MOVE");
+        moveBox.getChildren().addAll(moveTo,move);
+        move.setOnAction(e -> myController.getGame().movePlayer(myPlayer.getCurrentLocation(),Integer.parseInt(moveTo.getText())));
+
+        Button forfeit = new Button("FORFEIT");
+        forfeit.setId("button1");
+        forfeit.setOnAction(e-> {
+            myController.getGame().forfeitHandler(myController.getGame().getCurrPlayer());
+            //myController.getGame().getPlayers().remove(myController.getGame().getCurrPlayer());
+            myController.getGame().startNextTurn();
+            myDiceRoller.setDisable(false);
+        });
+
+        HBox forfeitAndMove = new HBox(10);
+        forfeitAndMove.getChildren().addAll(forfeit,moveBox);
+        myVBox.getChildren().addAll(createAssetsListView(),createActionCardsListView());
+        return forfeitAndMove;
     }
 
     private ListView createAssetsListView(){

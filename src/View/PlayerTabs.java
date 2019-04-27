@@ -7,10 +7,8 @@ import Model.AbstractPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.beans.PropertyChangeEvent;
@@ -22,17 +20,17 @@ public class PlayerTabs implements PropertyChangeListener {
     private Controller myController;
     private TabPane tabPane;
     private Tab playTab;
-    private Tab statsTab;
     private Tab rulesTab;
     private Tab saveTab;
     private AbstractPlayer currPlayer;
-    private VBox stats;
-
     private ResourceBundle messages;
+    private ResourceBundle display;
 
     public PlayerTabs(Controller controller){
         messages = ResourceBundle.getBundle("Messages");
         myController = controller;
+        display = ResourceBundle.getBundle(myController.getGame().getFrontEndFiles().get(1).toString());
+
         myController.getGame().addPropertyChangeListener("currPlayer",this);
 
         tabPane = new TabPane();
@@ -44,10 +42,6 @@ public class PlayerTabs implements PropertyChangeListener {
         // create Play Tab
         playTab = new Tab("Play");
         setPlayTab();
-//
-//        stats = new StatsTab(myController.getGame()).getView();
-//        statsTab = new Tab("Stats");
-//        setStatsTab();
 
         rulesTab = new Tab("Rules");
         setRulesTab();
@@ -56,22 +50,21 @@ public class PlayerTabs implements PropertyChangeListener {
         setSaveTab();
 
         tabPane.getTabs().addAll(playTab,rulesTab,saveTab);
-
-//            tabPane.getSelectionModel().select(2); example of how to select the third tab
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         currPlayer = (AbstractPlayer) evt.getNewValue();
         setPlayTab();
-        setStatsTab();
     }
 
     private void setPlayTab(){
-        playTab.setContent(new ClassicPlayerControl(currPlayer,myController).getPlayerControlView());
-    }
-    private void setStatsTab(){
-        statsTab.setContent(stats);
+        if (display.getString("myPlayerTab").equals("JUNIOR")){
+            playTab.setContent(new JuniorPlayerControl(currPlayer,myController).getPlayerControlView());
+        }
+        else{
+            playTab.setContent(new ClassicPlayerControl(currPlayer,myController).getPlayerControlView());
+        }
     }
     private void setRulesTab(){
         rulesTab.setContent(new RulesTab(myController.getGame()).getView());
@@ -102,3 +95,4 @@ public class PlayerTabs implements PropertyChangeListener {
         return tabPane;
     }
 }
+

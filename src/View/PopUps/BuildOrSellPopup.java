@@ -173,8 +173,11 @@ public class BuildOrSellPopup extends Popup {
                 }
             }
             checkIfCanMortgage();
-            checkIfCanBuild();
-            checkIfCanSell();
+            if (!myProperty.getGroup().equals("RAILROAD") && !myProperty.getGroup().equals("UTILITY")){
+                checkIfCanBuild();
+                checkIfCanSell();
+            }
+
         });
         combo.getChildren().addAll(props, okButton );
         return combo;
