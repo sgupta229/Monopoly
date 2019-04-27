@@ -9,4 +9,6 @@ module monopoly.team04 {
     requires org.testfx;
     requires org.testfx.junit5;
     exports View;
+    requires org.json;
+    requires json.simple;
 }

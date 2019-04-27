@@ -59,6 +59,7 @@ public abstract class PlayerControl implements PropertyChangeListener {
 
 
     private VBox createVBox(){
+
         myVBox = new VBox();
         myVBox.setId("playerControlBox");
 
