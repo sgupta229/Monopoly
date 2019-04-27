@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import java.util.ResourceBundle;
 
@@ -53,12 +54,23 @@ public class AddPlayersScreen {
         myScene.getStylesheets().add(style);
 
         setUpLayout();
-
-        myRoot.getChildren().addAll(anchorPane);
+        backButton();
+        myRoot.getChildren().addAll(anchorPane, backButton());
     }
 
     public Scene getScene() {
         return myScene;
+    }
+
+    private Button backButton(){
+        Button back = new Button("GO BACK");
+        Stage newStage = new Stage();
+        Controller newController = new Controller(newStage);
+        back.setOnAction(e -> {
+            newController.goToChooseGameScreen();
+            myController.getStage().close();
+        });
+        return back;
     }
 
     private void setUpLayout(){
