@@ -1,7 +1,6 @@
 package View;
 
 import Controller.Controller;
-import Controller.GameSaver;
 import Controller.ClassicGame;
 import Controller.SaveGame;
 import Model.AbstractPlayer;
