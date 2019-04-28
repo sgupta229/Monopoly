@@ -7,6 +7,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
+/***
+ * Author: Dylan Karul
+ * Purpose: This class is used for all color properties in the classic game
+ * Assumptions: This is under the assumption that it gets its data in the right form
+ * but we make this assumption because we check for this in config reader when reading in
+ * the data, so it always should be getting proper data.
+ * Dependencies: It is dependent on AbstractPlayer,
+ * the BuildingType enum class, ColorProperty, and Property.
+ * How to use it: You would use this class by calling a new ClassicColorProperty to represent a
+ * color property in the normal classic rules game. Then, to get the rent info and other metadata,
+ * call getInfo. Call calculateRent to get the proper amount of rent based off the buildings on it. To build, call
+ * the various build methods
+ */
+
 public class ClassicColorProperty extends ColorProperty {
 
     private static final int HOTEL_RENT_INDEX = 5;

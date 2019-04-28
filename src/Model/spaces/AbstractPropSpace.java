@@ -4,7 +4,15 @@ import Controller.AbstractGame;
 import Model.properties.Property;
 
 import java.util.List;
-
+/***
+ * Author: Dylan Karul
+ * Purpose: This abstract class is used for all different types of Properties Spaces on the board (such as
+ * Junior Property Spaces, Classic Game Property Spaces, etc)
+ * Dependencies: It is dependent on AbstractGame, Property, and AbstractSpace.
+ * How to use it: You would extend this class for any new type of monopoly game that you wanted
+ * to create, and use it to represent your main properties types of spaces on the board. Calling the doAction method
+ * allows you to invoke the action necesarry if someone lands on this space.
+ */
 public abstract class AbstractPropSpace extends AbstractSpace {
 
 
@@ -25,6 +33,11 @@ public abstract class AbstractPropSpace extends AbstractSpace {
 
     }
 
+    /***
+     * returns the metadata concerning the literal property that this space is linked to,
+     * such as its name, rent, and more
+     * @return
+     */
     public List getInfo(){
         return myProperty.getInfo();
     }

@@ -8,6 +8,15 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/***
+ * Author: Dylan Karul
+ * Purpose: This class is used for the classic game railroad type of property, it extends Property
+ * Dependencies: It is dependent on AbstractPlayer,
+ * the BuildingType enum class, ColorProperty, and Property.
+ * How to use it: You would use this class creating a new RailRoadProperty class and having it represent any
+ * railroad properties you have in your game. It calculates rent in a unique way that the rules specify
+ */
+
 public class RailRoadProperty extends Property {
 
     private String myGroup= "RAILROAD";
@@ -38,6 +47,11 @@ public class RailRoadProperty extends Property {
         setGroup(myGroup);
     }
 
+    /***
+     * returns a list of metadata about the railroad properties for the front end,
+     * such as the rent numbers
+     * @return see above
+     */
     public List getInfo(){
         ArrayList ret = new ArrayList();
         ret.addAll(Arrays.asList(this.getPrice()));

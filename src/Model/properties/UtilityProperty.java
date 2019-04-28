@@ -7,6 +7,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+
+/***
+ * Author: Dylan Karul
+ * Purpose: This class is used for the classic game utility type of property, it extends Property
+ * Dependencies: It is dependent on AbstractPlayer,
+ * the BuildingType enum class, ColorProperty, and Property.
+ * How to use it: You would use this class creating a new UtilityProperty class and having it represent any
+ * utility properties you have in your game. It calculates rent in a unique way that the rules specify
+ */
 public class UtilityProperty extends Property {
 
     private String myGroup = "UTILITY";
@@ -44,6 +53,11 @@ public class UtilityProperty extends Property {
         }
     }
 
+    /***
+     * returns metadata concerning utility properties, such as the rent multipliers specified, name,
+     * and mortgage
+     * @return
+     */
     public List getInfo(){
         ArrayList ret = new ArrayList();
         ret.addAll(Arrays.asList(this.getPrice(), rentMult, rentMult2, this.getMortgageAmount(), this.getName()));
