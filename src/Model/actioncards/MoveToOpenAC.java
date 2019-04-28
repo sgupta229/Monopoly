@@ -43,6 +43,8 @@ public class MoveToOpenAC extends AbstractActionCard {
                     game.movePlayer(prevLocation, i);
                     game.getBank().setPropertyOwner(p,curr);
                     p.setIsOwned(true);
+                    //Bug fix -- error was not showing in player file - one liner
+                    game.getCurrPlayer().addProperty(p);
                     d.discardCard(this);
                     return;
                 }

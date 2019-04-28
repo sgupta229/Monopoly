@@ -420,14 +420,14 @@
         </ActionCardType>
         <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
-            <Message>ADVANCE TO THE SKATE PARK. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Message>ADVANCE TO THE SKATE PARK. IF AVAILABLE, BUY IT! OTHERWISE PAY OWNER.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>SKATE_PARK</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
         </ActionCardType>
         <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
-            <Message>ADVANCE TO BOARDWALK. IF ONE IS AVAILABLE, GET IT FOR FREE! OTHERWISE PAY OWNER.</Message>
+            <Message>ADVANCE TO BOARDWALK. IF ONE IS AVAILABLE, BUY IT! OTHERWISE PAY OWNER.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>BOARDWALK</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
