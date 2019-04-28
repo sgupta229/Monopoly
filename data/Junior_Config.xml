@@ -427,7 +427,7 @@
         </ActionCardType>
         <ActionCardType type="MoveToAC">
             <DeckType>CHANCE</DeckType>
-            <Message>ADVANCE TO BOARDWALK. IF ONE IS AVAILABLE, BUY IT! OTHERWISE PAY OWNER.</Message>
+            <Message>ADVANCE TO BOARDWALK. IF AVAILABLE, BUY IT! OTHERWISE PAY OWNER.</Message>
             <Holdable>FALSE</Holdable>
             <ExtraString>BOARDWALK</ExtraString>
             <ExtraDoubles>0</ExtraDoubles>
