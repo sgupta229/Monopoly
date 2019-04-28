@@ -40,7 +40,7 @@ Initially wrote methods in ConfigReader to parse data, which was later redone wi
 
 Dezmanique Martin:
 * Data - Wrote Normal_Config.xml
-* Tests - GUI Testing
+* Tests - Attempted GUI Testing
 * Controller - ConfigReader, connecting front end and back end, started SaveandLoadData and SaveData
 
 ### Resources Used
