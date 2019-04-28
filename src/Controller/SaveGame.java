@@ -86,6 +86,7 @@ public class SaveGame {
     public ClassicGame load(String file, String configFile) {
         try {
             ClassicGame game = new ClassicGame(configFile);
+            game.parseXMLFile(configFile);
             JSONParser parser = new JSONParser();
             JSONObject savedData = (JSONObject) parser.parse(new FileReader(file));
             loadPlayers(game, savedData);
