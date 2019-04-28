@@ -38,6 +38,7 @@ class JuniorPropSpaceTest {
     @BeforeEach
     void setUp() throws XmlReaderException {
         gameClass = new JuniorGame("Junior_Config.xml");
+        gameClass.parseXMLFile("Junior_Config.xml");
         juniorPropSpace = (JuniorPropSpace) gameClass.getBoard().getSpaceAt(1);
         player1 = new JuniorPlayer();
         player2 = new JuniorPlayer();

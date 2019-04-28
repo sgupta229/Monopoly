@@ -32,6 +32,7 @@ class GoToJailACTest {
         p2 = new ClassicPlayer();
         try {
             game = new ClassicGame("Normal_Config_Rework.xml");
+            game.parseXMLFile("Normal_Config_Rework.xml");
         } catch (XmlReaderException e) {
             e.printStackTrace();
         }

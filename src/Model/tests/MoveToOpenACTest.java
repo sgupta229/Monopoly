@@ -33,6 +33,7 @@ class MoveToOpenACTest {
         p2 = new ClassicPlayer();
         try {
             game = new ClassicGame("Junior_Config.xml");
+            game.parseXMLFile("Junior_Config.xml");
         } catch (XmlReaderException e) {
             e.printStackTrace();
         }

@@ -36,6 +36,7 @@ class ClassicPropSpaceTest {
     @BeforeEach
     void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
+        gameClass.parseXMLFile("Normal_Config_Rework.xml");
         classicPropSpace = (ClassicPropSpace) gameClass.getBoard().getSpaceAt(1);
         player1 = new ClassicPlayer();
         player2 = new ClassicPlayer();
