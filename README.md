@@ -41,7 +41,7 @@ Initially wrote methods in ConfigReader to parse data, which was later redone wi
 Dezmanique Martin:
 * Data - Wrote Normal_Config.xml
 * Tests - Attempted GUI Testing
-* Controller - ConfigReader, connecting front end and back end, started SaveandLoadData and SaveData
+* Controller - ConfigReader, connecting front end and back end, started SaveandLoadData and SaveData, which was redone better by Sahil
 
 ### Resources Used
 * Parse Boolean: http://www.java67.com/2018/03/java-convert-string-to-boolean.html
