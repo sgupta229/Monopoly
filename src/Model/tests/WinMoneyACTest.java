@@ -31,6 +31,8 @@ class WinMoneyACTest {
         p2 = new ClassicPlayer();
         p3 = new ClassicPlayer();
         game = new ClassicGame("Normal_Config_Rework.xml");
+        game.parseXMLFile("Normal_Config_Rework.xml");
+
         ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());
         playerList.addAll(p1,p2,p3);
         game.setPlayers(playerList);

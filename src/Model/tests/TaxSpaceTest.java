@@ -30,6 +30,8 @@ class TaxSpaceTest {
     @BeforeEach
     void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
+        gameClass.parseXMLFile("Normal_Config_Rework.xml");
+
         taxSpace = gameClass.getBoard().getSpaceAt(38);
         player1 = new ClassicPlayer();
         ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());

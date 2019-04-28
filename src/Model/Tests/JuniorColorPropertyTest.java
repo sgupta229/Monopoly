@@ -30,6 +30,7 @@ class JuniorColorPropertyTest {
     @BeforeEach
     void setUp() throws XmlReaderException {
         gameClass = new JuniorGame("Junior_Config.xml");
+        gameClass.parseXMLFile("Junior_Config.xml");
         propsList = gameClass.getProperties();
         prop1 = propsList.get(0);
         prop2 = propsList.get(1);

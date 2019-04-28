@@ -35,6 +35,7 @@ class GoToSpaceTest {
     @BeforeEach
     void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
+        gameClass.parseXMLFile("Normal_Config_Rework.xml");
         goToJail = gameClass.getBoard().getSpaceAt(30);
         player1 = new ClassicPlayer();
         ObservableList<AbstractPlayer> playerList = FXCollections.observableList(new ArrayList<>());

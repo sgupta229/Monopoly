@@ -8,11 +8,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
@@ -82,8 +84,15 @@ public class ChooseGameScreen {
                 myController.setGame(gameTypeNames.getString(key));
                 myController.goToAddPlayersScreen();
             }
-            catch (Exception e){
-                e.printStackTrace();
+            catch (XmlReaderException e){
+                String msg = e.getMessage();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("XML Config");
+                alert.setHeaderText("XML Config File Error");
+                alert.setContentText(msg);
+                alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                alert.showAndWait();
+                System.exit(0);
             }
         }
     }
