@@ -7,6 +7,7 @@ import Model.properties.BuildingType;
 import Model.properties.Property;
 import Model.spaces.AbstractSpace;
 import Model.spaces.SpaceGroup;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeListener;
@@ -29,7 +30,7 @@ public abstract class AbstractGame implements Serializable {
     private AbstractActionCard currentActionCard;
     private double snakeEyes;
 
-    private ObservableList<AbstractPlayer> players;
+    private ObservableList<AbstractPlayer> players = FXCollections.observableArrayList();
     private Bank bank;
     private Board board;
     private List<AbstractSpace> spaces;
@@ -472,6 +473,15 @@ public abstract class AbstractGame implements Serializable {
             bank.sellBackProperty(p, this);
         }
         playerOut.makePayment(bank, playerOut.getFunds(), bank);
+    }
+
+    public Property getPropertyFromName(String name) {
+        for(Property p : properties) {
+            if(p.getName().toLowerCase().equals(name)) {
+                return p;
+            }
+        }
+        return null;
     }
 
     public void setSnakeEyes(double d) {

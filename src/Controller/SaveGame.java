@@ -7,9 +7,7 @@ import java.util.List;
 
 import Model.AbstractPlayer;
 import Model.ClassicPlayer;
-import Model.XmlReaderException;
 import Model.properties.Property;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.json.simple.JSONArray;
@@ -22,10 +20,22 @@ public class SaveGame {
     //save is property is mortgaged
 
     public void save(AbstractGame game, String file) throws Exception {
-        JSONObject data = new JSONObject();
-        JSONArray players = new JSONArray();
-        JSONArray properties = new JSONArray();
 
+        JSONArray players = savePlayerData(game);
+        JSONArray properties = savePropertyData(game);
+
+        JSONObject data = new JSONObject();
+        data.put("players", players);
+        data.put("properties", properties);
+
+        try (FileWriter fw = new FileWriter(file)) {
+            fw.write(data.toJSONString());
+            fw.flush();
+        }
+    }
+
+    public JSONArray savePlayerData(AbstractGame game) {
+        JSONArray players = new JSONArray();
         for(int i = 0; i < game.getPlayers().size(); i++) {
             AbstractPlayer p = game.getPlayers().get(i);
             JSONObject play_o = new JSONObject();
@@ -33,8 +43,23 @@ public class SaveGame {
             play_o.put("funds", p.getFunds());
             play_o.put("location", p.getCurrentLocation());
             play_o.put("token", p.getImage());
+            play_o.put("inJail", p.isInJail());
+            play_o.put("rollsInJail", p.getNumRollsInJail());
+            AbstractPlayer currentPlayer = game.getCurrPlayer();
+            if(currentPlayer.getName().equals(p.getName()) && currentPlayer.getFunds() == p.getFunds()) {
+                play_o.put("currentPlayer", true);
+            }
+            else {
+                play_o.put("currentPlayer", false);
+            }
+            play_o.put("index", game.getPlayers().indexOf(p));
             players.add(play_o);
         }
+        return players;
+    }
+
+    public JSONArray savePropertyData(AbstractGame game) {
+        JSONArray properties = new JSONArray();
 
         for(Property p : game.getBank().getOwnedPropsMap().keySet()) {
             JSONObject prop_o = new JSONObject();
@@ -55,62 +80,67 @@ public class SaveGame {
             prop_o.put("mortgaged", false);
             properties.add(prop_o);
         }
-
-        data.put("players", players);
-        data.put("properties", properties);
-
-        try (FileWriter fw = new FileWriter(file)) {
-            fw.write(data.toJSONString());
-            fw.flush();
-        }
+        return properties;
     }
 
-    public ClassicGame load(String file, String configFile) throws XmlReaderException {
+    public ClassicGame load(String file, String configFile) {
         try {
             ClassicGame game = new ClassicGame(configFile);
             JSONParser parser = new JSONParser();
-            JSONObject a = (JSONObject) parser.parse(new FileReader(file));
-            List<AbstractPlayer> players = new ArrayList<>();
-            JSONArray playerArray = (JSONArray) a.get("players");
-            for(Object o : playerArray) {
-                JSONObject person = (JSONObject) o;
-                AbstractPlayer p = new ClassicPlayer();
-                p.setName((String) person.get("name"));
-                p.setFunds((Double) person.get("funds"));
-                p.moveTo(((Long) person.get("location")).intValue());
-                p.setImage((String) person.get("token"));
-                players.add(p);
-            }
-
-            for(AbstractPlayer p : players) {
-                game.getPlayers().add(p);
-            }
-            game.setCurrPlayer(0);
-
-            JSONArray propertyArray = (JSONArray) a.get("properties");
-            for(Object o : propertyArray) {
-                JSONObject prop = (JSONObject) o;
-                for(Property p : game.getProperties()) {
-                    if(p.getName().equals(prop.get("name").toString().toLowerCase())) {
-                        p.setIsOwned((boolean) prop.get("owned"));
-                        p.setIsMortgaged((boolean) prop.get("mortgaged"));
-                        if(prop.get("owner") != null) {
-                            for(AbstractPlayer player : game.getPlayers()) {
-                                if(player.getName().toLowerCase().equals(prop.get("owner"))) {
-                                    game.getBank().setPropertyOwner(p, player);
-                                    player.addProperty(p);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            JSONObject savedData = (JSONObject) parser.parse(new FileReader(file));
+            loadPlayers(game, savedData);
+            loadProperties(game, savedData);
             return game;
         }
         catch (Exception e){
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void loadPlayers(AbstractGame game, JSONObject savedData) {
+        List<AbstractPlayer> players = new ArrayList<>();
+        JSONArray playerArray = (JSONArray) savedData.get("players");
+        int currPlayerIndex = 0;
+
+        for(Object o : playerArray) {
+            JSONObject person = (JSONObject) o;
+            AbstractPlayer p = new ClassicPlayer();
+            p.setName((String) person.get("name"));
+            p.setFunds((Double) person.get("funds"));
+            p.moveTo(((Long) person.get("location")).intValue());
+            p.setImage((String) person.get("token"));
+            p.setJail((boolean) person.get("inJail"));
+            p.setNumRollsInJail(((Long) person.get("rollsInJail")).intValue());
+            players.add(p);
+            if((boolean) person.get("currentPlayer") == true) {
+                currPlayerIndex = ((Long) person.get("index")).intValue();
+            }
+        }
+
+        for(AbstractPlayer p : players) {
+            game.getPlayers().add(p);
+        }
+        game.setCurrPlayer(currPlayerIndex);
+    }
+
+    public void loadProperties(AbstractGame game, JSONObject savedData) {
+        JSONArray propertyArray = (JSONArray) savedData.get("properties");
+
+        for(Object o : propertyArray) {
+            JSONObject prop = (JSONObject) o;
+            Property p = game.getPropertyFromName(prop.get("name").toString().toLowerCase());
+            p.setIsOwned((boolean) prop.get("owned"));
+            p.setIsMortgaged((boolean) prop.get("mortgaged"));
+            if(prop.get("owner") != null) {
+                for(AbstractPlayer player : game.getPlayers()) {
+                    if(player.getName().toLowerCase().equals(prop.get("owner").toString().toLowerCase())) {
+                        game.getBank().setPropertyOwner(p, player);
+                        player.addProperty(p);
+                    }
+                }
+            }
+        }
     }
 
     public static void main(String[] args) throws Exception {

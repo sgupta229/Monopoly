@@ -234,4 +234,8 @@ public abstract class AbstractPlayer implements Transfer, Serializable {
     public void setJailBail(double bail){
         jailBail = bail;
     }
+
+    public void setNumRollsInJail(int rollsInJail) {
+        numRollsInJail = rollsInJail;
+    }
 }
