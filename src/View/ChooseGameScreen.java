@@ -1,6 +1,5 @@
 package View;
 import Controller.Controller;
-import Controller.GameSaver;
 import Controller.ClassicGame;
 import Model.XmlReaderException;
 import View.PopUps.Popup;
