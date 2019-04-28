@@ -48,15 +48,23 @@ public abstract class AbstractGame implements Serializable {
     private boolean landOnGoMult;
     private Transfer freeParking = new FreeParkingFunds();
     private int lastDiceRoll = 0;
+    private String myFileName;
     
     public AbstractGame(String filename) throws XmlReaderException {
-        parseXMLFile(filename);
-        for(int i = 0; i < dice.size(); i++) {
-            diceHistory.put(i, new ArrayList<>());
+        myFileName = filename;
+        /*try{
+            parseXMLFile(filename);
         }
+        catch (XmlReaderException e){
+            throw e;
+        }*/
+/*        for(int i = 0; i < dice.size(); i++) {
+            diceHistory.put(i, new ArrayList<>());
+        }*/
     }
 
-    private void parseXMLFile(String filename) throws XmlReaderException {
+    //BUG FIX CALLED IN CONTROLLER NOW SO ERROR IS SEEN BEING THROWN INSTEAD OF AUTOMATICALLY CALLING IN GAME CONSTRUCTOR
+    public void parseXMLFile(String filename) throws XmlReaderException {
         try {
             ConfigReader configReader = new ConfigReader(filename);
             decks = configReader.parseActionDecks();
@@ -66,6 +74,9 @@ public abstract class AbstractGame implements Serializable {
             }
             possibleTokens = configReader.parseTokens();
             dice = configReader.parseDice();
+            for(int i = 0; i < dice.size(); i++) {
+                diceHistory.put(i, new ArrayList<>());
+            }
             List<Double> funds = configReader.parseBank();
             bankFunds = funds.get(0);
             boardSize = configReader.parseBoard();
@@ -93,6 +104,7 @@ public abstract class AbstractGame implements Serializable {
             throw new XmlReaderException(e.getMessage() + ": Check data file " + filename);
         }
     }
+
 
     public void setPlayers(ObservableList<AbstractPlayer> p){
         if (p.size() <=0 ) {

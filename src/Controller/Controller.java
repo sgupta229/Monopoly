@@ -8,10 +8,8 @@ import View.Layout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -45,21 +43,33 @@ public class Controller {
 
     public void setGame(String gameConfigFile) throws XmlReaderException{
         myGameConfigFile = gameConfigFile;
-        ConfigReader cfr = new ConfigReader(myGameConfigFile);
-        className = cfr.parseGameType();
-        try{
+        try {
+            ConfigReader cfr = new ConfigReader(myGameConfigFile);
+            className = cfr.parseGameType();
+        }
+        catch (XmlReaderException e){
+            throw e;
+        }
+        //BUG FIX MOVE THIS IN A TRY CATCH
+            //ConfigReader cfr = new ConfigReader(myGameConfigFile);
+            //className = cfr.parseGameType();
 
+        try{
             //myGame = new ClassicGame(myGameConfigFile);
             myGame = (AbstractGame) Class.forName("Controller."+className+"Game").getConstructor(String.class).newInstance(myGameConfigFile);
+            //BUG FIX, when added reflection, had to call parseXMLFile here instead of in game itself because wasn't seeing the thrown exception
+            myGame.parseXMLFile(myGameConfigFile);
+        } catch(XmlReaderException e){
+            throw e;
         }
          catch (InstantiationException e) {
-            //throw new XmlReaderException("Instantiation error");
+            throw new XmlReaderException("Instantiation error");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            throw new XmlReaderException(e.getMessage());
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            throw new XmlReaderException("Error");
         } catch (NoSuchMethodException e) {
-            //throw new XmlReaderException("Method reflection not found");
+            throw new XmlReaderException("Method reflection not found");
         } catch (ClassNotFoundException e) {
             throw new XmlReaderException(className + " was not a valid class name... please check the data file's ActionCard 'type' attributes to ensure they match the class names");
             //e.printStackTrace();
