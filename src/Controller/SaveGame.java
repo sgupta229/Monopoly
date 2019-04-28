@@ -9,6 +9,8 @@ import Model.AbstractPlayer;
 import Model.ClassicPlayer;
 import Model.XmlReaderException;
 import Model.properties.Property;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -116,7 +118,7 @@ public class SaveGame {
         AbstractGame testGame = new ClassicGame(configFile);
         AbstractPlayer p1 = new ClassicPlayer("Dylan", "blah.img");
         AbstractPlayer p2 = new ClassicPlayer("Sahil", "testimage.img");
-        List<AbstractPlayer> players = new ArrayList<>();
+        ObservableList<AbstractPlayer> players = FXCollections.observableList(new ArrayList<>());
         players.add(p1);
         players.add(p2);
         testGame.setPlayers(players);

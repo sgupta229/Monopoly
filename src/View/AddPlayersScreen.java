@@ -104,7 +104,7 @@ public class AddPlayersScreen {
 
         Button startGame = new Button(messages.getString("start-game"));
         startGame.setOnAction(new StartButtonHandler());
-        startGame.disableProperty().bind(Bindings.size(myPlayers).lessThan(1));
+        startGame.disableProperty().bind(Bindings.size(myPlayers).lessThan(2));
 
         box.getChildren().addAll(rules,startGame);
         return box;
