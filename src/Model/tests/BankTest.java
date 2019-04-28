@@ -43,6 +43,7 @@ class BankTest {
     @BeforeEach
     void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
+        gameClass.parseXMLFile("Normal_Config_Rework.xml");
         spaceList = gameClass.getSpaces();
         //spaceList = conf.parseSpaces().get(0);
         propsList = gameClass.getProperties();

@@ -36,6 +36,7 @@ public class ActionCardSpaceTest {
     @BeforeEach
     void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
+        gameClass.parseXMLFile("Normal_Config_Rework.xml");
         actionCardList = conf.parseActionCards();
         spaceList = gameClass.getSpaces();
         chanceDeck.fillLiveDeck(actionCardList);

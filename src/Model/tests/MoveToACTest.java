@@ -34,7 +34,11 @@ class MoveToACTest {
         p1 = new ClassicPlayer();
         try {
             tropical_game = new ClassicGame("Tropical_Config.xml");
+            tropical_game.parseXMLFile("Tropical_Config.xml");
+
             normal_game = new ClassicGame("Normal_Config_Rework.xml");
+            normal_game.parseXMLFile("Normal_Config_Rework.xml");
+
         } catch (XmlReaderException e) {
             e.printStackTrace();
         }

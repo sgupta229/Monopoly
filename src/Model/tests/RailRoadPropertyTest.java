@@ -38,6 +38,8 @@ class RailRoadPropertyTest {
     @BeforeEach
     void setUp() throws XmlReaderException {
         gameClass = new ClassicGame("Normal_Config_Rework.xml");
+        gameClass.parseXMLFile("Normal_Config_Rework.xml");
+
         //gameClass.get
         spaceList = gameClass.getSpaces();
         propsList = gameClass.getProperties();
