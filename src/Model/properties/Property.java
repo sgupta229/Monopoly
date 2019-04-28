@@ -9,9 +9,13 @@ import java.util.HashMap;
 import java.util.Objects;
 
 /***
- * This class holds all the information regarding a property such as its color, price, rent amount,
- * rent amount with monopoly, cost of placing a house, cost of placing a hotel, cost of rent
- * with every specific  number of houses, cost of rent with a hotel, and the mortgage cost
+ * Author: Dylan Karul
+ * Purpose: This abstract class is used for all different types properties, in any type of game
+ * Assumptions: Properties will have some type of name, price, and way of being consumed
+ * Dependencies: It is dependent on AbstractPlayer,
+ * the BuildingType enum class, ColorProperty, and Property.
+ * How to use it: You would use this class by extending it and then implementing all the abstract methods
+ * and overriding the building types of methods in order to create whatever unique type of property you want
  */
 public abstract class Property implements Serializable {
 
@@ -28,8 +32,7 @@ public abstract class Property implements Serializable {
     private Map<BuildingType, Double> buildingPrices;
     private Map<BuildingType, Integer> buildingMap;
 
-    /////need property to take in building map with buildingtypes as keys already
-    ///// and also buildingprices that is already populated, and just set these
+
 
     public Property(double price, String propName, String color, List<Double> paymentInfo, int groupSize, Map<BuildingType, Double> buildingPriceMap){
 //        isMortgaged = false;
@@ -84,14 +87,28 @@ public abstract class Property implements Serializable {
 
     protected abstract void initializePaymentInfo(List<Double> paymentInformation) throws IndexOutOfBoundsException;
 
+    /***
+     * method that adds a building to a property
+     * @param building the type of building one wants to add
+     */
     public void addBuilding(BuildingType building) {
 
     }
 
+    /***
+     * method that removes a building from a property
+     * @param building the type of building one wants to add
+     * @param amount the amount to remove
+     */
     public void removeBuilding(BuildingType building, int amount) {
 
     }
 
+    /***
+     * returns the number of a type of building a property currently has on it
+     * @param building the type of building in question
+     * @return
+     */
     public int getNumBuilding(BuildingType building) {
         return 0;
     }
