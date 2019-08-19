@@ -3,7 +3,7 @@ Monopoly Team 4
 
 ### Download Demo Video
 
-![Monopoly Classic Version Demo](ClassicGameDemo1.mp4)
+![Monopoly Classic Version Demo](ClassicGameDemo1.mp4?raw=true)
 
 ### Team Members
 
