@@ -1,9 +1,11 @@
 Monopoly Team 4
 ===
 
-### Download Demo Video
+### Download Demo Videos
 
 ![Monopoly Classic Version Demo](ClassicGameDemo1.mp4?raw=true)
+![First Variation Demo (Junior Monopoly)](Junior_Monopoly_Recorded.mp4?raw=true)
+![Second Variation Demo (Tropical Monopoly)](TropicalGameDemo2.mp4?raw=true)
 
 ### Team Members
 
