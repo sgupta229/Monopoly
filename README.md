@@ -1,4 +1,4 @@
-Monopoly Team 4
+Modular Monopoly
 ===
 
 ### Download Demo Videos
